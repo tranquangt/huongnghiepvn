@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trường đại học - HướngNghiệpVN.online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+    <button class="nav-link active" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+    <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
+    <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
+  </div>
+</nav>
+
+<!-- ======================== SCHOOLS ======================== -->
+<div id="page-schools" class="page active">
+  <div style="background: white; padding: 32px 40px; border-bottom: 1px solid var(--gray-200);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="font-size:13px;color:var(--gray-500);margin-bottom:8px;">Thông tin trường đại học</div>
+      <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Các trường đại học hàng đầu Việt Nam</h1>
+      <p style="color:var(--gray-500);">Khám phá thông tin chi tiết về các trường đại học, ngành đào tạo và môi trường học tập</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:32px;">
+    <div style="margin-bottom:32px;">
+      <div class="section-header">
+        <div><div class="section-title">Tất cả trường đại học</div><div class="section-sub">56 trường — thông tin cập nhật 2024</div></div>
+        <div class="tabs">
+          <button class="tab active" onclick="filterSchool('all',this)">Tất cả</button>
+          <button class="tab" onclick="filterSchool('hn',this)">Hà Nội</button>
+          <button class="tab" onclick="filterSchool('hcm',this)">TP.HCM</button>
+          <button class="tab" onclick="filterSchool('dn',this)">Đà Nẵng</button>
+        </div>
+      </div>
+      <div class="school-grid" id="all-schools-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>hướng<span>nghiệpvn</span>.online</h3>
+      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tính năng</h4>
+      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
+    </div>
+    <div class="footer-col">
+      <h4>Thông tin</h4>
+      <a>Về chúng tôi</a>
+      <a>Nguồn dữ liệu</a>
+      <a>Liên hệ</a>
+      <a>Góp ý</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên kết</h4>
+      <a>Bộ GD&ĐT</a>
+      <a>VietnamWorks</a>
+      <a>MOET</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

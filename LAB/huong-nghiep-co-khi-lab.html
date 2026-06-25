@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng Lab · Kỹ Sư Cơ Khí — Hướng Nghiệp THPT</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafaf8; --surface: #fff; --ink: #111; --ink2: #555566; --ink3: #9999aa;
+    --blue: #2563eb; --blue-bg: #eff4ff; --border: #e0ddd8; --border2: #ccc;
+    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
+    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
+  }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); }
+  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
+  .topbar-logo { font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
+  .topbar-logo span { color: var(--blue); }
+  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+  .topbar-title { font-size: 13px; color: var(--ink2); }
+  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+  .hero { margin-bottom: 2rem; }
+  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
+  .hero-label span { color: var(--blue); }
+  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
+  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
+  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
+    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
+  .mtab:last-child { border-right: none; }
+  .mtab:hover { background: #f3f4f6; }
+  .mtab.active { background: var(--ink); color: #fff; }
+  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
+    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
+  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
+  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 1rem; line-height: 1.5; }
+  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
+  .slider-row { margin-bottom: 1rem; }
+  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
+  .slider-wrap { display: flex; align-items: center; gap: 10px; }
+  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
+  .slider-val { font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; }
+  .lever-viz { position: relative; height: 120px; margin: 1.5rem 0 1rem; }
+  .lever-beam { position: absolute; left: 10%; right: 10%; top: 50%; height: 8px; background: #64748b; border-radius: 4px;
+    transform-origin: 50% 50%; transition: transform .35s ease; }
+  .lever-fulcrum { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -20%); width: 0; height: 0;
+    border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 28px solid var(--ink); }
+  .lever-load { position: absolute; top: 28%; font-size: 28px; transform: translateX(-50%); transition: left .2s; }
+  .lever-person { position: absolute; top: 18%; font-size: 24px; transform: translateX(-50%); transition: left .2s; }
+  .mat-pool { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .mat-chip { padding: 10px 14px; background: var(--surface); border: 2px solid var(--border2); border-radius: var(--radius);
+    font-size: 13px; font-weight: 500; cursor: grab; user-select: none; transition: transform .15s, border-color .15s; }
+  .mat-chip:active { cursor: grabbing; transform: scale(1.05); }
+  .mat-chip.dragging { opacity: .5; }
+  .drop-zone { min-height: 140px; border: 2px dashed var(--border2); border-radius: var(--radius-lg); padding: 1rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    transition: border-color .2s, background .2s; }
+  .drop-zone.over { border-color: var(--blue); background: var(--blue-bg); }
+  .drop-zone.bad { border-color: var(--red); background: var(--red-bg); animation: shake .4s; }
+  .drop-zone.good { border-color: var(--green); background: var(--green-bg); }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .engine-svg { font-size: 48px; margin-bottom: .5rem; }
+  .tank-viz { display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; }
+  .tank-cylinder { width: 100px; height: 160px; border: 3px solid var(--ink); border-radius: 4px 4px 8px 8px;
+    position: relative; overflow: hidden; background: #f8fafc; }
+  .tank-water { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #60a5fa, #2563eb);
+    transition: height .35s; }
+  .tank-label { font-size: 12px; color: var(--ink2); margin-top: 8px; text-align: center; }
+  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
+    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
+  .btn-primary:hover { opacity: .85; }
+  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.25rem; margin-top: 1.25rem; display: none; }
+  .result-box.show { display: block; }
+  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
+  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
+    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
+  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
+    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">Kỹ Sư Cơ Khí</div>
+  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
+</div>
+<div class="page">
+  <div class="hero">
+    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ Sư Cơ Khí</div>
+    <div class="hero-title">Hôm nay bạn là kỹ sư cơ khí tại nhà máy sản xuất</div>
+    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
+  </div>
+  <div class="mission-tabs">
+    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="settings"></i> Nâng vật</button>
+    <button class="mtab" onclick="switchTab(1)"><i data-lucide="wrench"></i> Vật liệu</button>
+    <button class="mtab" onclick="switchTab(2)">📐 Bồn chứa</button>
+  </div>
+
+  <div id="tab0">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Ca đêm — phải nâng khối thép 500 kg (≈ 5000 N) bằng đòn bẩy trước khi băng tải dừng. Điều chỉnh vị trí đặt tay và vị trí khối hàng, quan sát thanh có cân bằng không.
+    </div>
+    <div class="sim-card">
+      <div class="lever-viz" id="leverViz">
+        <div class="lever-beam" id="leverBeam"></div>
+        <div class="lever-fulcrum"></div>
+        <div class="lever-load" id="leverLoad"><i data-lucide="package"></i></div>
+        <div class="lever-person" id="leverPerson">🧑‍🏭</div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">Khoảng cách khối hàng → điểm tựa (m)</div>
+        <div class="slider-wrap">
+          <input type="range" id="dLoad" min="0.3" max="2" step="0.1" value="1" oninput="updateLever()">
+          <span class="slider-val" id="dLoadVal">1.0 m</span>
+        </div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">Khoảng cách bạn đứng → điểm tựa (m)</div>
+        <div class="slider-wrap">
+          <input type="range" id="dEffort" min="0.5" max="5" step="0.1" value="2" oninput="updateLever()">
+          <span class="slider-val" id="dEffortVal">2.0 m</span>
+        </div>
+      </div>
+      <div class="live-status neutral" id="leverStatus">Kéo thanh trượt để thử — máy sẽ báo ngay nếu không nâng nổi.</div>
+    </div>
+    <button class="btn-primary" onclick="revealLever()">Xem kết quả →</button>
+    <div class="result-box" id="resultLever">
+      <div class="result-outcome" id="outcomeLever"></div>
+      <div class="result-aha" id="ahaLever"></div>
+    </div>
+  </div>
+
+  <div id="tab1" style="display:none">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Trục động cơ mới chạy nóng liên tục (>200°C), chịu va đập, không được gỉ. Kéo một loại kim loại từ kho và thả vào vị trí lắp trục — xem máy phản ứng.
+    </div>
+    <div class="sim-card">
+      <div class="action-label">Kho vật liệu — kéo thả vào động cơ</div>
+      <div class="mat-pool">
+        <div class="mat-chip" draggable="true" data-mat="al" ondragstart="dragMat(event)">Nhôm (Al)</div>
+        <div class="mat-chip" draggable="true" data-mat="inox" ondragstart="dragMat(event)">Thép không gỉ</div>
+        <div class="mat-chip" draggable="true" data-mat="cu" ondragstart="dragMat(event)">Đồng (Cu)</div>
+      </div>
+      <div class="drop-zone" id="matDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop()" ondrop="dropMat(event)">
+        <div class="engine-svg"><i data-lucide="settings"></i></div>
+        <div style="font-size:13px;color:var(--ink2)">Vùng lắp trục động cơ — thả vật liệu vào đây</div>
+        <div id="matPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
+      </div>
+      <div class="live-status neutral" id="matStatus">Chưa thử vật liệu nào.</div>
+    </div>
+    <button class="btn-primary" onclick="revealMat()">Xem kết quả →</button>
+    <div class="result-box" id="resultMat">
+      <div class="result-outcome" id="outcomeMat"></div>
+      <div class="result-aha" id="ahaMat"></div>
+    </div>
+  </div>
+
+  <div id="tab2" style="display:none">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Khách đặt bồn trụ chứa <strong>9.500 lít</strong> dung môi. Bạn chỉnh kích thước thiết kế — nước mô phỏng cho biết đủ, thiếu hay tràn so với đơn hàng.
+    </div>
+    <div class="sim-card">
+      <div class="tank-viz">
+        <div>
+          <div class="tank-cylinder">
+            <div class="tank-water" id="tankWater"></div>
+          </div>
+          <div class="tank-label" id="tankVolLabel">0 lít</div>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <div class="slider-row">
+            <div class="slider-label">Bán kính đáy (m)</div>
+            <div class="slider-wrap">
+              <input type="range" id="tankR" min="0.5" max="1.5" step="0.1" value="1" oninput="updateTank()">
+              <span class="slider-val" id="tankRVal">1.0 m</span>
+            </div>
+          </div>
+          <div class="slider-row">
+            <div class="slider-label">Chiều cao (m)</div>
+            <div class="slider-wrap">
+              <input type="range" id="tankH" min="1" max="4" step="0.1" value="2.5" oninput="updateTank()">
+              <span class="slider-val" id="tankHVal">2.5 m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="live-status neutral" id="tankStatus">Điều chỉnh kích thước để khớp đơn 9.500 lít.</div>
+    </div>
+    <button class="btn-primary" onclick="revealTank()">Xem kết quả →</button>
+    <div class="result-box" id="resultTank">
+      <div class="result-outcome" id="outcomeTank"></div>
+      <div class="result-aha" id="ahaTank"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const LOAD_N = 5000;
+const ORDER_L = 9500;
+
+function switchTab(n) {
+  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+}
+
+function updateLever() {
+  const d1 = parseFloat(document.getElementById('dLoad').value);
+  const d2 = parseFloat(document.getElementById('dEffort').value);
+  document.getElementById('dLoadVal').textContent = d1.toFixed(1) + ' m';
+  document.getElementById('dEffortVal').textContent = d2.toFixed(1) + ' m';
+  const torqueLoad = LOAD_N * d1;
+  const torqueEffort = d2 > 0 ? (torqueLoad / d2) : 99999;
+  const needF = torqueLoad / d2;
+  const tilt = Math.max(-28, Math.min(28, (d1 / d2 - 0.25) * 40));
+  document.getElementById('leverBeam').style.transform = 'rotate(' + (-tilt) + 'deg)';
+  const pctLoad = 15 + (d1 / 2.5) * 25;
+  const pctEffort = 55 + (d2 / 5) * 35;
+  document.getElementById('leverLoad').style.left = pctLoad + '%';
+  document.getElementById('leverPerson').style.left = pctEffort + '%';
+  const st = document.getElementById('leverStatus');
+  const balanced = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
+  if (d2 < 1.5) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Bạn đứng quá gần điểm tựa — thanh nghiêng, khối 500 kg không nhấc nổi. Tai nạn sập.';
+  } else if (needF > 8000) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Cần lực ~' + Math.round(needF) + ' N — quá sức một người. Đổi vị trí đứng xa hơn.';
+  } else if (balanced) {
+    st.className = 'live-status ok';
+    st.textContent = '✓ Thanh cân bằng. Ước lượng bạn chỉ cần ~' + Math.round(needF) + ' N — có thể nâng an toàn.';
+  } else {
+    st.className = 'live-status neutral';
+    st.textContent = 'Thanh chưa tối ưu. Thử tăng khoảng cách bạn → điểm tựa (gần 4 m).';
+  }
+}
+
+function revealLever() {
+  const d1 = parseFloat(document.getElementById('dLoad').value);
+  const d2 = parseFloat(document.getElementById('dEffort').value);
+  const needF = (LOAD_N * d1) / d2;
+  const ok = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
+  document.getElementById('outcomeLever').innerHTML = ok
+    ? 'Ca đêm hoàn thành: khối thép được nâng đúng hạn, băng tải không dừng.'
+    : 'Khối hàng không nâng nổi hoặc quá nguy hiểm — ca bị trễ, nhà máy phải dùng cẩu thay thế.';
+  document.getElementById('ahaLever').innerHTML = (ok ? 'Bạn vừa cân bằng hai moment: lực nặng × cánh ngắn = lực bạn × cánh dài.' : 'Khi cánh tay lực của bạn quá ngắn, moment không đủ — đòn bẩy không giúp được.')
+    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — moment lực / đòn bẩy</span>';
+  document.getElementById('resultLever').className = 'result-box show';
+}
+
+let placedMat = null;
+function dragMat(e) { e.dataTransfer.setData('mat', e.target.dataset.mat); e.target.classList.add('dragging'); }
+function allowDrop(e) { e.preventDefault(); document.getElementById('matDrop').classList.add('over'); }
+function leaveDrop() { document.getElementById('matDrop').classList.remove('over'); }
+function dropMat(e) {
+  e.preventDefault();
+  leaveDrop();
+  document.querySelectorAll('.mat-chip').forEach(c => c.classList.remove('dragging'));
+  placedMat = e.dataTransfer.getData('mat');
+  const names = { al: 'Nhôm', inox: 'Thép không gỉ', cu: 'Đồng' };
+  const dz = document.getElementById('matDrop');
+  dz.classList.remove('bad','good');
+  document.getElementById('matPlaced').textContent = 'Đã lắp: ' + names[placedMat];
+  const st = document.getElementById('matStatus');
+  if (placedMat === 'inox') {
+    dz.classList.add('good');
+    st.className = 'live-status ok';
+    st.textContent = '✓ Máy chạy ổn định — nhiệt cao nhưng trục không biến dạng, không gỉ.';
+  } else if (placedMat === 'al') {
+    dz.classList.add('bad');
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Sau 2 giờ: trục mềm, rung mạnh — phải dừng dây chuyền.';
+  } else {
+    dz.classList.add('bad');
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Trục oxy hóa, nứt — hỏng hóc, nguy cơ văng chi tiết.';
+  }
+}
+
+function revealMat() {
+  const ok = placedMat === 'inox';
+  document.getElementById('outcomeMat').innerHTML = ok
+    ? 'Động cơ vận hành đủ spec — không sự cố trong ca thử nghiệm.'
+    : 'Sự cố cơ khí: dừng máy, thay trục, chi phí và thời gian sản xuất tăng mạnh.';
+  document.getElementById('ahaMat').innerHTML = (ok
+    ? 'Chịu nhiệt + bền + chống gỉ cùng lúc — bạn chọn đúng hợp kim cho môi trường khắc nghiệt.'
+    : 'Mỗi kim loại có "điểm yếu" riêng khi nhiệt và lực va đập kết hợp — chọn sai là hỏng máy.')
+    + '<span class="subject-bridge">Cầu nối SGK: Hóa học — tính chất kim loại & hợp kim</span>';
+  document.getElementById('resultMat').className = 'result-box show';
+}
+
+function updateTank() {
+  const r = parseFloat(document.getElementById('tankR').value);
+  const h = parseFloat(document.getElementById('tankH').value);
+  document.getElementById('tankRVal').textContent = r.toFixed(1) + ' m';
+  document.getElementById('tankHVal').textContent = h.toFixed(1) + ' m';
+  const liters = Math.round(Math.PI * r * r * h * 1000);
+  const pct = Math.min(100, (liters / 12000) * 100);
+  document.getElementById('tankWater').style.height = pct + '%';
+  document.getElementById('tankVolLabel').textContent = liters.toLocaleString('vi-VN') + ' lít';
+  const st = document.getElementById('tankStatus');
+  if (liters < ORDER_L - 500) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Thiếu ' + (ORDER_L - liters).toLocaleString('vi-VN') + ' lít — khách không nhận hàng.';
+  } else if (liters > ORDER_L + 800) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Dư thể tích — lãng phí vật liệu, chi phí tăng.';
+  } else {
+    st.className = 'live-status ok';
+    st.textContent = '✓ Khớp đơn hàng ~9.500 lít — có thể giao.';
+  }
+}
+
+function revealTank() {
+  const r = parseFloat(document.getElementById('tankR').value);
+  const h = parseFloat(document.getElementById('tankH').value);
+  const liters = Math.round(Math.PI * r * r * h * 1000);
+  const ok = liters >= ORDER_L - 500 && liters <= ORDER_L + 800;
+  document.getElementById('outcomeTank').innerHTML = ok
+    ? 'Bồn được duyệt — xưởng đặt hàng sản xuất, giao đúng hạn.'
+    : 'Thiết kế bị trả lại: chỉnh lại kích thước hoặc mất hợp đồng.';
+  document.getElementById('ahaTank').innerHTML = 'Thể tích hình trụ = diện tích đáy × chiều cao; đổi mét khối sang lít (×1000) là bước quyết định lợi nhuận.'
+    + '<span class="subject-bridge">Cầu nối SGK: Toán 12 — hình học không gian (thể tích)</span>';
+  document.getElementById('resultTank').className = 'result-box show';
+}
+
+updateLever();
+updateTank();
+</script>
+
+<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Cơ khí?</h2>
+    </div>
+    <div style="text-align:center;">
+      <a href="../index.html" style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá thêm ngành</a>
+    </div>
+  </div>
+</div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

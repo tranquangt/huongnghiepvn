@@ -1,0 +1,1321 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng Lab Mô Phỏng · Khoa Học Máy Tính — Hướng Nghiệp THPT</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b0f19;
+    --surface: #131b2e;
+    --surface-light: #1e2942;
+    --border: #243354;
+    --border-light: #38bdf8;
+    --ink: #f8fafc;
+    --ink2: #cbd5e1;
+    --ink3: #64748b;
+    --blue: #38bdf8;
+    --blue-dark: #0284c7;
+    --blue-bg: rgba(56, 189, 248, 0.08);
+    --green: #4ade80;
+    --green-dark: #22c55e;
+    --green-bg: rgba(74, 222, 128, 0.08);
+    --purple: #c084fc;
+    --purple-bg: rgba(192, 132, 252, 0.08);
+    --red: #f87171;
+    --red-bg: rgba(248, 113, 113, 0.08);
+    --amber: #fbbf24;
+    --amber-bg: rgba(251, 191, 36, 0.08);
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* TOPBAR */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 15, 25, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 60px;
+  }
+  .topbar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar-logo span { color: var(--blue); font-size: 20px; }
+  .topbar-sep { width: 1px; height: 24px; background: var(--border); }
+  .topbar-title { font-size: 14px; color: var(--ink2); font-weight: 500; }
+  .topbar-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--blue-bg);
+    color: var(--blue);
+    padding: 6px 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* HERO */
+  .hero { text-align: center; margin-bottom: 2.5rem; }
+  .hero-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--blue);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    background: var(--blue-bg);
+    padding: 4px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .hero-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  .hero-sub { font-size: 15px; color: var(--ink2); max-width: 650px; margin: 0 auto; }
+
+  /* TABS */
+  .mission-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: var(--surface);
+    padding: 6px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+  }
+  .mtab {
+    padding: 12px 6px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink3);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .mtab span.icon { font-size: 18px; }
+  .mtab:hover { background: rgba(255, 255, 255, 0.05); color: var(--ink2); }
+  .mtab.active { background: var(--surface-light); color: var(--blue); box-shadow: var(--shadow); }
+
+  .mission-box {
+    background: var(--blue-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 14.5px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  .sim-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+  }
+
+  .action-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  /* BUTTONS & BADGES */
+  .btn-primary {
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--blue);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { background: #56d0ff; transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(1px); }
+
+  .btn-secondary {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--surface-light);
+    color: var(--ink2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+  }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); color: var(--ink); }
+
+  /* TAB 1: SƠ ĐỒ KHỐI */
+  .flowchart-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; }
+  .block-pool { display: flex; flex-direction: column; gap: 8px; }
+  .block-item {
+    padding: 10px 14px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .block-item:hover { border-color: var(--blue); background: var(--blue-bg); }
+  .block-item.used { opacity: 0.4; pointer-events: none; }
+  .block-shape-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
+  .block-shape-badge.oval { background: var(--purple-bg); color: var(--purple); }
+  .block-shape-badge.diamond { background: var(--amber-bg); color: var(--amber); }
+  .block-shape-badge.rect { background: var(--blue-bg); color: var(--blue); }
+
+  .flowchart-canvas { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 10px; background: #0b0f19; border-radius: var(--radius); border: 1px dashed var(--border); }
+  .flowchart-slot {
+    width: 250px;
+    min-height: 48px;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    padding: 6px;
+  }
+  .flowchart-slot.over { border-color: var(--blue); background: var(--blue-bg); }
+  .flowchart-slot.filled { border-style: solid; border-color: var(--blue); color: var(--ink); font-weight: 600; }
+  .flowchart-slot.filled.oval { border-radius: 20px; background: var(--purple-bg); border-color: var(--purple); color: var(--purple); }
+  .flowchart-slot.filled.diamond { clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%); background: var(--amber-bg); border-color: var(--amber); color: var(--amber); border-radius: 4px; }
+  .flowchart-slot.filled.rect { background: var(--blue-bg); border-color: var(--blue); color: var(--blue); }
+
+  .flowchart-arrow { font-size: 12px; color: var(--border); }
+
+  /* Simulation Visuals */
+  .sim-environ-row { display: flex; gap: 15px; justify-content: center; margin-bottom: 1.25rem; }
+  .env-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface-light);
+    color: var(--ink2);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .env-btn.active { background: var(--blue); color: var(--bg); border-color: var(--blue); }
+  
+  .bulb-display {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #1e293b;
+    border: 4px solid var(--border);
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    transition: var(--transition);
+  }
+  .bulb-display.on {
+    background: #fef08a;
+    border-color: #facc15;
+    box-shadow: 0 0 35px #facc15;
+    transform: scale(1.05);
+  }
+
+  /* TAB 2: PROMPT ENGINEERING */
+  .prompt-workspace { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+  .prompt-editor-card { background: #070a13; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; }
+  .prompt-text-area {
+    min-height: 100px;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+  }
+  .prompt-text-empty { color: var(--ink3); font-style: italic; }
+  .prompt-tag-pool { display: flex; flex-direction: column; gap: 8px; }
+  .prompt-chip {
+    padding: 10px 14px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+    text-align: left;
+    line-height: 1.4;
+  }
+  .prompt-chip:hover { border-color: var(--blue); background: var(--blue-bg); }
+  .prompt-chip.selected { border-color: var(--green); background: var(--green-bg); opacity: 0.6; pointer-events: none; }
+
+  /* Code output simulation */
+  .code-compiler {
+    background: #0b0f19;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink2);
+    overflow: hidden;
+    margin-top: 1.5rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+  .compiler-header { background: #131b2e; padding: 8px 16px; font-size: 11px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .compiler-body { padding: 16px; min-height: 120px; white-space: pre-wrap; line-height: 1.6; }
+  .test-status-line { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 12px; }
+
+  /* TAB 3: UI/UX LAYOUT DESIGNER */
+  .ui-ux-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .phone-frame {
+    width: 280px;
+    height: 480px;
+    border: 10px solid #1e293b;
+    border-radius: 36px;
+    background: #0f172a;
+    box-shadow: var(--shadow);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 8px;
+  }
+  .phone-notch {
+    width: 110px;
+    height: 18px;
+    background: #1e293b;
+    border-radius: 0 0 12px 12px;
+    margin: -10px auto 0;
+    z-index: 20;
+  }
+  .phone-slot {
+    flex: 1;
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--ink3);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-slot.over { border-color: var(--blue); background: var(--blue-bg); }
+  
+  /* Rendered layout elements */
+  .ui-element { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; text-align: center; }
+  .ui-element.map { background: linear-gradient(135deg, #334155, #1e293b); color: #38bdf8; flex-direction: column; gap: 4px; }
+  .ui-element.search { background: #1e293b; border: 1px solid var(--border); color: var(--ink); border-radius: 6px; padding: 4px 8px; text-align: left; justify-content: flex-start; gap: 6px; font-size: 11px; }
+  .ui-element.cars { background: #1e293b; border: 1px solid var(--border); color: var(--ink); border-radius: 6px; font-size: 11px; flex-direction: column; gap: 4px; }
+  .ui-element.cta { background: var(--green-dark); color: #000; font-weight: 700; border-radius: 6px; font-size: 13px; cursor: pointer; text-transform: uppercase; animation: pulseG 2.5s infinite; }
+  .ui-element.ad { background: var(--amber-bg); color: var(--amber); border: 2px solid var(--amber); border-radius: 6px; font-size: 11px; }
+
+  @keyframes pulseG {
+    0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+  }
+
+  .widget-pool { display: flex; flex-direction: column; gap: 10px; }
+  .widget-item {
+    padding: 12px 14px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .widget-item:hover { border-color: var(--blue); background: var(--blue-bg); }
+  .widget-item.used { opacity: 0.4; pointer-events: none; }
+
+  /* TAB 4: QA/TESTER BUG HUNT */
+  .qa-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+  .qa-form-card { background: var(--surface-light); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .qa-form-row { display: flex; flex-direction: column; gap: 6px; }
+  .qa-form-label { font-size: 12px; font-weight: 600; color: var(--ink2); }
+  .qa-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    transition: var(--transition);
+  }
+  .qa-input:focus { border-color: var(--blue); outline: none; }
+  .btn-submit-qa {
+    padding: 10px;
+    background: var(--blue);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    font-size: 12.5px;
+  }
+
+  .qa-bug-checklist {
+    background: var(--blue-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .qa-check-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink2); }
+  .qa-check-item.resolved { color: var(--green); font-weight: 600; }
+  .qa-check-box {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--green);
+    background: var(--surface);
+  }
+  .qa-check-item.resolved .qa-check-box { border-color: var(--green); background: var(--green-bg); }
+
+  /* QA Modal reporting */
+  .bug-report-pane {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-top: 1rem;
+    display: none;
+  }
+  .bug-report-pane.show { display: block; }
+  .bug-report-title { font-size: 12px; font-weight: 700; color: var(--red); text-transform: uppercase; margin-bottom: 8px; }
+  .bug-opt-list { display: flex; flex-direction: column; gap: 6px; }
+  .bug-opt-btn {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--surface-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--ink2);
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: var(--transition);
+  }
+  .bug-opt-btn:hover { border-color: var(--red); background: var(--red-bg); color: var(--ink); }
+
+  /* RESULT PANEL & SUBJECT BRIDGE */
+  .result-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    display: none;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--blue);
+  }
+  .result-box.show { display: block; }
+  .result-outcome { font-size: 14.5px; line-height: 1.7; color: var(--ink); margin-bottom: 1rem; }
+  .result-aha {
+    padding: 1rem 1.25rem;
+    background: #1e293b;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--ink2);
+    margin-bottom: 1rem;
+  }
+  .subject-bridge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--purple);
+    background: var(--purple-bg);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(192, 132, 252, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Footer Section */
+  .footer-section { border-top: 1px solid var(--border); background: var(--surface); padding: 3rem 1.5rem; text-align: center; }
+  .footer-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--blue);
+    color: var(--bg);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .footer-btn:hover { background: #56d0ff; transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">Lập Trình Viên (Khoa Học Máy Tính)</div>
+  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab Mô Phỏng</div>
+</div>
+
+<div class="page">
+  <div class="hero">
+    <div class="hero-label">Ngành CNTT · Lập trình</div>
+    <div class="hero-title">Trải Nghiệm Tư Duy Khoa Học Máy Tính</div>
+    <div class="hero-sub">Tìm hiểu phương thức tư vấn, thiết lập logic hệ thống, làm việc cùng trí tuệ nhân tạo, thiết kế bố cục UI/UX và kiểm soát lỗi phần mềm thực tế.</div>
+  </div>
+
+  <div class="mission-tabs">
+    <button class="mtab active" id="btn-tab0" onclick="switchTab(0)"><span class="icon"><i data-lucide="puzzle"></i></span> Sơ đồ khối</button>
+    <button class="mtab" id="btn-tab1" onclick="switchTab(1)"><span class="icon"><i data-lucide="bot"></i></span> Kỹ sư Prompt</button>
+    <button class="mtab" id="btn-tab2" onclick="switchTab(2)"><span class="icon">📱</span> Thiết kế UI/UX</button>
+    <button class="mtab" id="btn-tab3" onclick="switchTab(3)"><span class="icon">🐛</span> Kiểm thử QA</button>
+  </div>
+
+  <!-- NHIỆM VỤ 1: LẮP RÁP LOGIC BẰNG SƠ ĐỒ KHỐI -->
+  <div id="tab0">
+    <div class="mission-box">
+      <strong>Nhiệm vụ 1 - Thiết kế logic Sơ đồ khối (Flowchart):</strong> Hãy thiết lập logic hoạt động cho hệ thống bóng đèn sân vườn thông minh: <strong>\"Chỉ tự động bật đèn khi trời đã tối VÀ phát hiện chuyển động của con người\"</strong>. Kéo thả các khối lệnh tương ứng vào ô trống sơ đồ khối.
+    </div>
+
+    <div class="sim-card">
+      <div class="flowchart-grid">
+        <div>
+          <div class="action-label">Hộp khối lệnh logic</div>
+          <div class="block-pool" id="block-pool">
+            <div class="block-item" draggable="true" id="block-start" data-val="Bắt đầu" data-shape="oval" ondragstart="dragBlock(event)">
+              <span>🏁 Bắt đầu</span>
+              <span class="block-shape-badge oval">Giới hạn</span>
+            </div>
+            <div class="block-item" draggable="true" id="block-cond-dark" data-val="Trời đã tối?" data-shape="diamond" ondragstart="dragBlock(event)">
+              <span>🌓 Trời đã tối?</span>
+              <span class="block-shape-badge diamond">Điều kiện</span>
+            </div>
+            <div class="block-item" draggable="true" id="block-cond-motion" data-val="Phát hiện chuyển động?" data-shape="diamond" ondragstart="dragBlock(event)">
+              <span>🏃 Có người di chuyển?</span>
+              <span class="block-shape-badge diamond">Điều kiện</span>
+            </div>
+            <div class="block-item" draggable="true" id="block-action" data-val="Bật đèn (Chờ 5 phút rồi Tắt)" data-shape="rect" ondragstart="dragBlock(event)">
+              <span><i data-lucide="lightbulb"></i> Bật đèn (Hạ dòng)</span>
+              <span class="block-shape-badge rect">Hành động</span>
+            </div>
+            <div class="block-item" draggable="true" id="block-end" data-val="Kết thúc" data-shape="oval" ondragstart="dragBlock(event)">
+              <span>🛑 Kết thúc</span>
+              <span class="block-shape-badge oval">Giới hạn</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="action-label">Sơ đồ khối flowchart</div>
+          <div class="flowchart-canvas">
+            <div class="flowchart-slot" id="slot-1" ondragover="allowBlockDrop(event)" ondragleave="leaveBlockDrop(event)" ondrop="dropBlock(event, 'slot-1')">Kéo thả khối khởi đầu</div>
+            <div class="flowchart-arrow">⬇</div>
+            <div class="flowchart-slot" id="slot-2" ondragover="allowBlockDrop(event)" ondragleave="leaveBlockDrop(event)" ondrop="dropBlock(event, 'slot-2')">Kéo thả điều kiện 1</div>
+            <div class="flowchart-arrow">⬇ (Nếu Đúng)</div>
+            <div class="flowchart-slot" id="slot-3" ondragover="allowBlockDrop(event)" ondragleave="leaveBlockDrop(event)" ondrop="dropBlock(event, 'slot-3')">Kéo thả điều kiện 2</div>
+            <div class="flowchart-arrow">⬇ (Nếu Đúng)</div>
+            <div class="flowchart-slot" id="slot-4" ondragover="allowBlockDrop(event)" ondragleave="leaveBlockDrop(event)" ondrop="dropBlock(event, 'slot-4')">Kéo thả hành động</div>
+            <div class="flowchart-arrow">⬇</div>
+            <div class="flowchart-slot" id="slot-5" ondragover="allowBlockDrop(event)" ondragleave="leaveBlockDrop(event)" ondrop="dropBlock(event, 'slot-5')">Kéo thả khối kết thúc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Môi trường kiểm thử logic -->
+    <div class="sim-card">
+      <div class="action-label">Bước 2: Môi trường chạy mô phỏng</div>
+      
+      <div class="sim-environ-row">
+        <button class="env-btn active" id="env-time-day" onclick="setEnvTime('day')">☀️ Ban ngày</button>
+        <button class="env-btn" id="env-time-night" onclick="setEnvTime('night')">🌙 Ban đêm</button>
+        <div style="width: 2px; background: var(--border);"></div>
+        <button class="env-btn active" id="env-motion-none" onclick="setEnvMotion(false)">🛑 Không chuyển động</button>
+        <button class="env-btn" id="env-motion-active" onclick="setEnvMotion(true)">🏃 Có người đi qua</button>
+      </div>
+
+      <div class="bulb-display" id="bulb-display"><i data-lucide="lightbulb"></i></div>
+      <div style="text-align: center;">
+        <button class="btn-primary" onclick="simulateBlockLogic()">Chạy thử nghiệm logic →</button>
+      </div>
+    </div>
+
+    <div class="result-box" id="result-tab0">
+      <div class="result-outcome" id="outcome-tab0"></div>
+      <div class="result-aha" id="aha-tab0"></div>
+      <span class="subject-bridge">Cầu nối SGK: Tin học 10 — Giải thuật sơ đồ khối và Cấu trúc rẽ nhánh điều kiện logic</span>
+    </div>
+  </div>
+
+  <!-- NHIỆM VỤ 2: KỸ SƯ PROMPT (GIAO TIẾP VỚI AI) -->
+  <div id="tab1" style="display:none">
+    <div class="mission-box">
+      <strong>Nhiệm vụ 2 - Kỹ sư câu lệnh (Prompt Engineering):</strong> Nhiệm vụ của bạn là hướng dẫn trợ lý AI viết một hàm Python hoàn chỉnh để: <strong>\"Tính tổng tiền giỏ hàng, áp dụng giảm giá 5% cho thành viên Vip, và cộng thêm 10% thuế VAT\"</strong>. Hãy chọn lắp ráp các mảnh yêu cầu chi tiết để ra lệnh cho AI.
+    </div>
+
+    <div class="sim-card">
+      <div class="action-label">Lắp ráp Prompt gửi AI</div>
+      
+      <div class="prompt-workspace">
+        <div class="prompt-editor-card">
+          <div style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;">Prompt đang soạn:</div>
+          <div class="prompt-text-area" id="prompt-area">
+            <span class="prompt-text-empty" id="prompt-empty">Hãy nhấp vào các mảnh ghép yêu cầu bên phải để lắp ráp Prompt...</span>
+          </div>
+          <button class="btn-secondary" style="align-self: flex-end;" onclick="clearPrompt()">Làm sạch Prompt 🔄</button>
+        </div>
+
+        <div class="prompt-tag-pool">
+          <div class="prompt-chip" id="p-chip-1" onclick="addPromptChunk(1, 'Viết một hàm Python tính tổng giá trị giỏ hàng từ đầu vào là một danh sách giá sản phẩm.')">1. Yêu cầu tính tổng tiền giỏ hàng từ danh sách giá</div>
+          <div class="prompt-chip" id="p-chip-2" onclick="addPromptChunk(2, 'Nếu khách hàng là thành viên Vip (is_vip=True), thực hiện chiết khấu giảm giá 5% trên tổng tiền sản phẩm.')">2. Yêu cầu chiết khấu giảm 5% cho thành viên Vip</div>
+          <div class="prompt-chip" id="p-chip-3" onclick="addPromptChunk(3, 'Sau đó, tính thêm 10% thuế VAT trên tổng tiền sau chiết khấu và trả về giá trị đơn hàng làm tròn 2 chữ số.')">3. Yêu cầu cộng 10% thuế VAT trên tổng tiền sau giảm giá</div>
+          <div class="prompt-chip" id="p-chip-4" onclick="addPromptChunk(4, 'Viết một đoạn code Python tính toán cái gì đó đơn giản, đại khái là cộng mấy cái số lại với nhau cho nhanh.')">4. Mô tả mơ hồ không rõ ràng</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <button class="btn-primary" onclick="generateAICode()">Gửi yêu cầu tới AI (Generate Code) →</button>
+      </div>
+
+      <!-- Live Compiler Display -->
+      <div class="code-compiler" id="code-compiler-box" style="display:none;">
+        <div class="compiler-header">
+          <span><i data-lucide="settings"></i> Trình Biên Dịch AI - Python v3.10</span>
+          <span style="color:var(--green);" id="compiler-status-label">Trạng thái: Đang biên dịch...</span>
+        </div>
+        <div class="compiler-body" id="compiler-code-body">
+          <!-- Code typing animation will render here -->
+        </div>
+        <div class="compiler-body test-status-line" id="compiler-test-body" style="background: #090d16; display:none;">
+          <!-- Unit tests results -->
+        </div>
+      </div>
+    </div>
+
+    <div class="result-box" id="result-tab1">
+      <div class="result-outcome" id="outcome-tab1"></div>
+      <div class="result-aha" id="aha-tab1"></div>
+      <span class="subject-bridge">Cầu nối SGK: Toán học 10 — Logic toán mệnh đề & Đại số phần trăm trong các biểu thức kinh tế</span>
+    </div>
+  </div>
+
+  <!-- NHIỆM VỤ 3: THIẾT KẾ TRẢI NGHIỆM NGƯỜI DÙNG (UI/UX) -->
+  <div id="tab2" style="display:none">
+    <div class="mission-box">
+      <strong>Nhiệm vụ 3 - Sắp xếp Layout Giao diện UI/UX:</strong> Hãy thiết kế bố cục cho màn hình ứng dụng <strong>\"Đặt xe công nghệ\"</strong> trên thiết bị di động. Kéo thả các thành phần trực quan bên phải vào 4 vị trí trên khung điện thoại ảo sao cho hợp lý, trực quan và dễ thao tác nhất bằng một tay.
+    </div>
+
+    <div class="sim-card">
+      <div class="ui-ux-grid">
+        <div>
+          <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-slot" id="ui-slot-1" ondragover="allowUIDrop(event)" ondragleave="leaveUIDrop(event)" ondrop="dropUI(event, 'ui-slot-1')">Đầu trang (Header)</div>
+            <div class="phone-slot" id="ui-slot-2" ondragover="allowUIDrop(event)" ondragleave="leaveUIDrop(event)" ondrop="dropUI(event, 'ui-slot-2')">Khu vực trung tâm (Body)</div>
+            <div class="phone-slot" id="ui-slot-3" ondragover="allowUIDrop(event)" ondragleave="leaveUIDrop(event)" ondrop="dropUI(event, 'ui-slot-3')">Khu vực cận dưới (Footer 1)</div>
+            <div class="phone-slot" id="ui-slot-4" ondragover="allowUIDrop(event)" ondragleave="leaveUIDrop(event)" ondrop="dropUI(event, 'ui-slot-4')">Khu vực dưới cùng (Footer 2)</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="action-label">Widget Thành Phần Giao Diện</div>
+          <div class="widget-pool" id="widget-pool">
+            <div class="widget-item" draggable="true" id="widget-map" data-val="map" ondragstart="dragUIStart(event)">🗺️ Bản đồ định vị lớn</div>
+            <div class="widget-item" draggable="true" id="widget-search" data-val="search" ondragstart="dragUIStart(event)"><i data-lucide="search"></i> Thanh tìm kiếm điểm đi/đến</div>
+            <div class="widget-item" draggable="true" id="widget-cars" data-val="cars" ondragstart="dragUIStart(event)">🚗 Bảng lựa chọn loại xe</div>
+            <div class="widget-item" draggable="true" id="widget-cta" data-val="cta" ondragstart="dragUIStart(event)"><i data-lucide="zap"></i> Nút bấm ĐẶT XE NGAY</div>
+            <div class="widget-item" draggable="true" id="widget-ad" data-val="ad" ondragstart="dragUIStart(event)"><i data-lucide="megaphone"></i> Banner quảng cáo khổng lồ</div>
+          </div>
+          
+          <button class="btn-secondary" style="margin-top:1rem; width:100%;" onclick="resetUIBuilder()">Thiết kế lại từ đầu 🔄</button>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <button class="btn-primary" onclick="simulateUXTest()">Kiểm tra Trải nghiệm (UX Test) →</button>
+      </div>
+    </div>
+
+    <div class="result-box" id="result-tab2">
+      <div class="result-outcome" id="outcome-tab2"></div>
+      <div class="result-aha" id="aha-tab2"></div>
+      <span class="subject-bridge">Cầu nối Kỹ năng: Tư duy thiết kế (Design Thinking) & Công nghệ Tương tác Người - Máy (HCI)</span>
+    </div>
+  </div>
+
+  <!-- NHIỆM VỤ 4: KIỂM THỬ PHẦN MỀM (QA/TESTER) -->
+  <div id="tab3" style="display:none">
+    <div class="mission-box">
+      <strong>Nhiệm vụ 4 - QA/Tester Truy tìm Bug:</strong> Một ứng dụng trước khi ra mắt luôn cần Kỹ sư kiểm thử chất lượng (QA) rà soát lỗi. Biểu mẫu đăng ký tài khoản dưới đây đang bị cài sẵn <strong>3 lỗi logic (Bugs)</strong>. Hãy cố tình thực hiện các thao tác nhập sai quy chuẩn để phát hiện lỗi và điền báo cáo sự cố!
+    </div>
+
+    <div class="sim-card">
+      <div class="qa-grid">
+        <div class="qa-form-card">
+          <div style="font-size:14px;font-weight:700;border-bottom:1px solid var(--border);padding-bottom:6px;color:var(--blue);"><i data-lucide="file-text"></i> Form Đăng Ký Trực Tuyến</div>
+          
+          <div class="qa-form-row">
+            <label class="qa-form-label">Họ tên người dùng:</label>
+            <input type="text" class="qa-input" id="qa-input-name" placeholder="Ví dụ: Nguyễn Văn A" value="Nguyễn Văn A">
+          </div>
+
+          <div class="qa-form-row">
+            <label class="qa-form-label">Mật khẩu mới (Tối thiểu phải từ 8 ký tự):</label>
+            <input type="password" class="qa-input" id="qa-input-pass" placeholder="Nhập mật khẩu của bạn">
+          </div>
+
+          <div class="qa-form-row">
+            <label class="qa-form-label">Xác nhận mật khẩu:</label>
+            <input type="password" class="qa-input" id="qa-input-confirm" placeholder="Nhập lại mật khẩu để xác minh">
+          </div>
+
+          <button class="btn-submit-qa" id="btn-qa-submit" onclick="submitQAForm()">Đăng ký tài khoản</button>
+        </div>
+
+        <div>
+          <div class="qa-bug-checklist">
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;color:var(--blue);margin-bottom:6px;">Checklist Báo Cáo Lỗi của QA:</div>
+            <div class="qa-check-item" id="chk-bug-1">
+              <div class="qa-check-box"></div>
+              <span>Bug 1: Lỗi mật khẩu ngắn dưới 8 ký tự</span>
+            </div>
+            <div class="qa-check-item" id="chk-bug-2">
+              <div class="qa-check-box"></div>
+              <span>Bug 2: Lỗi hai mật khẩu xác nhận không khớp</span>
+            </div>
+            <div class="qa-check-item" id="chk-bug-3">
+              <div class="qa-check-box"></div>
+              <span>Bug 3: Treo ứng dụng khi bấm đăng ký liên tục</span>
+            </div>
+          </div>
+
+          <!-- Bug Reporting Panel -->
+          <div class="bug-report-pane" id="bug-report-pane">
+            <div class="bug-report-title">🚨 Phát hiện hành vi bất thường! Hãy báo cáo:</div>
+            <div class="bug-opt-list">
+              <button class="bug-opt-btn" onclick="reportBug(1)">[Lỗi bảo mật] Mật khẩu chỉ cần 2 ký tự vẫn cho phép đăng ký tài khoản thành công.</button>
+              <button class="bug-opt-btn" onclick="reportBug(2)">[Lỗi xác thực] Hệ thống báo đăng ký thành công mặc dù mật khẩu xác nhận không khớp mật khẩu chính.</button>
+              <button class="bug-opt-btn" onclick="reportBug(3)">[Lỗi giao diện] Ứng dụng bị đơ cứng màn hình khi bấm nút Đăng ký liên tục (Spam click).</button>
+              <button class="bug-opt-btn" onclick="reportBug(4)">[Không phải lỗi] Khách hàng gõ sai ký tự nên không vào được hệ thống.</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="verifyQATest()">Xem đánh giá kiểm thử QA →</button>
+
+    <div class="result-box" id="result-tab3">
+      <div class="result-outcome" id="outcome-tab3"></div>
+      <div class="result-aha" id="aha-tab3"></div>
+      <span class="subject-bridge">Cầu nối Kỹ năng: Kiểm định Chất lượng Phần mềm (Software Testing) & Kỹ năng phân tích logic phản biện</span>
+    </div>
+  </div>
+</div>
+
+<div class="footer-section">
+  <div style="max-width: 600px; margin: 0 auto;">
+    <h3 style="font-size: 20px; font-family:'Outfit',sans-serif; margin-bottom: 0.5rem;">Sáng tạo Thế giới số</h3>
+    <p style="font-size: 13.5px; color: var(--ink2); margin-bottom: 1.5rem;">Tư duy hệ thống logic, khả năng cộng tác cùng trí tuệ nhân tạo và sự quan tâm chu đáo tới trải nghiệm người dùng là chìa khóa của Kỹ sư phần mềm tương lai.</p>
+    <a href="../index.html" class="footer-btn">Khám phá các phòng Lab khác</a>
+  </div>
+</div>
+
+<script>
+  // STATE MANAGEMENT
+  let currentTab = 0;
+
+  function switchTab(n) {
+    currentTab = n;
+    ['tab0','tab1','tab2','tab3'].forEach((id, i) => {
+      document.getElementById(id).style.display = i === n ? 'block' : 'none';
+      const btn = document.getElementById('btn-tab' + i);
+      if (i === n) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+    
+    // Reset output panels
+    document.getElementById('result-tab0').classList.remove('show');
+    document.getElementById('result-tab1').classList.remove('show');
+    document.getElementById('result-tab2').classList.remove('show');
+    document.getElementById('result-tab3').classList.remove('show');
+  }
+
+  // TAB 1 LOGIC: SƠ ĐỒ KHỐI FLOWCHART
+  let flowchartValues = {
+    'slot-1': null,
+    'slot-2': null,
+    'slot-3': null,
+    'slot-4': null,
+    'slot-5': null
+  };
+  let draggedBlockId = null;
+  
+  // Environment simulation state
+  let envTime = 'day'; // day, night
+  let envMotion = false; // true, false
+
+  function setEnvTime(t) {
+    envTime = t;
+    document.getElementById('env-time-day').classList.toggle('active', t === 'day');
+    document.getElementById('env-time-night').classList.toggle('active', t === 'night');
+    updateBulbVisual();
+  }
+
+  function setEnvMotion(m) {
+    envMotion = m;
+    document.getElementById('env-motion-none').classList.toggle('active', !m);
+    document.getElementById('env-motion-active').classList.toggle('active', m);
+    updateBulbVisual();
+  }
+
+  function dragBlock(e) {
+    draggedBlockId = e.currentTarget.id;
+    e.dataTransfer.setData('text/plain', e.currentTarget.getAttribute('data-val'));
+    e.dataTransfer.setData('shape', e.currentTarget.getAttribute('data-shape'));
+  }
+
+  function allowBlockDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('over');
+  }
+
+  function leaveBlockDrop(e) {
+    e.currentTarget.classList.remove('over');
+  }
+
+  function dropBlock(e, slotId) {
+    e.preventDefault();
+    const slot = document.getElementById(slotId);
+    slot.classList.remove('over');
+    
+    const val = e.dataTransfer.getData('text/plain');
+    const shape = e.dataTransfer.getData('shape');
+    
+    flowchartValues[slotId] = { val, shape };
+    
+    slot.textContent = val;
+    slot.className = `flowchart-slot filled ${shape}`;
+    
+    // Disable in pool
+    const blockEl = document.getElementById(draggedBlockId);
+    if (blockEl) blockEl.classList.add('used');
+  }
+
+  function isLogicCorrect() {
+    // Correct Flow:
+    // Slot 1: Bắt đầu
+    // Slot 2 & 3: Trời đã tối? / Phát hiện chuyển động? (can be swapped)
+    // Slot 4: Bật đèn (Chờ 5 phút rồi Tắt)
+    // Slot 5: Kết thúc
+    const s1 = flowchartValues['slot-1'] && flowchartValues['slot-1'].val === "Bắt đầu";
+    
+    const condA = flowchartValues['slot-2'] && flowchartValues['slot-2'].val;
+    const condB = flowchartValues['slot-3'] && flowchartValues['slot-3'].val;
+    const condsOk = (condA === "Trời đã tối?" && condB === "Phát hiện chuyển động?") ||
+                     (condA === "Phát hiện chuyển động?" && condB === "Trời đã tối?");
+                     
+    const s4 = flowchartValues['slot-4'] && flowchartValues['slot-4'].val === "Bật đèn (Chờ 5 phút rồi Tắt)";
+    const s5 = flowchartValues['slot-5'] && flowchartValues['slot-5'].val === "Kết thúc";
+    
+    return s1 && condsOk && s4 && s5;
+  }
+
+  function updateBulbVisual() {
+    const bulb = document.getElementById('bulb-display');
+    const correct = isLogicCorrect();
+    
+    if (correct && envTime === 'night' && envMotion === true) {
+      bulb.classList.add('on');
+      bulb.textContent = '<i data-lucide="lightbulb"></i> ON';
+    } else {
+      bulb.classList.remove('on');
+      bulb.textContent = '🌑 OFF';
+    }
+  }
+
+  function simulateBlockLogic() {
+    updateBulbVisual();
+    
+    const resultBox = document.getElementById('result-tab0');
+    const outcome = document.getElementById('outcome-tab0');
+    const aha = document.getElementById('aha-tab0');
+    
+    const slotsFilled = Object.values(flowchartValues).every(v => v !== null);
+    if (!slotsFilled) {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Sơ đồ khối chưa hoàn thành:</span> Vui lòng kéo thả đầy đủ tất cả các khối lệnh vào các vị trí trống trên sơ đồ flowchart trước khi chạy thử nghiệm.`;
+      aha.innerHTML = 'Một thuật toán máy tính (Algorithm) luôn bắt đầu từ một chuỗi các khối lệnh tuần tự, kết nối chặt chẽ từ đầu tới cuối.';
+      resultBox.classList.add('show');
+      return;
+    }
+
+    const correct = isLogicCorrect();
+    if (correct) {
+      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Logic thiết lập chính xác! Thuật toán hoạt động hoàn hảo.</span><br>Bạn đã cấu trúc đúng luồng xử lý dữ liệu: Hệ thống kiểm tra điều kiện ánh sáng (Trời tối) và cảm biến hồng ngoại (Có chuyển động). Chỉ khi cả hai điều kiện này đều thỏa mãn (phép toán logic AND), lệnh bật đèn mới được kích hoạt, giúp tiết kiệm tối đa năng lượng.`;
+      aha.innerHTML = '<strong>Aha! Thuật toán logic:</strong> Trong lập trình, các quyết định rẽ nhánh dựa trên sự kết hợp các điều kiện logic (AND, OR, NOT). Phép AND chỉ trả về kết quả Đúng khi mọi mệnh đề thành phần đều Đúng. Sơ đồ khối là công cụ trực quan hóa giải thuật được sử dụng bởi các kỹ sư hệ thống trước khi gõ code.';
+    } else {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Thiết kế logic bị lỗi hoặc sai thứ tự tuần tự:</span><br>Bóng đèn không thể hoạt động hoặc hoạt động sai quy định thiết kế. Bạn có thể đã xếp nhầm hành động bật đèn trước khi kiểm tra điều kiện, hoặc xếp sai khối bắt đầu/kết thúc. Hãy rà soát và kéo thả lại.`;
+      aha.innerHTML = 'Thứ tự tuần tự (Sequential structure) trong giải thuật là tối quan trọng. Máy tính đọc từ trên xuống dưới, nếu bạn bật đèn trước khi hỏi xem trời có tối không, đèn sẽ sáng cả ngày gây lãng phí năng lượng!';
+    }
+    resultBox.classList.add('show');
+  }
+
+
+  // TAB 2: PROMPT ENGINEERING (AI CODING SIMULATOR)
+  let selectedPromptChunks = [];
+  let isAICodeGenerating = false;
+
+  function addPromptChunk(id, text) {
+    if (isAICodeGenerating) return;
+    const chip = document.getElementById('p-chip-' + id);
+    
+    if (selectedPromptChunks.some(c => c.id === id)) return;
+    
+    selectedPromptChunks.push({ id, text });
+    chip.classList.add('selected');
+    
+    updatePromptArea();
+  }
+
+  function clearPrompt() {
+    if (isAICodeGenerating) return;
+    selectedPromptChunks = [];
+    document.querySelectorAll('.prompt-chip').forEach(c => c.classList.remove('selected'));
+    updatePromptArea();
+  }
+
+  function updatePromptArea() {
+    const area = document.getElementById('prompt-area');
+    if (selectedPromptChunks.length === 0) {
+      area.innerHTML = `<span class="prompt-text-empty" id="prompt-empty">Hãy nhấp vào các mảnh ghép yêu cầu bên phải để lắp ráp Prompt...</span>`;
+      return;
+    }
+    
+    // Join texts
+    area.innerHTML = selectedPromptChunks.map(c => `<span>${c.text} </span>`).join('');
+  }
+
+  function generateAICode() {
+    if (selectedPromptChunks.length === 0) return;
+    if (isAICodeGenerating) return;
+    isAICodeGenerating = true;
+
+    const box = document.getElementById('code-compiler-box');
+    const statusLabel = document.getElementById('compiler-status-label');
+    const codeBody = document.getElementById('compiler-code-body');
+    const testBody = document.getElementById('compiler-test-body');
+    
+    box.style.display = 'block';
+    statusLabel.textContent = 'Trạng thái: AI đang phân tích Prompt...';
+    codeBody.innerHTML = '';
+    testBody.style.display = 'none';
+
+    // Check prompt quality
+    const has1 = selectedPromptChunks.some(c => c.id === 1);
+    const has2 = selectedPromptChunks.some(c => c.id === 2);
+    const has3 = selectedPromptChunks.some(c => c.id === 3);
+    const has4 = selectedPromptChunks.some(c => c.id === 4);
+
+    let generatedCode = '';
+    let unitTestsOutput = '';
+    let promptQuality = 'fail'; // fail, partial, success
+
+    if (has4) {
+      // Vague prompt
+      generatedCode = `def count_stuff(data):\n    # Prompt quá mơ hồ, AI sinh đại khái\n    print("Đang chạy hàm...")\n    return sum(data)\n`;
+      unitTestsOutput = `❌ TEST FAIL: Chạy thử giỏ hàng [100, 200] (Vip)\n  - Đầu ra mong muốn: 209.00\n  - Đầu ra thực tế của AI: 300.00 (Thiếu VAT và giảm giá)`;
+      promptQuality = 'fail';
+    } else if (has1 && !has2 && !has3) {
+      // only prices sum
+      generatedCode = `def tinh_tien(giá_sản_phẩm):\n    tổng = sum(giá_sản_phẩm)\n    return tổng\n`;
+      unitTestsOutput = `❌ TEST FAIL: Chạy thử giỏ hàng [100, 200] (Vip)\n  - Đầu ra mong muốn: 209.00\n  - Đầu ra thực tế: 300.00 (Lỗi: Chưa tính VAT 10% và giảm giá 5%)`;
+      promptQuality = 'fail';
+    } else if (has1 && has2 && !has3) {
+      // Missing VAT
+      generatedCode = `def tinh_tien(prices, is_vip=False):\n    total = sum(prices)\n    if is_vip:\n        total = total * 0.95\n    return total\n`;
+      unitTestsOutput = `❌ TEST FAIL: Chạy thử giỏ hàng [100, 200] (Vip)\n  - Đầu ra mong muốn: 209.00\n  - Đầu ra thực tế: 285.00 (Lỗi: Chưa tính thêm 10% VAT)`;
+      promptQuality = 'partial';
+    } else if (has1 && !has2 && has3) {
+      // Missing discount
+      generatedCode = `def tinh_tien(prices, is_vip=False):\n    total = sum(prices) * 1.10\n    return round(total, 2)\n`;
+      unitTestsOutput = `❌ TEST FAIL: Chạy thử giỏ hàng [100, 200] (Vip)\n  - Đầu ra mong muốn: 209.00\n  - Đầu ra thực tế: 330.00 (Lỗi: Bỏ quên ưu đãi giảm giá 5% cho Vip)`;
+      promptQuality = 'partial';
+    } else if (has1 && has2 && has3) {
+      // Complete correct prompt
+      generatedCode = `def calculate_total_bill(prices, is_vip=False):\n    # Tổng tiền hàng gốc\n    subtotal = sum(prices)\n    \n    # Áp dụng giảm giá 5% nếu là thành viên VIP\n    if is_vip:\n        subtotal = subtotal * 0.95\n        \n    # Tính thêm 10% thuế VAT trên tổng tiền sau giảm giá\n    total_bill = subtotal * 1.10\n    \n    return round(total_bill, 2)\n`;
+      unitTestsOutput = `✓ TEST PASSED: Giỏ hàng [100, 200, 300] (Thành viên Thường)\n  - Đầu ra: 660.00\n✓ TEST PASSED: Giỏ hàng [100, 200, 300] (Thành viên VIP)\n  - Đầu ra: 627.00\n<i data-lucide="lightbulb"></i> TẤT CẢ UNIT TESTS CHẠY THÀNH CÔNG (100% Correct)`;
+      promptQuality = 'success';
+    } else {
+      generatedCode = `# AI không hiểu yêu cầu do Prompt quá thiếu thông tin hoặc lộn lộn.\ndef error_func():\n    return None\n`;
+      unitTestsOutput = `❌ TEST ERROR: Biên dịch thất bại hoặc thiếu hàm tính toán.`;
+      promptQuality = 'fail';
+    }
+
+    // Simulate AI writing code line-by-line
+    let lines = generatedCode.split('\n');
+    let lineIdx = 0;
+    
+    statusLabel.textContent = 'Trạng thái: AI đang sinh mã nguồn Python...';
+    let interval = setInterval(() => {
+      if (lineIdx < lines.length) {
+        codeBody.innerHTML += lines[lineIdx] + '\n';
+        lineIdx++;
+      } else {
+        clearInterval(interval);
+        
+        // Show unit tests
+        statusLabel.textContent = 'Trạng thái: Đang chạy kiểm thử tự động (Unit Tests)...';
+        setTimeout(() => {
+          testBody.style.display = 'block';
+          testBody.innerHTML = unitTestsOutput;
+          
+          if (promptQuality === 'success') {
+            statusLabel.textContent = 'Trạng thái: Hoàn tất (Thành công)';
+            statusLabel.style.color = 'var(--green)';
+          } else {
+            statusLabel.textContent = 'Trạng thái: Lỗi chương trình (Compile Error)';
+            statusLabel.style.color = 'var(--red)';
+          }
+          
+          isAICodeGenerating = false;
+          showPromptEngineeringResult(promptQuality);
+        }, 1000);
+      }
+    }, 150);
+  }
+
+  function showPromptEngineeringResult(quality) {
+    const resultBox = document.getElementById('result-tab1');
+    const outcome = document.getElementById('outcome-tab1');
+    const aha = document.getElementById('aha-tab1');
+
+    if (quality === 'success') {
+      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Prompt Engineering xuất sắc! AI sinh mã nguồn Python hoàn hảo.</span><br>Bạn đã cung cấp một câu lệnh cực kỳ chi tiết, làm rõ 3 thành phần cốt lõi của một giải thuật: dữ liệu đầu vào (mảng giá cả), các nhánh logic điều kiện xử lý (is_vip giảm 5%) và phép tính toán học cuối cùng (cộng 10% VAT). Trình kiểm thử tự động (Unit Tests) đã xác nhận tính chính xác của thuật toán AI sinh ra.`;
+      aha.innerHTML = '<strong>Bản chất Kỹ sư Prompt (Aha!):</strong> AI không tự động hiểu được bài toán nếu câu lệnh mơ hồ. Prompt Engineering là nghệ thuật định nghĩa bài toán bằng ngôn ngữ tự nhiên một cách rõ ràng, chặt chẽ, đầy đủ tham số đầu vào, logic điều kiện xử lý và định dạng đầu ra mong muốn. Đây là kỹ năng tối quan trọng trong kỷ nguyên AI.';
+    } else if (quality === 'partial') {
+      outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ Prompt bị thiếu dữ kiện đặc tả (Specification Gap):</span><br>Mặc dù AI đã sinh ra được mã nguồn Python nhưng kết quả chạy thử nghiệm giỏ hàng vẫn bị sai lệch (Unit tests thất bại). Lý do là câu lệnh của bạn bỏ sót điều kiện thuế VAT hoặc điều kiện giảm giá thành viên khiến AI lập trình thiếu chức năng.`;
+      aha.innerHTML = 'Trong phát triển phần mềm, lỗi đặc tả yêu cầu (Specification error) là lỗi rất phổ biến. Lập trình viên thiết lập câu lệnh thiếu sót thì máy tính hoặc AI sẽ thực thi thiếu sót. Hãy làm chi tiết câu lệnh hơn nữa.';
+    } else {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Prompt quá mơ hồ hoặc sai lệch logic:</span><br>AI sinh ra đoạn mã nguồn sai hoàn toàn hoặc không khớp yêu cầu tính toán đơn hàng thực tế. Trình kiểm thử tự động báo lỗi đỏ. Bạn cần làm sạch Prompt và lựa chọn ghép các mảnh yêu cầu chi tiết hơn.`;
+      aha.innerHTML = 'Đưa một câu lệnh ngắn ngủn \"Viết code tính tiền\" giống như giao việc cho một người không biết gì mà không cho tài liệu hướng dẫn. Hãy học cách ra lệnh cho máy tính một cách tường minh và có cấu trúc.';
+    }
+    resultBox.classList.add('show');
+  }
+
+
+  // TAB 3: UI/UX DESIGNER (MOBILE LAYOUT BUILDER)
+  let uiLayoutValues = {
+    'ui-slot-1': null,
+    'ui-slot-2': null,
+    'ui-slot-3': null,
+    'ui-slot-4': null
+  };
+  let draggedUIId = null;
+
+  function dragUIStart(e) {
+    draggedUIId = e.target.id;
+    e.dataTransfer.setData('text/plain', e.target.getAttribute('data-val'));
+  }
+
+  function allowUIDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('over');
+  }
+
+  function leaveUIDrop(e) {
+    e.currentTarget.classList.remove('over');
+  }
+
+  function dropUI(e, slotId) {
+    e.preventDefault();
+    const slot = document.getElementById(slotId);
+    slot.classList.remove('over');
+
+    const val = e.dataTransfer.getData('text/plain');
+    uiLayoutValues[slotId] = val;
+
+    // Render HTML inside slot based on element type
+    slot.classList.add('filled');
+    
+    if (val === 'map') {
+      slot.innerHTML = `<div class="ui-element map"><span>🗺️ Bản đồ định vị lớn</span><span style="font-size:9px;opacity:0.8;">Landmark 81, Hà Nội</span></div>`;
+    } else if (val === 'search') {
+      slot.innerHTML = `<div class="ui-element search"><span><i data-lucide="search"></i> Điểm đi: 102 Trần Duy Hưng</span><br><span style="color:var(--blue);"><i data-lucide="map-pin"></i> Điểm đến: Landmark 81</span></div>`;
+    } else if (val === 'cars') {
+      slot.innerHTML = `<div class="ui-element cars"><span>🚗 GrabCar 4 chỗ (72.000đ) | GrabBike (25.000đ)</span></div>`;
+    } else if (val === 'cta') {
+      slot.innerHTML = `<div class="ui-element cta"><i data-lucide="zap"></i> ĐẶT XE NGAY</div>`;
+    } else if (val === 'ad') {
+      slot.innerHTML = `<div class="ui-element ad"><i data-lucide="megaphone"></i> QUẢNG CÁO LỚN: Mua 1 Tặng 1 trà sữa!!!</div>`;
+    }
+
+    // Hide original tag in pool
+    const orig = document.getElementById(draggedUIId);
+    if (orig) orig.classList.add('used');
+  }
+
+  function resetUIBuilder() {
+    uiLayoutValues = {
+      'ui-slot-1': null,
+      'ui-slot-2': null,
+      'ui-slot-3': null,
+      'ui-slot-4': null
+    };
+    
+    // Clear slots
+    for (let i = 1; i <= 4; i++) {
+      const slot = document.getElementById('ui-slot-' + i);
+      slot.textContent = i === 1 ? 'Đầu trang (Header)' : i === 2 ? 'Khu vực trung tâm (Body)' : i === 3 ? 'Khu vực cận dưới (Footer 1)' : 'Khu vực dưới cùng (Footer 2)';
+      slot.className = 'phone-slot';
+    }
+
+    // Reset pool tags
+    document.querySelectorAll('.widget-item').forEach(w => w.classList.remove('used'));
+  }
+
+  function simulateUXTest() {
+    const resultBox = document.getElementById('result-tab2');
+    const outcome = document.getElementById('outcome-tab2');
+    const aha = document.getElementById('aha-tab2');
+    
+    const slotsFilled = Object.values(uiLayoutValues).every(v => v !== null);
+    if (!slotsFilled) {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Chưa hoàn thiện bố cục:</span> Vui lòng kéo thả đầy đủ các thành phần giao diện vào tất cả 4 khu vực trống trên màn hình di động ảo.`;
+      aha.innerHTML = 'Một giao diện ứng dụng di động hoàn thiện cần đầy đủ các khối chức năng cơ bản trước khi đưa vào kiểm thử trải nghiệm.';
+      resultBox.classList.add('show');
+      return;
+    }
+
+    // Ideal Layout:
+    // Slot 1: search (Thanh tìm kiếm)
+    // Slot 2: map (Bản đồ)
+    // Slot 3: cars (Lựa chọn xe)
+    // Slot 4: cta (Nút Đặt xe)
+    // (Note: Banner quảng cáo ad is unwanted/distracting)
+    const isSearchTop = uiLayoutValues['ui-slot-1'] === 'search';
+    const isMapCenter = uiLayoutValues['ui-slot-2'] === 'map';
+    const isCarsBelow = uiLayoutValues['ui-slot-3'] === 'cars';
+    const isCTABottom = uiLayoutValues['ui-slot-4'] === 'cta';
+    const hasAd = Object.values(uiLayoutValues).includes('ad');
+
+    if (isSearchTop && isMapCenter && isCarsBelow && isCTABottom) {
+      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Thiết kế UI/UX xuất sắc! Điểm trải nghiệm khách hàng: 100/100.</span><br>Bố cục của bạn đạt chuẩn thiết kế phần mềm hiện đại: Thanh tìm kiếm đặt ở đầu trang dễ thao tác; Bản đồ lớn trực quan chiếm khu vực trung tâm; Khối chọn xe ở gần ngón tay cái và Nút đặt xe (CTA) kích thước lớn đặt ở sát cạnh dưới cùng. Không có banner quảng cáo gây phiền toái. Khách hàng ảo báo: \"Đặt xe siêu nhanh và dễ dàng!\"`;
+      aha.innerHTML = '<strong>Tư duy Thiết kế UI/UX (Aha!):</strong> Thiết kế trải nghiệm người dùng (UX) dựa trên hành vi sinh lý học thực tế của con người (ví dụ: khu vực ngón tay cái dễ với tới trên màn hình điện thoại). Nút hành động chính (Call To Action - CTA) luôn được đặt to, rõ ràng và ở dưới cùng để tối ưu tốc độ bấm. Loại bỏ các yếu tố gây phiền nhiễu (quảng cáo) giúp nâng cao mức độ hài lòng của khách hàng.';
+    } else if (hasAd) {
+      outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ Giao diện bị trừ điểm nặng do yếu tố phiền toái (Ad distraction):</span><br>Điểm trải nghiệm khách hàng: 45/100. Bạn đã chèn \"Banner quảng cáo khổng lồ\" chiếm không gian của một trong các tính năng quan trọng khác. Khách hàng ảo phàn nàn: \"Quảng cáo che mắt quá, tôi không thấy nút đặt xe hoặc bản đồ đâu cả!\"`;
+      aha.innerHTML = 'Trong thiết kế phần mềm, việc nhồi nhét quá nhiều yếu tố quảng cáo (Dark patterns) có thể đem lại doanh thu ngắn hạn nhưng sẽ hủy hoại trải nghiệm người dùng, khiến họ nhanh chóng gỡ bỏ ứng dụng.';
+      resultBox.classList.add('show');
+    } else {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Bố cục giao diện lộn xộn hoặc sai quy chuẩn thao tác:</span><br>Điểm trải nghiệm khách hàng: 30/100. Đặt nút hành động \"ĐẶT XE NGAY\" ở trên cùng hoặc che khuất thanh tìm kiếm khiến khách hàng vô cùng bối rối. Khách hàng ảo báo cáo: \"Tôi phải rướn tay rất khó khăn mới bấm được nút đặt xe, bản đồ thì nhỏ xíu không nhìn rõ lộ trình.\"`;
+      aha.innerHTML = 'Hãy suy nghĩ về hành vi của chính bạn khi dùng các ứng dụng đặt xe hàng ngày: Nhập điểm đi/đến -> Quan sát bản đồ -> Chọn loại xe -> Bấm đặt. Bố cục UI phải mô phỏng trơn tru dòng chảy hành vi này của người dùng.';
+      resultBox.classList.add('show');
+    }
+    resultBox.classList.add('show');
+  }
+
+
+  // TAB 4: QA/TESTER BUG HUNT SIMULATOR
+  let qaBugsFound = {
+    1: false, // pass short length success
+    2: false, // pass mismatch success
+    3: false  // spam click crash
+  };
+  let submitClickCount = 0;
+
+  function submitQAForm() {
+    const name = document.getElementById('qa-input-name').value;
+    const pass = document.getElementById('qa-input-pass').value;
+    const confirm = document.getElementById('qa-input-confirm').value;
+    
+    submitClickCount++;
+    const reportPane = document.getElementById('bug-report-pane');
+    
+    // Check Bug 3 (Spam click crash)
+    if (submitClickCount >= 3) {
+      document.getElementById('btn-qa-submit').textContent = "⚠️ ERROR: APPLICATION FROZEN";
+      document.getElementById('btn-qa-submit').style.background = "var(--red)";
+      document.getElementById('btn-qa-submit').disabled = true;
+      
+      reportPane.style.display = 'block';
+      return;
+    }
+
+    // Check Bug 1 (Short password registration success)
+    if (pass.length > 0 && pass.length < 8) {
+      alert("Chúc mừng! Đăng ký tài khoản thành công! (Mật khẩu của bạn là: " + pass + ")");
+      reportPane.style.display = 'block';
+      return;
+    }
+
+    // Check Bug 2 (Mismatch confirm password success)
+    if (pass.length >= 8 && pass !== confirm) {
+      alert("Chúc mừng! Đăng ký tài khoản thành công! (Xác nhận mật khẩu không khớp vẫn duyệt)");
+      reportPane.style.display = 'block';
+      return;
+    }
+    
+    // Default standard behavior (no bug triggered)
+    if (pass.length >= 8 && pass === confirm) {
+      alert("Hệ thống: Đăng ký thành công (Hành vi chuẩn, không phát hiện lỗi logic).");
+    } else if (pass.length === 0) {
+      alert("Hệ thống: Vui lòng nhập mật khẩu.");
+    }
+  }
+
+  function reportBug(bugId) {
+    const reportPane = document.getElementById('bug-report-pane');
+    
+    if (bugId === 1) {
+      qaBugsFound[1] = true;
+      document.getElementById('chk-bug-1').classList.add('resolved');
+      alert("✓ QA ghi nhận: Đã báo cáo Lỗi bảo mật mật khẩu ngắn thành công.");
+    } else if (bugId === 2) {
+      qaBugsFound[2] = true;
+      document.getElementById('chk-bug-2').classList.add('resolved');
+      alert("✓ QA ghi nhận: Đã báo cáo Lỗi xác nhận mật khẩu không khớp thành công.");
+    } else if (bugId === 3) {
+      qaBugsFound[3] = true;
+      document.getElementById('chk-bug-3').classList.add('resolved');
+      alert("✓ QA ghi nhận: Đã báo cáo Lỗi treo ứng dụng do spam click thành công.");
+      
+      // Auto recovery form visual
+      document.getElementById('btn-qa-submit').textContent = "Đăng ký tài khoản";
+      document.getElementById('btn-qa-submit').style.background = "var(--blue)";
+      document.getElementById('btn-qa-submit').disabled = false;
+      submitClickCount = 0;
+    } else {
+      alert("Báo cáo sai! Đây là hành vi sử dụng sai hoặc tính năng thiết kế chuẩn, không phải lỗi hệ thống.");
+    }
+    
+    reportPane.style.display = 'none';
+    
+    // Check if all bugs found
+    const allFound = Object.values(qaBugsFound).every(v => v);
+    if (allFound) {
+      alert("🎉 Chúc mừng! Kỹ sư QA đã xuất sắc tìm ra và báo cáo đầy đủ cả 3 lỗi ẩn trong hệ thống!");
+    }
+  }
+
+  function verifyQATest() {
+    const resultBox = document.getElementById('result-tab3');
+    const outcome = document.getElementById('outcome-tab3');
+    const aha = document.getElementById('aha-tab3');
+    
+    const count = Object.values(qaBugsFound).filter(v => v).length;
+
+    if (count === 3) {
+      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Hoàn thành xuất sắc nhiệm vụ Kiểm thử QA! Đạt chứng chỉ Tester Vàng.</span><br>Bạn đã tìm thấy và báo cáo thành công toàn bộ 3 lỗi logic ẩn của ứng dụng (Lỗi mật khẩu yếu, lỗi không khớp xác nhận và lỗi tràn yêu cầu spam click). Việc phát hiện sớm các lỗi này giúp ngăn ngừa rò rỉ dữ liệu mật khẩu người dùng và sập server khi đưa ứng dụng ra công chúng.`;
+      aha.innerHTML = '<strong>Tư duy Kiểm thử (Aha!):</strong> Lập trình viên viết code có thể tự tin thái quá nên dễ bỏ sót kịch bản lỗi. Kỹ sư QA đóng vai trò phản biện, cố tình thử các dữ liệu sai lệch (Negative testing) để ép ứng dụng bộc lộ lỗ hổng. QA bảo vệ chất lượng sản phẩm trước khi đến tay người dùng.';
+    } else {
+      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Bạn chưa tìm hết các lỗi ẩn của ứng dụng (${count}/3 bugs):</span><br>Vẫn còn lỗi ẩn trong hệ thống chưa được khai thác và báo cáo. Hãy thử: 1. Nhập mật khẩu cực ngắn (ví dụ \"12\") rồi bấm Đăng ký; 2. Nhập hai mật khẩu khác nhau rồi bấm Đăng ký; 3. Bấm liên tục nút Đăng ký để xem điều gì xảy ra.`;
+      aha.innerHTML = 'Kỹ sư QA luôn hoài nghi và tò mò. Hãy thực hành nhập các dữ liệu phá hoại để tìm ra các kịch bản lỗi tiềm ẩn.';
+    }
+    resultBox.classList.add('show');
+  }
+</script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

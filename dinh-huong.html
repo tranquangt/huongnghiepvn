@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Định hướng nghề nghiệp - HướngNghiệpVN.online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+    <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+    <button class="nav-link active" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
+    <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
+  </div>
+</nav>
+
+<!-- ======================== QUIZ ======================== -->
+<div id="page-quiz" class="page active">
+  <div style="background: white; padding: 32px 40px; border-bottom: 1px solid var(--gray-200);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="font-size:13px;color:var(--gray-500);margin-bottom:8px;">Định hướng nghề nghiệp</div>
+      <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Khám phá nghề nghiệp phù hợp</h1>
+      <p style="color:var(--gray-500);">Trải nghiệm thực tế các ngành nghề qua phòng lab tương tác</p>
+    </div>
+  </div>
+  <div class="section" style="padding-top:40px;">
+    <div style="max-width:1000px;margin:0 auto;">
+      <div style="margin-bottom:32px;">
+        <h2 style="font-size:20px;font-weight:600;margin-bottom:12px;"><i data-lucide="microscope"></i> Phòng Lab Nghề Nghiệp</h2>
+        <p style="color:var(--gray-500);font-size:14px;">Làm thử 3 nhiệm vụ thực tế của mỗi nghề. Tự khám phá xem bạn có hứng thú không — không cần biết gì trước.</p>
+      </div>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+        <!-- AI -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-ai-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)"><i data-lucide="bot"></i></div>
+          <div class="lab-title">Kỹ sư AI</div>
+          <div class="lab-desc">Phân loại dữ liệu, Xác suất Bayes, Mạng neural</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Toán</span>
+            <span class="lab-subject-tag">Xác suất</span>
+          </div>
+        </div>
+
+        <!-- Khoa học máy tính -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-khoa-hoc-may-tinh-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)"><i data-lucide="monitor"></i></div>
+          <div class="lab-title">Lập trình viên</div>
+          <div class="lab-desc">Debug logic, Tối ưu thuật toán, Mã hóa</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Toán</span>
+            <span class="lab-subject-tag">Logic</span>
+          </div>
+        </div>
+
+        <!-- Y tế -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-y-te-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#fa709a 0%,#fee140 100%)"><i data-lucide="stethoscope"></i></div>
+          <div class="lab-title">Bác sĩ</div>
+          <div class="lab-desc">Chẩn đoán bệnh, Thống kê dịch, Tính liều thuốc</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Sinh học</span>
+            <span class="lab-subject-tag">Hóa học</span>
+          </div>
+        </div>
+
+        <!-- Kinh tế -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-kinh-te-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)"><i data-lucide="bar-chart-3"></i></div>
+          <div class="lab-title">Chuyên viên Kinh tế</div>
+          <div class="lab-desc">Lãi suất kép, Cung cầu, Tỉ giá ngoại tệ</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Toán</span>
+            <span class="lab-subject-tag">Địa lý</span>
+          </div>
+        </div>
+
+        <!-- Giáo dục -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-giao-duc-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#43e97b 0%,#38f9d7 100%)">👨‍<i data-lucide="school"></i></div>
+          <div class="lab-title">Giáo viên</div>
+          <div class="lab-desc">Phân tích điểm, Thiết kế bài giảng, Chia nhóm</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Toán</span>
+            <span class="lab-subject-tag">Tâm lý</span>
+          </div>
+        </div>
+
+        <!-- Pháp luật -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-phap-luat-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#fa8bff 0%,#2bd2ff 100%)"><i data-lucide="scale"></i></div>
+          <div class="lab-title">Luật sư</div>
+          <div class="lab-desc">Lập luận, Hợp đồng, Phân tích bằng chứng</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Ngữ văn</span>
+            <span class="lab-subject-tag">Logic</span>
+          </div>
+        </div>
+
+        <!-- Cơ khí -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-co-khi-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#ff9a56 0%,#ff6a88 100%)"><i data-lucide="settings"></i></div>
+          <div class="lab-title">Kỹ sư Cơ khí</div>
+          <div class="lab-desc">Lực & Mô-men, Chọn vật liệu, Thiết kế</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Vật lý</span>
+            <span class="lab-subject-tag">Hóa học</span>
+          </div>
+        </div>
+
+        <!-- Kỹ thuật điện -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-ky-thuat-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%)"><i data-lucide="zap"></i></div>
+          <div class="lab-title">Kỹ sư Điện</div>
+          <div class="lab-desc">Định luật Ohm, Công suất, Thiết kế mạch</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Vật lý</span>
+            <span class="lab-subject-tag">Toán</span>
+          </div>
+        </div>
+
+        <!-- Nông nghiệp -->
+        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-nong-nghiep-lab.html'">
+          <div class="lab-icon" style="background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)"><i data-lucide="wheat"></i></div>
+          <div class="lab-title">Kỹ sư Nông nghiệp</div>
+          <div class="lab-desc">Phân bón NPK, Tưới tiêu, Tính năng suất</div>
+          <div class="lab-subjects">
+            <span class="lab-subject-tag">Hóa học</span>
+            <span class="lab-subject-tag">Sinh học</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;padding:24px;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:12px;">
+        <h3 style="font-size:16px;font-weight:600;margin-bottom:8px;"><i data-lucide="lightbulb"></i> Cách hoạt động</h3>
+        <ul style="font-size:14px;color:var(--gray-600);line-height:1.8;padding-left:20px;">
+          <li>Chọn 1 nghề bạn tò mò → Bấm vào để mở phòng lab</li>
+          <li>Làm 3 nhiệm vụ thực tế (chỉ dùng kiến thức THPT đã học)</li>
+          <li>Sau khi làm xong, bạn sẽ tự nhận ra: "À, nghề này làm việc thế này đấy!"</li>
+          <li>Không cần biết gì trước — chỉ cần thử và cảm nhận</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>hướng<span>nghiệpvn</span>.online</h3>
+      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tính năng</h4>
+      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
+    </div>
+    <div class="footer-col">
+      <h4>Thông tin</h4>
+      <a>Về chúng tôi</a>
+      <a>Nguồn dữ liệu</a>
+      <a>Liên hệ</a>
+      <a>Góp ý</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên kết</h4>
+      <a>Bộ GD&ĐT</a>
+      <a>VietnamWorks</a>
+      <a>MOET</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

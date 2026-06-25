@@ -1,0 +1,1188 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xu Hướng & Lương — HướngNghiệpVN.online | Phân tích thị trường việc làm</title>
+  <meta name="description" content="Phân tích chi tiết mức lương, cơ hội việc làm và xu hướng các ngành học hot nhất tại Việt Nam. So sánh ngành học, xếp hạng theo thu nhập.">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --green-50: #f0fdf6;
+      --green-100: #dcfce9;
+      --green-200: #a7f3c8;
+      --green-400: #34c17a;
+      --green-500: #1daa63;
+      --green-600: #168550;
+      --green-700: #105e3a;
+      --green-800: #0a3e27;
+      --teal-50: #e6faf5;
+      --teal-100: #ccf7ed;
+      --teal-400: #1D9E75;
+      --teal-600: #0F6E56;
+      --teal-700: #0a4f3e;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --amber-50: #fffbeb;
+      --amber-100: #fef3c7;
+      --amber-500: #f59e0b;
+      --amber-600: #d97706;
+      --red-50: #fef2f2;
+      --red-100: #fee2e2;
+      --red-500: #ef4444;
+      --red-600: #dc2626;
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-500: #3b82f6;
+
+      --font: 'Be Vietnam Pro', sans-serif;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0,0,0,0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08), 0 10px 10px -5px rgba(0,0,0,0.04);
+      --shadow-glow: 0 0 20px rgba(52, 193, 122, 0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--gray-50); color: var(--gray-800); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
+
+    /* ═══════════════════════ NAVIGATION ═══════════════════════ */
+    .nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(229,231,235,0.5);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 68px;
+      transition: all 0.3s;
+    }
+    .nav-logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--teal-400); }
+    .nav-logo em { color: var(--gray-400); font-style: normal; font-weight: 500; font-size: 14px; margin-left: 4px; }
+    .nav-links { display: flex; gap: 8px; align-items: center; list-style: none; }
+    .nav-link {
+      padding: 8px 16px; border-radius: var(--radius);
+      font-size: 14px; color: var(--gray-600); font-weight: 600;
+      transition: all 0.2s; background: none;
+    }
+    .nav-link:hover { background: var(--green-50); color: var(--teal-600); }
+    .nav-link.active { background: var(--green-50); color: var(--teal-600); }
+    .nav-cta {
+      background: var(--teal-400); color: white;
+      padding: 10px 22px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 700;
+      transition: all 0.2s; margin-left: 8px;
+      box-shadow: 0 4px 12px rgba(29,158,117,0.2);
+    }
+    .nav-cta:hover { background: var(--teal-600); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(15,110,86,0.3); }
+
+    /* ═══════════════════════ HERO SECTION ═══════════════════════ */
+    .hero-section {
+      background: linear-gradient(135deg, #062316 0%, #0a3e27 40%, #105e3a 70%, #168550 100%);
+      padding: 80px 48px 100px;
+      position: relative; overflow: hidden;
+      text-align: center; color: white;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(52,193,122,0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(29,158,117,0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-section::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); color: var(--green-100);
+      padding: 6px 16px; border-radius: 30px;
+      font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge .dot { width: 8px; height: 8px; background: var(--green-400); border-radius: 50%; box-shadow: 0 0 8px var(--green-400); animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } }
+    .hero-content h1 {
+      font-size: 46px; font-weight: 800; line-height: 1.25;
+      letter-spacing: -1.5px; margin-bottom: 18px;
+    }
+    .hero-content h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #a7f3c8 0%, #34c17a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-content p { color: rgba(255,255,255,0.8); font-size: 17px; margin-bottom: 48px; line-height: 1.65; }
+
+    /* Hero Stats */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      max-width: 720px; margin: 0 auto;
+    }
+    .hero-stat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg); padding: 20px 16px;
+      backdrop-filter: blur(4px);
+      transition: all 0.3s;
+    }
+    .hero-stat-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+    .hero-stat-number {
+      font-size: 28px; font-weight: 800;
+      background: linear-gradient(135deg, #a7f3c8, #34c17a);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ═══════════════════════ MAIN CONTENT ═══════════════════════ */
+    .main-container { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+
+    /* Tabs */
+    .tabs-container {
+      display: flex; gap: 6px;
+      background: var(--gray-100);
+      border-radius: var(--radius-lg); padding: 6px;
+      margin-bottom: 40px;
+      border: 1px solid var(--gray-200);
+    }
+    .tab-btn {
+      flex: 1; padding: 14px 24px;
+      background: transparent; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      color: var(--gray-500);
+      transition: all 0.3s; display: flex;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .tab-btn:hover { color: var(--gray-700); background: rgba(255,255,255,0.5); }
+    .tab-btn.active {
+      background: white; color: var(--teal-600);
+      box-shadow: var(--shadow);
+    }
+    .tab-btn i { width: 18px; height: 18px; }
+
+    /* Tab Content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeUp 0.4s ease-out; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ═══════════════════════ SECTION HEADERS ═══════════════════════ */
+    .section-header {
+      margin-bottom: 32px;
+    }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-50); border: 1px solid var(--green-100);
+      color: var(--green-700); padding: 5px 14px;
+      border-radius: 20px; font-size: 12px; font-weight: 700;
+      margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .section-header h2 {
+      font-size: 28px; font-weight: 800;
+      color: var(--gray-900); letter-spacing: -0.8px;
+      margin-bottom: 8px;
+    }
+    .section-header p { font-size: 15px; color: var(--gray-500); }
+
+    /* ═══════════════════════ RANKING TABLE ═══════════════════════ */
+    .ranking-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .ranking-table { width: 100%; border-collapse: collapse; }
+    .ranking-table thead th {
+      padding: 16px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-bottom: 2px solid var(--gray-200);
+    }
+    .ranking-table tbody tr {
+      transition: all 0.2s;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .ranking-table tbody tr:last-child { border-bottom: none; }
+    .ranking-table tbody tr:hover { background: var(--green-50); }
+    .ranking-table tbody td {
+      padding: 16px 20px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    /* Rank Medal */
+    .rank-medal {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px;
+    }
+    .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+    .rank-2 { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: white; box-shadow: 0 4px 12px rgba(156,163,175,0.3); }
+    .rank-3 { background: linear-gradient(135deg, #f97316, #ea580c); color: white; box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
+    .rank-default { background: var(--gray-100); color: var(--gray-500); }
+
+    .major-name-cell { display: flex; align-items: center; gap: 12px; }
+    .major-icon-wrap {
+      width: 40px; height: 40px;
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .major-name-text { font-weight: 700; color: var(--gray-800); }
+    .major-category-text { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+
+    /* Salary Bar */
+    .salary-cell { min-width: 180px; }
+    .salary-text { font-weight: 700; color: var(--teal-600); margin-bottom: 4px; font-size: 13px; }
+    .salary-bar-bg {
+      height: 6px; background: var(--gray-100);
+      border-radius: 3px; overflow: hidden;
+    }
+    .salary-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-400), var(--teal-400));
+      border-radius: 3px;
+      transition: width 1s ease-out;
+    }
+
+    /* Badges */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 700;
+    }
+    .badge-hot { background: linear-gradient(135deg, #fef2f2, #fee2e2); color: #dc2626; border: 1px solid #fecaca; }
+    .badge-high { background: linear-gradient(135deg, #fffbeb, #fef3c7); color: #d97706; border: 1px solid #fde68a; }
+    .badge-stable { background: linear-gradient(135deg, #f0fdf4, #dcfce7); color: #16a34a; border: 1px solid #bbf7d0; }
+    .badge-warning { background: linear-gradient(135deg, #eff6ff, #dbeafe); color: #2563eb; border: 1px solid #bfdbfe; }
+
+    .ai-safety-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 13px; font-weight: 600;
+    }
+    .ai-high { color: #16a34a; }
+    .ai-medium { color: #d97706; }
+    .ai-low { color: #dc2626; }
+
+    /* ═══════════════════════ COMPARISON SECTION ═══════════════════════ */
+    .comparison-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .comparison-selects {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 32px;
+    }
+    .select-group label {
+      display: block;
+      font-size: 13px; font-weight: 700;
+      color: var(--gray-600); margin-bottom: 8px;
+      text-transform: uppercase; letter-spacing: 0.3px;
+    }
+    .custom-select {
+      width: 100%; padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font); font-size: 14px;
+      color: var(--gray-700); font-weight: 500;
+      background: white; transition: all 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+    }
+    .custom-select:focus { border-color: var(--teal-400); outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+
+    .comparison-empty {
+      text-align: center; padding: 48px 24px;
+      color: var(--gray-400);
+    }
+    .comparison-empty i { width: 48px; height: 48px; margin-bottom: 16px; stroke-width: 1.5; }
+    .comparison-empty p { font-size: 15px; font-weight: 500; }
+
+    .comparison-grid {
+      display: grid; gap: 0;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .comp-row {
+      display: grid; grid-template-columns: 180px repeat(var(--cols), 1fr);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row-label {
+      padding: 16px 20px;
+      font-size: 13px; font-weight: 700;
+      color: var(--gray-600);
+      background: var(--gray-50);
+      display: flex; align-items: center; gap: 8px;
+      border-right: 1px solid var(--gray-200);
+    }
+    .comp-row-label i { width: 16px; height: 16px; color: var(--teal-400); }
+    .comp-cell {
+      padding: 16px 20px;
+      font-size: 14px; font-weight: 500;
+      color: var(--gray-700);
+      border-right: 1px solid var(--gray-100);
+      display: flex; align-items: center;
+    }
+    .comp-cell:last-child { border-right: none; }
+    .comp-header-row { background: linear-gradient(135deg, #062316, #0a3e27); }
+    .comp-header-cell {
+      padding: 16px 20px;
+      color: white; font-weight: 700;
+      font-size: 14px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .comp-header-cell:first-child { background: rgba(0,0,0,0.2); }
+
+    /* ═══════════════════════ FULL LIST (GRID CARDS) ═══════════════════════ */
+    .filter-bar {
+      display: flex; gap: 16px; margin-bottom: 28px;
+      flex-wrap: wrap; align-items: flex-end;
+    }
+    .filter-group { flex: 1; min-width: 200px; }
+    .filter-group label {
+      display: block;
+      font-size: 12px; font-weight: 700;
+      color: var(--gray-500); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .filter-input {
+      width: 100%; padding: 12px 16px 12px 42px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font); font-size: 14px;
+      color: var(--gray-700); background: white;
+      transition: all 0.2s;
+    }
+    .filter-input:focus { border-color: var(--teal-400); outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+    .search-wrap { position: relative; }
+    .search-wrap i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 18px; height: 18px; color: var(--gray-400); pointer-events: none;
+    }
+    .filter-select {
+      width: 100%; padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font); font-size: 14px;
+      color: var(--gray-700); background: white;
+      transition: all 0.2s; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+    }
+    .filter-select:focus { border-color: var(--teal-400); outline: none; box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+
+    .sort-group { min-width: 160px; }
+
+    .results-count {
+      font-size: 13px; color: var(--gray-500); margin-bottom: 20px; font-weight: 500;
+    }
+    .results-count strong { color: var(--teal-600); }
+
+    /* Major Cards Grid */
+    .major-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .major-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .major-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-400), var(--teal-400));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .major-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--green-200);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+    .major-card:hover::before { opacity: 1; }
+
+    .major-card.premium {
+      border-color: var(--amber-500);
+      background: linear-gradient(135deg, rgba(255,251,235,0.5) 0%, white 100%);
+    }
+    .major-card.premium::before {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .card-icon {
+      width: 52px; height: 52px;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      transition: all 0.3s;
+    }
+    .major-card:hover .card-icon { transform: scale(1.1) rotate(-5deg); }
+    .premium .card-icon {
+      background: var(--amber-50);
+      border-color: var(--amber-100);
+    }
+    .premium-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white; padding: 4px 10px;
+      border-radius: 20px; font-size: 11px; font-weight: 700;
+    }
+
+    .card-title {
+      font-size: 18px; font-weight: 800;
+      color: var(--gray-900); margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .card-category { font-size: 12px; color: var(--gray-400); font-weight: 500; margin-bottom: 20px; }
+
+    .card-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 16px;
+    }
+    .card-stat {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+    .card-stat-label { font-size: 11px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px; }
+    .card-stat-value { font-size: 14px; font-weight: 700; color: var(--gray-800); }
+    .card-stat-value.salary { color: var(--teal-600); }
+
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-100);
+    }
+
+    /* ═══════════════════════ SALARY CHART ═══════════════════════ */
+    .chart-section {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+    }
+    .chart-container {
+      display: flex; align-items: flex-end; gap: 8px;
+      height: 280px; padding: 20px 0;
+      border-bottom: 2px solid var(--gray-200);
+      position: relative;
+    }
+    .chart-bar-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-end;
+      height: 100%; position: relative;
+    }
+    .chart-bar {
+      width: 100%; max-width: 48px;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, var(--green-400), var(--teal-600));
+      transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative; cursor: pointer;
+      min-height: 4px;
+    }
+    .chart-bar:hover {
+      filter: brightness(1.15);
+      transform: scaleX(1.08);
+    }
+    .chart-bar.hot { background: linear-gradient(180deg, #f87171, #dc2626); }
+    .chart-bar.high { background: linear-gradient(180deg, #fbbf24, #d97706); }
+    .chart-bar.premium-bar { background: linear-gradient(180deg, #fbbf24, #f59e0b); box-shadow: 0 0 20px rgba(251,191,36,0.3); }
+    .chart-tooltip {
+      position: absolute; top: -36px; left: 50%; transform: translateX(-50%);
+      background: var(--gray-900); color: white;
+      padding: 4px 10px; border-radius: 6px;
+      font-size: 11px; font-weight: 700;
+      white-space: nowrap; opacity: 0;
+      transition: opacity 0.2s; pointer-events: none;
+    }
+    .chart-bar:hover .chart-tooltip { opacity: 1; }
+    .chart-label {
+      margin-top: 10px; font-size: 10px;
+      font-weight: 600; color: var(--gray-500);
+      text-align: center; writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      max-height: 80px; overflow: hidden;
+    }
+
+    /* Y-Axis */
+    .chart-y-axis {
+      display: flex; flex-direction: column; justify-content: space-between;
+      height: 280px; padding: 20px 0;
+      margin-right: 12px;
+    }
+    .y-label { font-size: 11px; color: var(--gray-400); font-weight: 500; white-space: nowrap; }
+
+    /* ═══════════════════════ FOOTER ═══════════════════════ */
+    .footer {
+      background: linear-gradient(135deg, #062316 0%, #0a3e27 50%, #105e3a 100%);
+      color: white;
+      padding: 60px 48px 32px;
+      margin-top: 60px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 40px; max-width: 1200px; margin: 0 auto;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .footer-brand h3 span { color: var(--green-400); }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block; font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      padding: 4px 0; transition: all 0.2s;
+    }
+    .footer-col a:hover { color: var(--green-400); transform: translateX(4px); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copyright { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.2s;
+    }
+    .footer-social a:hover {
+      background: var(--green-400); color: white;
+      border-color: var(--green-400);
+      transform: translateY(-2px);
+    }
+    .footer-social a i { width: 16px; height: 16px; }
+
+    /* ═══════════════════════ SCROLL ANIMATIONS ═══════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero-section { padding: 48px 20px 60px; }
+      .hero-content h1 { font-size: 28px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .main-container { padding: 24px 16px; }
+      .tabs-container { flex-direction: column; }
+      .comparison-selects { grid-template-columns: 1fr; }
+      .major-grid { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; }
+      .ranking-table { font-size: 13px; }
+      .ranking-table thead th, .ranking-table tbody td { padding: 12px 10px; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .comp-row { grid-template-columns: 120px repeat(var(--cols), 1fr); }
+      .comp-row-label { padding: 12px; font-size: 12px; }
+      .comp-cell { padding: 12px; font-size: 13px; }
+      .chart-container { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+  <nav class="nav" id="navbar">
+    <a href="trang-chu.html" class="nav-logo">
+      Hướng<span>Nghiệp</span><em>.vn</em>
+    </a>
+    <div class="nav-links">
+      <a href="trang-chu.html" class="nav-link">Trang Chủ</a>
+      <a href="truong-dai-hoc.html" class="nav-link">Trường Đại Học</a>
+      <a href="dinh-huong.html" class="nav-link">Định Hướng</a>
+      <a href="nhom-nganh.html" class="nav-link">Nhóm Ngành</a>
+      <a href="xu-huong-luong.html" class="nav-link active">Xu Hướng & Lương</a>
+      <a href="trang-chu.html" class="nav-cta">Giới Thiệu</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO SECTION ═══════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Cập nhật Q2/2026
+      </div>
+      <h1>Xu Hướng & <em>Mức Lương</em> Thị Trường Việt Nam</h1>
+      <p>Phân tích chuyên sâu về mức lương, cơ hội việc làm, mức độ an toàn trước AI và xu hướng phát triển của các ngành học hàng đầu</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat-card">
+          <div class="hero-stat-number" data-count="19">0</div>
+          <div class="hero-stat-label">Ngành phân tích</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-number" data-count="50" data-suffix="tr">0</div>
+          <div class="hero-stat-label">Lương cao nhất</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-number" data-count="4">0</div>
+          <div class="hero-stat-label">Nhóm ngành</div>
+        </div>
+        <div class="hero-stat-card">
+          <div class="hero-stat-number" data-count="600" data-suffix="k+">0</div>
+          <div class="hero-stat-label">Sinh viên theo dõi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+  <main class="main-container">
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-container reveal">
+      <button class="tab-btn active" onclick="switchTab('ranking', this)" id="tab-ranking">
+        <i data-lucide="trophy"></i>
+        Bảng Xếp Hạng
+      </button>
+      <button class="tab-btn" onclick="switchTab('chart', this)" id="tab-chart">
+        <i data-lucide="bar-chart-3"></i>
+        Biểu Đồ Lương
+      </button>
+      <button class="tab-btn" onclick="switchTab('comparison', this)" id="tab-comparison">
+        <i data-lucide="git-compare-arrows"></i>
+        So Sánh Ngành
+      </button>
+      <button class="tab-btn" onclick="switchTab('full', this)" id="tab-full">
+        <i data-lucide="layout-grid"></i>
+        Tổng Hợp Đầy Đủ
+      </button>
+    </div>
+
+    <!-- ══════ TAB 1: RANKING ══════ -->
+    <div id="ranking" class="tab-content active">
+      <div class="section-header reveal">
+        <div class="section-badge">
+          <i data-lucide="crown" style="width:14px;height:14px"></i>
+          Top ngành hot
+        </div>
+        <h2>Top 10 Ngành Học Theo Mức Lương</h2>
+        <p>Xếp hạng các ngành có mức lương trung bình khởi điểm cao nhất tại Việt Nam</p>
+      </div>
+      <div class="ranking-card reveal" id="rankingCard"></div>
+    </div>
+
+    <!-- ══════ TAB 2: CHART ══════ -->
+    <div id="chart" class="tab-content">
+      <div class="section-header reveal">
+        <div class="section-badge">
+          <i data-lucide="bar-chart-3" style="width:14px;height:14px"></i>
+          Trực quan hóa
+        </div>
+        <h2>Biểu Đồ So Sánh Mức Lương</h2>
+        <p>Nhìn nhanh mức lương trung bình giữa các ngành học qua biểu đồ cột</p>
+      </div>
+      <div class="chart-section reveal" id="chartSection"></div>
+    </div>
+
+    <!-- ══════ TAB 3: COMPARISON ══════ -->
+    <div id="comparison" class="tab-content">
+      <div class="section-header reveal">
+        <div class="section-badge">
+          <i data-lucide="git-compare-arrows" style="width:14px;height:14px"></i>
+          So sánh chi tiết
+        </div>
+        <h2>So Sánh Tới 3 Ngành Học</h2>
+        <p>Chọn các ngành bạn quan tâm để so sánh trực tiếp các chỉ số quan trọng</p>
+      </div>
+      <div class="comparison-card reveal">
+        <div class="comparison-selects">
+          <div class="select-group">
+            <label>Ngành 1</label>
+            <select class="custom-select" id="select1" onchange="updateComparison()"></select>
+          </div>
+          <div class="select-group">
+            <label>Ngành 2</label>
+            <select class="custom-select" id="select2" onchange="updateComparison()"></select>
+          </div>
+          <div class="select-group">
+            <label>Ngành 3</label>
+            <select class="custom-select" id="select3" onchange="updateComparison()"></select>
+          </div>
+        </div>
+        <div id="comparisonResult"></div>
+      </div>
+    </div>
+
+    <!-- ══════ TAB 4: FULL LIST ══════ -->
+    <div id="full" class="tab-content">
+      <div class="section-header reveal">
+        <div class="section-badge">
+          <i data-lucide="layout-grid" style="width:14px;height:14px"></i>
+          Toàn bộ dữ liệu
+        </div>
+        <h2>Danh Sách Đầy Đủ Các Ngành</h2>
+        <p>Duyệt, tìm kiếm và lọc tất cả các ngành học đang được phân tích</p>
+      </div>
+
+      <div class="filter-bar reveal">
+        <div class="filter-group" style="flex:2">
+          <label>Tìm kiếm</label>
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" class="filter-input" id="searchBox" placeholder="Nhập tên ngành..." oninput="filterMajors()">
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Danh mục</label>
+          <select class="filter-select" id="categoryFilter" onchange="filterMajors()">
+            <option value="">Tất cả</option>
+            <option value="tech">🖥️ Công Nghệ</option>
+            <option value="biz">📊 Kinh Tế & Quản Lý</option>
+            <option value="health-eng">⚕️ Y Tế & Kỹ Thuật</option>
+            <option value="social-edu">📚 Xã Hội & Giáo Dục</option>
+          </select>
+        </div>
+        <div class="filter-group sort-group">
+          <label>Sắp xếp</label>
+          <select class="filter-select" id="sortFilter" onchange="filterMajors()">
+            <option value="salaryDesc">Lương: Cao → Thấp</option>
+            <option value="salaryAsc">Lương: Thấp → Cao</option>
+            <option value="nameAsc">Tên: A → Z</option>
+            <option value="studentsDesc">SV: Nhiều → Ít</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-count reveal" id="resultsCount"></div>
+      <div class="major-grid reveal" id="majorGrid"></div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Hướng<span>Nghiệp</span>.vn</h3>
+        <p>Nền tảng hướng dẫn nghề nghiệp & tư vấn tuyển sinh hàng đầu Việt Nam, giúp hàng triệu sinh viên tìm đúng hướng đi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Khám phá</h4>
+        <a href="trang-chu.html">Trang Chủ</a>
+        <a href="truong-dai-hoc.html">Trường Đại Học</a>
+        <a href="nhom-nganh.html">Nhóm Ngành</a>
+        <a href="xu-huong-luong.html">Xu Hướng & Lương</a>
+      </div>
+      <div class="footer-col">
+        <h4>Công cụ</h4>
+        <a href="dinh-huong.html">Định Hướng Nghề</a>
+        <a href="#">Trắc Nghiệm</a>
+        <a href="#">So Sánh Ngành</a>
+        <a href="#">Tính Điểm Chuẩn</a>
+      </div>
+      <div class="footer-col">
+        <h4>Hỗ trợ</h4>
+        <a href="trang-chu.html">Giới Thiệu</a>
+        <a href="#">Liên Hệ</a>
+        <a href="#">Điều Khoản</a>
+        <a href="#">Chính Sách</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">&copy; 2024 HướngNghiệpVN.online — Nền tảng hướng dẫn nghề nghiệp</div>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+        <a href="#" aria-label="Youtube"><i data-lucide="youtube"></i></a>
+        <a href="#" aria-label="Mail"><i data-lucide="mail"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════ JAVASCRIPT ═══════════════════════ -->
+  <script>
+    // ─── DỮ LIỆU CÁC NGÀNH ───
+    const majors = [
+      { name: 'Kỹ Thuật Phần Mềm', category: 'tech', categoryName: 'Công Nghệ', icon: '💻', students: 'Rất Cao (50k+)', studentsVal: 50000, opportunity: 'Rất Cao', marketBadge: 'Hot', marketStatus: 'hot', salary: '18-35 triệu/tháng', salaryVal: 26500, aiSafety: 'high', aiSafetyText: 'Yêu cầu kỹ năng cao', isPremium: true },
+      { name: 'Khoa Học Dữ Liệu', category: 'tech', categoryName: 'Công Nghệ', icon: '📊', students: 'Cao (35k+)', studentsVal: 35000, opportunity: 'Rất Cao', marketBadge: 'Hot', marketStatus: 'hot', salary: '20-40 triệu/tháng', salaryVal: 30000, aiSafety: 'high', aiSafetyText: 'Kỹ năng yêu cầu cao', isPremium: true },
+      { name: 'Lập Trình Web', category: 'tech', categoryName: 'Công Nghệ', icon: '🌐', students: 'Cao (40k+)', studentsVal: 40000, opportunity: 'Rất Cao', marketBadge: 'Hot', marketStatus: 'hot', salary: '16-32 triệu/tháng', salaryVal: 24000, aiSafety: 'high', aiSafetyText: 'Cần cập nhật kỹ năng', isPremium: false },
+      { name: 'Trí Tuệ Nhân Tạo & ML', category: 'tech', categoryName: 'Công Nghệ', icon: '🤖', students: 'Trung Bình (20k+)', studentsVal: 20000, opportunity: 'Rất Cao', marketBadge: 'Hot', marketStatus: 'hot', salary: '22-50 triệu/tháng', salaryVal: 36000, aiSafety: 'high', aiSafetyText: 'Lĩnh vực AI cần chuyên sâu', isPremium: true },
+      { name: 'Bảo Mật Thông Tin', category: 'tech', categoryName: 'Công Nghệ', icon: '🔐', students: 'Trung Bình (15k+)', studentsVal: 15000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '18-40 triệu/tháng', salaryVal: 29000, aiSafety: 'medium', aiSafetyText: 'Cần chuyên môn cao', isPremium: false },
+      { name: 'Quản Trị Kinh Doanh', category: 'biz', categoryName: 'Kinh Tế & Quản Lý', icon: '📈', students: 'Rất Cao (60k+)', studentsVal: 60000, opportunity: 'Cao', marketBadge: 'Stable', marketStatus: 'stable', salary: '12-25 triệu/tháng', salaryVal: 18500, aiSafety: 'medium', aiSafetyText: 'Cần kỹ năng lãnh đạo', isPremium: false },
+      { name: 'Kế Toán', category: 'biz', categoryName: 'Kinh Tế & Quản Lý', icon: '💰', students: 'Rất Cao (55k+)', studentsVal: 55000, opportunity: 'Trung Bình', marketBadge: 'Warning', marketStatus: 'warning', salary: '10-20 triệu/tháng', salaryVal: 15000, aiSafety: 'low', aiSafetyText: 'Dễ bị tự động hóa', isPremium: false },
+      { name: 'Marketing Số', category: 'biz', categoryName: 'Kinh Tế & Quản Lý', icon: '📱', students: 'Cao (38k+)', studentsVal: 38000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '12-28 triệu/tháng', salaryVal: 20000, aiSafety: 'medium', aiSafetyText: 'Cần cập nhật xu hướng', isPremium: false },
+      { name: 'Ngân Hàng & Tài Chính', category: 'biz', categoryName: 'Kinh Tế & Quản Lý', icon: '🏦', students: 'Cao (42k+)', studentsVal: 42000, opportunity: 'Trung Bình', marketBadge: 'Stable', marketStatus: 'stable', salary: '13-30 triệu/tháng', salaryVal: 21500, aiSafety: 'low', aiSafetyText: 'Nguy hiểm từ AI', isPremium: false },
+      { name: 'Y Học', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '⚕️', students: 'Trung Bình (25k+)', studentsVal: 25000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '15-35 triệu/tháng', salaryVal: 25000, aiSafety: 'high', aiSafetyText: 'Cần chuyên môn cao', isPremium: true },
+      { name: 'Điều Dưỡng', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '👩‍⚕️', students: 'Cao (30k+)', studentsVal: 30000, opportunity: 'Rất Cao', marketBadge: 'Hot', marketStatus: 'hot', salary: '10-18 triệu/tháng', salaryVal: 14000, aiSafety: 'high', aiSafetyText: 'Kỹ năng con người cần thiết', isPremium: false },
+      { name: 'Dược Học', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '💊', students: 'Trung Bình (18k+)', studentsVal: 18000, opportunity: 'Trung Bình', marketBadge: 'Stable', marketStatus: 'stable', salary: '12-25 triệu/tháng', salaryVal: 18500, aiSafety: 'medium', aiSafetyText: 'Nhu cầu ổn định', isPremium: false },
+      { name: 'Kỹ Thuật Cơ Khí', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '⚙️', students: 'Cao (32k+)', studentsVal: 32000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '12-26 triệu/tháng', salaryVal: 19000, aiSafety: 'medium', aiSafetyText: 'Tự động hóa ảnh hưởng', isPremium: false },
+      { name: 'Giáo Dục', category: 'social-edu', categoryName: 'Xã Hội & Giáo Dục', icon: '📚', students: 'Cao (45k+)', studentsVal: 45000, opportunity: 'Trung Bình', marketBadge: 'Warning', marketStatus: 'warning', salary: '8-16 triệu/tháng', salaryVal: 12000, aiSafety: 'high', aiSafetyText: 'Lương thấp', isPremium: false },
+      { name: 'Tâm Lý Học', category: 'social-edu', categoryName: 'Xã Hội & Giáo Dục', icon: '🧠', students: 'Trung Bình (22k+)', studentsVal: 22000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '10-22 triệu/tháng', salaryVal: 16000, aiSafety: 'high', aiSafetyText: 'Kỹ năng con người cần thiết', isPremium: false },
+      { name: 'Luật', category: 'social-edu', categoryName: 'Xã Hội & Giáo Dục', icon: '⚖️', students: 'Cao (35k+)', studentsVal: 35000, opportunity: 'Trung Bình', marketBadge: 'Stable', marketStatus: 'stable', salary: '12-35 triệu/tháng', salaryVal: 23500, aiSafety: 'high', aiSafetyText: 'Kỹ năng con người cần thiết', isPremium: false },
+      { name: 'Truyền Thông', category: 'social-edu', categoryName: 'Xã Hội & Giáo Dục', icon: '📺', students: 'Cao (28k+)', studentsVal: 28000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '10-24 triệu/tháng', salaryVal: 17000, aiSafety: 'medium', aiSafetyText: 'AI tác động tuyên truyền', isPremium: false },
+      { name: 'Kiến Trúc', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '🏗️', students: 'Trung Bình (20k+)', studentsVal: 20000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '14-32 triệu/tháng', salaryVal: 23000, aiSafety: 'high', aiSafetyText: 'Sáng tạo còn cần con người', isPremium: true },
+      { name: 'Xây Dựng', category: 'health-eng', categoryName: 'Y Tế & Kỹ Thuật', icon: '👷', students: 'Cao (38k+)', studentsVal: 38000, opportunity: 'Cao', marketBadge: 'High', marketStatus: 'high', salary: '11-24 triệu/tháng', salaryVal: 17500, aiSafety: 'high', aiSafetyText: 'Yêu cầu kỹ năng thực tế', isPremium: false },
+    ];
+
+    const maxSalary = 50; // triệu
+
+    // ─── TAB SWITCHING ───
+    function switchTab(tabName, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      btn.classList.add('active');
+
+      // Re-trigger chart animation
+      if (tabName === 'chart') renderChart();
+      // Trigger reveal animations
+      document.querySelectorAll('.reveal').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+      });
+    }
+
+    // ─── RANKING TABLE ───
+    function renderRanking() {
+      const sorted = [...majors].sort((a, b) => b.salaryVal - a.salaryVal).slice(0, 10);
+      const card = document.getElementById('rankingCard');
+      const rows = sorted.map((m, i) => {
+        const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-default';
+        const barWidth = (m.salaryVal / (maxSalary * 1000)) * 100;
+        const aiClass = m.aiSafety === 'high' ? 'ai-high' : m.aiSafety === 'medium' ? 'ai-medium' : 'ai-low';
+        const aiIcon = m.aiSafety === 'high' ? '🛡️' : m.aiSafety === 'medium' ? '⚠️' : '⚡';
+        const aiLabel = m.aiSafety === 'high' ? 'Cao' : m.aiSafety === 'medium' ? 'Trung Bình' : 'Thấp';
+
+        return `<tr>
+          <td><div class="rank-medal ${rankClass}">${i + 1}</div></td>
+          <td>
+            <div class="major-name-cell">
+              <div class="major-icon-wrap">${m.icon}</div>
+              <div>
+                <div class="major-name-text">${m.name}</div>
+                <div class="major-category-text">${m.categoryName}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="salary-cell">
+              <div class="salary-text">${m.salary}</div>
+              <div class="salary-bar-bg"><div class="salary-bar-fill" style="width:${barWidth}%"></div></div>
+            </div>
+          </td>
+          <td style="font-weight:500;color:var(--gray-600)">${m.students}</td>
+          <td><span class="status-badge badge-${m.marketStatus}">${m.marketBadge}</span></td>
+          <td><span class="ai-safety-badge ${aiClass}">${aiIcon} ${aiLabel}</span></td>
+        </tr>`;
+      }).join('');
+
+      card.innerHTML = `
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th style="width:60px">Hạng</th>
+              <th>Ngành Học</th>
+              <th>Mức Lương</th>
+              <th>Quy Mô SV</th>
+              <th>Thị Trường</th>
+              <th>An Toàn AI</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+    }
+
+    // ─── SALARY CHART ───
+    function renderChart() {
+      const sorted = [...majors].sort((a, b) => b.salaryVal - a.salaryVal);
+      const section = document.getElementById('chartSection');
+      const maxVal = Math.max(...sorted.map(m => m.salaryVal));
+
+      const yLabels = [50, 40, 30, 20, 10, 0].map(v => `<div class="y-label">${v}tr</div>`).join('');
+
+      const bars = sorted.map(m => {
+        const pct = (m.salaryVal / (maxSalary * 1000)) * 100;
+        const barClass = m.isPremium ? 'premium-bar' : m.marketStatus === 'hot' ? 'hot' : m.marketStatus === 'high' ? 'high' : '';
+        return `
+          <div class="chart-bar-wrap">
+            <div class="chart-bar ${barClass}" style="height:0%" data-height="${pct}">
+              <div class="chart-tooltip">${m.name}: ${m.salary}</div>
+            </div>
+            <div class="chart-label">${m.name}</div>
+          </div>`;
+      }).join('');
+
+      section.innerHTML = `
+        <div style="display:flex">
+          <div class="chart-y-axis">${yLabels}</div>
+          <div class="chart-container" style="flex:1">${bars}</div>
+        </div>
+        <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--gray-400)">
+          <span style="display:inline-flex;align-items:center;gap:6px;margin-right:20px">
+            <span style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#34c17a,#0F6E56);display:inline-block"></span> Ổn định
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px;margin-right:20px">
+            <span style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#fbbf24,#d97706);display:inline-block"></span> Đang tăng
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px;margin-right:20px">
+            <span style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#f87171,#dc2626);display:inline-block"></span> Hot
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 0 8px rgba(251,191,36,0.4);display:inline-block"></span> Premium
+          </span>
+        </div>`;
+
+      // Animate bars
+      setTimeout(() => {
+        document.querySelectorAll('.chart-bar').forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.height = bar.dataset.height + '%';
+          }, i * 50);
+        });
+      }, 100);
+    }
+
+    // ─── COMPARISON ───
+    function populateDropdowns() {
+      const selects = ['select1', 'select2', 'select3'];
+      selects.forEach(id => {
+        document.getElementById(id).innerHTML = '<option value="">— Chọn ngành —</option>' +
+          majors.map(m => `<option value="${m.name}">${m.icon} ${m.name}</option>`).join('');
+      });
+    }
+
+    function updateComparison() {
+      const vals = ['select1', 'select2', 'select3']
+        .map(id => document.getElementById(id).value)
+        .filter(v => v);
+      const selected = vals.map(v => majors.find(m => m.name === v)).filter(Boolean);
+      const container = document.getElementById('comparisonResult');
+
+      if (selected.length === 0) {
+        container.innerHTML = `
+          <div class="comparison-empty">
+            <i data-lucide="arrow-up-circle"></i>
+            <p>Chọn ít nhất 1 ngành ở trên để bắt đầu so sánh</p>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      const cols = selected.length;
+      const metrics = [
+        { label: 'Danh Mục', key: 'categoryName', icon: 'folder' },
+        { label: 'Quy Mô SV', key: 'students', icon: 'users' },
+        { label: 'Mức Lương', key: 'salary', icon: 'banknote' },
+        { label: 'Cơ Hội Việc Làm', key: 'opportunity', icon: 'briefcase' },
+        { label: 'Thị Trường', key: 'marketBadge', icon: 'trending-up' },
+        { label: 'An Toàn AI', key: 'aiSafetyText', icon: 'shield-check' },
+      ];
+
+      const headerCells = `<div class="comp-header-cell" style="grid-column:1">Chỉ số</div>` +
+        selected.map(m => `<div class="comp-header-cell">${m.icon} ${m.name}</div>`).join('');
+
+      const rows = metrics.map(metric => {
+        const cells = selected.map(m => {
+          let val = m[metric.key];
+          if (metric.key === 'marketBadge') {
+            val = `<span class="status-badge badge-${m.marketStatus}">${m.marketBadge}</span>`;
+          }
+          if (metric.key === 'salary') {
+            val = `<span style="color:var(--teal-600);font-weight:700">${val}</span>`;
+          }
+          return `<div class="comp-cell">${val}</div>`;
+        }).join('');
+
+        return `<div class="comp-row" style="--cols:${cols}">
+          <div class="comp-row-label"><i data-lucide="${metric.icon}"></i>${metric.label}</div>
+          ${cells}
+        </div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="comparison-grid">
+          <div class="comp-row comp-header-row" style="--cols:${cols}">${headerCells}</div>
+          ${rows}
+        </div>`;
+      lucide.createIcons();
+    }
+
+    // ─── MAJOR GRID ───
+    function renderMajorGrid(list) {
+      const grid = document.getElementById('majorGrid');
+      const countEl = document.getElementById('resultsCount');
+      countEl.innerHTML = `Hiển thị <strong>${list.length}</strong> trên tổng số <strong>${majors.length}</strong> ngành`;
+
+      grid.innerHTML = list.map(m => {
+        const aiClass = m.aiSafety === 'high' ? 'ai-high' : m.aiSafety === 'medium' ? 'ai-medium' : 'ai-low';
+        const aiIcon = m.aiSafety === 'high' ? '🛡️' : m.aiSafety === 'medium' ? '⚠️' : '⚡';
+        const aiLabel = m.aiSafety === 'high' ? 'Cao' : m.aiSafety === 'medium' ? 'Trung Bình' : 'Thấp';
+
+        return `
+          <div class="major-card ${m.isPremium ? 'premium' : ''}">
+            <div class="card-header">
+              <div class="card-icon">${m.icon}</div>
+              <div style="display:flex;gap:6px;align-items:center">
+                ${m.isPremium ? '<span class="premium-tag">⭐ Premium</span>' : ''}
+                <span class="status-badge badge-${m.marketStatus}">${m.marketBadge}</span>
+              </div>
+            </div>
+            <div class="card-title">${m.name}</div>
+            <div class="card-category">${m.categoryName}</div>
+            <div class="card-stats">
+              <div class="card-stat">
+                <div class="card-stat-label">Mức Lương</div>
+                <div class="card-stat-value salary">${m.salary}</div>
+              </div>
+              <div class="card-stat">
+                <div class="card-stat-label">Cơ Hội</div>
+                <div class="card-stat-value">${m.opportunity}</div>
+              </div>
+              <div class="card-stat">
+                <div class="card-stat-label">Quy Mô SV</div>
+                <div class="card-stat-value">${m.students}</div>
+              </div>
+              <div class="card-stat">
+                <div class="card-stat-label">An Toàn AI</div>
+                <div class="card-stat-value"><span class="${aiClass}">${aiIcon} ${aiLabel}</span></div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span style="font-size:12px;color:var(--gray-400)">${m.aiSafetyText}</span>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function filterMajors() {
+      const search = document.getElementById('searchBox').value.toLowerCase();
+      const category = document.getElementById('categoryFilter').value;
+      const sort = document.getElementById('sortFilter').value;
+
+      let filtered = majors.filter(m =>
+        (m.name.toLowerCase().includes(search) || m.categoryName.toLowerCase().includes(search)) &&
+        (category === '' || m.category === category)
+      );
+
+      switch (sort) {
+        case 'salaryDesc': filtered.sort((a, b) => b.salaryVal - a.salaryVal); break;
+        case 'salaryAsc': filtered.sort((a, b) => a.salaryVal - b.salaryVal); break;
+        case 'nameAsc': filtered.sort((a, b) => a.name.localeCompare(b.name, 'vi')); break;
+        case 'studentsDesc': filtered.sort((a, b) => b.studentsVal - a.studentsVal); break;
+      }
+
+      renderMajorGrid(filtered);
+    }
+
+    // ─── COUNTER ANIMATION ───
+    function animateCounters() {
+      document.querySelectorAll('.hero-stat-number[data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1500;
+        const start = performance.now();
+
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(target * eased);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      });
+    }
+
+    // ─── SCROLL REVEAL ───
+    function initReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // ─── NAV SCROLL EFFECT ───
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
+        nav.style.borderBottomColor = 'rgba(229,231,235,0.8)';
+      } else {
+        nav.style.boxShadow = 'none';
+        nav.style.borderBottomColor = 'rgba(229,231,235,0.5)';
+      }
+    });
+
+    // ─── KHỞI TẠO ───
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRanking();
+      populateDropdowns();
+      updateComparison();
+      renderMajorGrid([...majors].sort((a, b) => b.salaryVal - a.salaryVal));
+      animateCounters();
+      initReveal();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng Lab · Sáng tạo & Thiết kế — Hướng Nghiệp THPT</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafaf8; --surface: #fff; --ink: #111; --ink2: #555566; --ink3: #9999aa;
+    --blue: #2563eb; --blue-bg: #eff4ff; --border: #e0ddd8; --border2: #ccc;
+    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
+    --amber: #d97706; --amber-bg: #fffbeb; --purple: #9333ea; --purple-bg: #faf5ff;
+    --radius: 8px; --radius-lg: 12px;
+  }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); }
+  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
+  .topbar-logo { font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
+  .topbar-logo span { color: var(--purple); }
+  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+  .topbar-title { font-size: 13px; color: var(--ink2); }
+  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    background: var(--purple-bg); color: var(--purple); padding: 4px 10px; border-radius: 20px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+  .hero { margin-bottom: 2rem; }
+  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
+  .hero-label span { color: var(--purple); }
+  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
+  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
+  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
+    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; }
+  .mtab:last-child { border-right: none; }
+  .mtab:hover { background: #f3f4f6; }
+  .mtab.active { background: var(--purple); color: #fff; }
+  .mission-box { background: var(--purple-bg); border: 1px solid #e9d5ff; border-left: 3px solid var(--purple);
+    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #581c87; line-height: 1.7; }
+  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .canvas { width: 100%; height: 300px; border: 2px dashed var(--border2); border-radius: var(--radius); background: #fff; position: relative; margin-bottom: 1rem; cursor: crosshair; }
+  .color-palette { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .color-btn { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
+  .color-btn:hover { transform: scale(1.1); }
+  .color-btn.active { border-color: var(--ink); }
+  .tool-bar { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .tool-btn { padding: 10px 16px; border: 2px solid var(--border2); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 12px; font-weight: 500; }
+  .tool-btn:hover { background: var(--purple-bg); border-color: var(--purple); }
+  .tool-btn.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .fashion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1rem; }
+  .fashion-item { padding: 12px; border: 2px solid var(--border2); border-radius: 6px; text-align: center; cursor: grab; background: var(--surface); }
+  .fashion-item:active { cursor: grabbing; opacity: .7; }
+  .fashion-icon { font-size: 40px; margin-bottom: 6px; }
+  .fashion-name { font-size: 11px; font-weight: 600; }
+  .mannequin { width: 100%; height: 350px; background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%); border-radius: var(--radius); position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .outfit-slot { position: absolute; min-width: 60px; min-height: 60px; border: 2px dashed var(--border2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
+    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; }
+  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.25rem; margin-top: 1.25rem; display: none; }
+  .result-box.show { display: block; }
+  .result-outcome { font-size: 14px; line-height: 1.7; margin-bottom: .75rem; }
+  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
+    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">Sáng tạo & Thiết kế</div>
+  <div class="topbar-badge"><i data-lucide="palette"></i> Phòng Lab</div>
+</div>
+<div class="page">
+  <div class="hero">
+    <div class="hero-label"><span><i data-lucide="palette"></i> Phòng Lab</span> · Sáng tạo & Thiết kế</div>
+    <div class="hero-title">Thử nghiệm thiết kế đồ họa & thời trang</div>
+    <div class="hero-sub">2 thử thách sáng tạo: Thiết kế logo và phối đồ thời trang — thể hiện phong cách của bạn.</div>
+  </div>
+
+  <div class="mission-tabs">
+    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="palette"></i> Thiết kế Logo</button>
+    <button class="mtab" onclick="switchTab(1)"><i data-lucide="shirt"></i> Thiết kế Thời trang</button>
+  </div>
+
+  <div id="tab0">
+    <div class="mission-box">
+      <strong>Nhiệm vụ:</strong> Thiết kế logo cho startup công nghệ "TechFlow". Chọn màu sắc, vẽ hình và tạo bố cục hài hòa.
+    </div>
+    <div class="sim-card">
+      <div class="tool-bar">
+        <button class="tool-btn active" onclick="selectTool('pen', this)">✏️ Bút vẽ</button>
+        <button class="tool-btn" onclick="selectTool('circle', this)">⭕ Hình tròn</button>
+        <button class="tool-btn" onclick="selectTool('rect', this)">⬜ Hình vuông</button>
+        <button class="tool-btn" onclick="clearCanvas()">🗑️ Xóa</button>
+      </div>
+      <div class="color-palette">
+        <div class="color-btn active" style="background:#2563eb" onclick="selectColor('#2563eb', this)"></div>
+        <div class="color-btn" style="background:#dc2626" onclick="selectColor('#dc2626', this)"></div>
+        <div class="color-btn" style="background:#16a34a" onclick="selectColor('#16a34a', this)"></div>
+        <div class="color-btn" style="background:#f59e0b" onclick="selectColor('#f59e0b', this)"></div>
+        <div class="color-btn" style="background:#9333ea" onclick="selectColor('#9333ea', this)"></div>
+        <div class="color-btn" style="background:#111" onclick="selectColor('#111', this)"></div>
+      </div>
+      <canvas class="canvas" id="logoCanvas" width="700" height="300"></canvas>
+    </div>
+    <button class="btn-primary" onclick="showLogoResult()">Xem đánh giá →</button>
+    <div class="result-box" id="resultLogo">
+      <div class="result-outcome" id="outcomeLogo"></div>
+      <div class="result-aha">
+        Thiết kế đồ họa kết hợp nghệ thuật và truyền thông. Designer sử dụng màu sắc, typography và bố cục để tạo thông điệp thị giác mạnh mẽ.
+      </div>
+    </div>
+  </div>
+
+  <div id="tab1" style="display:none">
+    <div class="mission-box">
+      <strong>Nhiệm vụ:</strong> Phối đồ cho buổi dạ tiệc mùa hè. Kéo thả áo, quần, giày và phụ kiện lên người mẫu — tạo phong cách độc đáo.
+    </div>
+    <div class="sim-card">
+      <div class="fashion-grid">
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'top', '👔')">
+          <div class="fashion-icon">👔</div>
+          <div class="fashion-name">Áo sơ mi</div>
+        </div>
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'top', '<i data-lucide="shirt"></i>')">
+          <div class="fashion-icon"><i data-lucide="shirt"></i></div>
+          <div class="fashion-name">Váy dạ hội</div>
+        </div>
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'top', '🧥')">
+          <div class="fashion-icon">🧥</div>
+          <div class="fashion-name">Áo khoác</div>
+        </div>
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'bottom', '👖')">
+          <div class="fashion-icon">👖</div>
+          <div class="fashion-name">Quần jean</div>
+        </div>
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'bottom', '👠')">
+          <div class="fashion-icon">👠</div>
+          <div class="fashion-name">Giày cao gót</div>
+        </div>
+        <div class="fashion-item" draggable="true" ondragstart="dragFashion(event, 'acc', '👜')">
+          <div class="fashion-icon">👜</div>
+          <div class="fashion-name">Túi xách</div>
+        </div>
+      </div>
+      <div class="mannequin">
+        <div class="outfit-slot" style="top:80px;" ondragover="allowDrop(event)" ondrop="dropFashion(event, 'top')" id="topSlot">Áo</div>
+        <div class="outfit-slot" style="top:180px;" ondragover="allowDrop(event)" ondrop="dropFashion(event, 'bottom')" id="bottomSlot">Quần/Váy</div>
+        <div class="outfit-slot" style="top:280px;left:20px;" ondragover="allowDrop(event)" ondrop="dropFashion(event, 'acc')" id="accSlot">Phụ kiện</div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="showFashionResult()">Xem đánh giá →</button>
+    <div class="result-box" id="resultFashion">
+      <div class="result-outcome" id="outcomeFashion"></div>
+      <div class="result-aha">
+        Thiết kế thời trang là nghệ thuật kết hợp màu sắc, chất liệu và xu hướng để tạo phong cách độc đáo. Designer cần hiểu thẩm mỹ, cắt may và tâm lý khách hàng.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentColor = '#2563eb', currentTool = 'pen', drawing = false;
+const canvas = document.getElementById('logoCanvas');
+const ctx = canvas ? canvas.getContext('2d') : null;
+let strokes = 0;
+
+function switchTab(n) {
+  ['tab0','tab1'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+}
+
+function selectColor(color, el) {
+  currentColor = color;
+  document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function selectTool(tool, el) {
+  currentTool = tool;
+  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function clearCanvas() {
+  if (ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    strokes = 0;
+  }
+}
+
+if (canvas) {
+  canvas.addEventListener('mousedown', (e) => {
+    drawing = true;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    if (currentTool === 'circle') {
+      ctx.beginPath();
+      ctx.arc(x, y, 30, 0, Math.PI * 2);
+      ctx.fillStyle = currentColor;
+      ctx.fill();
+      strokes++;
+    } else if (currentTool === 'rect') {
+      ctx.fillStyle = currentColor;
+      ctx.fillRect(x - 25, y - 25, 50, 50);
+      strokes++;
+    }
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (!drawing || currentTool !== 'pen') return;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    ctx.fillStyle = currentColor;
+    ctx.fillRect(x, y, 3, 3);
+    strokes++;
+  });
+
+  canvas.addEventListener('mouseup', () => drawing = false);
+  canvas.addEventListener('mouseleave', () => drawing = false);
+}
+
+function showLogoResult() {
+  const creative = strokes > 50;
+  document.getElementById('outcomeLogo').textContent = creative
+    ? '✓ Logo sáng tạo! Bạn có khả năng kết hợp màu sắc và hình khối tốt.'
+    : '⚠️ Thử thêm chi tiết và màu sắc để logo nổi bật hơn.';
+  document.getElementById('resultLogo').className = 'result-box show';
+}
+
+let outfit = {top: null, bottom: null, acc: null};
+
+function dragFashion(e, type, icon) {
+  e.dataTransfer.setData('type', type);
+  e.dataTransfer.setData('icon', icon);
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+}
+
+function dropFashion(e, slot) {
+  e.preventDefault();
+  const icon = e.dataTransfer.getData('icon');
+  outfit[slot] = icon;
+  document.getElementById(slot + 'Slot').textContent = icon;
+  document.getElementById(slot + 'Slot').style.fontSize = '48px';
+}
+
+function showFashionResult() {
+  const complete = outfit.top && outfit.bottom;
+  document.getElementById('outcomeFashion').textContent = complete
+    ? '✓ Outfit hoàn chỉnh! Bạn có gu thẩm mỹ tốt trong phối đồ.'
+    : '⚠️ Cần ít nhất áo và quần/váy để hoàn thiện trang phục.';
+  document.getElementById('resultFashion').className = 'result-box show';
+}
+</script>
+
+<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <div style="font-size:13px;font-weight:600;color:var(--purple);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+    <h2 style="font-size:24px;font-weight:700;margin-bottom:1rem;">Quan tâm đến Thiết kế & Sáng tạo?</h2>
+    <a href="../index.html" style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá thêm ngành</a>
+  </div>
+</div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

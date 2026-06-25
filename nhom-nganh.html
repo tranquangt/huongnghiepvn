@@ -1,0 +1,646 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhóm ngành - HướngNghiệpVN.online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+    <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+    <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
+    <button class="nav-link active" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
+  </div>
+</nav>
+
+<!-- ======================== CAREER (NHÓM NGÀNH) ======================== -->
+<div id="page-career" class="page active">
+  <!-- Hero Section -->
+  <section class="hero-section" style="background: linear-gradient(135deg, #062316 0%, #0a3e27 40%, #105e3a 70%, #168550 100%); padding: 60px 40px; text-align: center; color: white; position: relative; overflow: hidden; margin-bottom: 0;">
+    <div style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: var(--green-100); padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 20px;">
+        <span style="width: 8px; height: 8px; background: var(--green-400); border-radius: 50%; display: inline-block;"></span>
+        Cập nhật Q2/2026
+      </div>
+      <h1 style="font-size: 38px; font-weight: 800; line-height: 1.25; letter-spacing: -1px; margin-bottom: 12px; color: white;">Các Nhóm Ngành Đào Tạo Tại Việt Nam</h1>
+      <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto;">Tìm hiểu chi tiết các ngành học, điểm chuẩn trung bình, cơ hội việc làm và trao đổi cùng Trợ lý Hướng nghiệp AI</p>
+    </div>
+  </section>
+
+  <!-- Search & Filter Area -->
+  <div class="section" style="padding-top: 32px;">
+    <!-- Search Bar -->
+    <div style="max-width: 580px; margin: -58px auto 32px; position: relative; z-index: 10;">
+      <div class="search-wrap" style="display: flex; gap: 8px; max-width: 100%; position: relative;">
+        <i data-lucide="search" class="search-icon" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 18px; pointer-events: none;"></i>
+        <input type="text" id="career-search" placeholder="Nhập tên ngành học, từ khóa cần tìm..." oninput="handleSearch(this.value)" style="width: 100%; height: 52px; padding: 0 16px 0 48px; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); font-size: 15px; outline: none; box-shadow: var(--shadow); transition: all 0.2s; background: white; font-family: var(--font);">
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="career-filters" id="career-filters">
+      <button class="filter-btn active" onclick="filterCareer('all',this)"><i data-lucide="grid"></i> Tất cả</button>
+      <button class="filter-btn" onclick="filterCareer('tech',this)"><i data-lucide="monitor"></i> Công nghệ</button>
+      <button class="filter-btn" onclick="filterCareer('business',this)"><i data-lucide="bar-chart-3"></i> Kinh tế</button>
+      <button class="filter-btn" onclick="filterCareer('health',this)"><i data-lucide="hospital"></i> Y tế</button>
+      <button class="filter-btn" onclick="filterCareer('creative',this)"><i data-lucide="palette"></i> Sáng tạo</button>
+      <button class="filter-btn" onclick="filterCareer('edu',this)"><i data-lucide="book-open"></i> Giáo dục</button>
+      <button class="filter-btn" onclick="filterCareer('law',this)"><i data-lucide="scale"></i> Pháp luật</button>
+      <button class="filter-btn" onclick="filterCareer('me',this)"><i data-lucide="settings"></i> Kỹ thuật</button>
+      <button class="filter-btn" onclick="filterCareer('textiles',this)"><i data-lucide="scissors"></i> Dệt may</button>
+      <button class="filter-btn" onclick="filterCareer('agri',this)"><i data-lucide="sprout"></i> Nông nghiệp</button>
+    </div>
+    <div class="career-grid" id="career-grid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>hướng<span>nghiệpvn</span>.online</h3>
+      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tính năng</h4>
+      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
+    </div>
+    <div class="footer-col">
+      <h4>Thông tin</h4>
+      <a>Về chúng tôi</a>
+      <a>Nguồn dữ liệu</a>
+      <a>Liên hệ</a>
+      <a>Góp ý</a>
+    </div>
+    <div class="footer-col">
+      <h4>Liên kết</h4>
+      <a>Bộ GD&ĐT</a>
+      <a>VietnamWorks</a>
+      <a>MOET</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+  </div>
+</footer>
+
+<!-- AI Career Assistant Drawer -->
+<div id="ai-drawer" class="ai-drawer">
+  <div class="ai-drawer-overlay" onclick="closeAiDrawer()"></div>
+  <div class="ai-drawer-content">
+    <!-- Header -->
+    <div class="ai-drawer-header">
+      <div class="ai-drawer-title-wrap">
+        <span class="ai-drawer-icon" id="ai-major-icon"><i data-lucide="monitor"></i></span>
+        <div>
+          <h2 class="ai-drawer-title" id="ai-major-name">Ngành học</h2>
+          <span class="ai-drawer-subtitle" id="ai-major-cat">Đang tải...</span>
+        </div>
+      </div>
+      <div class="ai-drawer-actions">
+        <button class="ai-drawer-close" onclick="closeAiDrawer()">&times;</button>
+      </div>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="ai-drawer-body">
+      <!-- AI Introduction Section -->
+      <div class="ai-intro-section" id="ai-intro-section">
+        <div class="ai-intro-title"><i data-lucide="lightbulb"></i> Giới thiệu nhanh từ AI</div>
+        <div class="ai-intro-text" id="ai-intro-text">
+          Đang chuẩn bị thông tin tóm tắt...
+        </div>
+      </div>
+      
+      <!-- Chat Interface -->
+      <div class="ai-chat-section">
+        <div class="chat-header">Trò chuyện cùng AI Hướng nghiệp</div>
+        <div class="chat-messages" id="chat-messages">
+          <!-- Conversation turns will go here -->
+        </div>
+
+        <!-- Suggestion Chips -->
+        <div class="chat-suggestions" id="chat-suggestions">
+          <!-- Suggestion chips will load dynamically -->
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="chat-input-wrap">
+          <textarea id="chat-input" placeholder="Hỏi AI thêm về ngành này..." onkeydown="handleChatKeyDown(event)"></textarea>
+          <button class="chat-send-btn" onclick="sendChatMessage()">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Action -->
+    <div class="ai-drawer-footer">
+      <a href="#" id="ai-view-detail-btn" class="view-detail-btn">Xem chi tiết ngành học & Trường đào tạo →</a>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+let chatHistory = [];
+let currentMajor = null;
+let currentCategory = 'all';
+let searchQuery = '';
+
+// Icon Emoji to Lucide Mapping
+function getLucideIcon(emojiOrText) {
+  const mapping = {
+    '💻': 'monitor',
+    '🖥️': 'monitor',
+    '🤖': 'bot',
+    '🔐': 'lock',
+    '🌐': 'globe',
+    '📡': 'radio',
+    '📊': 'bar-chart-3',
+    '🧩': 'puzzle',
+    '🌍': 'globe-2',
+    '🩺': 'stethoscope',
+    '⚡': 'zap',
+    '⚙️': 'settings',
+    '🏗️': 'building-2',
+    '🚧': 'construction',
+    '🧪': 'flask-conical',
+    '🌱': 'sprout',
+    '🧱': 'box',
+    '✈️': 'plane',
+    '🔋': 'battery',
+    '🎛️': 'sliders-horizontal',
+    '📋': 'clipboard-list',
+    '💊': 'pill',
+    '🦷': 'smile',
+    '🛡️': 'shield',
+    '👩‍⚕️': 'users',
+    '🧫': 'test-tube-2',
+    '🌿': 'leaf',
+    '🩻': 'x-ray',
+    '🥗': 'salad',
+    '🌏': 'globe-2',
+    '🎨': 'palette',
+    '👗': 'shirt',
+    '🛋️': 'armchair',
+    '🏛️': 'landmark',
+    '🎬': 'clapperboard',
+    '🖌️': 'paintbrush',
+    '🎮': 'gamepad-2',
+    '🎥': 'video',
+    '📦': 'package',
+    '💡': 'lightbulb',
+    '🎵': 'music',
+    '🏢': 'building',
+    '📢': 'megaphone',
+    '💰': 'banknote',
+    '🧾': 'receipt',
+    '🔍': 'search',
+    '🛒': 'shopping-cart',
+    '👥': 'users',
+    '🚚': 'truck',
+    '➗': 'divide',
+    '📖': 'book-open',
+    '🇬🇧': 'languages',
+    '🔬': 'microscope',
+    '🧬': 'dna',
+    '🏫': 'school',
+    '🧸': 'baby',
+    
+    // categories
+    'tech': 'monitor',
+    'business': 'bar-chart-3',
+    'health': 'hospital',
+    'creative': 'palette',
+    'edu': 'book-open',
+    'law': 'scale',
+    'me': 'settings',
+    'textiles': 'scissors',
+    'agri': 'sprout'
+  };
+  const iconName = mapping[emojiOrText] || 'book-open';
+  return `<i data-lucide="${iconName}"></i>`;
+}
+
+// Filter and Search logic combined
+function filterCareer(cat, btn) {
+  currentCategory = cat;
+  if (btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  applyFiltersAndRender();
+}
+
+function handleSearch(val) {
+  searchQuery = val.toLowerCase().trim();
+  applyFiltersAndRender();
+}
+
+function renderMajors(cat) {
+  filterCareer(cat, null);
+}
+
+function applyFiltersAndRender() {
+  const list = currentCategory === 'all' ? majors : majors.filter(m => {
+    if (Array.isArray(m.cat)) {
+      return m.cat.includes(currentCategory);
+    }
+    return m.cat === currentCategory;
+  });
+
+  const filteredList = list.filter(m => {
+    return !searchQuery || 
+           m.name.toLowerCase().includes(searchQuery) || 
+           m.shortName.toLowerCase().includes(searchQuery) || 
+           m.description.toLowerCase().includes(searchQuery) ||
+           (m.careers && m.careers.some(c => c.toLowerCase().includes(searchQuery))) ||
+           (m.subjects && m.subjects.some(s => s.toLowerCase().includes(searchQuery)));
+  });
+
+  const trendLabel = {up:'↑ Tăng mạnh', stable:'→ Ổn định', down:'↓ Cần chú ý'};
+  const trendClass = {up:'trend-up', stable:'trend-stable', down:'trend-down'};
+  const iconBg = {
+    tech: 'var(--green-100)',
+    business: 'var(--blue-100)',
+    health: '#fce7f3',
+    creative: 'var(--purple-100)',
+    edu: 'var(--amber-100)',
+    me: 'var(--orange-100)',
+    law: 'var(--indigo-100)',
+    agri: 'var(--lime-100)',
+    textiles: 'var(--pink-100)'
+  };
+  
+  if (filteredList.length === 0) {
+    document.getElementById('career-grid').innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 48px; color: var(--gray-400);">
+        <i data-lucide="search-x" style="width: 48px; height: 48px; margin-bottom: 12px; stroke-width: 1.5;"></i>
+        <p style="font-size: 16px; font-weight: 500;">Không tìm thấy ngành học phù hợp</p>
+      </div>
+    `;
+    lucide.createIcons();
+    return;
+  }
+
+  document.getElementById('career-grid').innerHTML = filteredList.map(m => {
+    const majorSlug = m.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace(/:/g, '');
+    const categoryKey = Array.isArray(m.cat) ? m.cat[0] : m.cat;
+    return `
+    <div class="career-card" onclick="openAiDrawer('${majorSlug}')" style="cursor:pointer;">
+      <div class="career-header">
+        <div class="career-icon-wrap" style="background:${iconBg[categoryKey]||'var(--gray-100)'}">${getLucideIcon(m.icon)}</div>
+        <span class="trend-badge ${trendClass[m.trend]}">${trendLabel[m.trend]}</span>
+      </div>
+      <div class="career-name">${m.name}</div>
+      <div class="career-industry">${m.shortName}</div>
+      <div class="career-salary"><span class="salary-label">Điểm chuẩn TB</span><span class="salary-value">${m.avgScore}</span></div>
+      <div class="career-skills">${m.careers.slice(0,4).map(c=>`<span class="skill-tag">${c}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+
+  // Re-generate Lucide Icons in the newly rendered HTML
+  lucide.createIcons();
+}
+
+// Drawer visibility control
+function openAiDrawer(majorSlug) {
+  currentMajor = majors.find(m => {
+    const slug = m.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace(/:/g, '');
+    return slug === majorSlug;
+  });
+  
+  if (!currentMajor) return;
+  
+  const catMap = {
+    tech: 'Công nghệ',
+    business: 'Kinh doanh',
+    health: 'Y tế',
+    creative: 'Sáng tạo',
+    edu: 'Giáo dục',
+    law: 'Pháp luật',
+    me: 'Kỹ thuật',
+    agri: 'Nông nghiệp',
+    textiles: 'Dệt may'
+  };
+  
+  const iconBg = {
+    tech: 'var(--green-100)',
+    business: 'var(--blue-100)',
+    health: '#fce7f3',
+    creative: 'var(--purple-100)',
+    edu: 'var(--amber-100)',
+    me: 'var(--orange-100)',
+    law: 'var(--indigo-100)',
+    agri: 'var(--lime-100)',
+    textiles: 'var(--pink-100)'
+  };
+
+  const categoryKey = Array.isArray(currentMajor.cat) ? currentMajor.cat[0] : currentMajor.cat;
+
+  // Header update
+  document.getElementById('ai-major-icon').innerHTML = getLucideIcon(currentMajor.icon);
+  document.getElementById('ai-major-icon').style.background = iconBg[categoryKey] || 'var(--gray-100)';
+  document.getElementById('ai-major-name').textContent = currentMajor.name;
+  document.getElementById('ai-major-cat').innerHTML = getLucideIcon(categoryKey) + ' ' + (catMap[categoryKey] || 'Nhóm ngành khác');
+  
+  // Footer view detail link update
+  document.getElementById('ai-view-detail-btn').href = `career-detail.html?major=${majorSlug}`;
+  
+  // AI short introduction summary
+  const introHTML = `
+    <div class="ai-intro-title"><i data-lucide="lightbulb"></i> Tóm tắt ngành từ AI Hướng nghiệp</div>
+    <div class="ai-intro-text">
+      <strong>${currentMajor.name}</strong> là ngành thuộc khối <strong>${catMap[categoryKey] || 'Khác'}</strong>.
+      <p style="margin-top:6px;">${currentMajor.description}</p>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="score-badge score-high" style="font-weight:500;"><i data-lucide="school"></i> Điểm chuẩn TB: ${currentMajor.avgScore}</span>
+        <span class="score-badge score-mid" style="font-weight:500;"><i data-lucide="graduation-cap"></i> Vị trí: ${currentMajor.careers.slice(0, 2).join(', ')}</span>
+      </div>
+    </div>
+  `;
+  document.getElementById('ai-intro-section').innerHTML = introHTML;
+  lucide.createIcons();
+  
+  // Show drawer
+  document.getElementById('ai-drawer').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  
+  // Clear chat logs
+  const messagesWrap = document.getElementById('chat-messages');
+  messagesWrap.innerHTML = '';
+  chatHistory = [];
+  
+  // Welcome message with typing simulation
+  appendTypingIndicator();
+  setTimeout(() => {
+    removeTypingIndicator();
+    const greetingText = `Chào bạn! Mình là Trợ lý Hướng nghiệp AI. Rất vui được chia sẻ thông tin về ngành **${currentMajor.name}**.\nBạn muốn biết thêm về mức lương thực tế, danh sách trường đào tạo hàng đầu, hay lộ trình nghề nghiệp chi tiết của ngành này?`;
+    appendChatMessage('model', greetingText);
+    
+    // Suggestion chips
+    renderSuggestions([
+      "<i data-lucide='banknote'></i> Lương trung bình thế nào?",
+      "<i data-lucide='school'></i> Nên học trường nào?",
+      "<i data-lucide='book-open'></i> Học những môn học gì?",
+      "<i data-lucide='languages'></i> Có cần học tiếng Anh không?"
+    ]);
+    lucide.createIcons();
+  }, 800);
+}
+
+function closeAiDrawer() {
+  document.getElementById('ai-drawer').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Config Panel toggle
+function toggleConfigArea() {
+  const area = document.getElementById('ai-config-area');
+  const isHidden = area.style.display === 'none';
+  area.style.display = isHidden ? 'block' : 'none';
+}
+
+// Save Gemini API Key
+function saveApiKey() {
+  const key = document.getElementById('gemini-api-key').value.trim();
+  if (key) {
+    localStorage.setItem('gemini_api_key', key);
+    appendSystemAlert("✅ Đã lưu Gemini API Key thành công! Kích hoạt chế độ tư vấn AI trực tuyến thông minh.");
+  } else {
+    localStorage.removeItem('gemini_api_key');
+    appendSystemAlert("ℹ️ Đã xoá API Key. Hệ thống chuyển về chế độ tư vấn ngoại tuyến.");
+  }
+  toggleConfigArea();
+}
+
+// Chat rendering functions
+function appendChatMessage(role, text) {
+  const messagesWrap = document.getElementById('chat-messages');
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${role}`;
+  bubble.innerHTML = formatMarkdown(text);
+  messagesWrap.appendChild(bubble);
+  messagesWrap.scrollTop = messagesWrap.scrollHeight;
+  
+  chatHistory.push({ role: role, text: text });
+}
+
+function appendSystemAlert(text) {
+  const messagesWrap = document.getElementById('chat-messages');
+  const alert = document.createElement('div');
+  alert.className = 'chat-bubble system-alert';
+  alert.textContent = text;
+  messagesWrap.appendChild(alert);
+  messagesWrap.scrollTop = messagesWrap.scrollHeight;
+}
+
+function appendTypingIndicator() {
+  const messagesWrap = document.getElementById('chat-messages');
+  const indicator = document.createElement('div');
+  indicator.className = 'chat-bubble assistant typing-indicator-wrap';
+  indicator.id = 'typing-indicator';
+  indicator.innerHTML = `
+    <div class="typing-indicator">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+  `;
+  messagesWrap.appendChild(indicator);
+  messagesWrap.scrollTop = messagesWrap.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const indicator = document.getElementById('typing-indicator');
+  if (indicator) {
+    indicator.remove();
+  }
+}
+
+function renderSuggestions(options) {
+  currentSuggestions = options;
+  const wrap = document.getElementById('chat-suggestions');
+  wrap.innerHTML = options.map((opt, idx) => `
+    <button class="suggestion-chip" onclick="handleSuggestionClick(${idx})">${opt}</button>
+  `).join('');
+}
+
+function handleSuggestionClick(idx) {
+  const text = currentSuggestions[idx];
+  document.getElementById('chat-suggestions').innerHTML = '';
+  
+  // Clean HTML tags to get pure text query
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = text;
+  let cleanQuery = tempDiv.textContent || tempDiv.innerText || text;
+  cleanQuery = cleanQuery.trim();
+  cleanQuery = cleanQuery.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u, '');
+  
+  document.getElementById('chat-input').value = cleanQuery;
+  sendChatMessage();
+}
+
+function handleChatKeyDown(event) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendChatMessage();
+  }
+}
+
+async function sendChatMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  
+  input.value = '';
+  appendChatMessage('user', text);
+  appendTypingIndicator();
+  
+  setTimeout(() => {
+    removeTypingIndicator();
+    const reply = getLocalCounselorResponse(text, currentMajor);
+    appendChatMessage('model', reply);
+    
+    // Show next round of suggestion chips using Lucide HTML icons
+    renderSuggestions([
+      "<i data-lucide='banknote'></i> Mức lương có cao không?",
+      "<i data-lucide='school'></i> Tìm trường đào tạo",
+      "<i data-lucide='book-open'></i> Cần học những môn nào?",
+      "<i data-lucide='help-circle'></i> Thách thức lớn nhất là gì?"
+    ]);
+    lucide.createIcons();
+  }, 900);
+}
+
+// Local counselor response engine
+function getLocalCounselorResponse(query, major) {
+  const q = query.toLowerCase();
+  
+  const catMap = {
+    tech: 'Công nghệ',
+    business: 'Kinh doanh',
+    health: 'Y tế',
+    me: 'Kỹ thuật',
+    creative: 'Sáng tạo',
+    edu: 'Giáo dục',
+    law: 'Pháp luật',
+    agri: 'Nông nghiệp',
+    textiles: 'Dệt may'
+  };
+  
+  if (q.includes('lương') || q.includes('thu nhập') || q.includes('tiền') || q.includes('triệu')) {
+    return `Ngành **${major.name}** có mức điểm chuẩn trung bình khoảng **${major.avgScore}**. Về thu nhập, mức lương khởi điểm cho nhân sự mới ra trường (Junior) thường dao động từ **10 - 15 triệu VNĐ/tháng**. Đối với các chuyên gia có kinh nghiệm lâu năm hoặc quản lý (Senior), mức lương có thể đạt tới **25 - 55 triệu VNĐ/tháng** hoặc cao hơn nhiều tùy năng lực và doanh nghiệp.`;
+  }
+  
+  if (q.includes('trường') || q.includes('đào tạo') || q.includes('học ở đâu') || q.includes('đại học')) {
+    const schoolNames = major.schools.map(s => {
+      const found = schools.find(sch => sch.short === s);
+      return found ? `${found.name} (${found.short})` : s;
+    }).join(', ');
+    return `Các trường đào tạo tiêu biểu cho ngành **${major.name}** tại Việt Nam gồm: **${schoolNames}**. Bạn có thể tra cứu điểm chuẩn chi tiết của từng trường trong mục 'Trường đại học' nhé.`;
+  }
+  
+  if (q.includes('học gì') || q.includes('môn') || q.includes('chương trình') || q.includes('kiến thức')) {
+    const subjectsList = major.subjects.map(s => `- ${s}`).join('\n');
+    return `Khi học ngành **${major.name}**, bạn sẽ được đào tạo các môn học chính và khối kiến thức cốt lõi sau:\n${subjectsList}\nCác môn học này sẽ rèn luyện kỹ năng thực hành và chuyên môn cần thiết để bạn làm việc tốt sau khi ra trường.`;
+  }
+  
+  if (q.includes('công việc') || q.includes('làm gì') || q.includes('ra trường') || q.includes('nghề') || q.includes('vị trí')) {
+    const careersList = major.careers.map(c => `- ${c}`).join('\n');
+    return `Sau khi tốt nghiệp ngành **${major.name}**, cơ hội nghề nghiệp rất đa dạng. Bạn có thể làm việc tại các vị trí như:\n${careersList}\nĐây đều là những công việc có nhu cầu tuyển dụng ổn định và nhiều cơ hội thăng tiến.`;
+  }
+  
+  if (q.includes('tiếng anh') || q.includes('ngoại ngữ') || q.includes('anh văn')) {
+    return `Với ngành **${major.name}**, tiếng Anh đóng vai trò cực kỳ quan trọng! Ngoại ngữ tốt giúp bạn tiếp cận nhanh tài liệu chuyên ngành quốc tế, làm việc với các đối tác nước ngoài và nâng mức lương khởi điểm cao hơn từ 30% - 50% so với mặt bằng chung.`;
+  }
+  
+  if (q.includes('khó') || q.includes('thách thức') || q.includes('áp lực') || q.includes('vất vả')) {
+    return `Học ngành **${major.name}** đòi hỏi sự kiên nhẫn, chăm chỉ học hỏi và tư duy thực hành tốt. Thách thức lớn nhất là bạn phải liên tục tự học và cập nhật xu hướng mới. Tuy nhiên, nếu bạn đam mê lĩnh vực này, đó sẽ là một trải nghiệm vô cùng thú vị và đem lại thành quả xứng đáng!`;
+  }
+  
+  // Default fallback
+  return `Chào bạn! Mình có thể cung cấp thông tin hướng nghiệp chi tiết cho ngành **${major.name}** về:\n\n- 💸 **Mức lương & Cơ hội thu nhập**\n- <i data-lucide="school"></i> **Danh sách trường đào tạo hàng đầu**\n- <i data-lucide="book-open"></i> **Các môn học chính trong trường**\n- <i data-lucide="briefcase"></i> **Các vị trí công việc cụ thể sau ra trường**\n\nBạn hãy gõ câu hỏi hoặc chọn một trong các gợi ý bên dưới để cùng bắt đầu nhé!`;
+}
+
+// Basic markdown-to-HTML formatter
+function formatMarkdown(text) {
+  if (!text) return '';
+  let html = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+  
+  // Bold format: **text**
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // Bullet format: lines starting with '-' or '•'
+  const lines = html.split('\n');
+  let inList = false;
+  const formattedLines = lines.map(line => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ')) {
+      const content = trimmed.substring(2);
+      let res = `<li>${content}</li>`;
+      if (!inList) {
+        inList = true;
+        res = `<ul>${res}`;
+      }
+      return res;
+    } else {
+      let res = line;
+      if (inList) {
+        inList = false;
+        res = `</ul>${res}`;
+      }
+      return res;
+    }
+  });
+  
+  if (inList) {
+    formattedLines.push('</ul>');
+  }
+  
+  html = formattedLines.join('\n');
+  html = html.replace(/\n/g, '<br>');
+  html = html.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>').replace(/<\/li><br>/g, '</li>');
+  
+  return html;
+}
+
+// Initial draw of majors on load (override script.js default render if it has already run)
+document.addEventListener('DOMContentLoaded', () => {
+  renderMajors('all');
+});
+// Execute immediately just in case DOMContentLoaded has already fired
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  renderMajors('all');
+}
+</script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

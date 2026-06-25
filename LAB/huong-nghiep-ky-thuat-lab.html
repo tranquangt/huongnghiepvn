@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng Lab · Kỹ thuật Điện — Hướng Nghiệp THPT</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafaf8; --surface: #fff; --ink: #111; --ink2: #555566; --ink3: #9999aa;
+    --blue: #2563eb; --blue-bg: #eff4ff; --border: #e0ddd8; --border2: #ccc;
+    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
+    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
+  }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); }
+  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
+  .topbar-logo { font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
+  .topbar-logo span { color: var(--blue); }
+  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+  .topbar-title { font-size: 13px; color: var(--ink2); }
+  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
+    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+  .hero { margin-bottom: 2rem; }
+  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
+  .hero-label span { color: var(--blue); }
+  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
+  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
+  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
+    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
+  .mtab:last-child { border-right: none; }
+  .mtab:hover { background: #f3f4f6; }
+  .mtab.active { background: var(--ink); color: #fff; }
+  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
+    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
+  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
+  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 1rem; line-height: 1.5; }
+  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
+  .slider-row { margin-bottom: 1rem; }
+  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
+  .slider-wrap { display: flex; align-items: center; gap: 10px; }
+  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
+  .slider-val { font-size: 13px; font-weight: 600; min-width: 56px; text-align: right; }
+  .ammeter { text-align: center; padding: 1.5rem; background: #1a1a2e; border-radius: var(--radius-lg); margin: 1rem 0; color: #0f0; font-family: 'Courier New', monospace; }
+  .ammeter-label { font-size: 11px; color: #888; margin-bottom: 4px; letter-spacing: .1em; }
+  .ammeter-value { font-size: 42px; font-weight: 700; line-height: 1; }
+  .ammeter-unit { font-size: 18px; color: #0f0; opacity: .8; }
+  .chip-pool { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .dev-chip, .cb-chip { padding: 10px 14px; background: var(--surface); border: 2px solid var(--border2); border-radius: var(--radius);
+    font-size: 13px; font-weight: 500; cursor: grab; user-select: none; transition: transform .15s, border-color .15s; }
+  .dev-chip:active, .cb-chip:active { cursor: grabbing; transform: scale(1.05); }
+  .dev-chip.dragging, .cb-chip.dragging { opacity: .5; }
+  .timeline-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 1rem; }
+  .time-slot { min-height: 72px; border: 2px dashed var(--border2); border-radius: var(--radius); padding: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 2px;
+    font-size: 10px; color: var(--ink3); transition: border-color .2s, background .2s; }
+  .time-slot.over { border-color: var(--blue); background: var(--blue-bg); }
+  .time-slot .hour-label { font-weight: 600; font-size: 10px; margin-bottom: 2px; }
+  .time-slot .placed-chip { font-size: 9px; background: var(--blue-bg); color: var(--blue); padding: 2px 4px;
+    border-radius: 3px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bill-counters { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .bill-block { flex: 1; min-width: 130px; padding: 1rem; background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); text-align: center; }
+  .bill-num { font-size: 24px; font-weight: 700; }
+  .bill-caption { font-size: 11px; color: var(--ink2); margin-top: 4px; }
+  .drop-zone { min-height: 100px; border: 2px dashed var(--border2); border-radius: var(--radius-lg); padding: 1.25rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    transition: border-color .2s, background .2s; }
+  .drop-zone.over { border-color: var(--blue); background: var(--blue-bg); }
+  .drop-zone.filled { border-style: solid; border-color: var(--green); background: var(--green-bg); }
+  .drop-zone.bad { border-color: var(--red); background: var(--red-bg); }
+  .machine-info { font-size: 13px; color: var(--ink2); margin-bottom: 1rem; line-height: 1.6; }
+  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
+    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
+  .btn-primary:hover { opacity: .85; }
+  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.25rem; margin-top: 1.25rem; display: none; }
+  .result-box.show { display: block; }
+  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
+  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
+    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
+  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
+    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+  <div class="topbar-sep"></div>
+  <div class="topbar-title">Kỹ thuật Điện</div>
+  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
+</div>
+<div class="page">
+  <div class="hero">
+    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ thuật Điện</div>
+    <div class="hero-title">Hôm nay bạn là kỹ sư điện tại công trình công nghiệp</div>
+    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
+  </div>
+  <div class="mission-tabs">
+    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="zap"></i> Mạch điện</button>
+    <button class="mtab" onclick="switchTab(1)"><i data-lucide="lightbulb"></i> Tiền điện</button>
+    <button class="mtab" onclick="switchTab(2)">🔌 Cầu dao</button>
+  </div>
+
+  <div id="tab0">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Máy nén khí mới lắp — bạn phải kiểm tra dòng điện trước khi bật. Chỉnh điện áp nguồn và điện trở tải, đọc ampe kế. Nếu dòng vượt 10A, máy báo nguy hiểm.
+    </div>
+    <div class="sim-card">
+      <div class="slider-row">
+        <div class="slider-label">Điện áp nguồn (V)</div>
+        <div class="slider-wrap">
+          <input type="range" id="voltSlider" min="100" max="250" step="5" value="220" oninput="updateCircuit()">
+          <span class="slider-val" id="voltVal">220 V</span>
+        </div>
+      </div>
+      <div class="slider-row">
+        <div class="slider-label">Điện trở tải (Ω)</div>
+        <div class="slider-wrap">
+          <input type="range" id="resSlider" min="20" max="60" step="1" value="44" oninput="updateCircuit()">
+          <span class="slider-val" id="resVal">44 Ω</span>
+        </div>
+      </div>
+      <div class="ammeter">
+        <div class="ammeter-label">CƯỜNG ĐỘ DÒNG ĐIỆN</div>
+        <div><span class="ammeter-value" id="ampValue">5.0</span> <span class="ammeter-unit">A</span></div>
+      </div>
+      <div class="live-status ok" id="circuitStatus">Dòng điện trong giới hạn an toàn.</div>
+    </div>
+    <button class="btn-primary" onclick="revealCurrent()">Xem kết quả →</button>
+    <div class="result-box" id="resultCurrent">
+      <div class="result-outcome" id="outcomeCurrent"></div>
+      <div class="result-aha" id="ahaCurrent"></div>
+    </div>
+  </div>
+
+  <div id="tab1" style="display:none">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Khách hàng hỏi tiền điện trong ngày — ngân sách 500.000đ. Kéo thiết bị vào khung giờ (8 tiếng) để lên lịch bật/tắt, theo dõi tổng kWh và chi phí.
+    </div>
+    <div class="sim-card">
+      <div class="action-label">Thiết bị — kéo thả vào khung giờ</div>
+      <div class="chip-pool" id="devPool">
+        <div class="dev-chip" draggable="true" data-dev="light" data-w="0.06" ondragstart="dragDev(event)"><i data-lucide="lightbulb"></i> Đèn 60W</div>
+        <div class="dev-chip" draggable="true" data-dev="ac" data-w="2" ondragstart="dragDev(event)">❄️ Máy lạnh 2kW</div>
+        <div class="dev-chip" draggable="true" data-dev="stove" data-w="1.5" ondragstart="dragDev(event)"><i data-lucide="flame"></i> Bếp 1.5kW</div>
+      </div>
+      <div class="timeline-grid" id="timelineGrid"></div>
+      <div class="bill-counters">
+        <div class="bill-block">
+          <div class="bill-num" id="kwhNum" style="color:var(--blue)">0.0</div>
+          <div class="bill-caption">Tổng kWh</div>
+        </div>
+        <div class="bill-block">
+          <div class="bill-num" id="costNum" style="color:var(--amber)">0</div>
+          <div class="bill-caption">Chi phí (đ)</div>
+        </div>
+        <div class="bill-block">
+          <div class="bill-num" style="color:var(--green)">500k</div>
+          <div class="bill-caption">Ngân sách (đ)</div>
+        </div>
+      </div>
+      <div class="live-status neutral" id="billStatus">Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí (3.000đ/kWh).</div>
+    </div>
+    <button class="btn-primary" onclick="revealBill()">Xem kết quả →</button>
+    <div class="result-box" id="resultBill">
+      <div class="result-outcome" id="outcomeBill"></div>
+      <div class="result-aha" id="ahaBill"></div>
+    </div>
+  </div>
+
+  <div id="tab2" style="display:none">
+    <div class="mission-box">
+      <strong>Tình huống:</strong> Máy công nghiệp 15kW, nguồn 220V sắp lắp đặt. Chọn cầu dao (CB) phù hợp — kéo một CB vào vị trí lắp, hệ thống mô phỏng dòng tải thực tế.
+    </div>
+    <div class="sim-card">
+      <div class="machine-info">
+        <strong>Máy nén công nghiệp</strong><br>
+        Công suất: 15 kW · Nguồn: 220V · Dòng tải ước tính hiển thị sau khi chọn CB
+      </div>
+      <div class="action-label">Cầu dao — kéo thả vào vị trí lắp</div>
+      <div class="chip-pool">
+        <div class="cb-chip" draggable="true" data-cb="32" ondragstart="dragCB(event)">CB 32A</div>
+        <div class="cb-chip" draggable="true" data-cb="63" ondragstart="dragCB(event)">CB 63A</div>
+        <div class="cb-chip" draggable="true" data-cb="100" ondragstart="dragCB(event)">CB 100A</div>
+      </div>
+      <div class="drop-zone" id="cbDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)" ondrop="dropCB(event)">
+        <div style="font-size:32px;margin-bottom:6px"><i data-lucide="zap"></i></div>
+        <div style="font-size:13px;color:var(--ink2)">Vị trí lắp cầu dao — thả CB vào đây</div>
+        <div id="cbPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
+      </div>
+      <div class="live-status neutral" id="cbStatus">Chưa chọn cầu dao — dòng tải ≈ 68A với máy 15kW/220V.</div>
+    </div>
+    <button class="btn-primary" onclick="revealCB()">Xem kết quả →</button>
+    <div class="result-box" id="resultCB">
+      <div class="result-outcome" id="outcomeCB"></div>
+      <div class="result-aha" id="ahaCB"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRICE_PER_KWH = 3000;
+const BUDGET = 500000;
+const LOAD_A = 15000 / 220;
+const DEV_NAMES = { light: 'Đèn 60W', ac: 'ML 2kW', stove: 'Bếp 1.5kW' };
+const HOURS = ['6h','7h','8h','9h','10h','11h','12h','13h'];
+let timeline = Array(8).fill(null).map(() => []);
+let selectedCB = null;
+
+function switchTab(n) {
+  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+}
+
+function updateCircuit() {
+  const u = parseInt(document.getElementById('voltSlider').value);
+  const r = parseInt(document.getElementById('resSlider').value);
+  document.getElementById('voltVal').textContent = u + ' V';
+  document.getElementById('resVal').textContent = r + ' Ω';
+  const i = u / r;
+  document.getElementById('ampValue').textContent = i.toFixed(1);
+  const st = document.getElementById('circuitStatus');
+  const ammeter = document.querySelector('.ammeter');
+  if (i > 10) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Dòng ' + i.toFixed(1) + 'A — VƯỢT 10A! Nguy cơ cháy dây, phải tăng điện trở hoặc giảm điện áp.';
+    ammeter.style.color = '#f00';
+    document.getElementById('ampValue').style.color = '#f00';
+  } else {
+    st.className = 'live-status ok';
+    st.textContent = '✓ Dòng ' + i.toFixed(1) + 'A — trong giới hạn an toàn (< 10A).';
+    ammeter.style.color = '#0f0';
+    document.getElementById('ampValue').style.color = '#0f0';
+  }
+}
+
+function revealCurrent() {
+  const u = parseInt(document.getElementById('voltSlider').value);
+  const r = parseInt(document.getElementById('resSlider').value);
+  const i = u / r;
+  const safe = i <= 10;
+  document.getElementById('outcomeCurrent').innerHTML = safe
+    ? 'Máy nén được cấp phép vận hành — dòng ' + i.toFixed(1) + 'A, không quá tải.'
+    : 'Máy bị khóa — dòng ' + i.toFixed(1) + 'A vượt ngưỡng 10A, phải thiết kế lại mạch.';
+  document.getElementById('ahaCurrent').innerHTML = (safe
+    ? 'Điện áp và điện trở quyết định dòng chạy qua mạch — kỹ sư luôn kiểm tra trước khi bật máy.'
+    : 'Dòng quá lớn làm dây dẫn nóng, cháy cách điện — phải giảm U hoặc tăng R.')
+    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — định luật Ohm (I = U/R)</span>';
+  document.getElementById('resultCurrent').className = 'result-box show';
+}
+
+function buildTimeline() {
+  const grid = document.getElementById('timelineGrid');
+  grid.innerHTML = '';
+  HOURS.forEach((h, idx) => {
+    const slot = document.createElement('div');
+    slot.className = 'time-slot';
+    slot.dataset.slot = idx;
+    slot.innerHTML = '<div class="hour-label">' + h + '</div>';
+    slot.ondragover = allowDrop;
+    slot.ondragleave = leaveDrop;
+    slot.ondrop = (e) => dropDev(e, idx);
+    grid.appendChild(slot);
+  });
+  renderTimeline();
+}
+
+function dragDev(e) {
+  e.dataTransfer.setData('dev', e.target.dataset.dev);
+  e.dataTransfer.setData('w', e.target.dataset.w);
+  e.target.classList.add('dragging');
+}
+
+function renderTimeline() {
+  const slots = document.querySelectorAll('.time-slot');
+  slots.forEach((slot, idx) => {
+    const hourLabel = slot.querySelector('.hour-label');
+    slot.innerHTML = '';
+    slot.appendChild(hourLabel);
+    timeline[idx].forEach(dev => {
+      const chip = document.createElement('div');
+      chip.className = 'placed-chip';
+      chip.textContent = DEV_NAMES[dev];
+      slot.appendChild(chip);
+    });
+  });
+  updateBill();
+}
+
+function dropDev(e, slotIdx) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('over');
+  document.querySelectorAll('.dev-chip').forEach(c => c.classList.remove('dragging'));
+  const dev = e.dataTransfer.getData('dev');
+  timeline[slotIdx].push(dev);
+  renderTimeline();
+}
+
+function updateBill() {
+  let kwh = 0;
+  timeline.forEach(slot => {
+    slot.forEach(dev => {
+      const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
+      kwh += w * 1;
+    });
+  });
+  const cost = Math.round(kwh * PRICE_PER_KWH);
+  document.getElementById('kwhNum').textContent = kwh.toFixed(2);
+  document.getElementById('costNum').textContent = cost.toLocaleString('vi-VN');
+  document.getElementById('costNum').style.color = cost > BUDGET ? 'var(--red)' : 'var(--amber)';
+  const st = document.getElementById('billStatus');
+  if (kwh === 0) {
+    st.className = 'live-status neutral';
+    st.textContent = 'Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí (3.000đ/kWh).';
+  } else if (cost > BUDGET) {
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ Vượt ngân sách ' + BUDGET.toLocaleString('vi-VN') + 'đ — giảm giờ bật máy lạnh hoặc bếp.';
+  } else {
+    st.className = 'live-status ok';
+    st.textContent = '✓ ' + kwh.toFixed(2) + ' kWh = ' + cost.toLocaleString('vi-VN') + 'đ — còn trong ngân sách 500k.';
+  }
+}
+
+function revealBill() {
+  let kwh = 0;
+  timeline.forEach(slot => {
+    slot.forEach(dev => {
+      const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
+      kwh += w;
+    });
+  });
+  const cost = Math.round(kwh * PRICE_PER_KWH);
+  const ok = cost <= BUDGET && kwh > 0;
+  document.getElementById('outcomeBill').innerHTML = ok
+    ? 'Báo giá ' + cost.toLocaleString('vi-VN') + 'đ (' + kwh.toFixed(2) + ' kWh) — khách đồng ý, lắp đặt theo lịch.'
+    : (cost > BUDGET
+      ? 'Khách từ chối — ' + cost.toLocaleString('vi-VN') + 'đ vượt ngân sách 500k, cần tối ưu lịch bật.'
+      : 'Chưa lên lịch thiết bị — không thể báo giá.');
+  document.getElementById('ahaBill').innerHTML = 'Điện năng = công suất (kW) × thời gian (h). Mỗi giờ bật thiết bị cộng thêm kWh — kỹ sư tư vấn tiết kiệm bằng cách này.'
+    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — công suất điện & điện năng tiêu thụ</span>';
+  document.getElementById('resultBill').className = 'result-box show';
+}
+
+function dragCB(e) {
+  e.dataTransfer.setData('cb', e.target.dataset.cb);
+  e.target.classList.add('dragging');
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('over');
+}
+
+function leaveDrop(e) {
+  e.currentTarget.classList.remove('over');
+}
+
+function dropCB(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('over');
+  document.querySelectorAll('.cb-chip').forEach(c => c.classList.remove('dragging'));
+  selectedCB = parseInt(e.dataTransfer.getData('cb'));
+  const dz = document.getElementById('cbDrop');
+  dz.classList.remove('bad','filled');
+  document.getElementById('cbPlaced').textContent = 'Đã lắp: CB ' + selectedCB + 'A';
+  const st = document.getElementById('cbStatus');
+  if (selectedCB >= 100) {
+    dz.classList.add('filled');
+    st.className = 'live-status ok';
+    st.textContent = '✓ CB ' + selectedCB + 'A ≥ dòng tải ~' + LOAD_A.toFixed(0) + 'A — mạch an toàn, máy chạy ổn.';
+  } else if (selectedCB >= 63) {
+    dz.classList.add('filled');
+    st.className = 'live-status ok';
+    st.textContent = '✓ CB 63A gần khớp dòng ~' + LOAD_A.toFixed(0) + 'A — có thể vận hành (sát ngưỡng an toàn).';
+  } else {
+    dz.classList.add('bad');
+    st.className = 'live-status warn';
+    st.textContent = '⚠️ CB 32A quá nhỏ — dòng ~' + LOAD_A.toFixed(0) + 'A, nguy cơ cháy nổ ngay.';
+  }
+}
+
+function revealCB() {
+  const ok = selectedCB === 63 || selectedCB === 100;
+  document.getElementById('outcomeCB').innerHTML = ok
+    ? 'Máy 15kW vận hành bình thường — aptomat đủ dòng làm việc, hệ thống được nghiệm thu.'
+    : (selectedCB === 32
+        ? 'CB 32A quá tải — nguy cơ cháy dây, không được cấp điện máy.'
+        : 'Chưa chọn CB — không thể nghiệm thu hệ thống.');
+  document.getElementById('ahaCB').innerHTML = (ok
+    ? 'Dòng tải ≈ 68A (15.000W ÷ 220V). Aptomat phải chọn theo dòng làm việc — không được nhỏ hơn nhiều so với tải thực.'
+    : 'Chọn CB quá nhỏ: dòng vượt ngưỡng, aptomat nhảy hoặc dây nóng — rất nguy hiểm trong xưởng.')
+    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — mạch điện & an toàn điện</span>';
+  document.getElementById('resultCB').className = 'result-box show';
+}
+
+updateCircuit();
+buildTimeline();
+</script>
+
+<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Kỹ thuật Điện?</h2>
+    </div>
+    <div style="text-align:center;">
+      <a href="../index.html" style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá thêm ngành</a>
+    </div>
+  </div>
+</div>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

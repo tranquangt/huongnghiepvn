@@ -1,0 +1,2102 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab · Giáo Viên — Hướng Nghiệp THPT</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --ink: #1e293b;
+      --ink2: #475569;
+      --ink3: #94a3b8;
+      --blue: #2563eb;
+      --blue-bg: #eff6ff;
+      --blue-border: #bfdbfe;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --red: #ef4444;
+      --red-bg: #fef2f2;
+      --green: #10b981;
+      --green-bg: #ecfdf5;
+      --amber: #f59e0b;
+      --amber-bg: #fffbeb;
+      --purple: #8b5cf6;
+      --purple-bg: #f5f3ff;
+      --radius: 10px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 60px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .topbar-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+      font-size: 18px;
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 14px;
+      color: var(--ink2);
+      font-weight: 500;
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--blue-border);
+      letter-spacing: 0.05em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .hero {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      background: var(--blue-bg);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink2);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .mission-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: #e2e8f0;
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+    }
+
+    .mtab {
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink2);
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mtab span.icon {
+      font-size: 18px;
+    }
+
+    .mtab:hover {
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--ink);
+    }
+
+    .mtab.active {
+      background: var(--surface);
+      color: var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 14.5px;
+      color: #1e40af;
+      line-height: 1.6;
+    }
+
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .action-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--ink2);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    /* Styles cho Nhiệm vụ 1 */
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 20px;
+    }
+
+    .lesson-pool {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lesson-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      cursor: grab;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .lesson-card:hover {
+      border-color: var(--blue-border);
+      background: #f8fafc;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .lesson-card:active {
+      cursor: grabbing;
+    }
+
+    .lesson-card-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .lesson-card-desc {
+      font-size: 11.5px;
+      color: var(--ink2);
+    }
+
+    .lesson-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .timeline-slot {
+      background: #fafafa;
+      border: 2px dashed var(--border-dark);
+      border-radius: var(--radius);
+      padding: 16px;
+      min-height: 90px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .timeline-slot.over {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .timeline-slot-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 8px;
+    }
+
+    .timeline-slot-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .integrated-section {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+
+    .select-input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-dark);
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--ink);
+      background: var(--surface);
+      margin-top: 8px;
+    }
+
+    /* Styles cho Nhiệm vụ 2 */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 1.25rem;
+    }
+
+    .matrix-col {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: var(--radius);
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .matrix-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin-bottom: 8px;
+    }
+
+    .matrix-input {
+      width: 60px;
+      text-align: center;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border-dark);
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .matrix-status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .exam-paper-container {
+      background: #fafaf6;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .exam-paper-header {
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 1.25rem;
+      color: var(--ink2);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .exam-line {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14.5px;
+      color: #0f172a;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 3px solid transparent;
+    }
+
+    .exam-line:hover {
+      background: #f1f5f9;
+      border-left-color: var(--border-dark);
+    }
+
+    .exam-line.flagged {
+      background: var(--red-bg);
+      color: var(--red);
+      font-weight: 600;
+      border-left-color: var(--red);
+    }
+
+    .exam-line.flagged::after {
+      content: "✏️ Lỗi sai!";
+      font-size: 11px;
+      background: var(--red);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .feedback-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .feedback-option {
+      display: block;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--surface);
+    }
+
+    .feedback-option:hover {
+      background: var(--bg);
+      border-color: var(--border-dark);
+    }
+
+    .feedback-option input {
+      margin-right: 10px;
+    }
+
+    .feedback-option.selected {
+      background: var(--blue-bg);
+      border-color: var(--blue-border);
+      color: var(--blue);
+      font-weight: 500;
+    }
+
+    .score-grade-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 1.25rem;
+    }
+
+    .score-input-box {
+      background: var(--bg);
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .score-btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .score-btn {
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .score-btn:hover, .score-btn.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .score-chart-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chart-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .chart-bar-label {
+      width: 70px;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .chart-bar-track {
+      flex: 1;
+      height: 14px;
+      background: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.5s ease-out;
+    }
+
+    .chart-bar-value {
+      width: 30px;
+      font-weight: 700;
+      color: var(--ink2);
+    }
+
+    /* Styles cho Nhiệm vụ 3 */
+    .indicator-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .indicator-card {
+      background: var(--bg);
+      padding: 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .indicator-header {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--ink2);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .indicator-track {
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .indicator-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 999px;
+      width: 50%;
+      transition: width 0.4s ease, background-color 0.4s ease;
+    }
+
+    .scenario-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      border-top: 4px solid var(--purple);
+    }
+
+    .scenario-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scenario-desc {
+      font-size: 13.5px;
+      color: var(--ink2);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .scenario-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .scenario-option-btn {
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.5;
+      font-family: inherit;
+      color: var(--ink);
+      transition: var(--transition);
+    }
+
+    .scenario-option-btn:hover {
+      border-color: var(--purple);
+      background: var(--purple-bg);
+      transform: translateX(4px);
+    }
+
+    .scenario-option-btn.selected {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+      font-weight: 500;
+    }
+
+    /* Styles cho Nhiệm vụ 4 */
+    .admin-energy-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 1.5rem;
+    }
+
+    .energy-bar-wrap {
+      flex: 1;
+      margin: 0 20px;
+    }
+
+    .energy-bar-track {
+      height: 14px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .energy-bar-fill {
+      height: 100%;
+      background: var(--green);
+      width: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .admin-todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      transition: var(--transition);
+    }
+
+    .todo-item:hover {
+      box-shadow: var(--shadow);
+    }
+
+    .todo-item.completed {
+      background: var(--green-bg);
+      border-color: #bbf7d0;
+      opacity: 0.8;
+    }
+
+    .todo-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .todo-title {
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .todo-badges {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .todo-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .todo-badge.high-priority {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .todo-badge.normal-priority {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .todo-badge.cost {
+      background: var(--blue-bg);
+      color: var(--blue);
+    }
+
+    .todo-action-btn {
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--border-dark);
+      background: var(--surface);
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .todo-action-btn:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .todo-action-btn.disabled {
+      background: #f1f5f9;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    /* Nút chính & Khối kết quả */
+    .btn-primary {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #0f172a;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      display: none;
+      box-shadow: var(--shadow-lg);
+      border-left: 4px solid var(--blue);
+    }
+
+    .result-box.show {
+      display: block;
+      animation: slideDown 0.35s ease;
+    }
+
+    .result-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result-outcome {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: var(--ink2);
+    }
+
+    .result-aha {
+      padding: 1rem 1.25rem;
+      background: var(--amber-bg);
+      border: 1px solid #fef08a;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #78350f;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .live-status {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-status.neutral {
+      background: var(--bg);
+      color: var(--ink2);
+      border: 1px solid var(--border);
+    }
+
+    .live-status.ok {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .live-status.warn {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lesson-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mission-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .matrix-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .score-grade-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Giáo Viên THPT</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab Thực Tế</div>
+  </div>
+
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label">Phòng Lab Nghiệp Vụ</div>
+      <div class="hero-title">Phía sau bục giảng: Một ngày của Giáo Viên</div>
+      <div class="hero-sub">Lên giáo án, soạn đề, chấm bài và xử lý các tình huống chủ nhiệm đầy thử thách. Quyết định của bạn định hình tương lai học sinh.</div>
+    </div>
+
+    <div class="mission-tabs">
+      <button class="mtab active" onclick="switchTab(0)">
+        <span class="icon"><i data-lucide="file-text"></i></span>
+        <span>Giáo Án & Bài Giảng</span>
+      </button>
+      <button class="mtab" onclick="switchTab(1)">
+        <span class="icon"><i data-lucide="bar-chart-3"></i></span>
+        <span>Ra Đề & Chấm Bài</span>
+      </button>
+      <button class="mtab" onclick="switchTab(2)">
+        <span class="icon">🤝</span>
+        <span>Công Tác Chủ Nhiệm</span>
+      </button>
+      <button class="mtab" onclick="switchTab(3)">
+        <span class="icon"><i data-lucide="briefcase"></i></span>
+        <span>Hành Chính & Sự Kiện</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: THIẾT KẾ GIÁO ÁN VÀ BÀI GIẢNG -->
+    <div id="tab0" class="tab-content">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 1: Thiết kế giáo án và bài giảng.</strong> Sách giáo khoa mới (Chương trình GDPT 2018) chuyển dịch từ truyền thụ kiến thức sang phát triển năng lực và khơi gợi sáng tạo. Hãy thiết kế một giáo án dạy học bài <strong>Hàm số bậc hai</strong> và lựa chọn phương án tích hợp liên môn phù hợp.
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label"><i data-lucide="clipboard-list"></i> Xây dựng tiến trình bài dạy và liên môn</div>
+        <div class="lesson-grid">
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--ink2);">Các Hoạt Động Giảng Dạy (Kéo thả)</div>
+            <div class="lesson-pool">
+              <div class="lesson-card" draggable="true" id="act-a" ondragstart="dragAct(event)">
+                <div class="lesson-card-title"><i data-lucide="book-open"></i> Thuyết giảng công thức & Chép bài</div>
+                <div class="lesson-card-desc">Giáo viên viết lý thuyết lên bảng, học sinh chép bài thụ động vào vở.</div>
+              </div>
+              <div class="lesson-card" draggable="true" id="act-b" ondragstart="dragAct(event)">
+                <div class="lesson-card-title"><i data-lucide="zap"></i> Trò chơi "Đuổi hình bắt chữ" Parabol</div>
+                <div class="lesson-card-desc">Sử dụng slide hình ảnh cây cầu, cổng chào hình parabol để khởi động.</div>
+              </div>
+              <div class="lesson-card" draggable="true" id="act-c" ondragstart="dragAct(event)">
+                <div class="lesson-card-title"><i data-lucide="users"></i> Thảo luận nhóm giải quyết toán tối ưu</div>
+                <div class="lesson-card-desc">Học sinh chia nhóm tính toán diện tích trồng trọt tối đa của một mảnh đất.</div>
+              </div>
+              <div class="lesson-card" draggable="true" id="act-d" ondragstart="dragAct(event)">
+                <div class="lesson-card-title"><i data-lucide="building-2"></i> Dự án chế tạo cổng Parabol tăm tre</div>
+                <div class="lesson-card-desc">Nhóm học sinh thiết kế mô hình thực tế, đo đạc và chịu tải thử nghiệm.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--ink2);">Tiến trình giáo án của bạn</div>
+            <div class="lesson-timeline">
+              <div class="timeline-slot" data-slot="warmup" ondragover="allowDropAct(event)" ondragleave="leaveSlot(event)" ondrop="dropAct(event, 'warmup')">
+                <div class="timeline-slot-title">Bước 1: Khởi động (Warm-up)</div>
+                <div class="timeline-slot-content" id="slot-warmup"></div>
+              </div>
+              <div class="timeline-slot" data-slot="concept" ondragover="allowDropAct(event)" ondragleave="leaveSlot(event)" ondrop="dropAct(event, 'concept')">
+                <div class="timeline-slot-title">Bước 2: Hình thành kiến thức</div>
+                <div class="timeline-slot-content" id="slot-concept"></div>
+              </div>
+              <div class="timeline-slot" data-slot="practice" ondragover="allowDropAct(event)" ondragleave="leaveSlot(event)" ondrop="dropAct(event, 'practice')">
+                <div class="timeline-slot-title">Bước 3: Luyện tập & Vận dụng</div>
+                <div class="timeline-slot-content" id="slot-practice"></div>
+              </div>
+            </div>
+
+            <div class="integrated-section">
+              <div style="font-size: 13px; font-weight: 700; color: var(--ink2);">Lựa chọn tích hợp liên môn</div>
+              <select class="select-input" id="interdisciplinarySelect" onchange="updateLessonLive()">
+                <option value="">-- Chọn môn học tích hợp --</option>
+                <option value="physics">Vật lý (Bài toán ném vật bay tự do - Quỹ đạo Parabol)</option>
+                <option value="cs">Tin học (Lập trình Python vẽ đồ thị hàm số bậc hai)</option>
+                <option value="art">Mỹ thuật & Kiến trúc (Phân tích thẩm mỹ và tỷ lệ vàng cổng vòm)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="live-status neutral" id="lessonStatus">
+          Hãy kéo đủ 3 hoạt động vào 3 bước tiến trình giảng dạy để bắt đầu đánh giá.
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="evaluateLessonPlan()">📐 Phê Duyệt Giáo Án →</button>
+
+      <div class="result-box" id="resultLesson">
+        <div class="result-title">🎯 Kết quả đánh giá giáo án</div>
+        <div class="result-outcome" id="outcomeLesson"></div>
+        <div class="result-aha" id="ahaLesson"></div>
+      </div>
+    </div>
+
+    <!-- TAB 2: RA ĐỀ VÀ CHẤM BÀI -->
+    <div id="tab1" class="tab-content" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 2: Ra đề và chấm bài.</strong> Hoạt động kiểm tra đánh giá bao gồm việc xây dựng ma trận câu hỏi cân bằng, chấm bài phát hiện lỗi sai, ghi lời phê mang tính động viên sư phạm, và tổng hợp phổ điểm để điều chỉnh phương pháp dạy học.
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label">🛠️ Bước 1: Thiết kế ma trận câu hỏi (Tổng điểm phải bằng 10)</div>
+        <div class="matrix-grid">
+          <div class="matrix-col">
+            <div class="matrix-title">Nhận biết</div>
+            <input type="number" class="matrix-input" id="m-nb" value="3" min="0" max="10" onchange="updateMatrixTotal()">
+            <div style="font-size: 10px; color: var(--ink3); margin-top: 4px;">1 điểm/câu</div>
+          </div>
+          <div class="matrix-col">
+            <div class="matrix-title">Thông hiểu</div>
+            <input type="number" class="matrix-input" id="m-th" value="3" min="0" max="10" onchange="updateMatrixTotal()">
+            <div style="font-size: 10px; color: var(--ink3); margin-top: 4px;">1 điểm/câu</div>
+          </div>
+          <div class="matrix-col">
+            <div class="matrix-title">Vận dụng</div>
+            <input type="number" class="matrix-input" id="m-vd" value="2" min="0" max="10" onchange="updateMatrixTotal()">
+            <div style="font-size: 10px; color: var(--ink3); margin-top: 4px;">1 điểm/câu</div>
+          </div>
+          <div class="matrix-col">
+            <div class="matrix-title">Vận dụng cao</div>
+            <input type="number" class="matrix-input" id="m-vdc" value="2" min="0" max="10" onchange="updateMatrixTotal()">
+            <div style="font-size: 10px; color: var(--ink3); margin-top: 4px;">1 điểm/câu</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer;">
+            <input type="checkbox" id="matrixRealWorld" checked onchange="updateMatrixTotal()">
+            <span>Tích hợp bài toán liên hệ thực tiễn (Phát triển năng lực thực tế)</span>
+          </label>
+        </div>
+
+        <div class="matrix-status-bar" id="matrixStatus">
+          Tổng số câu: 10 câu | Tổng số điểm: 10/10 điểm | Trạng thái: Hợp lệ
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label">🖋️ Bước 2: Chấm bài và ghi lời phê sư phạm (Bài của em Trần Minh Đức)</div>
+        <p style="font-size: 12.5px; color: var(--ink2); margin-bottom: 10px;">
+          <em>Hướng dẫn: Hãy click vào những dòng chứa lỗi sai trong bài làm tự luận của Đức dưới đây để chấm lỗi. Click lần nữa để hủy.</em>
+        </p>
+
+        <div class="exam-paper-container">
+          <div class="exam-paper-header">
+            BÀI LÀM: TÌM GIÁ TRỊ LỚN NHẤT CỦA DOANH THU R(x) = -2x² + 120x (triệu đồng)
+          </div>
+          <div class="exam-line" id="el-1" onclick="flagLine(1)">
+            1) Hàm số R(x) có các hệ số là a = -2, b = 120, c = 0.
+          </div>
+          <div class="exam-line" id="el-2" onclick="flagLine(2)">
+            2) Vì hệ số a = -2 &lt; 0 nên đồ thị có bề lõm quay xuống, đạt giá trị lớn nhất tại đỉnh Parabol.
+          </div>
+          <div class="exam-line" id="el-3" onclick="flagLine(3)">
+            3) Hoành độ đỉnh của parabol là x₀ = -b / a = -120 / -2 = 60.
+          </div>
+          <div class="exam-line" id="el-4" onclick="flagLine(4)">
+            4) Giá trị doanh thu lớn nhất là R(60) = -2 × (60)² + 120 × 60 = 0 triệu đồng.
+          </div>
+          <div class="exam-line" id="el-5" onclick="flagLine(5)">
+            5) Kết luận: Doanh thu lớn nhất của công ty là 0 triệu đồng khi bán được 60 sản phẩm.
+          </div>
+        </div>
+
+        <div class="feedback-section">
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--ink2);">Chọn lời phê của giáo viên</div>
+          <div class="feedback-option" id="fb-opt-1" onclick="selectFeedback(1)">
+            <input type="radio" name="teacher_feedback" id="fb-r-1">
+            <span>"Bài làm cẩu thả, sai công thức cơ bản hoàn toàn. Yêu cầu chép phạt lý thuyết 50 lần!"</span>
+          </div>
+          <div class="feedback-option" id="fb-opt-2" onclick="selectFeedback(2)">
+            <input type="radio" name="teacher_feedback" id="fb-r-2">
+            <span>"Bài làm sạch sẽ, tuy nhiên em cần nhớ kỹ công thức hoành độ đỉnh parabol là -b/(2a) chứ không phải -b/a. Việc nhầm lẫn nhỏ làm ra kết quả doanh thu cực đại bằng 0 là vô lý. Hãy cẩn thận hơn ở bài sau nhé, thầy/cô tin em sẽ làm tốt hơn."</span>
+          </div>
+          <div class="feedback-option" id="fb-opt-3" onclick="selectFeedback(3)">
+            <input type="radio" name="teacher_feedback" id="fb-r-3">
+            <span>"Đạt yêu cầu trung bình, chú ý xem lại công thức trong sách giáo khoa."</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label"><i data-lucide="monitor"></i> Bước 3: Nhập điểm và tổng hợp phân tích chất lượng</div>
+        <div class="score-grade-panel">
+          <div class="score-input-box">
+            <span style="font-size: 13px; font-weight: 600; color: var(--ink2);">Nhập điểm cho học sinh Đức</span>
+            <div class="score-btn-group">
+              <button class="score-btn" id="sbtn-3" onclick="setGrade(3)">3đ</button>
+              <button class="score-btn" id="sbtn-4" onclick="setGrade(4)">4đ</button>
+              <button class="score-btn" id="sbtn-5" onclick="setGrade(5)">5đ</button>
+              <button class="score-btn" id="sbtn-6" onclick="setGrade(6)">6đ</button>
+            </div>
+            <div style="font-size: 11px; color: var(--ink3); text-align: center; margin-top: 4px;">
+              Hãy dựa trên số lỗi đã chấm để cho điểm hợp lý.
+            </div>
+          </div>
+
+          <div class="score-chart-container">
+            <div style="font-size: 12px; font-weight: 700; color: var(--ink2); margin-bottom: 6px;">Phân tích phổ điểm cả lớp (N = 35 em)</div>
+            <div class="chart-bar-row">
+              <div class="chart-bar-label">Giỏi (8-10)</div>
+              <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-gioi"></div></div>
+              <div class="chart-bar-value" id="val-gioi">0</div>
+            </div>
+            <div class="chart-bar-row">
+              <div class="chart-bar-label">Khá (6.5-7.9)</div>
+              <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-kha"></div></div>
+              <div class="chart-bar-value" id="val-kha">0</div>
+            </div>
+            <div class="chart-bar-row">
+              <div class="chart-bar-label">TB (5-6.4)</div>
+              <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-tb"></div></div>
+              <div class="chart-bar-value" id="val-tb">0</div>
+            </div>
+            <div class="chart-bar-row">
+              <div class="chart-bar-label">Yếu/Kém (&lt;5)</div>
+              <div class="chart-bar-track"><div class="chart-bar-fill" id="bar-yeu"></div></div>
+              <div class="chart-bar-value" id="val-yeu">0</div>
+            </div>
+            <div style="font-size: 11px; text-align: right; font-weight: 600; color: var(--blue); margin-top: 4px;" id="classAvgText">
+              Điểm trung bình lớp: --
+            </div>
+          </div>
+        </div>
+
+        <div class="live-status neutral" id="gradingStatus">
+          Hãy hoàn thành chấm bài, chọn lời phê và cho điểm học sinh để tổng hợp chất lượng đề.
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="submitGrading()">📤 Công Bố Kết Quả Đề Thi →</button>
+
+      <div class="result-box" id="resultGrading">
+        <div class="result-title">🎯 Đánh giá năng lực Khảo thí & Chấm điểm</div>
+        <div class="result-outcome" id="outcomeGrading"></div>
+        <div class="result-aha" id="ahaGrading"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: CÔNG TÁC CHỦ NHIỆM VÀ XỬ LÝ TÌNH HUỐNG -->
+    <div id="tab2" class="tab-content" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 3: Công tác chủ nhiệm và xử lý tình huống.</strong> Chủ nhiệm lớp yêu cầu kỹ năng thấu cảm, tinh tế trong giao tiếp với phụ huynh, học sinh và năng lực xử lý khủng hoảng học đường theo đúng quy trình sư phạm.
+      </div>
+
+      <div class="indicator-grid">
+        <div class="indicator-card">
+          <div class="indicator-header"><span>Tâm lý học sinh</span><span id="wellbeing-val">50%</span></div>
+          <div class="indicator-track"><div class="indicator-fill" id="wellbeing-bar" style="width: 50%;"></div></div>
+        </div>
+        <div class="indicator-card">
+          <div class="indicator-header"><span>Niềm tin phụ huynh</span><span id="trust-val">50%</span></div>
+          <div class="indicator-track"><div class="indicator-fill" id="trust-bar" style="width: 50%;"></div></div>
+        </div>
+        <div class="indicator-card">
+          <div class="indicator-header"><span>Uy tín giáo viên</span><span id="authority-val">50%</span></div>
+          <div class="indicator-track"><div class="indicator-fill" id="authority-bar" style="width: 50%;"></div></div>
+        </div>
+      </div>
+
+      <!-- Tình huống 1 -->
+      <div class="scenario-card" id="sc-1">
+        <div class="scenario-title">📌 Tình huống 1: Học sinh nghỉ học dài ngày & trầm cảm</div>
+        <div class="scenario-desc">
+          Em Hoàng lớp 10A2 nghỉ học 3 ngày liên tục không phép. Gần đây, Hoàng thường xuyên ngủ gật trong giờ, tính tình lầm lì ít nói, bài kiểm tra vừa qua nộp giấy trắng. Bạn chọn cách xử lý nào?
+        </div>
+        <div class="scenario-options">
+          <button class="scenario-option-btn" onclick="selectScenarioOption(1, 1)">
+            <strong>Phương án A:</strong> Gọi điện phê bình trực tiếp phụ huynh vì thiếu quan tâm quản lý con cái, cảnh báo sẽ gửi hồ sơ hạ hạnh kiểm Hoàng trước toàn trường.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(1, 2)">
+            <strong>Phương án B:</strong> Gặp gỡ hỏi thăm bạn bè thân của Hoàng để nắm thông tin sơ bộ. Gọi điện chia sẻ ấm áp với phụ huynh tìm nguyên nhân, đồng thời hẹn gặp riêng Hoàng tại phòng tư vấn học đường.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(1, 3)">
+            <strong>Phương án C:</strong> Cho phép ban cán sự lớp đến tận nhà kiểm tra tình hình để rèn tính tự quản, bản thân giáo viên chờ cuộc họp phụ huynh định kỳ cuối kỳ để trao đổi.
+          </button>
+        </div>
+      </div>
+
+      <!-- Tình huống 2 -->
+      <div class="scenario-card" id="sc-2" style="display:none;">
+        <div class="scenario-title">📌 Tình huống 2: Hòa giải xung đột học sinh</div>
+        <div class="scenario-desc">
+          Nam và Việt xô xát dữ dội ngay trong lớp giờ ra chơi vì hiểu lầm khi phân chia công việc trong buổi chuẩn bị hoạt động nhóm. Việt bị chảy máu mũi. Bạn sẽ giải quyết mâu thuẫn này như thế nào?
+        </div>
+        <div class="scenario-options">
+          <button class="scenario-option-btn" onclick="selectScenarioOption(2, 1)">
+            <strong>Phương án A:</strong> Phạt cả hai em đứng lớp và lao động công ích quét dọn sân trường trong 1 tuần để làm gương kỷ luật nghiêm minh.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(2, 2)">
+            <strong>Phương án B:</strong> Gọi riêng từng em để lắng nghe toàn bộ góc nhìn, phân tích hành vi sai trái của việc bạo lực. Tổ chức buổi gặp mặt chung giải tỏa hiểu lầm, hướng dẫn cách thương lượng nhóm và phân công hai em cùng hoàn thành một bài tập nhóm để gắn kết lại.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(2, 3)">
+            <strong>Phương án C:</strong> Lập tức báo cáo Ban giám hiệu và chuyển hồ sơ lên phòng Giám thị trường xử lý kỷ luật cảnh cáo theo đúng điều lệ.
+          </button>
+        </div>
+      </div>
+
+      <!-- Tình huống 3 -->
+      <div class="scenario-card" id="sc-3" style="display:none;">
+        <div class="scenario-title">📌 Tình huống 3: Lập biên bản, tường trình và họp kỷ luật</div>
+        <div class="scenario-desc">
+          Tú bị giám thị bắt quả tang mang tài liệu phao vào phòng thi môn Toán học kỳ. Giám thị yêu cầu giáo viên chủ nhiệm xử lý theo quy định. Bạn sẽ thực hiện tiến trình nào?
+        </div>
+        <div class="scenario-options">
+          <button class="scenario-option-btn" onclick="selectScenarioOption(3, 1)">
+            <strong>Phương án A:</strong> Gặp riêng Tú phân tích sự nghiêm trọng của sự thiếu trung thực, hướng dẫn Tú viết bản tường trình nhận lỗi. Cùng phụ huynh tham gia họp hội đồng kỷ luật trường, đề xuất tạo cơ hội để em sửa sai thay vì đình chỉ học.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(3, 2)">
+            <strong>Phương án B:</strong> Tìm cách bênh vực Tú trước Hội đồng vì Tú là học sinh giỏi của lớp, xin tiêu hủy biên bản của giám thị để bảo vệ thành tích thi đua cho lớp.
+          </button>
+          <button class="scenario-option-btn" onclick="selectScenarioOption(3, 3)">
+            <strong>Phương án C:</strong> Phê bình gay gắt Tú trước toàn lớp, yêu cầu cả lớp bỏ phiếu thống nhất đề xuất hạ hạnh kiểm Yếu trực tiếp cho Tú.
+          </button>
+        </div>
+      </div>
+
+      <div class="live-status neutral" id="scenarioStatus">
+        Hãy trả lời Tình huống 1 để tiếp tục tiến trình chủ nhiệm.
+      </div>
+
+      <div class="result-box" id="resultScenario">
+        <div class="result-title">🎯 Tổng kết phong cách làm công tác chủ nhiệm</div>
+        <div class="result-outcome" id="outcomeScenario"></div>
+        <div class="result-aha" id="ahaScenario"></div>
+      </div>
+    </div>
+
+    <!-- TAB 4: HÀNH CHÍNH VÀ TỔ CHỨC HOẠT ĐỘNG -->
+    <div id="tab3" class="tab-content" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 4: Hành chính và tổ chức hoạt động trải nghiệm.</strong> Giáo viên không chỉ đứng trên bục giảng mà còn đối mặt với khối lượng lớn hồ sơ, sổ sách hành chính và phải có kỹ năng thiết kế, tổ chức hoạt động ngoại khóa, rèn luyện kỹ năng sống cho học sinh.
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label"><i data-lucide="clipboard-list"></i> Phần 1: Quản lý công việc hành chính & Năng lượng</div>
+        <div class="admin-energy-container">
+          <div style="font-size: 13px; font-weight: 700; color: var(--ink);">Năng lượng giáo viên:</div>
+          <div class="energy-bar-wrap">
+            <div class="energy-bar-track">
+              <div class="energy-bar-fill" id="energyBar" style="width: 100%;"></div>
+            </div>
+          </div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--ink);" id="energyVal">100/100</div>
+        </div>
+
+        <div class="admin-todo-list" id="todoList">
+          <!-- Công việc 1 -->
+          <div class="todo-item" id="todo-1">
+            <div class="todo-info">
+              <div class="todo-title">Soạn giáo án giảng dạy tuần mới</div>
+              <div class="todo-badges">
+                <span class="todo-badge high-priority">Quan trọng & Khẩn cấp</span>
+                <span class="todo-badge cost">Tốn 30 NL</span>
+              </div>
+            </div>
+            <button class="todo-action-btn" onclick="doTodo(1, 30, true)">Thực hiện</button>
+          </div>
+          <!-- Công việc 2 -->
+          <div class="todo-item" id="todo-2">
+            <div class="todo-info">
+              <div class="todo-title">Nhập điểm thi và học bạ điện tử</div>
+              <div class="todo-badges">
+                <span class="todo-badge high-priority">Quan trọng & Khẩn cấp</span>
+                <span class="todo-badge cost">Tốn 35 NL</span>
+              </div>
+            </div>
+            <button class="todo-action-btn" onclick="doTodo(2, 35, true)">Thực hiện</button>
+          </div>
+          <!-- Công việc 3 -->
+          <div class="todo-item" id="todo-3">
+            <div class="todo-info">
+              <div class="todo-title">Viết báo cáo chuyên đề gửi Tổ chuyên môn</div>
+              <div class="todo-badges">
+                <span class="todo-badge normal-priority">Quan trọng</span>
+                <span class="todo-badge cost">Tốn 25 NL</span>
+              </div>
+            </div>
+            <button class="todo-action-btn" onclick="doTodo(3, 25, false)">Thực hiện</button>
+          </div>
+          <!-- Công việc 4 -->
+          <div class="todo-item" id="todo-4">
+            <div class="todo-info">
+              <div class="todo-title">Báo cáo phổ cập giáo dục phường</div>
+              <div class="todo-badges">
+                <span class="todo-badge normal-priority">Khẩn cấp</span>
+                <span class="todo-badge cost">Tốn 20 NL</span>
+              </div>
+            </div>
+            <button class="todo-action-btn" onclick="doTodo(4, 20, false)">Thực hiện</button>
+          </div>
+          <!-- Hồi sức -->
+          <div class="todo-item" id="todo-rest" style="border-color: var(--blue-border); background: var(--blue-bg);">
+            <div class="todo-info">
+              <div class="todo-title" style="color: var(--blue);">Nghỉ ngơi, uống cà phê hồi sức</div>
+              <div class="todo-badges">
+                <span class="todo-badge" style="background: var(--blue); color: white;">+20 Năng lượng</span>
+              </div>
+            </div>
+            <button class="todo-action-btn" style="background: var(--blue); color: white; border-color: var(--blue);" onclick="restTeacher()">Nghỉ ngơi</button>
+          </div>
+        </div>
+
+        <div class="live-status neutral" id="adminStatus">
+          Hãy sắp xếp thời gian để hoàn thành ít nhất các đầu việc quan trọng và khẩn cấp.
+        </div>
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label">🏕️ Phần 2: Thiết kế kế hoạch hoạt động trải nghiệm kỹ năng sống</div>
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--ink2);">Chủ đề hoạt động</div>
+          <select class="select-input" id="eventTheme" onchange="updateEventLive()">
+            <option value="">-- Chọn chủ đề --</option>
+            <option value="theme-1">Diễn đàn: "Xây dựng tình bạn đẹp - Phòng chống bạo lực học đường"</option>
+            <option value="theme-2">Hội nghị: "Học sinh nghe phổ biến các quy chế nội quy trường học"</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--ink2);">Phân công tổ chức</div>
+          <select class="select-input" id="eventOrg" onchange="updateEventLive()">
+            <option value="">-- Chọn đội ngũ phân công --</option>
+            <option value="org-1">Giao ban cán sự tự quản lập kế hoạch, các tổ tự chuẩn bị gian hàng dưới sự cố vấn</option>
+            <option value="org-2">Giáo viên làm toàn bộ kịch bản, mua đồ dùng sẵn, học sinh chỉ việc tham gia dự giờ</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--ink2);">Xử lý tình huống phát sinh (Sự cố trời mưa to)</div>
+          <select class="select-input" id="eventIncident" onchange="updateEventLive()">
+            <option value="">-- Chọn cách ứng phó sự cố --</option>
+            <option value="inc-1">Chuyển hoạt động vào nhà đa năng của trường, kích hoạt kịch bản trò chơi dự phòng trong nhà</option>
+            <option value="inc-2">Tạm hoãn chương trình và yêu cầu học sinh ở lại lớp làm bài tập ôn thi</option>
+          </select>
+        </div>
+
+        <div class="live-status neutral" id="eventStatus">
+          Hãy thiết kế đủ các thuộc tính của hoạt động trải nghiệm để chuẩn bị tổ chức.
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="launchEvent()">🚀 Tổ Chức Hoạt Động Trải Nghiệm →</button>
+
+      <div class="result-box" id="resultAdmin">
+        <div class="result-title">🎯 Kết quả tổ chức hoạt động & Quản lý hành chính</div>
+        <div class="result-outcome" id="outcomeAdmin"></div>
+        <div class="result-aha" id="ahaAdmin"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="border-top:1px solid var(--border);background:#fff;padding:3rem 1.5rem;margin-top: 2rem;">
+    <div style="max-width:900px;margin:0 auto;text-align:center;">
+      <div style="font-size:13px;font-weight:700;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+      <h2 style="font-size:24px;font-weight:700;margin-bottom:1rem;color: var(--ink);">Bạn quan tâm đến ngành Giáo dục - Sư phạm?</h2>
+      <a href="../index.html" style="display:inline-block;padding:12px 28px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14.5px;text-decoration:none;transition:var(--transition);">Khám phá thêm các ngành nghề khác</a>
+    </div>
+  </div>
+
+  <script>
+    // Xử lý chuyển đổi TAB
+    function switchTab(n) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach((el, index) => {
+        el.style.display = index === n ? 'block' : 'none';
+      });
+
+      const tabs = document.querySelectorAll('.mtab');
+      tabs.forEach((tab, index) => {
+        if (index === n) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      
+      // Reset kết quả khi đổi tab để tăng trải nghiệm học tập
+      const results = document.querySelectorAll('.result-box');
+      results.forEach(res => res.classList.remove('show'));
+    }
+
+    /* =========================================================================
+       TAB 1: THIẾT KẾ GIÁO ÁN VÀ BÀI GIẢNG
+       ========================================================================= */
+    let draggedActId = null;
+    let lessonTimeline = { warmup: null, concept: null, practice: null };
+
+    function dragAct(e) {
+      draggedActId = e.target.id;
+      e.dataTransfer.setData('text/plain', draggedActId);
+    }
+
+    function allowDropAct(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('over');
+    }
+
+    function leaveSlot(e) {
+      e.currentTarget.classList.remove('over');
+    }
+
+    function dropAct(e, slotName) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('over');
+      const actId = e.dataTransfer.getData('text/plain');
+      const actEl = document.getElementById(actId);
+      
+      if (!actEl) return;
+
+      // Hủy bỏ vị trí cũ của hoạt động này nếu có
+      for (let s in lessonTimeline) {
+        if (lessonTimeline[s] === actId) {
+          lessonTimeline[s] = null;
+          document.getElementById('slot-' + s).innerHTML = '';
+        }
+      }
+
+      // Đưa hoạt động vào slot mới
+      lessonTimeline[slotName] = actId;
+      const targetSlot = document.getElementById('slot-' + slotName);
+      targetSlot.innerHTML = '';
+      
+      const clone = actEl.cloneNode(true);
+      clone.style.cursor = 'default';
+      clone.style.transform = 'none';
+      clone.style.boxShadow = 'none';
+      
+      // Thêm nút xóa hoạt động khỏi slot
+      const deleteBtn = document.createElement('span');
+      deleteBtn.innerHTML = ' ❌';
+      deleteBtn.style.cursor = 'pointer';
+      deleteBtn.style.float = 'right';
+      deleteBtn.onclick = function() {
+        lessonTimeline[slotName] = null;
+        targetSlot.innerHTML = '';
+        updateLessonLive();
+      };
+      clone.querySelector('.lesson-card-title').appendChild(deleteBtn);
+      
+      targetSlot.appendChild(clone);
+      updateLessonLive();
+    }
+
+    function updateLessonLive() {
+      const filled = Object.values(lessonTimeline).filter(Boolean).length;
+      const statusEl = document.getElementById('lessonStatus');
+      const interdisciplinary = document.getElementById('interdisciplinarySelect').value;
+
+      if (filled < 3) {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = `Đã xếp ${filled}/3 bước tiến trình. Hãy hoàn thành các bước còn lại.`;
+        return;
+      }
+
+      if (!interdisciplinary) {
+        statusEl.className = 'live-status warn';
+        statusEl.textContent = 'Tiến trình dạy học đã đủ. Vui lòng chọn môn tích hợp liên môn.';
+        return;
+      }
+
+      statusEl.className = 'live-status ok';
+      statusEl.textContent = '✓ Giáo án đã sẵn sàng phê duyệt. Nhấn "Phê Duyệt Giáo Án" bên dưới.';
+    }
+
+    function evaluateLessonPlan() {
+      const warmup = lessonTimeline.warmup;
+      const concept = lessonTimeline.concept;
+      const practice = lessonTimeline.practice;
+      const interdisciplinary = document.getElementById('interdisciplinarySelect').value;
+
+      if (!warmup || !concept || !practice || !interdisciplinary) {
+        alert('Vui lòng hoàn thiện đủ 3 bước tiến trình dạy học và lựa chọn môn học tích hợp trước.');
+        return;
+      }
+
+      let scoreCap = 0;
+      let scoreCre = 0;
+      let details = "";
+
+      // Đánh giá bước Khởi động
+      if (warmup === 'act-b') { // Trò chơi
+        scoreCre += 30;
+        scoreCap += 30;
+        details += "<li><strong>Khởi động xuất sắc:</strong> Khởi động bằng trò chơi liên hệ Parabol thực tế tạo hứng thú mạnh mẽ cho học sinh lớp 10.</li>";
+      } else if (warmup === 'act-c') { // Thảo luận nhóm
+        scoreCap += 25;
+        scoreCre += 20;
+        details += "<li><strong>Khởi động tốt:</strong> Thảo luận nhóm toán tối ưu hơi nặng cho hoạt động khởi động nhưng phát triển tư duy tốt.</li>";
+      } else {
+        scoreCap += 10;
+        details += "<li><strong>Khởi động nhàm chán:</strong> Lý thuyết chép bài thụ động ngay từ đầu tiết làm giảm động lực học tập của học sinh.</li>";
+      }
+
+      // Đánh giá bước Hình thành kiến thức
+      if (concept === 'act-c') { // Thảo luận nhóm
+        scoreCap += 40;
+        scoreCre += 25;
+        details += "<li><strong>Kiến thức vững vàng:</strong> Tổ chức cho học sinh tự thảo luận nhóm và đúc kết giúp nâng cao năng lực tự học và giải quyết vấn đề.</li>";
+      } else if (concept === 'act-d') { // Dự án thực tế
+        scoreCre += 35;
+        scoreCap += 20;
+        details += "<li><strong>Hình thành kiến thức thông qua dự án:</strong> Đây là hoạt động sáng tạo nhưng tốn thời gian, khó đảm bảo khung thời gian lý thuyết trên lớp.</li>";
+      } else {
+        scoreCap += 15;
+        details += "<li><strong>Thuyết giảng truyền thống:</strong> Lối học thụ động không phát triển tốt năng lực phân tích cho học sinh theo chương trình mới.</li>";
+      }
+
+      // Đánh giá bước Luyện tập & Vận dụng
+      if (practice === 'act-d') { // Dự án tăm tre
+        scoreCre += 35;
+        scoreCap += 30;
+        details += "<li><strong>Luyện tập đột phá:</strong> Dự án thiết kế mô hình thực tế giúp học sinh thấy rõ ứng dụng thực tiễn của hàm số bậc hai trong kiến trúc.</li>";
+      } else if (practice === 'act-c') { // Thảo luận nhóm
+        scoreCap += 25;
+        scoreCre += 15;
+        details += "<li><strong>Luyện tập hiệu quả:</strong> Bài tập thực tiễn giúp học sinh rèn kỹ năng mô hình hóa toán học rất tốt.</li>";
+      } else {
+        scoreCap += 15;
+        details += "<li><strong>Luyện tập truyền thống:</strong> Làm bài tập tính toán chay chỉ giúp làm bài thi tốt nhưng không tạo được kết nối thực tế.</li>";
+      }
+
+      // Đánh giá liên môn
+      let interName = "";
+      if (interdisciplinary === 'physics') {
+        interName = "Vật lý (Tầm bay xa Parabol)";
+        scoreCap += 10;
+      } else if (interdisciplinary === 'cs') {
+        interName = "Tin học (Python lập trình vẽ Parabol)";
+        scoreCap += 10;
+        scoreCre += 10;
+      } else {
+        interName = "Mỹ thuật & Kiến trúc (Cổng vòm Parabol)";
+        scoreCre += 10;
+      }
+
+      const totalScore = Math.min(100, scoreCap + scoreCre);
+      let evaluationText = `<strong>Điểm chất lượng giáo án: ${totalScore}/100</strong> (Phát triển năng lực: ${scoreCap}/100 | Khơi gợi sáng tạo: ${scoreCre}/100).<br><ul>${details}</ul>`;
+      evaluationText += `<p style="margin-top: 10px;">Lựa chọn tích hợp môn: <strong>${interName}</strong> mang tính ứng dụng liên môn thực tiễn cao.</p>`;
+
+      const resultBox = document.getElementById('resultLesson');
+      const outcomeEl = document.getElementById('outcomeLesson');
+      const ahaEl = document.getElementById('ahaLesson');
+
+      outcomeEl.innerHTML = evaluationText;
+      
+      if (totalScore >= 80) {
+        resultBox.style.borderLeftColor = 'var(--green)';
+        ahaEl.innerHTML = `<strong>Kinh nghiệm sư phạm:</strong> Một giáo án đạt chuẩn chương trình GDPT mới phải giảm tải thuyết giảng thụ động, tăng các hoạt động thực hành, làm dự án và kết hợp kiến thức liên môn để tạo ra cầu nối học tập tự nhiên.<span class="subject-bridge">Cầu nối SGK: Khoa học giáo dục & Tâm lý học lứa tuổi</span>`;
+      } else {
+        resultBox.style.borderLeftColor = 'var(--amber)';
+        ahaEl.innerHTML = `<strong>Đề xuất cải tiến:</strong> Bạn nên tích hợp trò chơi khởi động và dự án nhóm thực tế để nâng cao tính sáng tạo và năng lực tự chủ cho học sinh thay vì lạm dụng thuyết giảng.<span class="subject-bridge">Cầu nối SGK: Phương pháp giảng dạy Toán học</span>`;
+      }
+
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* =========================================================================
+       TAB 2: RA ĐỀ VÀ CHẤM BÀI
+       ========================================================================= */
+    let flaggedLines = new Set();
+    let selectedFeedbackId = null;
+    let selectedGrade = null;
+
+    // Danh sách điểm ngẫu nhiên của 34 học sinh khác trong lớp
+    const otherScores = [7, 8, 5, 9, 6, 8, 4, 7, 8, 9, 10, 6, 7, 5, 8, 9, 7, 6, 8, 7, 5, 8, 9, 4, 6, 7, 8, 9, 8, 7, 6, 9, 10, 5];
+
+    function updateMatrixTotal() {
+      const nb = +document.getElementById('m-nb').value || 0;
+      const th = +document.getElementById('m-th').value || 0;
+      const vd = +document.getElementById('m-vd').value || 0;
+      const vdc = +document.getElementById('m-vdc').value || 0;
+      const hasRealWorld = document.getElementById('matrixRealWorld').checked;
+
+      const totalQs = nb + th + vd + vdc;
+      const totalPoints = nb * 1 + th * 1 + vd * 1 + vdc * 1;
+      const statusEl = document.getElementById('matrixStatus');
+
+      let text = `Tổng số câu: ${totalQs} câu | Tổng số điểm: ${totalPoints}/10 điểm | `;
+
+      if (totalPoints !== 10) {
+        statusEl.className = 'matrix-status-bar warn';
+        text += `❌ Tổng điểm hiện tại chưa bằng 10! Vui lòng điều chỉnh lại.`;
+      } else if (!hasRealWorld) {
+        statusEl.className = 'matrix-status-bar warn';
+        text += `⚠️ Cần tích hợp bài toán thực tiễn để tăng tính ứng dụng.`;
+      } else {
+        statusEl.className = 'matrix-status-bar ok';
+        text += `✓ Ma trận hợp lệ.`;
+      }
+      statusEl.textContent = text;
+      updateGradingLiveStatus();
+    }
+
+    function flagLine(lineNum) {
+      const lineEl = document.getElementById('el-' + lineNum);
+      if (flaggedLines.has(lineNum)) {
+        flaggedLines.delete(lineNum);
+        lineEl.classList.remove('flagged');
+      } else {
+        flaggedLines.add(lineNum);
+        lineEl.classList.add('flagged');
+      }
+      updateGradingLiveStatus();
+    }
+
+    function selectFeedback(id) {
+      selectedFeedbackId = id;
+      document.querySelectorAll('.feedback-option').forEach(el => {
+        el.classList.remove('selected');
+      });
+      document.getElementById('fb-opt-' + id).classList.add('selected');
+      document.getElementById('fb-r-' + id).checked = true;
+      updateGradingLiveStatus();
+    }
+
+    function setGrade(grade) {
+      selectedGrade = grade;
+      document.querySelectorAll('.score-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById('sbtn-' + grade).classList.add('active');
+      
+      // Sau khi cho điểm Đức, tính toán phổ điểm lớp ngay
+      updateClassChart(grade);
+      updateGradingLiveStatus();
+    }
+
+    function updateClassChart(gradeOfDuc) {
+      const allScores = [...otherScores, gradeOfDuc];
+      const countGioi = allScores.filter(s => s >= 8).length;
+      const countKha = allScores.filter(s => s >= 6.5 && s < 8).length;
+      const countTB = allScores.filter(s => s >= 5 && s < 6.5).length;
+      const countYeu = allScores.filter(s => s < 5).length;
+
+      const total = allScores.length;
+
+      document.getElementById('val-gioi').textContent = countGioi;
+      document.getElementById('val-kha').textContent = countKha;
+      document.getElementById('val-tb').textContent = countTB;
+      document.getElementById('val-yeu').textContent = countYeu;
+
+      document.getElementById('bar-gioi').style.width = (countGioi / total * 100) + '%';
+      document.getElementById('bar-kha').style.width = (countKha / total * 100) + '%';
+      document.getElementById('bar-tb').style.width = (countTB / total * 100) + '%';
+      document.getElementById('bar-yeu').style.width = (countYeu / total * 100) + '%';
+
+      const avg = allScores.reduce((a, b) => a + b, 0) / total;
+      document.getElementById('classAvgText').textContent = `Điểm trung bình lớp: ${avg.toFixed(2)}/10`;
+    }
+
+    function updateGradingLiveStatus() {
+      const statusEl = document.getElementById('gradingStatus');
+      const nb = +document.getElementById('m-nb').value || 0;
+      const th = +document.getElementById('m-th').value || 0;
+      const vd = +document.getElementById('m-vd').value || 0;
+      const vdc = +document.getElementById('m-vdc').value || 0;
+      const matrixValid = (nb + th + vd + vdc) === 10;
+
+      if (!matrixValid) {
+        statusEl.className = 'live-status warn';
+        statusEl.textContent = '⚠️ Ma trận đề chưa hợp lệ (tổng điểm phải bằng 10).';
+        return;
+      }
+
+      if (flaggedLines.size === 0) {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = 'Hãy click phát hiện các dòng giải sai trong bài làm của Đức.';
+        return;
+      }
+
+      if (!selectedFeedbackId) {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = 'Bài đã sửa lỗi. Hãy chọn thêm một lời phê sư phạm phù hợp.';
+        return;
+      }
+
+      if (!selectedGrade) {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = 'Lời phê đã chọn. Hãy cho điểm bài thi của Đức để tổng hợp phổ điểm.';
+        return;
+      }
+
+      statusEl.className = 'live-status ok';
+      statusEl.textContent = '✓ Hoàn tất quy trình ra đề & chấm bài. Bạn có thể công bố kết quả.';
+    }
+
+    function submitGrading() {
+      const nb = +document.getElementById('m-nb').value || 0;
+      const th = +document.getElementById('m-th').value || 0;
+      const vd = +document.getElementById('m-vd').value || 0;
+      const vdc = +document.getElementById('m-vdc').value || 0;
+      const hasRealWorld = document.getElementById('matrixRealWorld').checked;
+
+      if ((nb + th + vd + vdc) !== 10) {
+        alert('Ma trận đề kiểm tra phải có tổng điểm bằng 10.');
+        return;
+      }
+
+      if (flaggedLines.size === 0 || !selectedFeedbackId || !selectedGrade) {
+        alert('Vui lòng hoàn thành đầy đủ quy trình chấm bài: Phát hiện lỗi sai, chọn lời phê và cho điểm học sinh.');
+        return;
+      }
+
+      const resultBox = document.getElementById('resultGrading');
+      const outcomeEl = document.getElementById('outcomeGrading');
+      const ahaEl = document.getElementById('ahaGrading');
+
+      // Đánh giá phần phát hiện lỗi sai
+      // Đức làm sai ở dòng 3 (hoành độ đỉnh -b/a thay vì -b/2a) và dòng 4 + 5 (kéo theo kết quả sai).
+      // Việc chấm đúng phải phát hiện ít nhất dòng 3 và dòng 4.
+      let correctGrading = flaggedLines.has(3) && flaggedLines.has(4);
+      let gradingEvaluation = "";
+
+      if (correctGrading) {
+        gradingEvaluation += "<li><strong>Chấm bài chính xác:</strong> Bạn đã phát hiện đúng lỗi sai nghiêm trọng về công thức hoành độ đỉnh parabol của Đức (x₀ = -b/2a chứ không phải -b/a).</li>";
+      } else {
+        gradingEvaluation += "<li><strong>Chấm sót lỗi:</strong> Bạn chưa chỉ ra chính xác dòng bắt đầu gây ra lỗi sai trong công thức nghiệm toán học của học sinh.</li>";
+      }
+
+      // Đánh giá lời phê
+      if (selectedFeedbackId === 2) {
+        gradingEvaluation += "<li><strong>Lời phê xuất sắc:</strong> Lời phê chỉ rõ lỗi sai kỹ thuật, phân tích nguyên nhân vô lý kết quả và khuyến khích học sinh tiến bộ.</li>";
+      } else if (selectedFeedbackId === 1) {
+        gradingEvaluation += "<li><strong>Lời phê tiêu cực:</strong> Phê bình học sinh cẩu thả nặng nề có thể làm giảm động cơ học toán của học sinh.</li>";
+      } else {
+        gradingEvaluation += "<li><strong>Lời phê sơ sài:</strong> Lời phê chung chung chưa giúp học sinh biết cách sửa đổi điểm yếu.</li>";
+      }
+
+      // Đánh giá ma trận đề
+      if (vdc >= 1 && hasRealWorld) {
+        gradingEvaluation += "<li><strong>Thiết kế đề đạt chuẩn:</strong> Đề kiểm tra có câu hỏi vận dụng cao liên hệ thực tế, giúp phân hóa tốt học lực và kiểm tra năng lực thực tiễn.</li>";
+      } else {
+        gradingEvaluation += "<li><strong>Đề thi thiếu phân hóa:</strong> Đề thi cần thêm câu vận dụng cao liên hệ thực tế để kiểm tra khả năng tư duy nâng cao.</li>";
+      }
+
+      outcomeEl.innerHTML = `<ul>${gradingEvaluation}</ul><p style="margin-top:10px;">Điểm bạn cho Đức: <strong>${selectedGrade}đ</strong>. Phổ điểm lớp đạt mức trung bình tốt, phản ánh đề thi có độ phân hóa cân đối.</p>`;
+      
+      if (correctGrading && selectedFeedbackId === 2) {
+        resultBox.style.borderLeftColor = 'var(--green)';
+        ahaEl.innerHTML = `<strong>Góc nhìn sư phạm:</strong> Chấm bài không đơn thuần là trừ điểm. Việc chỉ rõ bản chất lỗi sai kỹ thuật kết hợp với lời phê động viên kịp thời là phương pháp giáo dục giúp xây dựng lòng tự tin học tập cho học sinh.<span class="subject-bridge">Cầu nối SGK: Đánh giá kết quả học tập môn Toán - Bộ GD&ĐT</span>`;
+      } else {
+        resultBox.style.borderLeftColor = 'var(--amber)';
+        ahaEl.innerHTML = `<strong>Gợi ý cải tiến:</strong> Bạn nên rà soát kỹ các công thức trung tâm trong bài làm để chỉ ra chính xác gốc rễ sai sót của học sinh, đồng thời chuyển lời phê từ phê bình sang định hướng khắc phục lỗi.<span class="subject-bridge">Cầu nối SGK: Tâm lý học sư phạm - Giao tiếp thầy trò</span>`;
+      }
+
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* =========================================================================
+       TAB 3: CÔNG TÁC CHỦ NHIỆM VÀ XỬ LÝ TÌNH HUỐNG
+       ========================================================================= */
+    let currentScenario = 1;
+    let indicators = { wellbeing: 50, trust: 50, authority: 50 };
+    let scenarioAnswers = {};
+
+    function selectScenarioOption(scId, optionId) {
+      // Đánh dấu nút đã chọn
+      const buttons = document.querySelectorAll(`#sc-${scId} .scenario-option-btn`);
+      buttons.forEach((btn, index) => {
+        if (index === (optionId - 1)) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+
+      scenarioAnswers[scId] = optionId;
+
+      // Tính toán cập nhật các chỉ số
+      if (scId === 1) {
+        if (optionId === 1) { // Phê bình gay gắt
+          indicators.wellbeing -= 20;
+          indicators.trust -= 15;
+          indicators.authority += 10;
+        } else if (optionId === 2) { // Gặp riêng tư vấn
+          indicators.wellbeing += 25;
+          indicators.trust += 25;
+          indicators.authority += 15;
+        } else { // Chờ họp
+          indicators.wellbeing -= 10;
+          indicators.trust -= 10;
+          indicators.authority -= 15;
+        }
+        
+        // Hiện tiếp tình huống 2 sau 1s
+        setTimeout(() => {
+          document.getElementById('sc-2').style.display = 'block';
+          document.getElementById('sc-2').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scenarioStatus').textContent = 'Đã trả lời Tình huống 1. Hãy tiếp tục giải quyết Tình huống 2.';
+        }, 600);
+
+      } else if (scId === 2) {
+        if (optionId === 1) { // Phạt lao động công ích
+          indicators.wellbeing -= 15;
+          indicators.trust -= 10;
+          indicators.authority += 15;
+        } else if (optionId === 2) { // Hòa giải chia sẻ
+          indicators.wellbeing += 25;
+          indicators.trust += 20;
+          indicators.authority += 20;
+        } else { // Chuyển giám thị
+          indicators.wellbeing -= 10;
+          indicators.trust += 5;
+          indicators.authority -= 10;
+        }
+
+        // Hiện tiếp tình huống 3 sau 1s
+        setTimeout(() => {
+          document.getElementById('sc-3').style.display = 'block';
+          document.getElementById('sc-3').scrollIntoView({ behavior: 'smooth' });
+          document.getElementById('scenarioStatus').textContent = 'Đã giải quyết Tình huống 2. Hãy giải quyết nốt Tình huống 3.';
+        }, 600);
+
+      } else if (scId === 3) {
+        if (optionId === 1) { // Tư vấn đồng hành
+          indicators.wellbeing += 20;
+          indicators.trust += 20;
+          indicators.authority += 20;
+        } else if (optionId === 2) { // Bênh vực giấu lỗi
+          indicators.wellbeing -= 10;
+          indicators.trust += 10;
+          indicators.authority -= 30;
+        } else { // Phê bình trước lớp
+          indicators.wellbeing -= 25;
+          indicators.trust -= 15;
+          indicators.authority += 15;
+        }
+
+        // Cập nhật trạng thái xong 3 tình huống
+        document.getElementById('scenarioStatus').className = 'live-status ok';
+        document.getElementById('scenarioStatus').textContent = '✓ Đã hoàn thành xử lý 3 tình huống chủ nhiệm. Hãy nhấn xem kết quả.';
+        evaluateChunhiem();
+      }
+
+      // Giới hạn chỉ số trong khoảng 0 - 100
+      for (let key in indicators) {
+        indicators[key] = Math.min(100, Math.max(0, indicators[key]));
+      }
+
+      // Cập nhật giao diện chỉ số
+      updateIndicatorsUI();
+    }
+
+    function updateIndicatorsUI() {
+      document.getElementById('wellbeing-val').textContent = indicators.wellbeing + '%';
+      document.getElementById('wellbeing-bar').style.width = indicators.wellbeing + '%';
+      document.getElementById('wellbeing-bar').style.backgroundColor = indicators.wellbeing >= 70 ? 'var(--green)' : indicators.wellbeing >= 40 ? 'var(--amber)' : 'var(--red)';
+
+      document.getElementById('trust-val').textContent = indicators.trust + '%';
+      document.getElementById('trust-bar').style.width = indicators.trust + '%';
+      document.getElementById('trust-bar').style.backgroundColor = indicators.trust >= 70 ? 'var(--green)' : indicators.trust >= 40 ? 'var(--amber)' : 'var(--red)';
+
+      document.getElementById('authority-val').textContent = indicators.authority + '%';
+      document.getElementById('authority-bar').style.width = indicators.authority + '%';
+      document.getElementById('authority-bar').style.backgroundColor = indicators.authority >= 70 ? 'var(--green)' : indicators.authority >= 40 ? 'var(--amber)' : 'var(--red)';
+    }
+
+    function evaluateChunhiem() {
+      const resultBox = document.getElementById('resultScenario');
+      const outcomeEl = document.getElementById('outcomeScenario');
+      const ahaEl = document.getElementById('ahaScenario');
+
+      let style = "";
+      let desc = "";
+
+      const avgIndicator = (indicators.wellbeing + indicators.trust + indicators.authority) / 3;
+
+      if (avgIndicator >= 75) {
+        style = "NHÀ GIÁO NHÂN ÁI & THẤU CẢM (Xuất Sắc)";
+        desc = "Bạn có phương pháp chủ nhiệm cực kỳ hiện đại, thấu cảm và chuyên nghiệp. Bạn biết cách đặt tâm lý học sinh làm trung tâm, tạo được sự tin cậy tuyệt đối với phụ huynh học sinh và giữ vững kỷ luật trường học bằng tình yêu thương và sự thấu hiểu. Hoàng, Nam, Việt và Tú đều có cơ hội nhìn nhận lại bản thân và tiến bộ vững chắc.";
+        resultBox.style.borderLeftColor = 'var(--green)';
+      } else if (indicators.authority >= 65 && indicators.wellbeing < 50) {
+        style = "NHÀ GIÁO KỶ LUẬT THÉP (Cứng nhắc)";
+        desc = "Bạn thiên về xử phạt hành chính và kỷ luật nghiêm khắc để thiết lập uy thế. Mặc dù trật tự lớp học được đảm bảo tạm thời nhưng học sinh cảm thấy rất áp lực và khép kín, phụ huynh e dè. Khoảng cách giữa thầy và trò còn xa. Hãy học cách lắng nghe và đồng cảm nhiều hơn.";
+        resultBox.style.borderLeftColor = 'var(--amber)';
+      } else {
+        style = "PHONG CÁCH CHỦ NHIỆM HÒA ĐỒNG (Cần cải thiện)";
+        desc = "Bạn giải quyết tình huống có xu hướng dĩ hòa vi quý hoặc đôi khi thờ ơ, chưa thực hiện đúng quy trình phối hợp giáo dục giữa nhà trường - gia đình - xã hội. Một số học sinh có thể cảm thấy chưa được quan tâm đúng mức hoặc thiếu đi tính kỷ luật cần thiết.";
+        resultBox.style.borderLeftColor = 'var(--red)';
+      }
+
+      outcomeEl.innerHTML = `Phong cách chủ nhiệm của bạn: <strong style="color:var(--blue);">${style}</strong>.<br><p style="margin-top: 8px;">${desc}</p>`;
+      
+      ahaEl.innerHTML = `<strong>Bài học thực tế:</strong> Công tác chủ nhiệm đòi hỏi sự kết hợp nhuần nhuyễn giữa kiến thức tâm lý học đường và luật giáo dục. Mọi biện pháp kỷ luật học sinh vi phạm đều phải hướng tới tính giáo dục nhân văn và giúp học sinh sửa chữa khuyết điểm.<span class="subject-bridge">Cầu nối SGK: Giáo dục công dân & Kỹ năng nghiệp vụ sư phạm</span>`;
+
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* =========================================================================
+       TAB 4: HÀNH CHÍNH VÀ TỔ CHỨC HOẠT ĐỘNG
+       ========================================================================= */
+    let teacherEnergy = 100;
+    let completedTodos = new Set();
+    let burnout = false;
+
+    function doTodo(todoId, cost, isCritical) {
+      if (burnout) return;
+      if (completedTodos.has(todoId)) return;
+
+      if (teacherEnergy < cost) {
+        document.getElementById('adminStatus').className = 'live-status warn';
+        document.getElementById('adminStatus').textContent = '⚠️ Năng lượng hiện tại không đủ để làm việc này! Hãy nghỉ ngơi hồi sức.';
+        return;
+      }
+
+      teacherEnergy -= cost;
+      completedTodos.add(todoId);
+
+      // Cập nhật UI Todo Item
+      const itemEl = document.getElementById('todo-' + todoId);
+      itemEl.classList.add('completed');
+      const btn = itemEl.querySelector('.todo-action-btn');
+      btn.textContent = 'Hoàn thành';
+      btn.classList.add('disabled');
+      btn.disabled = true;
+
+      // Cập nhật Năng lượng
+      updateEnergyUI();
+
+      // Kiểm tra trạng thái Burnout
+      if (teacherEnergy <= 0 && completedTodos.size < 4) {
+        burnout = true;
+        document.getElementById('adminStatus').className = 'live-status warn';
+        document.getElementById('adminStatus').textContent = '❌ BẠN ĐÃ BỊ KIỆT SỨC (BURNOUT)! Không thể tiếp tục công việc hành chính.';
+        disableAllAdminButtons();
+        return;
+      }
+
+      // Kiểm tra trạng thái hoàn thành công việc
+      checkAdminJobs();
+    }
+
+    function restTeacher() {
+      if (burnout) return;
+      teacherEnergy = Math.min(100, teacherEnergy + 20);
+      updateEnergyUI();
+      document.getElementById('adminStatus').className = 'live-status ok';
+      document.getElementById('adminStatus').textContent = '✓ Bạn đã hồi phục 20 năng lượng từ ly cà phê ấm.';
+      checkAdminJobs();
+    }
+
+    function updateEnergyUI() {
+      document.getElementById('energyVal').textContent = `${teacherEnergy}/100`;
+      const fill = document.getElementById('energyBar');
+      fill.style.width = teacherEnergy + '%';
+      if (teacherEnergy >= 60) {
+        fill.style.backgroundColor = 'var(--green)';
+      } else if (teacherEnergy >= 30) {
+        fill.style.backgroundColor = 'var(--amber)';
+      } else {
+        fill.style.backgroundColor = 'var(--red)';
+      }
+    }
+
+    function disableAllAdminButtons() {
+      document.querySelectorAll('.todo-action-btn').forEach(btn => {
+        btn.classList.add('disabled');
+        btn.disabled = true;
+      });
+    }
+
+    function checkAdminJobs() {
+      const hasCritical1 = completedTodos.has(1);
+      const hasCritical2 = completedTodos.has(2);
+      const allDone = completedTodos.size === 4;
+
+      const statusEl = document.getElementById('adminStatus');
+
+      if (hasCritical1 && hasCritical2) {
+        statusEl.className = 'live-status ok';
+        statusEl.textContent = '✓ Đã hoàn thành xong 2 việc Rất Quan Trọng & Khẩn cấp. Bạn có thể nộp báo cáo hành chính.';
+      } else {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = 'Hãy ưu tiên giải quyết các hồ sơ "Quan trọng & Khẩn cấp" trước.';
+      }
+    }
+
+    // Tổ chức sự kiện
+    let eventPlan = { theme: "", org: "", incident: "" };
+
+    function updateEventLive() {
+      const theme = document.getElementById('eventTheme').value;
+      const org = document.getElementById('eventOrg').value;
+      const incident = document.getElementById('eventIncident').value;
+
+      const statusEl = document.getElementById('eventStatus');
+
+      if (!theme || !org || !incident) {
+        statusEl.className = 'live-status neutral';
+        statusEl.textContent = 'Vui lòng điền đầy đủ thiết kế sự kiện ngoại khóa trải nghiệm.';
+        return;
+      }
+
+      statusEl.className = 'live-status ok';
+      statusEl.textContent = '✓ Sự kiện đã sẵn sàng tổ chức. Hãy nhấn "Tổ chức hoạt động" bên dưới.';
+    }
+
+    function launchEvent() {
+      const theme = document.getElementById('eventTheme').value;
+      const org = document.getElementById('eventOrg').value;
+      const incident = document.getElementById('eventIncident').value;
+
+      if (!theme || !org || !incident) {
+        alert('Vui lòng thiết lập đầy đủ thông số cho Hoạt động ngoại khóa.');
+        return;
+      }
+
+      const resultBox = document.getElementById('resultAdmin');
+      const outcomeEl = document.getElementById('outcomeAdmin');
+      const ahaEl = document.getElementById('ahaAdmin');
+
+      let adminText = "";
+      let eventScore = 0;
+
+      // 1. Đánh giá Hành chính
+      if (burnout) {
+        adminText += "<li><strong>Hành chính thất bại:</strong> Giáo viên bị kiệt sức (Burnout), các hồ sơ không thể bàn giao đúng hạn cho nhà trường.</li>";
+      } else {
+        const has1 = completedTodos.has(1);
+        const has2 = completedTodos.has(2);
+        if (has1 && has2) {
+          adminText += "<li><strong>Quản lý thời gian tốt:</strong> Hoàn thành đầy đủ hồ sơ quan trọng (Giáo án & Sổ điểm học bạ) giúp bạn giữ vững tiến độ thi đua của lớp.</li>";
+          eventScore += 40;
+        } else {
+          adminText += "<li><strong>Sắp xếp sai thứ tự ưu tiên:</strong> Bị nhà trường nhắc nhở phê bình vì nộp muộn Giáo án hoặc Sổ điểm học bạ.</li>";
+          eventScore += 10;
+        }
+      }
+
+      // 2. Đánh giá ngoại khóa
+      if (theme === 'theme-1') {
+        adminText += "<li><strong>Chủ đề xuất sắc:</strong> Diễn đàn bạo lực học đường đúng thời sự, thu hút sự chú ý và có giá trị kỹ năng sống cao.</li>";
+        eventScore += 20;
+      } else {
+        adminText += "<li><strong>Chủ đề nhàm chán:</strong> Việc bắt học sinh nghe đọc nội quy chay khiến học sinh không hào hứng tham gia.</li>";
+        eventScore += 10;
+      }
+
+      if (org === 'org-1') {
+        adminText += "<li><strong>Phát huy tính tự chủ:</strong> Ban cán sự lớp chủ động lên kế hoạch giúp học sinh rèn luyện kỹ năng làm việc nhóm, lãnh đạo và giao tiếp tốt.</li>";
+        eventScore += 20;
+      } else {
+        adminText += "<li><strong>Học sinh thụ động:</strong> Giáo viên bao biện làm thay mọi việc khiến học sinh chỉ đóng vai trò người xem, không phát triển kỹ năng.</li>";
+        eventScore += 10;
+      }
+
+      if (incident === 'inc-1') {
+        adminText += "<li><strong>Ứng phó sự cố linh hoạt:</strong> Việc chuyển vào nhà đa năng nhanh chóng giúp chương trình diễn ra trọn vẹn, rèn tính ứng biến của tập thể.</li>";
+        eventScore += 20;
+      } else {
+        adminText += "<li><strong>Ứng phó thụ động:</strong> Việc hoãn sự kiện đột xuất làm lãng phí công sức chuẩn bị của học sinh và phụ huynh.</li>";
+        eventScore += 5;
+      }
+
+      outcomeEl.innerHTML = `<strong>Chỉ số chất lượng tích hợp: ${eventScore}/100</strong>.<br><ul>${adminText}</ul>`;
+      
+      if (eventScore >= 80) {
+        resultBox.style.borderLeftColor = 'var(--green)';
+        ahaEl.innerHTML = `<strong>Kinh nghiệm thực tiễn:</strong> Một giáo viên giỏi là người quản trị thời gian thông minh, biết cân bằng giữa công tác sổ sách hành chính và các hoạt động giáo dục phát triển kỹ năng mềm cho học sinh.<span class="subject-bridge">Cầu nối SGK: Nghiệp vụ Quản lý lớp học & Tổ chức hoạt động giáo dục</span>`;
+      } else {
+        resultBox.style.borderLeftColor = 'var(--amber)';
+        ahaEl.innerHTML = `<strong>Đề xuất cải tiến:</strong> Bạn hãy thử phân quyền cho Ban cán sự lớp lập kế hoạch tự quản nhiều hơn, và lưu ý sắp xếp việc quan trọng - khẩn cấp lên đầu danh sách để giữ sức khỏe giảng dạy.<span class="subject-bridge">Cầu nối SGK: Kỹ năng quản trị thời gian của Giáo viên</span>`;
+      }
+
+      resultBox.classList.add('show');
+      resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
