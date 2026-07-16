@@ -1,424 +1,1408 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phòng Lab · Kỹ thuật Điện — Hướng Nghiệp THPT</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab · Kỹ thuật Điện — Hướng Nghiệp THPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #fafaf8; --surface: #fff; --ink: #111; --ink2: #555566; --ink3: #9999aa;
-    --blue: #2563eb; --blue-bg: #eff4ff; --border: #e0ddd8; --border2: #ccc;
-    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
-    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
-  }
-  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); }
-  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
-  .topbar-logo { font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
-  .topbar-logo span { color: var(--blue); }
-  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-title { font-size: 13px; color: var(--ink2); }
-  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
-    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
-  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
-  .hero { margin-bottom: 2rem; }
-  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
-  .hero-label span { color: var(--blue); }
-  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
-  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
-  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
-    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
-  .mtab:last-child { border-right: none; }
-  .mtab:hover { background: #f3f4f6; }
-  .mtab.active { background: var(--ink); color: #fff; }
-  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
-    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
-  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
-  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
-  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 1rem; line-height: 1.5; }
-  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
-  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
-  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
-  .slider-row { margin-bottom: 1rem; }
-  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
-  .slider-wrap { display: flex; align-items: center; gap: 10px; }
-  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
-  .slider-val { font-size: 13px; font-weight: 600; min-width: 56px; text-align: right; }
-  .ammeter { text-align: center; padding: 1.5rem; background: #1a1a2e; border-radius: var(--radius-lg); margin: 1rem 0; color: #0f0; font-family: 'Courier New', monospace; }
-  .ammeter-label { font-size: 11px; color: #888; margin-bottom: 4px; letter-spacing: .1em; }
-  .ammeter-value { font-size: 42px; font-weight: 700; line-height: 1; }
-  .ammeter-unit { font-size: 18px; color: #0f0; opacity: .8; }
-  .chip-pool { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .dev-chip, .cb-chip { padding: 10px 14px; background: var(--surface); border: 2px solid var(--border2); border-radius: var(--radius);
-    font-size: 13px; font-weight: 500; cursor: grab; user-select: none; transition: transform .15s, border-color .15s; }
-  .dev-chip:active, .cb-chip:active { cursor: grabbing; transform: scale(1.05); }
-  .dev-chip.dragging, .cb-chip.dragging { opacity: .5; }
-  .timeline-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 1rem; }
-  .time-slot { min-height: 72px; border: 2px dashed var(--border2); border-radius: var(--radius); padding: 4px;
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 2px;
-    font-size: 10px; color: var(--ink3); transition: border-color .2s, background .2s; }
-  .time-slot.over { border-color: var(--blue); background: var(--blue-bg); }
-  .time-slot .hour-label { font-weight: 600; font-size: 10px; margin-bottom: 2px; }
-  .time-slot .placed-chip { font-size: 9px; background: var(--blue-bg); color: var(--blue); padding: 2px 4px;
-    border-radius: 3px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .bill-counters { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-  .bill-block { flex: 1; min-width: 130px; padding: 1rem; background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); text-align: center; }
-  .bill-num { font-size: 24px; font-weight: 700; }
-  .bill-caption { font-size: 11px; color: var(--ink2); margin-top: 4px; }
-  .drop-zone { min-height: 100px; border: 2px dashed var(--border2); border-radius: var(--radius-lg); padding: 1.25rem;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    transition: border-color .2s, background .2s; }
-  .drop-zone.over { border-color: var(--blue); background: var(--blue-bg); }
-  .drop-zone.filled { border-style: solid; border-color: var(--green); background: var(--green-bg); }
-  .drop-zone.bad { border-color: var(--red); background: var(--red-bg); }
-  .machine-info { font-size: 13px; color: var(--ink2); margin-bottom: 1rem; line-height: 1.6; }
-  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
-    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
-  .btn-primary:hover { opacity: .85; }
-  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem; margin-top: 1.25rem; display: none; }
-  .result-box.show { display: block; }
-  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
-  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
-    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
-  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
-    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
-</style>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --surface2: #f5f4f0;
+      --surface3: #eeecea;
+      --ink: #111111;
+      --ink2: #555566;
+      --ink3: #9999aa;
+      --border: #e0ddd8;
+      --border2: #cccccc;
+      --blue: #2563eb;
+      --blue-bg: #eff4ff;
+      --blue-border: #c7d9ff;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #2563eb;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .hero {
+      margin-bottom: 2rem;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      font-family: inherit;
+      transition: background .15s;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: #f3f4f6;
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid #c7d9ff;
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .live-status {
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .live-status.warn {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    .live-status.ok {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .live-status.neutral {
+      background: #f3f4f6;
+      color: var(--ink2);
+      border: 1px solid var(--border);
+    }
+
+    .slider-row {
+      margin-bottom: 1rem;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-bottom: 4px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-wrap input[type=range] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .slider-val {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 56px;
+      text-align: right;
+    }
+
+    .ammeter {
+      text-align: center;
+      padding: 1.5rem;
+      background: #1a1a2e;
+      border-radius: var(--radius-lg);
+      margin: 1rem 0;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+    }
+
+    .ammeter-label {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 4px;
+      letter-spacing: .1em;
+    }
+
+    .ammeter-value {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .ammeter-unit {
+      font-size: 18px;
+      color: #0f0;
+      opacity: .8;
+    }
+
+    .chip-pool {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .dev-chip,
+    .cb-chip {
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 2px solid var(--border2);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: grab;
+      user-select: none;
+      transition: transform .15s, border-color .15s;
+    }
+
+    .dev-chip:active,
+    .cb-chip:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    .dev-chip.dragging,
+    .cb-chip.dragging {
+      opacity: .5;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .time-slot {
+      min-height: 72px;
+      border: 2px dashed var(--border2);
+      border-radius: var(--radius);
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2px;
+      font-size: 10px;
+      color: var(--ink3);
+      transition: border-color .2s, background .2s;
+    }
+
+    .time-slot.over {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .time-slot .hour-label {
+      font-weight: 600;
+      font-size: 10px;
+      margin-bottom: 2px;
+    }
+
+    .time-slot .placed-chip {
+      font-size: 9px;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-weight: 600;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bill-counters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .bill-block {
+      flex: 1;
+      min-width: 130px;
+      padding: 1rem;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .bill-num {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .bill-caption {
+      font-size: 11px;
+      color: var(--ink2);
+      margin-top: 4px;
+    }
+
+    .drop-zone {
+      min-height: 100px;
+      border: 2px dashed var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: border-color .2s, background .2s;
+    }
+
+    .drop-zone.over {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .drop-zone.filled {
+      border-style: solid;
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .drop-zone.bad {
+      border-color: var(--red);
+      background: var(--red-bg);
+    }
+
+    .machine-info {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: .5rem;
+    }
+
+    .btn-primary:hover {
+      opacity: .85;
+    }
+
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-outcome {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .result-aha {
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Unified Layout & Theme Overrides (Antigravity Overhaul) ── */
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+      display: inline-block;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* ── Mission tabs ── */
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: background .15s, color .15s;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: var(--gray-bg);
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mtab-icon {
+      font-size: 17px;
+    }
+
+    .mtab-label {
+      font-size: 12px;
+    }
+
+    /* ── Mission box ── */
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .mission-box a {
+      color: var(--blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Action label ── */
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .65rem;
+    }
+
+    /* ── Buttons ── */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: opacity .15s;
+    }
+
+    .btn-primary:hover {
+      opacity: .82;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      font-size: 13px;
+      background: var(--surface);
+      color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-bg);
+    }
+
+    /* ── Result box ── */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .85rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-aha {
+      margin-top: 1rem;
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .result-aha strong {
+      color: #3d3500;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      padding: 1.5rem 2rem;
+      font-size: 12px;
+      color: var(--ink3);
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
+
 <body>
-<div class="topbar">
-  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-title">Kỹ thuật Điện</div>
-  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
-</div>
-<div class="page">
-  <div class="hero">
-    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ thuật Điện</div>
-    <div class="hero-title">Hôm nay bạn là kỹ sư điện tại công trình công nghiệp</div>
-    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Kỹ thuật Điện</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
   </div>
-  <div class="mission-tabs">
-    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="zap"></i> Mạch điện</button>
-    <button class="mtab" onclick="switchTab(1)"><i data-lucide="lightbulb"></i> Tiền điện</button>
-    <button class="mtab" onclick="switchTab(2)">🔌 Cầu dao</button>
-  </div>
-
-  <div id="tab0">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Máy nén khí mới lắp — bạn phải kiểm tra dòng điện trước khi bật. Chỉnh điện áp nguồn và điện trở tải, đọc ampe kế. Nếu dòng vượt 10A, máy báo nguy hiểm.
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ thuật Điện</div>
+      <div class="hero-title">Hôm nay bạn là kỹ sư điện tại công trình công nghiệp</div>
+      <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
     </div>
-    <div class="sim-card">
-      <div class="slider-row">
-        <div class="slider-label">Điện áp nguồn (V)</div>
-        <div class="slider-wrap">
-          <input type="range" id="voltSlider" min="100" max="250" step="5" value="220" oninput="updateCircuit()">
-          <span class="slider-val" id="voltVal">220 V</span>
+    <div class="mission-tabs">
+      <button class="mtab active" onclick="switchTab(0)"><i data-lucide="zap"></i> Mạch điện</button>
+      <button class="mtab" onclick="switchTab(1)"><i data-lucide="lightbulb"></i> Tiền điện</button>
+      <button class="mtab" onclick="switchTab(2)">🔌 Cầu dao</button>
+    </div>
+
+    <div id="tab0">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Máy nén khí mới lắp — bạn phải kiểm tra dòng điện trước khi bật. Chỉnh điện áp
+        nguồn và điện trở tải, đọc ampe kế. Nếu dòng vượt 10A, máy báo nguy hiểm.
+      </div>
+      <div class="sim-card">
+        <div class="slider-row">
+          <div class="slider-label">Điện áp nguồn (V)</div>
+          <div class="slider-wrap">
+            <input type="range" id="voltSlider" min="100" max="250" step="5" value="220" oninput="updateCircuit()">
+            <span class="slider-val" id="voltVal">220 V</span>
+          </div>
         </div>
-      </div>
-      <div class="slider-row">
-        <div class="slider-label">Điện trở tải (Ω)</div>
-        <div class="slider-wrap">
-          <input type="range" id="resSlider" min="20" max="60" step="1" value="44" oninput="updateCircuit()">
-          <span class="slider-val" id="resVal">44 Ω</span>
+        <div class="slider-row">
+          <div class="slider-label">Điện trở tải (Ω)</div>
+          <div class="slider-wrap">
+            <input type="range" id="resSlider" min="20" max="60" step="1" value="44" oninput="updateCircuit()">
+            <span class="slider-val" id="resVal">44 Ω</span>
+          </div>
         </div>
+        <div class="ammeter">
+          <div class="ammeter-label">CƯỜNG ĐỘ DÒNG ĐIỆN</div>
+          <div><span class="ammeter-value" id="ampValue">5.0</span> <span class="ammeter-unit">A</span></div>
+        </div>
+        <div class="live-status ok" id="circuitStatus">Dòng điện trong giới hạn an toàn.</div>
       </div>
-      <div class="ammeter">
-        <div class="ammeter-label">CƯỜNG ĐỘ DÒNG ĐIỆN</div>
-        <div><span class="ammeter-value" id="ampValue">5.0</span> <span class="ammeter-unit">A</span></div>
+      <button class="btn-primary" onclick="revealCurrent()">Xem kết quả →</button>
+      <div class="result-box" id="resultCurrent">
+        <div class="result-outcome" id="outcomeCurrent"></div>
+        <div class="result-aha" id="ahaCurrent"></div>
       </div>
-      <div class="live-status ok" id="circuitStatus">Dòng điện trong giới hạn an toàn.</div>
     </div>
-    <button class="btn-primary" onclick="revealCurrent()">Xem kết quả →</button>
-    <div class="result-box" id="resultCurrent">
-      <div class="result-outcome" id="outcomeCurrent"></div>
-      <div class="result-aha" id="ahaCurrent"></div>
+
+    <div id="tab1" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Khách hàng hỏi tiền điện trong ngày — ngân sách 500.000đ. Kéo thiết bị vào khung
+        giờ (8 tiếng) để lên lịch bật/tắt, theo dõi tổng kWh và chi phí.
+      </div>
+      <div class="sim-card">
+        <div class="action-label">Thiết bị — kéo thả vào khung giờ</div>
+        <div class="chip-pool" id="devPool">
+          <div class="dev-chip" draggable="true" data-dev="light" data-w="0.06" ondragstart="dragDev(event)"><i
+              data-lucide="lightbulb"></i> Đèn 60W</div>
+          <div class="dev-chip" draggable="true" data-dev="ac" data-w="2" ondragstart="dragDev(event)">❄️ Máy lạnh 2kW
+          </div>
+          <div class="dev-chip" draggable="true" data-dev="stove" data-w="1.5" ondragstart="dragDev(event)"><i
+              data-lucide="flame"></i> Bếp 1.5kW</div>
+        </div>
+        <div class="timeline-grid" id="timelineGrid"></div>
+        <div class="bill-counters">
+          <div class="bill-block">
+            <div class="bill-num" id="kwhNum" style="color:var(--blue)">0.0</div>
+            <div class="bill-caption">Tổng kWh</div>
+          </div>
+          <div class="bill-block">
+            <div class="bill-num" id="costNum" style="color:var(--amber)">0</div>
+            <div class="bill-caption">Chi phí (đ)</div>
+          </div>
+          <div class="bill-block">
+            <div class="bill-num" style="color:var(--green)">500k</div>
+            <div class="bill-caption">Ngân sách (đ)</div>
+          </div>
+        </div>
+        <div class="live-status neutral" id="billStatus">Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí
+          (3.000đ/kWh).</div>
+      </div>
+      <button class="btn-primary" onclick="revealBill()">Xem kết quả →</button>
+      <div class="result-box" id="resultBill">
+        <div class="result-outcome" id="outcomeBill"></div>
+        <div class="result-aha" id="ahaBill"></div>
+      </div>
+    </div>
+
+    <div id="tab2" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Máy công nghiệp 15kW, nguồn 220V sắp lắp đặt. Chọn cầu dao (CB) phù hợp — kéo một
+        CB vào vị trí lắp, hệ thống mô phỏng dòng tải thực tế.
+      </div>
+      <div class="sim-card">
+        <div class="machine-info">
+          <strong>Máy nén công nghiệp</strong><br>
+          Công suất: 15 kW · Nguồn: 220V · Dòng tải ước tính hiển thị sau khi chọn CB
+        </div>
+        <div class="action-label">Cầu dao — kéo thả vào vị trí lắp</div>
+        <div class="chip-pool">
+          <div class="cb-chip" draggable="true" data-cb="32" ondragstart="dragCB(event)">CB 32A</div>
+          <div class="cb-chip" draggable="true" data-cb="63" ondragstart="dragCB(event)">CB 63A</div>
+          <div class="cb-chip" draggable="true" data-cb="100" ondragstart="dragCB(event)">CB 100A</div>
+        </div>
+        <div class="drop-zone" id="cbDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)"
+          ondrop="dropCB(event)">
+          <div style="font-size:32px;margin-bottom:6px"><i data-lucide="zap"></i></div>
+          <div style="font-size:13px;color:var(--ink2)">Vị trí lắp cầu dao — thả CB vào đây</div>
+          <div id="cbPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
+        </div>
+        <div class="live-status neutral" id="cbStatus">Chưa chọn cầu dao — dòng tải ≈ 68A với máy 15kW/220V.</div>
+      </div>
+      <button class="btn-primary" onclick="revealCB()">Xem kết quả →</button>
+      <div class="result-box" id="resultCB">
+        <div class="result-outcome" id="outcomeCB"></div>
+        <div class="result-aha" id="ahaCB"></div>
+      </div>
     </div>
   </div>
 
-  <div id="tab1" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Khách hàng hỏi tiền điện trong ngày — ngân sách 500.000đ. Kéo thiết bị vào khung giờ (8 tiếng) để lên lịch bật/tắt, theo dõi tổng kWh và chi phí.
-    </div>
-    <div class="sim-card">
-      <div class="action-label">Thiết bị — kéo thả vào khung giờ</div>
-      <div class="chip-pool" id="devPool">
-        <div class="dev-chip" draggable="true" data-dev="light" data-w="0.06" ondragstart="dragDev(event)"><i data-lucide="lightbulb"></i> Đèn 60W</div>
-        <div class="dev-chip" draggable="true" data-dev="ac" data-w="2" ondragstart="dragDev(event)">❄️ Máy lạnh 2kW</div>
-        <div class="dev-chip" draggable="true" data-dev="stove" data-w="1.5" ondragstart="dragDev(event)"><i data-lucide="flame"></i> Bếp 1.5kW</div>
+  <script>
+    const PRICE_PER_KWH = 3000;
+    const BUDGET = 500000;
+    const LOAD_A = 15000 / 220;
+    const DEV_NAMES = { light: 'Đèn 60W', ac: 'ML 2kW', stove: 'Bếp 1.5kW' };
+    const HOURS = ['6h', '7h', '8h', '9h', '10h', '11h', '12h', '13h'];
+    let timeline = Array(8).fill(null).map(() => []);
+    let selectedCB = null;
+
+    function switchTab(n) {
+      ['tab0', 'tab1', 'tab2'].forEach((id, i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+      document.querySelectorAll('.mtab').forEach((btn, i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+    }
+
+    function updateCircuit() {
+      const u = parseInt(document.getElementById('voltSlider').value);
+      const r = parseInt(document.getElementById('resSlider').value);
+      document.getElementById('voltVal').textContent = u + ' V';
+      document.getElementById('resVal').textContent = r + ' Ω';
+      const i = u / r;
+      document.getElementById('ampValue').textContent = i.toFixed(1);
+      const st = document.getElementById('circuitStatus');
+      const ammeter = document.querySelector('.ammeter');
+      if (i > 10) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Dòng ' + i.toFixed(1) + 'A — VƯỢT 10A! Nguy cơ cháy dây, phải tăng điện trở hoặc giảm điện áp.';
+        ammeter.style.color = '#f00';
+        document.getElementById('ampValue').style.color = '#f00';
+      } else {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Dòng ' + i.toFixed(1) + 'A — trong giới hạn an toàn (< 10A).';
+        ammeter.style.color = '#0f0';
+        document.getElementById('ampValue').style.color = '#0f0';
+      }
+    }
+
+    function revealCurrent() {
+      const u = parseInt(document.getElementById('voltSlider').value);
+      const r = parseInt(document.getElementById('resSlider').value);
+      const i = u / r;
+      const safe = i <= 10;
+      document.getElementById('outcomeCurrent').innerHTML = safe
+        ? 'Máy nén được cấp phép vận hành — dòng ' + i.toFixed(1) + 'A, không quá tải.'
+        : 'Máy bị khóa — dòng ' + i.toFixed(1) + 'A vượt ngưỡng 10A, phải thiết kế lại mạch.';
+      document.getElementById('ahaCurrent').innerHTML = (safe
+        ? 'Điện áp và điện trở quyết định dòng chạy qua mạch — kỹ sư luôn kiểm tra trước khi bật máy.'
+        : 'Dòng quá lớn làm dây dẫn nóng, cháy cách điện — phải giảm U hoặc tăng R.')
+        + '<span class="subject-bridge">Cầu nối SGK: Vật lý — định luật Ohm (I = U/R)</span>';
+      document.getElementById('resultCurrent').className = 'result-box show';
+    }
+
+    function buildTimeline() {
+      const grid = document.getElementById('timelineGrid');
+      grid.innerHTML = '';
+      HOURS.forEach((h, idx) => {
+        const slot = document.createElement('div');
+        slot.className = 'time-slot';
+        slot.dataset.slot = idx;
+        slot.innerHTML = '<div class="hour-label">' + h + '</div>';
+        slot.ondragover = allowDrop;
+        slot.ondragleave = leaveDrop;
+        slot.ondrop = (e) => dropDev(e, idx);
+        grid.appendChild(slot);
+      });
+      renderTimeline();
+    }
+
+    function dragDev(e) {
+      e.dataTransfer.setData('dev', e.target.dataset.dev);
+      e.dataTransfer.setData('w', e.target.dataset.w);
+      e.target.classList.add('dragging');
+    }
+
+    function renderTimeline() {
+      const slots = document.querySelectorAll('.time-slot');
+      slots.forEach((slot, idx) => {
+        const hourLabel = slot.querySelector('.hour-label');
+        slot.innerHTML = '';
+        slot.appendChild(hourLabel);
+        timeline[idx].forEach(dev => {
+          const chip = document.createElement('div');
+          chip.className = 'placed-chip';
+          chip.textContent = DEV_NAMES[dev];
+          slot.appendChild(chip);
+        });
+      });
+      updateBill();
+    }
+
+    function dropDev(e, slotIdx) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('over');
+      document.querySelectorAll('.dev-chip').forEach(c => c.classList.remove('dragging'));
+      const dev = e.dataTransfer.getData('dev');
+      timeline[slotIdx].push(dev);
+      renderTimeline();
+    }
+
+    function updateBill() {
+      let kwh = 0;
+      timeline.forEach(slot => {
+        slot.forEach(dev => {
+          const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
+          kwh += w * 1;
+        });
+      });
+      const cost = Math.round(kwh * PRICE_PER_KWH);
+      document.getElementById('kwhNum').textContent = kwh.toFixed(2);
+      document.getElementById('costNum').textContent = cost.toLocaleString('vi-VN');
+      document.getElementById('costNum').style.color = cost > BUDGET ? 'var(--red)' : 'var(--amber)';
+      const st = document.getElementById('billStatus');
+      if (kwh === 0) {
+        st.className = 'live-status neutral';
+        st.textContent = 'Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí (3.000đ/kWh).';
+      } else if (cost > BUDGET) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Vượt ngân sách ' + BUDGET.toLocaleString('vi-VN') + 'đ — giảm giờ bật máy lạnh hoặc bếp.';
+      } else {
+        st.className = 'live-status ok';
+        st.textContent = '✓ ' + kwh.toFixed(2) + ' kWh = ' + cost.toLocaleString('vi-VN') + 'đ — còn trong ngân sách 500k.';
+      }
+    }
+
+    function revealBill() {
+      let kwh = 0;
+      timeline.forEach(slot => {
+        slot.forEach(dev => {
+          const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
+          kwh += w;
+        });
+      });
+      const cost = Math.round(kwh * PRICE_PER_KWH);
+      const ok = cost <= BUDGET && kwh > 0;
+      document.getElementById('outcomeBill').innerHTML = ok
+        ? 'Báo giá ' + cost.toLocaleString('vi-VN') + 'đ (' + kwh.toFixed(2) + ' kWh) — khách đồng ý, lắp đặt theo lịch.'
+        : (cost > BUDGET
+          ? 'Khách từ chối — ' + cost.toLocaleString('vi-VN') + 'đ vượt ngân sách 500k, cần tối ưu lịch bật.'
+          : 'Chưa lên lịch thiết bị — không thể báo giá.');
+      document.getElementById('ahaBill').innerHTML = 'Điện năng = công suất (kW) × thời gian (h). Mỗi giờ bật thiết bị cộng thêm kWh — kỹ sư tư vấn tiết kiệm bằng cách này.'
+        + '<span class="subject-bridge">Cầu nối SGK: Vật lý — công suất điện & điện năng tiêu thụ</span>';
+      
+      taskResults.task1.score = ok ? 50 : 15;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      
+      document.getElementById('resultBill').className = 'result-box show';
+    }
+
+    function dragCB(e) {
+      e.dataTransfer.setData('cb', e.target.dataset.cb);
+      e.target.classList.add('dragging');
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('over');
+    }
+
+    function leaveDrop(e) {
+      e.currentTarget.classList.remove('over');
+    }
+
+    function dropCB(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('over');
+      document.querySelectorAll('.cb-chip').forEach(c => c.classList.remove('dragging'));
+      selectedCB = parseInt(e.dataTransfer.getData('cb'));
+      const dz = document.getElementById('cbDrop');
+      dz.classList.remove('bad', 'filled');
+      document.getElementById('cbPlaced').textContent = 'Đã lắp: CB ' + selectedCB + 'A';
+      const st = document.getElementById('cbStatus');
+      if (selectedCB >= 100) {
+        dz.classList.add('filled');
+        st.className = 'live-status ok';
+        st.textContent = '✓ CB ' + selectedCB + 'A ≥ dòng tải ~' + LOAD_A.toFixed(0) + 'A — mạch an toàn, máy chạy ổn.';
+      } else if (selectedCB >= 63) {
+        dz.classList.add('filled');
+        st.className = 'live-status ok';
+        st.textContent = '✓ CB 63A gần khớp dòng ~' + LOAD_A.toFixed(0) + 'A — có thể vận hành (sát ngưỡng an toàn).';
+      } else {
+        dz.classList.add('bad');
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ CB 32A quá nhỏ — dòng ~' + LOAD_A.toFixed(0) + 'A, nguy cơ cháy nổ ngay.';
+      }
+    }
+
+    function revealCB() {
+      const ok = selectedCB === 63 || selectedCB === 100;
+      document.getElementById('outcomeCB').innerHTML = ok
+        ? 'Máy 15kW vận hành bình thường — aptomat đủ dòng làm việc, hệ thống được nghiệm thu.'
+        : (selectedCB === 32
+          ? 'CB 32A quá tải — nguy cơ cháy dây, không được cấp điện máy.'
+          : 'Chưa chọn CB — không thể nghiệm thu hệ thống.');
+      document.getElementById('ahaCB').innerHTML = (ok
+        ? 'Dòng tải ≈ 68A (15.000W ÷ 220V). Aptomat phải chọn theo dòng làm việc — không được nhỏ hơn nhiều so với tải thực.'
+        : 'Chọn CB quá nhỏ: dòng vượt ngưỡng, aptomat nhảy hoặc dây nóng — rất nguy hiểm trong xưởng.')
+        + '<span class="subject-bridge">Cầu nối SGK: Vật lý — mạch điện & an toàn điện</span>';
+      
+      taskResults.task0.score = ok ? 50 : 15;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      
+      document.getElementById('resultCB').className = 'result-box show';
+    }
+
+    updateCircuit();
+    buildTimeline();
+  </script>
+
+  <div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i
+            data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+        <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Kỹ thuật Điện?</h2>
       </div>
-      <div class="timeline-grid" id="timelineGrid"></div>
-      <div class="bill-counters">
-        <div class="bill-block">
-          <div class="bill-num" id="kwhNum" style="color:var(--blue)">0.0</div>
-          <div class="bill-caption">Tổng kWh</div>
-        </div>
-        <div class="bill-block">
-          <div class="bill-num" id="costNum" style="color:var(--amber)">0</div>
-          <div class="bill-caption">Chi phí (đ)</div>
-        </div>
-        <div class="bill-block">
-          <div class="bill-num" style="color:var(--green)">500k</div>
-          <div class="bill-caption">Ngân sách (đ)</div>
-        </div>
+      <div style="text-align:center;">
+        <a href="../index.html"
+          style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám
+          phá thêm ngành</a>
       </div>
-      <div class="live-status neutral" id="billStatus">Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí (3.000đ/kWh).</div>
-    </div>
-    <button class="btn-primary" onclick="revealBill()">Xem kết quả →</button>
-    <div class="result-box" id="resultBill">
-      <div class="result-outcome" id="outcomeBill"></div>
-      <div class="result-aha" id="ahaBill"></div>
     </div>
   </div>
-
-  <div id="tab2" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Máy công nghiệp 15kW, nguồn 220V sắp lắp đặt. Chọn cầu dao (CB) phù hợp — kéo một CB vào vị trí lắp, hệ thống mô phỏng dòng tải thực tế.
-    </div>
-    <div class="sim-card">
-      <div class="machine-info">
-        <strong>Máy nén công nghiệp</strong><br>
-        Công suất: 15 kW · Nguồn: 220V · Dòng tải ước tính hiển thị sau khi chọn CB
-      </div>
-      <div class="action-label">Cầu dao — kéo thả vào vị trí lắp</div>
-      <div class="chip-pool">
-        <div class="cb-chip" draggable="true" data-cb="32" ondragstart="dragCB(event)">CB 32A</div>
-        <div class="cb-chip" draggable="true" data-cb="63" ondragstart="dragCB(event)">CB 63A</div>
-        <div class="cb-chip" draggable="true" data-cb="100" ondragstart="dragCB(event)">CB 100A</div>
-      </div>
-      <div class="drop-zone" id="cbDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)" ondrop="dropCB(event)">
-        <div style="font-size:32px;margin-bottom:6px"><i data-lucide="zap"></i></div>
-        <div style="font-size:13px;color:var(--ink2)">Vị trí lắp cầu dao — thả CB vào đây</div>
-        <div id="cbPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
-      </div>
-      <div class="live-status neutral" id="cbStatus">Chưa chọn cầu dao — dòng tải ≈ 68A với máy 15kW/220V.</div>
-    </div>
-    <button class="btn-primary" onclick="revealCB()">Xem kết quả →</button>
-    <div class="result-box" id="resultCB">
-      <div class="result-outcome" id="outcomeCB"></div>
-      <div class="result-aha" id="ahaCB"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-const PRICE_PER_KWH = 3000;
-const BUDGET = 500000;
-const LOAD_A = 15000 / 220;
-const DEV_NAMES = { light: 'Đèn 60W', ac: 'ML 2kW', stove: 'Bếp 1.5kW' };
-const HOURS = ['6h','7h','8h','9h','10h','11h','12h','13h'];
-let timeline = Array(8).fill(null).map(() => []);
-let selectedCB = null;
-
-function switchTab(n) {
-  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
-  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
-}
-
-function updateCircuit() {
-  const u = parseInt(document.getElementById('voltSlider').value);
-  const r = parseInt(document.getElementById('resSlider').value);
-  document.getElementById('voltVal').textContent = u + ' V';
-  document.getElementById('resVal').textContent = r + ' Ω';
-  const i = u / r;
-  document.getElementById('ampValue').textContent = i.toFixed(1);
-  const st = document.getElementById('circuitStatus');
-  const ammeter = document.querySelector('.ammeter');
-  if (i > 10) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Dòng ' + i.toFixed(1) + 'A — VƯỢT 10A! Nguy cơ cháy dây, phải tăng điện trở hoặc giảm điện áp.';
-    ammeter.style.color = '#f00';
-    document.getElementById('ampValue').style.color = '#f00';
-  } else {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Dòng ' + i.toFixed(1) + 'A — trong giới hạn an toàn (< 10A).';
-    ammeter.style.color = '#0f0';
-    document.getElementById('ampValue').style.color = '#0f0';
-  }
-}
-
-function revealCurrent() {
-  const u = parseInt(document.getElementById('voltSlider').value);
-  const r = parseInt(document.getElementById('resSlider').value);
-  const i = u / r;
-  const safe = i <= 10;
-  document.getElementById('outcomeCurrent').innerHTML = safe
-    ? 'Máy nén được cấp phép vận hành — dòng ' + i.toFixed(1) + 'A, không quá tải.'
-    : 'Máy bị khóa — dòng ' + i.toFixed(1) + 'A vượt ngưỡng 10A, phải thiết kế lại mạch.';
-  document.getElementById('ahaCurrent').innerHTML = (safe
-    ? 'Điện áp và điện trở quyết định dòng chạy qua mạch — kỹ sư luôn kiểm tra trước khi bật máy.'
-    : 'Dòng quá lớn làm dây dẫn nóng, cháy cách điện — phải giảm U hoặc tăng R.')
-    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — định luật Ohm (I = U/R)</span>';
-  document.getElementById('resultCurrent').className = 'result-box show';
-}
-
-function buildTimeline() {
-  const grid = document.getElementById('timelineGrid');
-  grid.innerHTML = '';
-  HOURS.forEach((h, idx) => {
-    const slot = document.createElement('div');
-    slot.className = 'time-slot';
-    slot.dataset.slot = idx;
-    slot.innerHTML = '<div class="hour-label">' + h + '</div>';
-    slot.ondragover = allowDrop;
-    slot.ondragleave = leaveDrop;
-    slot.ondrop = (e) => dropDev(e, idx);
-    grid.appendChild(slot);
-  });
-  renderTimeline();
-}
-
-function dragDev(e) {
-  e.dataTransfer.setData('dev', e.target.dataset.dev);
-  e.dataTransfer.setData('w', e.target.dataset.w);
-  e.target.classList.add('dragging');
-}
-
-function renderTimeline() {
-  const slots = document.querySelectorAll('.time-slot');
-  slots.forEach((slot, idx) => {
-    const hourLabel = slot.querySelector('.hour-label');
-    slot.innerHTML = '';
-    slot.appendChild(hourLabel);
-    timeline[idx].forEach(dev => {
-      const chip = document.createElement('div');
-      chip.className = 'placed-chip';
-      chip.textContent = DEV_NAMES[dev];
-      slot.appendChild(chip);
-    });
-  });
-  updateBill();
-}
-
-function dropDev(e, slotIdx) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('over');
-  document.querySelectorAll('.dev-chip').forEach(c => c.classList.remove('dragging'));
-  const dev = e.dataTransfer.getData('dev');
-  timeline[slotIdx].push(dev);
-  renderTimeline();
-}
-
-function updateBill() {
-  let kwh = 0;
-  timeline.forEach(slot => {
-    slot.forEach(dev => {
-      const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
-      kwh += w * 1;
-    });
-  });
-  const cost = Math.round(kwh * PRICE_PER_KWH);
-  document.getElementById('kwhNum').textContent = kwh.toFixed(2);
-  document.getElementById('costNum').textContent = cost.toLocaleString('vi-VN');
-  document.getElementById('costNum').style.color = cost > BUDGET ? 'var(--red)' : 'var(--amber)';
-  const st = document.getElementById('billStatus');
-  if (kwh === 0) {
-    st.className = 'live-status neutral';
-    st.textContent = 'Kéo thiết bị vào khung giờ — hệ thống tính kWh và chi phí (3.000đ/kWh).';
-  } else if (cost > BUDGET) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Vượt ngân sách ' + BUDGET.toLocaleString('vi-VN') + 'đ — giảm giờ bật máy lạnh hoặc bếp.';
-  } else {
-    st.className = 'live-status ok';
-    st.textContent = '✓ ' + kwh.toFixed(2) + ' kWh = ' + cost.toLocaleString('vi-VN') + 'đ — còn trong ngân sách 500k.';
-  }
-}
-
-function revealBill() {
-  let kwh = 0;
-  timeline.forEach(slot => {
-    slot.forEach(dev => {
-      const w = dev === 'light' ? 0.06 : dev === 'ac' ? 2 : 1.5;
-      kwh += w;
-    });
-  });
-  const cost = Math.round(kwh * PRICE_PER_KWH);
-  const ok = cost <= BUDGET && kwh > 0;
-  document.getElementById('outcomeBill').innerHTML = ok
-    ? 'Báo giá ' + cost.toLocaleString('vi-VN') + 'đ (' + kwh.toFixed(2) + ' kWh) — khách đồng ý, lắp đặt theo lịch.'
-    : (cost > BUDGET
-      ? 'Khách từ chối — ' + cost.toLocaleString('vi-VN') + 'đ vượt ngân sách 500k, cần tối ưu lịch bật.'
-      : 'Chưa lên lịch thiết bị — không thể báo giá.');
-  document.getElementById('ahaBill').innerHTML = 'Điện năng = công suất (kW) × thời gian (h). Mỗi giờ bật thiết bị cộng thêm kWh — kỹ sư tư vấn tiết kiệm bằng cách này.'
-    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — công suất điện & điện năng tiêu thụ</span>';
-  document.getElementById('resultBill').className = 'result-box show';
-}
-
-function dragCB(e) {
-  e.dataTransfer.setData('cb', e.target.dataset.cb);
-  e.target.classList.add('dragging');
-}
-
-function allowDrop(e) {
-  e.preventDefault();
-  e.currentTarget.classList.add('over');
-}
-
-function leaveDrop(e) {
-  e.currentTarget.classList.remove('over');
-}
-
-function dropCB(e) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('over');
-  document.querySelectorAll('.cb-chip').forEach(c => c.classList.remove('dragging'));
-  selectedCB = parseInt(e.dataTransfer.getData('cb'));
-  const dz = document.getElementById('cbDrop');
-  dz.classList.remove('bad','filled');
-  document.getElementById('cbPlaced').textContent = 'Đã lắp: CB ' + selectedCB + 'A';
-  const st = document.getElementById('cbStatus');
-  if (selectedCB >= 100) {
-    dz.classList.add('filled');
-    st.className = 'live-status ok';
-    st.textContent = '✓ CB ' + selectedCB + 'A ≥ dòng tải ~' + LOAD_A.toFixed(0) + 'A — mạch an toàn, máy chạy ổn.';
-  } else if (selectedCB >= 63) {
-    dz.classList.add('filled');
-    st.className = 'live-status ok';
-    st.textContent = '✓ CB 63A gần khớp dòng ~' + LOAD_A.toFixed(0) + 'A — có thể vận hành (sát ngưỡng an toàn).';
-  } else {
-    dz.classList.add('bad');
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ CB 32A quá nhỏ — dòng ~' + LOAD_A.toFixed(0) + 'A, nguy cơ cháy nổ ngay.';
-  }
-}
-
-function revealCB() {
-  const ok = selectedCB === 63 || selectedCB === 100;
-  document.getElementById('outcomeCB').innerHTML = ok
-    ? 'Máy 15kW vận hành bình thường — aptomat đủ dòng làm việc, hệ thống được nghiệm thu.'
-    : (selectedCB === 32
-        ? 'CB 32A quá tải — nguy cơ cháy dây, không được cấp điện máy.'
-        : 'Chưa chọn CB — không thể nghiệm thu hệ thống.');
-  document.getElementById('ahaCB').innerHTML = (ok
-    ? 'Dòng tải ≈ 68A (15.000W ÷ 220V). Aptomat phải chọn theo dòng làm việc — không được nhỏ hơn nhiều so với tải thực.'
-    : 'Chọn CB quá nhỏ: dòng vượt ngưỡng, aptomat nhảy hoặc dây nóng — rất nguy hiểm trong xưởng.')
-    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — mạch điện & an toàn điện</span>';
-  document.getElementById('resultCB').className = 'result-box show';
-}
-
-updateCircuit();
-buildTimeline();
-</script>
-
-<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
-  <div style="max-width:900px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:2rem;">
-      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
-      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Kỹ thuật Điện?</h2>
-    </div>
-    <div style="text-align:center;">
-      <a href="../index.html" style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá thêm ngành</a>
-    </div>
-  </div>
-</div>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    // ─────────────────────────────────────────────
+    //  GLOBAL TRACKING & SCORING SYSTEM (SYNCHRONIZED WITH AI LAB)
+    // ─────────────────────────────────────────────
+    let taskResults = {
+      task0: { name: 'Lắp đặt mạch điện', score: 0, maxScore: 50, completed: false },
+      task1: { name: 'Tối ưu công suất', score: 0, maxScore: 50, completed: false }
+    };
+    let currentTab = 0;
+    let overallStartTime = Date.now();
+    const labKey = 'ky_thuat';
+    const labTitle = 'Kỹ Sư Điện';
+
+    function checkAllTasksCompleted() {
+      const allCompleted = Object.values(taskResults).every(t => t.completed);
+      if (allCompleted) {
+        // Show report button in the last tab
+        const lastTabId = 'tab' + (Object.keys(taskResults).length - 1);
+        const lastTab = document.getElementById(lastTabId);
+        if (lastTab) {
+          const existingBtn = lastTab.querySelector('.btn-final-report');
+          if (!existingBtn) {
+            const finalBtn = document.createElement('button');
+            finalBtn.className = 'btn-primary btn-final-report';
+            finalBtn.style.marginTop = '1rem';
+            finalBtn.style.display = 'inline-flex';
+            finalBtn.style.alignItems = 'center';
+            finalBtn.style.gap = '8px';
+            finalBtn.innerHTML = '<i data-lucide="bar-chart-2"></i> Xem báo cáo đánh giá cuối cùng';
+            finalBtn.onclick = showIntermediatePrompt;
+
+            // Find action row or append at end
+            const actRow = lastTab.querySelector('.action-row') || lastTab;
+            actRow.appendChild(finalBtn);
+            lucide.createIcons();
+          }
+        }
+      }
+    }
+
+        // ─────────────────────────────────────────────
+    //  FINAL REPORT & LOCAL EVALUATION (NO API NEEDED)
+    // ─────────────────────────────────────────────
+    async function generateFinalReport() {
+      // Simulate brief loading
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+      const hollandTally = recommendInput ? recommendInput.hollandTally || {} : {};
+      const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+      const topHolland = sortedHolland[0] ? sortedHolland[0][0] : 'I';
+
+      // Safe check for local labTitle variable, fall back to page title if not found
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      let title = "";
+      let degreeOfMatch = "";
+      let advice = "";
+
+      if (percentage >= 80) {
+        title = `Chuyên gia ${currentLabTitle} xuất sắc`;
+        degreeOfMatch = `Học sinh thể hiện sự vượt trội và năng khiếu đặc biệt trong lĩnh vực ${currentLabTitle}. Điểm số thực nghiệm đạt ${percentage}% (cực kỳ cao) chứng tỏ bạn có tư duy phân tích sắc bén, logic vững vàng và độ tập trung cao độ khi giải quyết các bài tập chuyên môn.`;
+      } else if (percentage >= 50) {
+        title = `Kỹ sư/Chuyên viên ${currentLabTitle} triển vọng`;
+        degreeOfMatch = `Học sinh có độ phù hợp khá cao với lĩnh vực ${currentLabTitle}. Bạn nắm bắt nhanh các khái niệm và hoàn thành tốt các thử thách được giao với điểm số thực nghiệm ${percentage}%. Nếu tiếp tục rèn luyện tính kiên nhẫn và đào sâu chuyên môn, bạn sẽ tiến rất xa.`;
+      } else {
+        title = `Người tìm hiểu lĩnh vực ${currentLabTitle}`;
+        degreeOfMatch = `Học sinh đã hoàn thành các bước trải nghiệm cơ bản để hiểu công việc của một chuyên gia trong lĩnh vực ${currentLabTitle}. Kết quả thực chứng ở mức trung bình (${percentage}%) cho thấy bạn cần củng cố thêm các kiến thức nền tảng THPT và thực hành nhiều hơn nếu muốn theo đuổi định hướng này.`;
+      }
+
+      // Analyze each task score
+      const taskAnalysis = Object.values(taskResults).map(t => {
+        let taskRating = "";
+        const rate = t.maxScore > 0 ? (t.score / t.maxScore) : (t.score / 100);
+        if (rate >= 0.8) {
+          taskRating = `Đạt kết quả xuất sắc, phản ánh năng lực tốt về <b>${t.name}</b>.`;
+        } else if (rate >= 0.5) {
+          taskRating = `Đạt kết quả khá tốt ở phần <b>${t.name}</b>, có nền tảng cơ bản vững vàng.`;
+        } else {
+          taskRating = `Cần rèn luyện và chú ý hơn ở nội dung <b>${t.name}</b>.`;
+        }
+        return `<li><b>${t.name}</b>: ${taskRating}</li>`;
+      }).join('');
+
+      // Holland compatibility
+      let hollandMatch = "";
+      const investigativeLabs = ['Khoa học Máy tính', 'Kỹ sư AI', 'Bác sĩ', 'Luật sư'];
+      const realisticLabs = ['Kỹ sư Cơ khí', 'Kỹ sư Điện', 'Kỹ sư Nông nghiệp'];
+      const socialLabs = ['Giáo viên', 'Luật sư', 'Bác sĩ'];
+      const enterprisingLabs = ['Chuyên viên Kinh tế'];
+      const conventionalLabs = ['Chuyên viên Kinh tế', 'Lập trình viên'];
+
+      let isMatch = false;
+      if (topHolland === 'I' && investigativeLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'R' && realisticLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'S' && socialLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'E' && enterprisingLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'C' && conventionalLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+
+      if (isMatch) {
+        hollandMatch = `Tính cách lý thuyết nổi trội của bạn thuộc nhóm <b>${topHolland}</b>, cực kỳ ăn khớp và tương thích với đặc thù công việc trong phòng Lab <b>${currentLabTitle}</b> này.`;
+      } else {
+        hollandMatch = `Mặc dù nhóm tính cách lý thuyết nổi trội của bạn là <b>${topHolland}</b>, trải nghiệm thực tế tại phòng Lab <b>${currentLabTitle}</b> cho thấy bạn vẫn sở hữu những tiềm năng tiềm ẩn hoặc sự hứng thú đặc biệt với lĩnh vực kỹ thuật này.`;
+      }
+
+      // Advice base on currentLabTitle
+      if (currentLabTitle.includes('AI') || currentLabTitle.includes('Máy tính') || currentLabTitle.includes('Lập trình')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt các môn <b>Toán</b> (Giải tích, Đạo hàm, Xác suất thống kê) và <b>Tin học</b> ở trường.</li>
+            <li>Tham gia học các khóa học lập trình cơ bản (như Python, C++) và rèn luyện thuật toán trên các trang uy tín như LeetCode, Codeforces.</li>
+            <li>Tìm hiểu thêm về cấu trúc dữ liệu, thuật toán và cách thiết kế ứng dụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Y tế') || currentLabTitle.includes('Bác sĩ')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Đặc biệt chú trọng các môn học <b>Hóa học</b> và <b>Sinh học</b> THPT, đây là nền tảng tối quan trọng.</li>
+            <li>Rèn luyện tính cẩn thận, chịu áp lực tốt, tinh thần trách nhiệm và lòng nhân ái.</li>
+            <li>Tìm hiểu sâu về giải phẫu học cơ bản hoặc các xu hướng y học hiện đại như EMR, chẩn đoán số.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Kinh tế') || currentLabTitle.includes('Tài chính')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt môn <b>Toán</b>, <b>Tiếng Anh</b> và các kiến thức Xã hội, Địa lý Kinh tế.</li>
+            <li>Thực hành làm việc với bảng tính (Excel/Google Sheets), phân tích số liệu và rèn luyện tư duy tài chính.</li>
+            <li>Đọc thêm sách báo kinh tế, tìm hiểu về dòng tiền, lãi kép và thị trường tài chính toàn cầu.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Pháp luật') || currentLabTitle.includes('Luật')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt môn <b>Ngữ văn</b>, <b>Lịch sử</b>, <b>Giáo dục công dân/Kinh tế Pháp luật</b> và <b>Tiếng Anh</b>.</li>
+            <li>Rèn luyện tư duy phản biện, kỹ năng lập luận lô-gích và khả năng diễn thuyết trước đám đông.</li>
+            <li>Đọc và phân tích các bộ luật cơ bản hoặc tham khảo các case study tranh tụng thực tế.</li>
+          </ol>
+        `;
+      } else {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt các môn Khoa học tự nhiên như <b>Vật lý</b>, <b>Hóa học</b> và môn <b>Công nghệ</b> THPT.</li>
+            <li>Tham gia thiết kế các dự án thực tế, câu lạc bộ STEM hoặc tự mày mò lắp ráp phần cứng cơ bản.</li>
+            <li>Tìm hiểu quy chuẩn kỹ thuật, quy trình an toàn lao động và cách đọc bản vẽ kỹ thuật.</li>
+          </ol>
+        `;
+      }
+
+      return `
+        <div style="text-align:left; font-family:'IBM Plex Sans', sans-serif;">
+          <h3 style="color:var(--blue); font-size:18px; font-weight:700; margin-bottom:12px; border-bottom:2px solid var(--blue-border); padding-bottom:6px;">
+            🎓 Định hướng gợi ý: ${title}
+          </h3>
+          <p style="margin-bottom:16px; font-size:13.5px; line-height:1.7;">
+            <strong>Độ phù hợp toàn diện:</strong> ${degreeOfMatch}
+          </p>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            📊 Kết quả thực chứng qua nhiệm vụ phòng LAB:
+          </h4>
+          <div style="background:var(--surface2); padding:12px; border-radius:6px; margin-bottom:16px; font-size:13px;">
+            <ul style="margin-left: 1.2rem; padding-left: 0;">
+              ${taskAnalysis}
+            </ul>
+          </div>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🧬 Sự liên kết giữa Lý thuyết & Trải nghiệm:
+          </h4>
+          <p style="margin-bottom:16px; font-size:13px; line-height:1.7;">
+            ${hollandMatch}
+          </p>
+          
+          <h4 style="color:var(--blue); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🚀 Lộ trình đề xuất phát triển kỹ năng:
+          </h4>
+          <div style="font-size:13px; line-height:1.7;">
+            ${advice}
+          </div>
+        </div>
+      `;
+    }
+
+
+    function showIntermediatePrompt() {
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score to localStorage
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs[labKey] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Save evaluation to localStorage
+      generateFinalReport().then(evaluation => {
+        let labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+        labEvaluations[labKey] = evaluation;
+        localStorage.setItem('labEvaluations', JSON.stringify(labEvaluations));
+      });
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white; border-radius:16px; padding:2.5rem; max-width:550px; width:100%; box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); text-align:center; color:#111111; position:relative;';
+
+      card.innerHTML = `
+    <div style="font-size:48px; margin-bottom:1rem;">🎉</div>
+    <h3 style="font-size:22px; font-weight:700; margin-bottom:12px; color:#16a34a;">Hoàn thành Phòng LAB ${labTitle}!</h3>
+    <p style="font-size:15px; color:#555566; line-height:1.6; margin-bottom:24px;">
+      Bạn đã hoàn thành xuất sắc nhiệm vụ với điểm số thực chứng đạt <strong>${percentage}%</strong>.
+      <br><br>
+      Hãy xem Báo cáo Đánh giá Hướng nghiệp Toàn diện để hiểu rõ năng lực và sự phù hợp của bạn.
+    </p>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <button id="btn-view-report-now" style="padding:14px; background:#2563eb; color:white; border:none; border-radius:8px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        📊 Xem báo cáo kết quả & Đánh giá AI →
+      </button>
+      <button id="btn-to-other-labs" style="padding:12px; background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        🌾 Khám phá phòng LAB khác (Định hướng)
+      </button>
+    </div>
+  `;
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Event handlers
+      card.querySelector('#btn-view-report-now').onclick = () => {
+        overlay.remove();
+        const recommendInput = localStorage.getItem('recommendInput');
+        if (recommendInput) {
+          window.location.href = '../ket-qua.html';
+        } else {
+          alert("Bạn đã hoàn thành phòng Lab! Vui lòng hoàn thành tiếp phần Trắc nghiệm tính cách để nhận Báo cáo tổng hợp toàn diện.");
+          window.location.href = '../goi-y.html';
+        }
+      };
+
+      card.querySelector('#btn-to-other-labs').onclick = () => {
+        overlay.remove();
+        window.location.href = '../dinh-huong.html';
+      };
+    }
+
+
   </script>
 </body>
+
 </html>

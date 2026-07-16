@@ -1,1475 +1,2858 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phòng Lab Mô Phỏng · Luật Sư Tranh Tụng — Hướng Nghiệp THPT</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab Mô Phỏng · Luật Sư Tranh Tụng — Hướng Nghiệp THPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #f5f5f2;
-    --surface: #ffffff;
-    --ink: #1a202c;
-    --ink2: #4a5568;
-    --ink3: #718096;
-    --navy: #1e3a8a;
-    --navy-dark: #172554;
-    --navy-bg: #f0f4f8;
-    --navy-border: #bfdbfe;
-    --burgundy: #7f1d1d;
-    --burgundy-dark: #450a0a;
-    --burgundy-bg: #fef2f2;
-    --burgundy-border: #fecdd3;
-    --gold: #b45309;
-    --gold-dark: #78350f;
-    --gold-bg: #fffbeb;
-    --gold-border: #fde68a;
-    --border: #e2e8f0;
-    --border-dark: #cbd5e1;
-    --red: #dc2626;
-    --red-bg: #fef2f2;
-    --green: #15803d;
-    --green-bg: #f0fdf4;
-    --green-border: #bbf7d0;
-    --amber: #d97706;
-    --amber-bg: #fffbeb;
-    --radius: 12px;
-    --radius-lg: 20px;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
-    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    overflow-x: hidden;
-  }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    height: 60px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  }
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --surface2: #f5f4f0;
+      --surface3: #eeecea;
+      --ink: #111111;
+      --ink2: #555566;
+      --ink3: #9999aa;
+      --border: #e0ddd8;
+      --border2: #cccccc;
+      --blue: #2563eb;
+      --blue-bg: #eff4ff;
+      --blue-border: #c7d9ff;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #2563eb;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
 
-  .topbar-logo {
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ink);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
 
-  .topbar-logo span { color: var(--navy); font-size: 20px; }
-  .topbar-sep { width: 1px; height: 24px; background: var(--border); }
-  .topbar-title { font-size: 14px; color: var(--ink2); font-weight: 500; }
-  .topbar-badge {
-    margin-left: auto;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    background: var(--navy-bg);
-    color: var(--navy);
-    padding: 6px 12px;
-    border-radius: 9999px;
-    border: 1px solid var(--navy-border);
-    letter-spacing: 0.05em;
-  }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
 
-  .page { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 60px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    }
 
-  .hero { text-align: center; margin-bottom: 2.5rem; }
-  .hero-label {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--navy);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    background: var(--navy-bg);
-    padding: 4px 14px;
-    border-radius: 6px;
-    border: 1px solid var(--navy-border);
-  }
-  .hero-title {
-    font-family: 'Lora', serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 0.75rem;
-    color: var(--navy-dark);
-  }
-  .hero-sub { font-size: 15px; color: var(--ink2); max-width: 650px; margin: 0 auto; }
+    .topbar-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  .mission-tabs {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    background: #cbd5e1;
-    padding: 6px;
-    border-radius: var(--radius-lg);
-    margin-bottom: 2rem;
-  }
-  .mtab {
-    padding: 12px 6px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink2);
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    border-radius: var(--radius);
-    font-family: inherit;
-    transition: var(--transition);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .mtab span.icon { font-size: 18px; }
-  .mtab:hover { background: rgba(255, 255, 255, 0.5); color: var(--ink); }
-  .mtab.active { background: var(--surface); color: var(--navy); box-shadow: var(--shadow); }
+    .topbar-logo span {
+      color: var(--navy);
+      font-size: 20px;
+    }
 
-  .mission-box {
-    background: var(--navy-bg);
-    border: 1px solid var(--navy-border);
-    border-left: 4px solid var(--navy);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 14.5px;
-    color: var(--navy-dark);
-    line-height: 1.6;
-  }
+    .topbar-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
 
-  .sim-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
-  }
+    .topbar-title {
+      font-size: 14px;
+      color: var(--ink2);
+      font-weight: 500;
+    }
 
-  .action-label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .05em;
-    color: var(--ink2);
-    text-transform: uppercase;
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-  }
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--navy-bg);
+      color: var(--navy);
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--navy-border);
+      letter-spacing: 0.05em;
+    }
 
-  /* BUTTONS & BADGES */
-  .btn-primary {
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    background: var(--navy);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-family: inherit;
-    transition: var(--transition);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(1px); }
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
 
-  .btn-secondary {
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    background: var(--bg);
-    color: var(--ink2);
-    border: 1px solid var(--border-dark);
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: var(--transition);
-  }
-  .btn-secondary:hover { background: #cbd5e1; color: var(--ink); }
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
 
-  /* TAB 1: NGHIÊN CỨU HỒ SƠ */
-  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .doc-panel { display: flex; flex-direction: column; gap: 12px; }
-  .doc-item {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #fafafa;
-    overflow: hidden;
-    transition: var(--transition);
-  }
-  .doc-item.active { border-color: var(--navy-border); box-shadow: var(--shadow); }
-  .doc-header {
-    background: #e2e8f0;
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-  .doc-header.active { background: var(--navy-bg); color: var(--navy); }
-  .doc-body {
-    padding: 14px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--ink2);
-    font-family: 'Lora', serif;
-    display: none;
-    border-top: 1px solid var(--border);
-    background: #fffdf9;
-  }
-  .doc-body.show { display: block; }
-  .doc-highlight {
-    background: #fde047;
-    cursor: pointer;
-    font-weight: 600;
-    padding: 2px 4px;
-    border-radius: 4px;
-    transition: var(--transition);
-  }
-  .doc-highlight:hover { background: #facc15; }
-  .doc-highlight.extracted { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .hero-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--navy);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      background: var(--navy-bg);
+      padding: 4px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--navy-border);
+    }
 
-  .evidence-bag {
-    background: var(--navy-bg);
-    border: 1px solid var(--navy-border);
-    border-radius: var(--radius);
-    padding: 16px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .evidence-bag-title { font-size: 13px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 6px; }
-  .evidence-list { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
-  .evidence-item {
-    font-size: 12.5px;
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: var(--shadow);
-    animation: slideIn 0.3s ease;
-  }
-  .evidence-item-icon { color: var(--green); font-weight: 700; }
-  .evidence-empty {
-    font-size: 12.5px;
-    color: var(--ink3);
-    text-align: center;
-    padding: 40px 0;
-    border: 2px dashed var(--border-dark);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: var(--navy-dark);
+    }
 
-  @keyframes slideIn {
-    0% { opacity: 0; transform: translateY(5px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--ink2);
+      max-width: 650px;
+      margin: 0 auto;
+    }
 
-  /* Client Chat Sim */
-  .chat-box {
-    margin-top: 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #f8fafc;
-    overflow: hidden;
-  }
-  .chat-header {
-    background: var(--surface);
-    padding: 10px 16px;
-    border-bottom: 1px solid var(--border);
-    font-size: 13.5px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .chat-dot { width: 8px; height: 8px; background: var(--navy); border-radius: 50%; }
-  .chat-messages { height: 180px; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-  .chat-msg { max-width: 80%; padding: 8px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
-  .chat-msg.client { background: #e2e8f0; color: var(--ink); align-self: flex-start; border-bottom-left-radius: 2px; }
-  .chat-msg.lawyer { background: var(--navy); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-  .chat-options { display: flex; flex-direction: column; gap: 6px; padding: 12px 16px; background: var(--surface); border-top: 1px solid var(--border); }
-  .chat-opt-btn {
-    text-align: left;
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 12.5px;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: inherit;
-  }
-  .chat-opt-btn:hover { border-color: var(--navy); background: var(--navy-bg); }
-  .chat-opt-btn.disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+    .mission-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: #cbd5e1;
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+    }
 
-  /* TAB 2: SOẠN THẢO VĂN BẢN PHÁP LÝ */
-  .draft-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
-  .court-document {
-    background: #fffdfc;
-    border: 1px solid #dcd3c4;
-    border-radius: var(--radius);
-    padding: 24px;
-    font-family: 'Lora', serif;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .doc-title-main { font-size: 16px; font-weight: 700; text-align: center; text-transform: uppercase; color: var(--burgundy-dark); }
-  .doc-sub-main { font-size: 12px; text-align: center; font-style: italic; margin-bottom: 10px; }
-  .doc-paragraph { font-size: 13.5px; line-height: 1.8; text-align: justify; }
-  .doc-drop-zone {
-    display: inline-block;
-    min-width: 150px;
-    min-height: 32px;
-    border: 2px dashed var(--border-dark);
-    border-radius: 6px;
-    background: #fff;
-    vertical-align: middle;
-    margin: 0 4px;
-    padding: 2px 10px;
-    font-size: 12.5px;
-    font-family: 'Inter', sans-serif;
-    color: var(--ink3);
-    text-align: center;
-    transition: var(--transition);
-  }
-  .doc-drop-zone.over { border-color: var(--navy); background: var(--navy-bg); }
-  .doc-drop-zone.filled { border-style: solid; border-color: var(--navy); background: var(--navy-bg); color: var(--navy-dark); font-weight: 600; }
+    .mtab {
+      padding: 12px 6px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink2);
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
 
-  .draft-tag-pool { display: flex; flex-direction: column; gap: 8px; }
-  .draft-drag-tag {
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    border-radius: 8px;
-    font-size: 12.5px;
-    font-weight: 500;
-    cursor: grab;
-    transition: var(--transition);
-    user-select: none;
-  }
-  .draft-drag-tag:hover { border-color: var(--navy); background: var(--navy-bg); }
-  .draft-drag-tag:active { cursor: grabbing; }
+    .mtab span.icon {
+      font-size: 18px;
+    }
 
-  /* Contract review section */
-  .contract-review-panel { margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
-  .clause-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #fffdf6;
-    padding: 16px;
-    margin-bottom: 12px;
-    border-left: 4px solid var(--gold);
-  }
-  .clause-text-item { font-family: 'Lora', serif; font-size: 13.5px; line-height: 1.6; margin-bottom: 12px; }
-  .clause-options { display: flex; flex-direction: column; gap: 8px; }
-  .clause-opt-btn {
-    text-align: left;
-    padding: 8px 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 12.5px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: var(--transition);
-  }
-  .clause-opt-btn:hover { border-color: var(--gold); background: var(--gold-bg); }
-  .clause-opt-btn.selected { background: var(--gold); color: white; border-color: var(--gold); }
+    .mtab:hover {
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--ink);
+    }
 
-  /* TAB 3: TRANH TỤNG TẠI TÒA (MOCK TRIAL SIMULATOR) */
-  .court-sim-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
-  .courtroom-stage {
-    background: #0f172a;
-    border-radius: var(--radius-lg);
-    height: 340px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 16px;
-  }
-  /* Courtroom Visuals using CSS & SVG */
-  .judge-bench {
-    width: 60%;
-    height: 70px;
-    background: #7f1d1d;
-    border: 2px solid #b45309;
-    border-radius: 4px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #f1f5f9;
-    position: relative;
-  }
-  .judge-bench::after {
-    content: "QUỐC HUY NƯỚC CHXHCN VIỆT NAM";
-    font-size: 6px;
-    font-weight: 700;
-    color: #facc15;
-    position: absolute;
-    top: 6px;
-  }
-  .judge-avatar { font-size: 24px; margin-top: 14px; }
-  .judge-label { font-size: 9px; font-weight: 700; color: #facc15; text-transform: uppercase; margin-top: 2px; }
+    .mtab.active {
+      background: var(--surface);
+      color: var(--navy);
+      box-shadow: var(--shadow);
+    }
 
-  .witness-stand {
-    width: 25%;
-    height: 60px;
-    background: #475569;
-    border: 2px solid #64748b;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #f1f5f9;
-    position: absolute;
-    bottom: 20px;
-    left: calc(50% - 12.5%);
-  }
-  .witness-avatar { font-size: 20px; }
-  .witness-label { font-size: 9px; font-weight: 700; color: #cbd5e1; text-transform: uppercase; }
+    .mission-box {
+      background: var(--navy-bg);
+      border: 1px solid var(--navy-border);
+      border-left: 4px solid var(--navy);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 14.5px;
+      color: var(--navy-dark);
+      line-height: 1.6;
+    }
 
-  .counsel-tables { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; }
-  .counsel-table {
-    width: 32%;
-    height: 50px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-  }
-  .counsel-table.defense { background: #1e3a8a; border: 2px solid #3b82f6; }
-  .counsel-table.plaintiff { background: #312e81; border: 2px solid #4f46e5; }
-  .counsel-avatar { font-size: 18px; }
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
 
-  /* Interactive Dialogue Overlay in Court */
-  .court-bubble {
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: 95px;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 12px 16px;
-    color: #f8fafc;
-    font-size: 13px;
-    line-height: 1.5;
-    z-index: 10;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
+    .action-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      color: var(--ink2);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
 
-  /* Argument Strength Map / Balance */
-  .strength-panel {
-    background: var(--navy-bg);
-    border: 1px solid var(--navy-border);
-    border-radius: var(--radius);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  .strength-header-title { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; text-align: center; }
-  
-  .balance-beam-wrap { height: 120px; position: relative; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 10px; }
-  .balance-beam {
-    width: 80%;
-    height: 4px;
-    background: #475569;
-    position: absolute;
-    bottom: 40px;
-    transform-origin: 50% 50%;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .balance-fulcrum {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 20px solid #0f172a;
-    position: absolute;
-    bottom: 20px;
-  }
-  .balance-pan-v {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #475569;
-    border-radius: 50%;
-    background: #cbd5e1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
-    color: #1e293b;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .balance-pan-v.defense { left: 10%; bottom: 22px; }
-  .balance-pan-v.plaintiff { right: 10%; bottom: 22px; }
+    /* BUTTONS & BADGES */
+    .btn-primary {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  .strength-bar-group { display: flex; flex-direction: column; gap: 8px; }
-  .strength-bar-item { display: flex; flex-direction: column; gap: 4px; }
-  .strength-bar-label { font-size: 11px; font-weight: 600; display: flex; justify-content: space-between; }
-  .strength-bar-track { height: 8px; background: #cbd5e1; border-radius: 4px; overflow: hidden; }
-  .strength-bar-fill { height: 100%; transition: width 0.5s ease; }
-  .strength-bar-fill.defense { background: var(--navy); }
-  .strength-bar-fill.plaintiff { background: var(--burgundy); }
+    .btn-primary:hover {
+      background: var(--navy-dark);
+      transform: translateY(-1px);
+    }
 
-  .trial-options-pane { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
-  .trial-opt-btn {
-    text-align: left;
-    padding: 12px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 13px;
-    line-height: 1.5;
-    font-family: inherit;
-    transition: var(--transition);
-  }
-  .trial-opt-btn:hover { border-color: var(--navy); background: var(--navy-bg); }
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
 
-  /* TAB 4: ĐÀM PHÁN HÒA GIẢI */
-  .negotiation-panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
-  .nego-chat-sim {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: #fafafa;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-  .nego-status-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-  .opponent-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--gold-bg);
-    border: 2px solid var(--gold-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
-  .opponent-meta { flex: 1; }
-  .opponent-char-name { font-weight: 600; font-size: 13.5px; }
-  .opponent-char-desc { font-size: 11px; color: var(--ink3); }
+    .btn-secondary {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--bg);
+      color: var(--ink2);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
 
-  .nego-progress-group { display: flex; gap: 15px; flex: 2; min-width: 220px; justify-content: flex-end; }
-  .nego-progress-item { display: flex; flex-direction: column; gap: 4px; width: 95px; }
-  .nego-progress-label { font-size: 10px; font-weight: 700; color: var(--ink3); display: flex; justify-content: space-between; }
-  .nego-progress-track { height: 6px; background: #cbd5e1; border-radius: 3px; overflow: hidden; }
-  .nego-progress-fill { height: 100%; transition: width 0.4s ease; }
-  .nego-progress-fill.goodwill { background: var(--green); }
-  .nego-progress-fill.value { background: var(--gold); }
+    .btn-secondary:hover {
+      background: #cbd5e1;
+      color: var(--ink);
+    }
 
-  .nego-dialogue-pane { height: 200px; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #f1f5f9; }
-  .nego-bubble { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
-  .nego-bubble.npc { background: var(--surface); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
-  .nego-bubble.player { background: var(--navy); color: white; align-self: flex-end; border-bottom-right-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    /* TAB 1: NGHIÊN CỨU HỒ SƠ */
+    .case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
 
-  .nego-options-pane { background: var(--surface); border-top: 1px solid var(--border); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .nego-opt-btn {
-    text-align: left;
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border-dark);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 12.5px;
-    line-height: 1.45;
-    font-family: inherit;
-    transition: var(--transition);
-  }
-  .nego-opt-btn:hover { border-color: var(--gold); background: var(--gold-bg); }
+    .doc-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-  /* RESULT PANEL & SUBJECT BRIDGE */
-  .result-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    display: none;
-    box-shadow: var(--shadow-lg);
-    border-left: 4px solid var(--navy);
-  }
-  .result-box.show { display: block; }
-  .result-outcome { font-size: 14.5px; line-height: 1.7; color: var(--ink); margin-bottom: 1rem; }
-  .result-aha {
-    padding: 1rem 1.25rem;
-    background: #fffbeb;
-    border: 1px solid #fde68a;
-    border-radius: var(--radius);
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: #92400e;
-    margin-bottom: 1rem;
-  }
-  .subject-bridge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--navy);
-    background: var(--navy-bg);
-    padding: 5px 12px;
-    border-radius: 6px;
-    border: 1px solid var(--navy-border);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
+    .doc-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fafafa;
+      overflow: hidden;
+      transition: var(--transition);
+    }
 
-  /* Footer Section */
-  .footer-section { border-top: 1px solid var(--border); background: var(--surface); padding: 3rem 1.5rem; text-align: center; }
-  .footer-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: var(--ink);
-    color: #fff;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    transition: var(--transition);
-  }
-  .footer-btn:hover { background: #1e293b; transform: translateY(-1px); }
-</style>
+    .doc-item.active {
+      border-color: var(--navy-border);
+      box-shadow: var(--shadow);
+    }
+
+    .doc-header {
+      background: #e2e8f0;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .doc-header.active {
+      background: var(--navy-bg);
+      color: var(--navy);
+    }
+
+    .doc-body {
+      padding: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink2);
+      font-family: 'Lora', serif;
+      display: none;
+      border-top: 1px solid var(--border);
+      background: #fffdf9;
+    }
+
+    .doc-body.show {
+      display: block;
+    }
+
+    .doc-highlight {
+      background: #fde047;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .doc-highlight:hover {
+      background: #facc15;
+    }
+
+    .doc-highlight.extracted {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid var(--green-border);
+    }
+
+    .evidence-bag {
+      background: var(--navy-bg);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .evidence-bag-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .evidence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-grow: 1;
+    }
+
+    .evidence-item {
+      font-size: 12.5px;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      animation: slideIn 0.3s ease;
+    }
+
+    .evidence-item-icon {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .evidence-empty {
+      font-size: 12.5px;
+      color: var(--ink3);
+      text-align: center;
+      padding: 40px 0;
+      border: 2px dashed var(--border-dark);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Client Chat Sim */
+    .chat-box {
+      margin-top: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #f8fafc;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: var(--surface);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--navy);
+      border-radius: 50%;
+    }
+
+    .chat-messages {
+      height: 180px;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-msg {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .chat-msg.client {
+      background: #e2e8f0;
+      color: var(--ink);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    .chat-msg.lawyer {
+      background: var(--navy);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .chat-opt-btn {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .chat-opt-btn:hover {
+      border-color: var(--navy);
+      background: var(--navy-bg);
+    }
+
+    .chat-opt-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* TAB 2: SOẠN THẢO VĂN BẢN PHÁP LÝ */
+    .draft-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .court-document {
+      background: #fffdfc;
+      border: 1px solid #dcd3c4;
+      border-radius: var(--radius);
+      padding: 24px;
+      font-family: 'Lora', serif;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .doc-title-main {
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--burgundy-dark);
+    }
+
+    .doc-sub-main {
+      font-size: 12px;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .doc-paragraph {
+      font-size: 13.5px;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .doc-drop-zone {
+      display: inline-block;
+      min-width: 150px;
+      min-height: 32px;
+      border: 2px dashed var(--border-dark);
+      border-radius: 6px;
+      background: #fff;
+      vertical-align: middle;
+      margin: 0 4px;
+      padding: 2px 10px;
+      font-size: 12.5px;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink3);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .doc-drop-zone.over {
+      border-color: var(--navy);
+      background: var(--navy-bg);
+    }
+
+    .doc-drop-zone.filled {
+      border-style: solid;
+      border-color: var(--navy);
+      background: var(--navy-bg);
+      color: var(--navy-dark);
+      font-weight: 600;
+    }
+
+    .draft-tag-pool {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .draft-drag-tag {
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: grab;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .draft-drag-tag:hover {
+      border-color: var(--navy);
+      background: var(--navy-bg);
+    }
+
+    .draft-drag-tag:active {
+      cursor: grabbing;
+    }
+
+    /* Contract review section */
+    .contract-review-panel {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .clause-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fffdf6;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .clause-text-item {
+      font-family: 'Lora', serif;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .clause-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .clause-opt-btn {
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .clause-opt-btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-bg);
+    }
+
+    .clause-opt-btn.selected {
+      background: var(--gold);
+      color: white;
+      border-color: var(--gold);
+    }
+
+    /* TAB 3: TRANH TỤNG TẠI TÒA (MOCK TRIAL SIMULATOR) */
+    .court-sim-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .courtroom-stage {
+      background: #0f172a;
+      border-radius: var(--radius-lg);
+      height: 340px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    /* Courtroom Visuals using CSS & SVG */
+    .judge-bench {
+      width: 60%;
+      height: 70px;
+      background: #7f1d1d;
+      border: 2px solid #b45309;
+      border-radius: 4px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #f1f5f9;
+      position: relative;
+    }
+
+    .judge-bench::after {
+      content: "QUỐC HUY NƯỚC CHXHCN VIỆT NAM";
+      font-size: 6px;
+      font-weight: 700;
+      color: #facc15;
+      position: absolute;
+      top: 6px;
+    }
+
+    .judge-avatar {
+      font-size: 24px;
+      margin-top: 14px;
+    }
+
+    .judge-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #facc15;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .witness-stand {
+      width: 25%;
+      height: 60px;
+      background: #475569;
+      border: 2px solid #64748b;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #f1f5f9;
+      position: absolute;
+      bottom: 20px;
+      left: calc(50% - 12.5%);
+    }
+
+    .witness-avatar {
+      font-size: 20px;
+    }
+
+    .witness-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-transform: uppercase;
+    }
+
+    .counsel-tables {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .counsel-table {
+      width: 32%;
+      height: 50px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .counsel-table.defense {
+      background: #1e3a8a;
+      border: 2px solid #3b82f6;
+    }
+
+    .counsel-table.plaintiff {
+      background: #312e81;
+      border: 2px solid #4f46e5;
+    }
+
+    .counsel-avatar {
+      font-size: 18px;
+    }
+
+    /* Interactive Dialogue Overlay in Court */
+    .court-bubble {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 95px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #f8fafc;
+      font-size: 13px;
+      line-height: 1.5;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Argument Strength Map / Balance */
+    .strength-panel {
+      background: var(--navy-bg);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .strength-header-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .balance-beam-wrap {
+      height: 120px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .balance-beam {
+      width: 80%;
+      height: 4px;
+      background: #475569;
+      position: absolute;
+      bottom: 40px;
+      transform-origin: 50% 50%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .balance-fulcrum {
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 20px solid #0f172a;
+      position: absolute;
+      bottom: 20px;
+    }
+
+    .balance-pan-v {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #475569;
+      border-radius: 50%;
+      background: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #1e293b;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .balance-pan-v.defense {
+      left: 10%;
+      bottom: 22px;
+    }
+
+    .balance-pan-v.plaintiff {
+      right: 10%;
+      bottom: 22px;
+    }
+
+    .strength-bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .strength-bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .strength-bar-label {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .strength-bar-track {
+      height: 8px;
+      background: #cbd5e1;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .strength-bar-fill {
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+
+    .strength-bar-fill.defense {
+      background: var(--navy);
+    }
+
+    .strength-bar-fill.plaintiff {
+      background: var(--burgundy);
+    }
+
+    .trial-options-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 1rem;
+    }
+
+    .trial-opt-btn {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 13px;
+      line-height: 1.5;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .trial-opt-btn:hover {
+      border-color: var(--navy);
+      background: var(--navy-bg);
+    }
+
+    /* TAB 4: ĐÀM PHÁN HÒA GIẢI */
+    .negotiation-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+
+    .nego-chat-sim {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: #fafafa;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .nego-status-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .opponent-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold-bg);
+      border: 2px solid var(--gold-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .opponent-meta {
+      flex: 1;
+    }
+
+    .opponent-char-name {
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+
+    .opponent-char-desc {
+      font-size: 11px;
+      color: var(--ink3);
+    }
+
+    .nego-progress-group {
+      display: flex;
+      gap: 15px;
+      flex: 2;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+
+    .nego-progress-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 95px;
+    }
+
+    .nego-progress-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ink3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .nego-progress-track {
+      height: 6px;
+      background: #cbd5e1;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .nego-progress-fill {
+      height: 100%;
+      transition: width 0.4s ease;
+    }
+
+    .nego-progress-fill.goodwill {
+      background: var(--green);
+    }
+
+    .nego-progress-fill.value {
+      background: var(--gold);
+    }
+
+    .nego-dialogue-pane {
+      height: 200px;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #f1f5f9;
+    }
+
+    .nego-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .nego-bubble.npc {
+      background: var(--surface);
+      color: var(--ink);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .nego-bubble.player {
+      background: var(--navy);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .nego-options-pane {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nego-opt-btn {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12.5px;
+      line-height: 1.45;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+
+    .nego-opt-btn:hover {
+      border-color: var(--gold);
+      background: var(--gold-bg);
+    }
+
+    /* RESULT PANEL & SUBJECT BRIDGE */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      display: none;
+      box-shadow: var(--shadow-lg);
+      border-left: 4px solid var(--navy);
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-outcome {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .result-aha {
+      padding: 1rem 1.25rem;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #92400e;
+      margin-bottom: 1rem;
+    }
+
+    .subject-bridge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--navy-bg);
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--navy-border);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer Section */
+    .footer-section {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-btn:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* ── Unified Layout & Theme Overrides (Antigravity Overhaul) ── */
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+      display: inline-block;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* ── Mission tabs ── */
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: background .15s, color .15s;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: var(--gray-bg);
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mtab-icon {
+      font-size: 17px;
+    }
+
+    .mtab-label {
+      font-size: 12px;
+    }
+
+    /* ── Mission box ── */
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .mission-box a {
+      color: var(--blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Action label ── */
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .65rem;
+    }
+
+    /* ── Buttons ── */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: opacity .15s;
+    }
+
+    .btn-primary:hover {
+      opacity: .82;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      font-size: 13px;
+      background: var(--surface);
+      color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-bg);
+    }
+
+    /* ── Result box ── */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .85rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-aha {
+      margin-top: 1rem;
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .result-aha strong {
+      color: #3d3500;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      padding: 1.5rem 2rem;
+      font-size: 12px;
+      color: var(--ink3);
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="topbar">
-  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-title">Luật Sư Tranh Tụng</div>
-  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab Mô Phỏng</div>
-</div>
-
-<div class="page">
-  <div class="hero">
-    <div class="hero-label">Ngành Pháp Luật · Luật Sư</div>
-    <div class="hero-title">Trải Nghiệm Vai Trò Luật Sư Tranh Tụng</div>
-    <div class="hero-sub">Mô phỏng chân thực chuỗi công việc nghiên cứu hồ sơ, rà soát điều khoản, xây dựng lập luận pháp lý và đại diện bảo vệ thân chủ tại phiên tòa giả định kịch tính.</div>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Luật Sư Tranh Tụng</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab Mô Phỏng</div>
   </div>
 
-  <div class="mission-tabs">
-    <button class="mtab active" id="btn-tab0" onclick="switchTab(0)"><span class="icon"><i data-lucide="book-open"></i></span> Nghiên cứu</button>
-    <button class="mtab" id="btn-tab1" onclick="switchTab(1)"><span class="icon">✍️</span> Soạn thảo</button>
-    <button class="mtab" id="btn-tab2" onclick="switchTab(2)"><span class="icon"><i data-lucide="scale"></i></span> Tranh tụng</button>
-    <button class="mtab" id="btn-tab3" onclick="switchTab(3)"><span class="icon">🤝</span> Đàm phán</button>
-  </div>
-
-  <!-- NHIỆM VỤ 1: NGHIÊN CỨU HỒ SƠ VÀ TƯ VẤN -->
-  <div id="tab0">
-    <div class="mission-box">
-      <strong>Nhiệm vụ 1 - Nghiên cứu hồ sơ vụ kiện:</strong> Khách hàng của bạn là Công ty Xây dựng An Bình (Bị đơn), bị Công ty Đầu tư Phát triển Minh Anh (Nguyên đơn) kiện đòi phạt vi phạm 10 tỷ đồng do chậm bàn giao công trình. Hãy đọc kỹ hồ sơ vụ việc, nhấp chọn các đoạn văn bản chứa chứng cứ mấu chốt để trích xuất, và phỏng vấn khách hàng để tìm ra lập luận tự vệ.
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label">Ngành Pháp Luật · Luật Sư</div>
+      <div class="hero-title">Trải Nghiệm Vai Trò Luật Sư Tranh Tụng</div>
+      <div class="hero-sub">Mô phỏng chân thực chuỗi công việc nghiên cứu hồ sơ, rà soát điều khoản, xây dựng lập luận
+        pháp lý và đại diện bảo vệ thân chủ tại phiên tòa giả định kịch tính.</div>
     </div>
 
-    <div class="sim-card">
-      <div class="action-label">Bước 1: Phân tích tài liệu (Nhấp vào các từ khóa màu vàng để trích xuất chứng cứ)</div>
-      <div class="case-grid">
-        <div class="doc-panel">
-          <div class="doc-item" id="doc-contract">
-            <div class="doc-header active" onclick="toggleDoc('contract')">📜 1. Hợp đồng xây dựng số 102/HĐ-XD</div>
-            <div class="doc-body show" id="body-contract">
-              Khoản 15.2 Điều 15: Trường hợp chậm tiến độ thi công do sự kiện bất khả kháng (bao gồm thiên tai, dịch bệnh hoặc <span class="doc-highlight" id="hl-delay-cause" onclick="extractEvidence('delay-cause', 'Lỗi chậm bàn giao mặt bằng thuộc về Nguyên đơn')">do chậm trễ giải phóng mặt bằng từ Bên A</span>), Bên B được miễn trừ trách nhiệm và được gia hạn tương ứng, với điều kiện Bên B phải gửi <span class="doc-highlight" id="hl-notice-limit" onclick="extractEvidence('notice-limit', 'Quy định thông báo bất khả kháng trong 10 ngày')">thông báo bằng văn bản gửi cho Bên A trong vòng 10 ngày</span> kể từ khi sự kiện xảy ra.
+    <div class="mission-tabs">
+      <button class="mtab active" id="btn-tab0" onclick="switchTab(0)"><span class="icon"><i
+            data-lucide="book-open"></i></span> Nghiên cứu</button>
+      <button class="mtab" id="btn-tab1" onclick="switchTab(1)"><span class="icon">✍️</span> Soạn thảo</button>
+      <button class="mtab" id="btn-tab2" onclick="switchTab(2)"><span class="icon"><i data-lucide="scale"></i></span>
+        Tranh tụng</button>
+      <button class="mtab" id="btn-tab3" onclick="switchTab(3)"><span class="icon">🤝</span> Đàm phán</button>
+    </div>
+
+    <!-- NHIỆM VỤ 1: NGHIÊN CỨU HỒ SƠ VÀ TƯ VẤN -->
+    <div id="tab0">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 1 - Nghiên cứu hồ sơ vụ kiện:</strong> Khách hàng của bạn là Công ty Xây dựng An Bình (Bị đơn),
+        bị Công ty Đầu tư Phát triển Minh Anh (Nguyên đơn) kiện đòi phạt vi phạm 10 tỷ đồng do chậm bàn giao công trình.
+        Hãy đọc kỹ hồ sơ vụ việc, nhấp chọn các đoạn văn bản chứa chứng cứ mấu chốt để trích xuất, và phỏng vấn khách
+        hàng để tìm ra lập luận tự vệ.
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label">Bước 1: Phân tích tài liệu (Nhấp vào các từ khóa màu vàng để trích xuất chứng cứ)
+        </div>
+        <div class="case-grid">
+          <div class="doc-panel">
+            <div class="doc-item" id="doc-contract">
+              <div class="doc-header active" onclick="toggleDoc('contract')">📜 1. Hợp đồng xây dựng số 102/HĐ-XD</div>
+              <div class="doc-body show" id="body-contract">
+                Khoản 15.2 Điều 15: Trường hợp chậm tiến độ thi công do sự kiện bất khả kháng (bao gồm thiên tai, dịch
+                bệnh hoặc <span class="doc-highlight" id="hl-delay-cause"
+                  onclick="extractEvidence('delay-cause', 'Lỗi chậm bàn giao mặt bằng thuộc về Nguyên đơn')">do chậm trễ
+                  giải phóng mặt bằng từ Bên A</span>), Bên B được miễn trừ trách nhiệm và được gia hạn tương ứng, với
+                điều kiện Bên B phải gửi <span class="doc-highlight" id="hl-notice-limit"
+                  onclick="extractEvidence('notice-limit', 'Quy định thông báo bất khả kháng trong 10 ngày')">thông báo
+                  bằng văn bản gửi cho Bên A trong vòng 10 ngày</span> kể từ khi sự kiện xảy ra.
+              </div>
+            </div>
+            <div class="doc-item" id="doc-dispatch">
+              <div class="doc-header" onclick="toggleDoc('dispatch')">📂 2. Công văn UBND Quận gửi nhà thầu</div>
+              <div class="doc-body" id="body-dispatch">
+                Ủy ban nhân dân Quận xác nhận: Công tác giải phóng mặt bằng thực tế tại dự án Landmark bị vướng mắc
+                tranh chấp đền bù đất đai, dẫn tới thời gian <span class="doc-highlight" id="hl-real-delay"
+                  onclick="extractEvidence('real-delay', 'UBND xác nhận chậm bàn giao mặt bằng 3 tháng thực tế')">bàn
+                  giao mặt bằng thi công sạch bị chậm trễ từ ngày 15/03 đến 15/06</span> mới hoàn thành.
+              </div>
             </div>
           </div>
-          <div class="doc-item" id="doc-dispatch">
-            <div class="doc-header" onclick="toggleDoc('dispatch')">📂 2. Công văn UBND Quận gửi nhà thầu</div>
-            <div class="doc-body" id="body-dispatch">
-              Ủy ban nhân dân Quận xác nhận: Công tác giải phóng mặt bằng thực tế tại dự án Landmark bị vướng mắc tranh chấp đền bù đất đai, dẫn tới thời gian <span class="doc-highlight" id="hl-real-delay" onclick="extractEvidence('real-delay', 'UBND xác nhận chậm bàn giao mặt bằng 3 tháng thực tế')">bàn giao mặt bằng thi công sạch bị chậm trễ từ ngày 15/03 đến 15/06</span> mới hoàn thành.
+
+          <div>
+            <div class="evidence-bag">
+              <div class="evidence-bag-title">🎒 Túi lập luận pháp lý (Chứng cứ đã trích xuất)</div>
+              <div class="evidence-list" id="evidence-list">
+                <div class="evidence-empty" id="ev-empty">Chưa có chứng cứ nào được trích xuất. Hãy đọc kỹ tài liệu bên
+                  trái và click vào các từ khóa được đánh dấu màu vàng.</div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div>
-          <div class="evidence-bag">
-            <div class="evidence-bag-title">🎒 Túi lập luận pháp lý (Chứng cứ đã trích xuất)</div>
-            <div class="evidence-list" id="evidence-list">
-              <div class="evidence-empty" id="ev-empty">Chưa có chứng cứ nào được trích xuất. Hãy đọc kỹ tài liệu bên trái và click vào các từ khóa được đánh dấu màu vàng.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sim-card">
-      <div class="action-label">Bước 2: Phỏng vấn khách hàng (Ông Bình - GĐ Công ty An Bình)</div>
-      <div class="chat-box">
-        <div class="chat-header">
-          <div class="chat-dot"></div>
-          <span>Khai thác thông tin từ Khách hàng</span>
-        </div>
-        <div class="chat-messages" id="client-chat-messages">
-          <div class="chat-msg client">Chào luật sư, công ty chúng tôi thi công đúng thiết kế nhưng do Nguyên đơn giao mặt bằng quá trễ nên mới chậm tiến độ. Giờ họ kiện đòi phạt 10 tỷ đồng thì oan quá, xin luật sư giúp chúng tôi!</div>
-        </div>
-        <div class="chat-options" id="client-chat-options">
-          <button class="chat-opt-btn" id="client-q1" onclick="askClientChat(1)">1. Sau khi bị chậm bàn giao mặt bằng ngày 15/03, ông có gửi thông báo bằng văn bản cho bên họ không?</button>
-          <button class="chat-opt-btn" id="client-q2" onclick="askClientChat(2)">2. Ông có biên bản làm việc hoặc tài liệu nào chứng minh thời điểm bàn giao mặt bằng thực tế không?</button>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-primary" onclick="verifyCaseResearch()">Xem kết quả nghiên cứu →</button>
-
-    <div class="result-box" id="result-tab0">
-      <div class="result-outcome" id="outcome-tab0"></div>
-      <div class="result-aha" id="aha-tab0"></div>
-      <span class="subject-bridge">Cầu nối SGK: Ngữ văn 11 — Kỹ năng lập luận bác bỏ & Đọc hiểu văn bản hành chính công vụ</span>
-    </div>
-  </div>
-
-  <!-- NHIỆM VỤ 2: SOẠN THẢO VĂN BẢN PHÁP LÝ -->
-  <div id="tab1" style="display:none">
-    <div class="mission-box">
-      <strong>Nhiệm vụ 2 - Soạn thảo luận cứ & Rà soát hợp đồng:</strong> Bác sĩ cần kê đơn thuốc chuẩn liều, còn Luật sư phải soạn thảo văn bản chặt chẽ. Hãy kéo thả các căn cứ pháp lý phù hợp để hoàn chỉnh "Bản luận cứ bảo vệ quyền lợi", sau đó rà soát điều khoản phạt vi phạm trong hợp đồng tranh chấp để bảo vệ thân chủ.
-    </div>
-
-    <div class="sim-card">
-      <div class="action-label">Bước 1: Hoàn chỉnh Bản luận cứ bảo vệ (Kéo thả thông tin vào ô trống)</div>
-      
-      <div class="draft-grid">
-        <div class="court-document">
-          <div class="doc-title-main">Bản luận cứ bảo vệ bị đơn</div>
-          <div class="doc-sub-main">V/v: Tranh chấp hợp đồng xây dựng dự án Landmark</div>
-          <p class="doc-paragraph">
-            Kính gửi: <strong>Tòa án nhân dân</strong> <span class="doc-drop-zone" id="draft-court" ondragover="allowDraftDrop(event)" ondragleave="leaveDraftDrop(event)" ondrop="dropDraft(event, 'draft-court')">Thẩm quyền xét xử</span>.<br>
-            Để bảo vệ quyền lợi cho Công ty An Bình (Bị đơn), chúng tôi kính trình Hội đồng xét xử các căn cứ pháp lý sau:<br>
-            1. Việc chậm tiến độ thi công 3 tháng là do lỗi chậm giao mặt bằng thi công sạch của Nguyên đơn (Minh Anh). Đây là trường hợp miễn trách nhiệm do sự kiện trở ngại khách quan, phù hợp quy định tại <span class="doc-drop-zone" id="draft-law" ondragover="allowDraftDrop(event)" ondragleave="leaveDraftDrop(event)" ondrop="dropDraft(event, 'draft-law')">Căn cứ pháp lý miễn trách</span> của Luật Thương mại năm 2005.<br>
-            2. Bị đơn đã thực hiện đầy đủ nghĩa vụ thông báo bằng văn bản gửi Nguyên đơn ngày 20/03/2026, hoàn toàn tuân thủ thời hạn quy định trong hợp đồng.<br>
-            Từ những căn cứ trên, kính đề nghị Tòa án: <span class="doc-drop-zone" id="draft-petition" ondragover="allowDraftDrop(event)" ondragleave="leaveDraftDrop(event)" ondrop="dropDraft(event, 'draft-petition')">Yêu cầu kiến nghị</span>.
-          </p>
-        </div>
-
-        <div>
-          <div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Hộp dữ liệu pháp lý thô:</div>
-          <div class="draft-tag-pool" id="draft-tag-pool">
-            <div class="draft-drag-tag" draggable="true" id="tag-court-correct" data-val="Quận Cầu Giấy (nơi Bị đơn đặt trụ sở chính)" ondragstart="dragDraftStart(event)">TAND Quận Cầu Giấy (Trụ sở Bị đơn)</div>
-            <div class="draft-drag-tag" draggable="true" id="tag-law-correct" data-val="Điều 294 Luật Thương mại về các trường hợp miễn trách nhiệm" ondragstart="dragDraftStart(event)">Điều 294 Luật Thương mại (Miễn trách)</div>
-            <div class="draft-drag-tag" draggable="true" id="tag-petition-correct" data-val="Bác bỏ toàn bộ yêu cầu đòi phạt vi phạm của Nguyên đơn" ondragstart="dragDraftStart(event)">Bác toàn bộ yêu cầu đòi phạt vi phạm</div>
-            <div class="draft-drag-tag" draggable="true" id="tag-court-wrong" data-val="Huyện Chương Mỹ (không liên quan vụ việc)" ondragstart="dragDraftStart(event)">TAND Huyện Chương Mỹ (Sai địa bàn)</div>
-            <div class="draft-drag-tag" draggable="true" id="tag-law-wrong" data-val="Điều 301 Luật Thương mại về mức phạt vi phạm tối đa 8%" ondragstart="dragDraftStart(event)">Điều 301 Luật Thương mại (Mức trần phạt)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sim-card contract-review-panel">
-      <div class="action-label">Bước 2: Rà soát & Sửa đổi điều khoản phạt vi phạm (Chọn phương án đúng luật)</div>
-      <div class="clause-card">
-        <div class="clause-text-item">
-          <strong>Điều khoản phạt vi phạm trong hợp đồng gốc:</strong><br>
-          <i>"Điều 12. Phạt vi phạm hợp đồng: Trường hợp Bên B (An Bình) chậm bàn giao công trình so với tiến độ cam kết, Bên B phải chịu phạt vi phạm tương đương 15% tổng giá trị hợp đồng kinh tế bị vi phạm."</i>
-        </div>
-        <div class="clause-options">
-          <button class="clause-opt-btn" id="c-opt-1" onclick="selectClauseOption(1)">A. Giữ nguyên điều khoản 15% vì hợp đồng dựa trên sự tự nguyện thỏa thuận của hai bên.</button>
-          <button class="clause-opt-btn" id="c-opt-2" onclick="selectClauseOption(2)">B. Sửa mức phạt thành tối đa 8% tổng giá trị hợp đồng vi phạm theo đúng quy định tại Điều 301 Luật Thương mại.</button>
-          <button class="clause-opt-btn" id="c-opt-3" onclick="selectClauseOption(3)">C. Tăng mức phạt lên 20% để răn đe nhà thầu thi công nhanh hơn.</button>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn-primary" onclick="verifyLegalDrafting()">Ký số & Thông qua văn bản →</button>
-
-    <div class="result-box" id="result-tab1">
-      <div class="result-outcome" id="outcome-tab1"></div>
-      <div class="result-aha" id="aha-tab1"></div>
-      <span class="subject-bridge">Cầu nối SGK: Toán học 10 — Logic học và suy luận mệnh đề điều kiện (Mệnh đề tuyển, hội trong phân tích luật pháp)</span>
-    </div>
-  </div>
-
-  <!-- NHIỆM VỤ 3: TRANH TỤNG VÀ ĐẠI DIỆN (MOCK TRIAL SIMULATOR) -->
-  <div id="tab2" style="display:none">
-    <div class="mission-box">
-      <strong>Nhiệm vụ 3 - Tranh tụng tại phiên tòa giả định:</strong> Bạn đang đại diện cho Công ty An Bình tại phiên xử sơ thẩm. Nguyên đơn đang chiếm lợi thế 70% nhờ bằng chứng chậm tiến độ. Hãy tiến hành hỏi chéo nhân chứng và phản biện luật sư đối phương dựa trên hồ sơ chứng cứ đã thu thập để lật ngược thế cờ.
-    </div>
-
-    <div class="court-sim-grid">
-      <div class="courtroom-stage">
-        <!-- Visual Map -->
-        <div class="judge-bench">
-          <div class="judge-avatar">👨‍<i data-lucide="scale"></i></div>
-          <div class="judge-label">Chủ tọa phiên tòa</div>
-        </div>
-        
-        <div class="witness-stand">
-          <div class="witness-avatar" id="court-witness-avatar">👤</div>
-          <div class="witness-label" id="court-witness-label">Nhân chứng</div>
-        </div>
-
-        <div class="counsel-tables">
-          <div class="counsel-table defense">
-            <div class="counsel-avatar"><i data-lucide="briefcase"></i></div>
-            <div>Bị đơn (Bạn)</div>
-          </div>
-          <div class="counsel-table plaintiff">
-            <div class="counsel-avatar"><i data-lucide="scale"></i></div>
-            <div>Nguyên đơn</div>
-          </div>
-        </div>
-
-        <!-- Dialogue Box -->
-        <div class="court-bubble" id="court-bubble">
-          <strong>Chủ tọa:</strong> Phiên tòa xét xử tranh chấp hợp đồng xây dựng dự án Landmark bắt đầu. Mời Luật sư bị đơn tiến hành phần tranh tụng.
-        </div>
-      </div>
-
-      <div class="strength-panel">
-        <div class="strength-header-title"><i data-lucide="scale"></i> Cân công lý (Sức nặng lập luận)</div>
-        
-        <div class="balance-beam-wrap">
-          <div class="balance-beam" id="court-beam" style="transform: rotate(16deg);"></div>
-          <div class="balance-fulcrum"></div>
-          <div class="balance-pan-v defense" id="pan-v-def" style="transform: translateY(12px);">30%</div>
-          <div class="balance-pan-v plaintiff" id="pan-v-pla" style="transform: translateY(-12px);">70%</div>
-        </div>
-
-        <div class="strength-bar-group">
-          <div class="strength-bar-item">
-            <div class="strength-bar-label"><span>Bị đơn (Công ty An Bình - Bạn)</span><span id="label-def">30%</span></div>
-            <div class="strength-bar-track"><div class="strength-bar-fill defense" id="bar-def" style="width: 30%;"></div></div>
-          </div>
-          <div class="strength-bar-item">
-            <div class="strength-bar-label"><span>Nguyên đơn (Công ty Minh Anh)</span><span id="label-pla">70%</span></div>
-            <div class="strength-bar-track"><div class="strength-bar-fill plaintiff" id="bar-pla" style="width: 70%;"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="trial-options-pane" id="trial-options-pane">
-      <!-- Buttons render dynamic steps of trial -->
-      <button class="btn-primary" style="align-self: center;" onclick="startTrialStep(1)">Bắt đầu phần Hỏi chéo nhân chứng →</button>
-    </div>
-
-    <div class="result-box" id="result-tab2">
-      <div class="result-outcome" id="outcome-tab2"></div>
-      <div class="result-aha" id="aha-tab2"></div>
-      <span class="subject-bridge">Cầu nối SGK: Giáo dục Kinh tế và Pháp luật 11 — Quy chế tố tụng dân sự, hoạt động xét xử và quyền bình đẳng tranh tụng trước Tòa án</span>
-    </div>
-  </div>
-
-  <!-- NHIỆM VỤ 4: ĐÀM PHÁN VÀ HÒA GIẢI -->
-  <div id="tab3" style="display:none">
-    <div class="mission-box">
-      <strong>Nhiệm vụ 4 - Hòa giải tiền tố tụng ngoài Tòa:</strong> Tranh tụng là giải pháp cuối cùng, đàm phán hòa giải (ADR) mới là nghệ thuật giải quyết tranh chấp tối ưu. Hãy gặp Luật sư đại diện của Nguyên đơn tại phòng họp đàm phán để thảo luận một thỏa thuận hòa giải có lợi cho thân chủ, cân bằng giữa Thiện chí đàm phán và Lợi ích tài chính.
-    </div>
-
-    <div class="negotiation-panel">
-      <div class="nego-chat-sim">
-        <div class="nego-status-bar">
-          <div class="opponent-avatar" id="nego-avatar">🤨</div>
-          <div class="opponent-meta">
-            <div class="opponent-char-name">Luật sư Khánh (Đại diện Nguyên đơn)</div>
-            <div class="opponent-char-desc">Đại diện Công ty Đầu tư Minh Anh</div>
-          </div>
-
-          <div class="nego-progress-group">
-            <div class="nego-progress-item">
-              <div class="nego-progress-label"><span>Thiện chí</span><span id="label-nego-gw">50%</span></div>
-              <div class="nego-progress-track"><div class="nego-progress-fill goodwill" id="bar-nego-gw" style="width: 50%;"></div></div>
-            </div>
-            <div class="nego-progress-item">
-              <div class="nego-progress-label"><span>Quyền lợi giữ</span><span id="label-nego-val">50%</span></div>
-              <div class="nego-progress-track"><div class="nego-progress-fill value" id="bar-nego-val" style="width: 50%;"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="nego-dialogue-pane" id="nego-dialogue-pane">
-          <div class="nego-bubble npc"><strong>Luật sư Khánh:</strong> Chúng tôi hiểu việc chậm mặt bằng cũng có phần trách nhiệm của chúng tôi, nhưng các ông chậm bàn giao công trình 3 tháng làm tổn thất doanh thu thuê nhà rất nhiều. Để hòa giải thành công, chúng tôi muốn An Bình bồi thường tối thiểu 5 tỷ đồng, nếu không thì ra tòa phán quyết!</div>
-        </div>
-
-        <div class="nego-options-pane" id="nego-options-pane">
-          <button class="nego-opt-btn" onclick="selectNegoOption(0)">A. Không đời nào! Chúng tôi vô tội hoàn toàn vì lỗi chậm bàn giao mặt bằng của các ông. Chúng tôi sẽ kiện ngược đòi bồi thường chi phí chờ đợi máy móc thiết bị.</button>
-          <button class="nego-opt-btn" onclick="selectNegoOption(1)">B. Mức 5 tỷ quá cao. Chúng tôi đề xuất hỗ trợ đẩy nhanh thi công ngoài giờ, hoàn thành sớm các hạng mục còn lại, đồng thời bồi thường 1 tỷ đồng xem như thiện chí hợp tác lâu dài.</button>
-          <button class="nego-opt-btn" onclick="selectNegoOption(2)">C. Thôi được rồi, để tránh rắc rối kiện tụng ở tòa án, chúng tôi đồng ý bồi thường toàn bộ 5 tỷ đồng theo yêu cầu của các ông.</button>
         </div>
       </div>
 
       <div class="sim-card">
-        <div class="action-label">Khái niệm Pháp lý: BATNA là gì?</div>
-        <p style="font-size:13px; line-height:1.6; color:var(--ink2);">
-          <strong>BATNA (Best Alternative to a Negotiated Agreement)</strong> là phương án thay thế tốt nhất của một bên nếu cuộc đàm phán hòa giải hiện tại thất bại.<br><br>
-          Trong vụ án này, BATNA của Bị đơn (An Bình) nếu đàm phán đổ vỡ là ra tòa tranh tụng. Tại tòa, nhờ có chứng cứ bàn giao mặt bằng trễ, Bị đơn có khả năng thắng kiện rất cao (tỷ lệ phạt giảm về 0đ hoặc tối đa chỉ chịu phạt vi phạm nhẹ). Do đó, đồng ý bồi thường toàn bộ 5 tỷ (Phương án C) là một thỏa thuận tệ hơn BATNA và không tối ưu cho thân chủ.
-        </p>
+        <div class="action-label">Bước 2: Phỏng vấn khách hàng (Ông Bình - GĐ Công ty An Bình)</div>
+        <div class="chat-box">
+          <div class="chat-header">
+            <div class="chat-dot"></div>
+            <span>Khai thác thông tin từ Khách hàng</span>
+          </div>
+          <div class="chat-messages" id="client-chat-messages">
+            <div class="chat-msg client">Chào luật sư, công ty chúng tôi thi công đúng thiết kế nhưng do Nguyên đơn giao
+              mặt bằng quá trễ nên mới chậm tiến độ. Giờ họ kiện đòi phạt 10 tỷ đồng thì oan quá, xin luật sư giúp chúng
+              tôi!</div>
+          </div>
+          <div class="chat-options" id="client-chat-options">
+            <button class="chat-opt-btn" id="client-q1" onclick="askClientChat(1)">1. Sau khi bị chậm bàn giao mặt bằng
+              ngày 15/03, ông có gửi thông báo bằng văn bản cho bên họ không?</button>
+            <button class="chat-opt-btn" id="client-q2" onclick="askClientChat(2)">2. Ông có biên bản làm việc hoặc tài
+              liệu nào chứng minh thời điểm bàn giao mặt bằng thực tế không?</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="verifyCaseResearch()">Xem kết quả nghiên cứu →</button>
+
+      <div class="result-box" id="result-tab0">
+        <div class="result-outcome" id="outcome-tab0"></div>
+        <div class="result-aha" id="aha-tab0"></div>
+        <span class="subject-bridge">Cầu nối SGK: Ngữ văn 11 — Kỹ năng lập luận bác bỏ & Đọc hiểu văn bản hành chính
+          công vụ</span>
       </div>
     </div>
 
-    <div class="result-box" id="result-tab3">
-      <div class="result-outcome" id="outcome-tab3"></div>
-      <div class="result-aha" id="aha-tab3"></div>
-      <span class="subject-bridge">Cầu nối Kỹ năng: Phương pháp đàm phán hòa giải tích hợp (ADR) và Quản trị rủi ro pháp lý doanh nghiệp</span>
+    <!-- NHIỆM VỤ 2: SOẠN THẢO VĂN BẢN PHÁP LÝ -->
+    <div id="tab1" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 2 - Soạn thảo luận cứ & Rà soát hợp đồng:</strong> Bác sĩ cần kê đơn thuốc chuẩn liều, còn Luật
+        sư phải soạn thảo văn bản chặt chẽ. Hãy kéo thả các căn cứ pháp lý phù hợp để hoàn chỉnh "Bản luận cứ bảo vệ
+        quyền lợi", sau đó rà soát điều khoản phạt vi phạm trong hợp đồng tranh chấp để bảo vệ thân chủ.
+      </div>
+
+      <div class="sim-card">
+        <div class="action-label">Bước 1: Hoàn chỉnh Bản luận cứ bảo vệ (Kéo thả thông tin vào ô trống)</div>
+
+        <div class="draft-grid">
+          <div class="court-document">
+            <div class="doc-title-main">Bản luận cứ bảo vệ bị đơn</div>
+            <div class="doc-sub-main">V/v: Tranh chấp hợp đồng xây dựng dự án Landmark</div>
+            <p class="doc-paragraph">
+              Kính gửi: <strong>Tòa án nhân dân</strong> <span class="doc-drop-zone" id="draft-court"
+                ondragover="allowDraftDrop(event)" ondragleave="leaveDraftDrop(event)"
+                ondrop="dropDraft(event, 'draft-court')">Thẩm quyền xét xử</span>.<br>
+              Để bảo vệ quyền lợi cho Công ty An Bình (Bị đơn), chúng tôi kính trình Hội đồng xét xử các căn cứ pháp lý
+              sau:<br>
+              1. Việc chậm tiến độ thi công 3 tháng là do lỗi chậm giao mặt bằng thi công sạch của Nguyên đơn (Minh
+              Anh). Đây là trường hợp miễn trách nhiệm do sự kiện trở ngại khách quan, phù hợp quy định tại <span
+                class="doc-drop-zone" id="draft-law" ondragover="allowDraftDrop(event)"
+                ondragleave="leaveDraftDrop(event)" ondrop="dropDraft(event, 'draft-law')">Căn cứ pháp lý miễn
+                trách</span> của Luật Thương mại năm 2005.<br>
+              2. Bị đơn đã thực hiện đầy đủ nghĩa vụ thông báo bằng văn bản gửi Nguyên đơn ngày 20/03/2026, hoàn toàn
+              tuân thủ thời hạn quy định trong hợp đồng.<br>
+              Từ những căn cứ trên, kính đề nghị Tòa án: <span class="doc-drop-zone" id="draft-petition"
+                ondragover="allowDraftDrop(event)" ondragleave="leaveDraftDrop(event)"
+                ondrop="dropDraft(event, 'draft-petition')">Yêu cầu kiến nghị</span>.
+            </p>
+          </div>
+
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px;">Hộp dữ liệu pháp lý thô:
+            </div>
+            <div class="draft-tag-pool" id="draft-tag-pool">
+              <div class="draft-drag-tag" draggable="true" id="tag-court-correct"
+                data-val="Quận Cầu Giấy (nơi Bị đơn đặt trụ sở chính)" ondragstart="dragDraftStart(event)">TAND Quận Cầu
+                Giấy (Trụ sở Bị đơn)</div>
+              <div class="draft-drag-tag" draggable="true" id="tag-law-correct"
+                data-val="Điều 294 Luật Thương mại về các trường hợp miễn trách nhiệm"
+                ondragstart="dragDraftStart(event)">Điều 294 Luật Thương mại (Miễn trách)</div>
+              <div class="draft-drag-tag" draggable="true" id="tag-petition-correct"
+                data-val="Bác bỏ toàn bộ yêu cầu đòi phạt vi phạm của Nguyên đơn" ondragstart="dragDraftStart(event)">
+                Bác toàn bộ yêu cầu đòi phạt vi phạm</div>
+              <div class="draft-drag-tag" draggable="true" id="tag-court-wrong"
+                data-val="Huyện Chương Mỹ (không liên quan vụ việc)" ondragstart="dragDraftStart(event)">TAND Huyện
+                Chương Mỹ (Sai địa bàn)</div>
+              <div class="draft-drag-tag" draggable="true" id="tag-law-wrong"
+                data-val="Điều 301 Luật Thương mại về mức phạt vi phạm tối đa 8%" ondragstart="dragDraftStart(event)">
+                Điều 301 Luật Thương mại (Mức trần phạt)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-card contract-review-panel">
+        <div class="action-label">Bước 2: Rà soát & Sửa đổi điều khoản phạt vi phạm (Chọn phương án đúng luật)</div>
+        <div class="clause-card">
+          <div class="clause-text-item">
+            <strong>Điều khoản phạt vi phạm trong hợp đồng gốc:</strong><br>
+            <i>"Điều 12. Phạt vi phạm hợp đồng: Trường hợp Bên B (An Bình) chậm bàn giao công trình so với tiến độ cam
+              kết, Bên B phải chịu phạt vi phạm tương đương 15% tổng giá trị hợp đồng kinh tế bị vi phạm."</i>
+          </div>
+          <div class="clause-options">
+            <button class="clause-opt-btn" id="c-opt-1" onclick="selectClauseOption(1)">A. Giữ nguyên điều khoản 15% vì
+              hợp đồng dựa trên sự tự nguyện thỏa thuận của hai bên.</button>
+            <button class="clause-opt-btn" id="c-opt-2" onclick="selectClauseOption(2)">B. Sửa mức phạt thành tối đa 8%
+              tổng giá trị hợp đồng vi phạm theo đúng quy định tại Điều 301 Luật Thương mại.</button>
+            <button class="clause-opt-btn" id="c-opt-3" onclick="selectClauseOption(3)">C. Tăng mức phạt lên 20% để răn
+              đe nhà thầu thi công nhanh hơn.</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="verifyLegalDrafting()">Ký số & Thông qua văn bản →</button>
+
+      <div class="result-box" id="result-tab1">
+        <div class="result-outcome" id="outcome-tab1"></div>
+        <div class="result-aha" id="aha-tab1"></div>
+        <span class="subject-bridge">Cầu nối SGK: Toán học 10 — Logic học và suy luận mệnh đề điều kiện (Mệnh đề tuyển,
+          hội trong phân tích luật pháp)</span>
+      </div>
+    </div>
+
+    <!-- NHIỆM VỤ 3: TRANH TỤNG VÀ ĐẠI DIỆN (MOCK TRIAL SIMULATOR) -->
+    <div id="tab2" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 3 - Tranh tụng tại phiên tòa giả định:</strong> Bạn đang đại diện cho Công ty An Bình tại phiên
+        xử sơ thẩm. Nguyên đơn đang chiếm lợi thế 70% nhờ bằng chứng chậm tiến độ. Hãy tiến hành hỏi chéo nhân chứng và
+        phản biện luật sư đối phương dựa trên hồ sơ chứng cứ đã thu thập để lật ngược thế cờ.
+      </div>
+
+      <div class="court-sim-grid">
+        <div class="courtroom-stage">
+          <!-- Visual Map -->
+          <div class="judge-bench">
+            <div class="judge-avatar">👨‍<i data-lucide="scale"></i></div>
+            <div class="judge-label">Chủ tọa phiên tòa</div>
+          </div>
+
+          <div class="witness-stand">
+            <div class="witness-avatar" id="court-witness-avatar">👤</div>
+            <div class="witness-label" id="court-witness-label">Nhân chứng</div>
+          </div>
+
+          <div class="counsel-tables">
+            <div class="counsel-table defense">
+              <div class="counsel-avatar"><i data-lucide="briefcase"></i></div>
+              <div>Bị đơn (Bạn)</div>
+            </div>
+            <div class="counsel-table plaintiff">
+              <div class="counsel-avatar"><i data-lucide="scale"></i></div>
+              <div>Nguyên đơn</div>
+            </div>
+          </div>
+
+          <!-- Dialogue Box -->
+          <div class="court-bubble" id="court-bubble">
+            <strong>Chủ tọa:</strong> Phiên tòa xét xử tranh chấp hợp đồng xây dựng dự án Landmark bắt đầu. Mời Luật sư
+            bị đơn tiến hành phần tranh tụng.
+          </div>
+        </div>
+
+        <div class="strength-panel">
+          <div class="strength-header-title"><i data-lucide="scale"></i> Cân công lý (Sức nặng lập luận)</div>
+
+          <div class="balance-beam-wrap">
+            <div class="balance-beam" id="court-beam" style="transform: rotate(16deg);"></div>
+            <div class="balance-fulcrum"></div>
+            <div class="balance-pan-v defense" id="pan-v-def" style="transform: translateY(12px);">30%</div>
+            <div class="balance-pan-v plaintiff" id="pan-v-pla" style="transform: translateY(-12px);">70%</div>
+          </div>
+
+          <div class="strength-bar-group">
+            <div class="strength-bar-item">
+              <div class="strength-bar-label"><span>Bị đơn (Công ty An Bình - Bạn)</span><span id="label-def">30%</span>
+              </div>
+              <div class="strength-bar-track">
+                <div class="strength-bar-fill defense" id="bar-def" style="width: 30%;"></div>
+              </div>
+            </div>
+            <div class="strength-bar-item">
+              <div class="strength-bar-label"><span>Nguyên đơn (Công ty Minh Anh)</span><span id="label-pla">70%</span>
+              </div>
+              <div class="strength-bar-track">
+                <div class="strength-bar-fill plaintiff" id="bar-pla" style="width: 70%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trial-options-pane" id="trial-options-pane">
+        <!-- Buttons render dynamic steps of trial -->
+        <button class="btn-primary" style="align-self: center;" onclick="startTrialStep(1)">Bắt đầu phần Hỏi chéo nhân
+          chứng →</button>
+      </div>
+
+      <div class="result-box" id="result-tab2">
+        <div class="result-outcome" id="outcome-tab2"></div>
+        <div class="result-aha" id="aha-tab2"></div>
+        <span class="subject-bridge">Cầu nối SGK: Giáo dục Kinh tế và Pháp luật 11 — Quy chế tố tụng dân sự, hoạt động
+          xét xử và quyền bình đẳng tranh tụng trước Tòa án</span>
+      </div>
+    </div>
+
+    <!-- NHIỆM VỤ 4: ĐÀM PHÁN VÀ HÒA GIẢI -->
+    <div id="tab3" style="display:none">
+      <div class="mission-box">
+        <strong>Nhiệm vụ 4 - Hòa giải tiền tố tụng ngoài Tòa:</strong> Tranh tụng là giải pháp cuối cùng, đàm phán hòa
+        giải (ADR) mới là nghệ thuật giải quyết tranh chấp tối ưu. Hãy gặp Luật sư đại diện của Nguyên đơn tại phòng họp
+        đàm phán để thảo luận một thỏa thuận hòa giải có lợi cho thân chủ, cân bằng giữa Thiện chí đàm phán và Lợi ích
+        tài chính.
+      </div>
+
+      <div class="negotiation-panel">
+        <div class="nego-chat-sim">
+          <div class="nego-status-bar">
+            <div class="opponent-avatar" id="nego-avatar">🤨</div>
+            <div class="opponent-meta">
+              <div class="opponent-char-name">Luật sư Khánh (Đại diện Nguyên đơn)</div>
+              <div class="opponent-char-desc">Đại diện Công ty Đầu tư Minh Anh</div>
+            </div>
+
+            <div class="nego-progress-group">
+              <div class="nego-progress-item">
+                <div class="nego-progress-label"><span>Thiện chí</span><span id="label-nego-gw">50%</span></div>
+                <div class="nego-progress-track">
+                  <div class="nego-progress-fill goodwill" id="bar-nego-gw" style="width: 50%;"></div>
+                </div>
+              </div>
+              <div class="nego-progress-item">
+                <div class="nego-progress-label"><span>Quyền lợi giữ</span><span id="label-nego-val">50%</span></div>
+                <div class="nego-progress-track">
+                  <div class="nego-progress-fill value" id="bar-nego-val" style="width: 50%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="nego-dialogue-pane" id="nego-dialogue-pane">
+            <div class="nego-bubble npc"><strong>Luật sư Khánh:</strong> Chúng tôi hiểu việc chậm mặt bằng cũng có phần
+              trách nhiệm của chúng tôi, nhưng các ông chậm bàn giao công trình 3 tháng làm tổn thất doanh thu thuê nhà
+              rất nhiều. Để hòa giải thành công, chúng tôi muốn An Bình bồi thường tối thiểu 5 tỷ đồng, nếu không thì ra
+              tòa phán quyết!</div>
+          </div>
+
+          <div class="nego-options-pane" id="nego-options-pane">
+            <button class="nego-opt-btn" onclick="selectNegoOption(0)">A. Không đời nào! Chúng tôi vô tội hoàn toàn vì
+              lỗi chậm bàn giao mặt bằng của các ông. Chúng tôi sẽ kiện ngược đòi bồi thường chi phí chờ đợi máy móc
+              thiết bị.</button>
+            <button class="nego-opt-btn" onclick="selectNegoOption(1)">B. Mức 5 tỷ quá cao. Chúng tôi đề xuất hỗ trợ đẩy
+              nhanh thi công ngoài giờ, hoàn thành sớm các hạng mục còn lại, đồng thời bồi thường 1 tỷ đồng xem như
+              thiện chí hợp tác lâu dài.</button>
+            <button class="nego-opt-btn" onclick="selectNegoOption(2)">C. Thôi được rồi, để tránh rắc rối kiện tụng ở
+              tòa án, chúng tôi đồng ý bồi thường toàn bộ 5 tỷ đồng theo yêu cầu của các ông.</button>
+          </div>
+        </div>
+
+        <div class="sim-card">
+          <div class="action-label">Khái niệm Pháp lý: BATNA là gì?</div>
+          <p style="font-size:13px; line-height:1.6; color:var(--ink2);">
+            <strong>BATNA (Best Alternative to a Negotiated Agreement)</strong> là phương án thay thế tốt nhất của một
+            bên nếu cuộc đàm phán hòa giải hiện tại thất bại.<br><br>
+            Trong vụ án này, BATNA của Bị đơn (An Bình) nếu đàm phán đổ vỡ là ra tòa tranh tụng. Tại tòa, nhờ có chứng
+            cứ bàn giao mặt bằng trễ, Bị đơn có khả năng thắng kiện rất cao (tỷ lệ phạt giảm về 0đ hoặc tối đa chỉ chịu
+            phạt vi phạm nhẹ). Do đó, đồng ý bồi thường toàn bộ 5 tỷ (Phương án C) là một thỏa thuận tệ hơn BATNA và
+            không tối ưu cho thân chủ.
+          </p>
+        </div>
+      </div>
+
+      <div class="result-box" id="result-tab3">
+        <div class="result-outcome" id="outcome-tab3"></div>
+        <div class="result-aha" id="aha-tab3"></div>
+        <span class="subject-bridge">Cầu nối Kỹ năng: Phương pháp đàm phán hòa giải tích hợp (ADR) và Quản trị rủi ro
+          pháp lý doanh nghiệp</span>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="footer-section">
-  <div style="max-width: 600px; margin: 0 auto;">
-    <h3 style="font-size: 20px; font-family:'Lora',serif; margin-bottom: 0.5rem;">Bảo vệ Công lý & Lập luận Sắc bén</h3>
-    <p style="font-size: 13.5px; color: var(--ink2); margin-bottom: 1.5rem;">Sự logic chặt chẽ, am hiểu tường tận đạo lý, pháp lý cùng khả năng hùng biện xuất sắc trước tòa là vũ khí tối tân của một Luật sư tranh tụng.</p>
-    <a href="../index.html" class="footer-btn">Khám phá các phòng Lab khác</a>
+  <div class="footer-section">
+    <div style="max-width: 600px; margin: 0 auto;">
+      <h3 style="font-size: 20px; font-family:'Lora',serif; margin-bottom: 0.5rem;">Bảo vệ Công lý & Lập luận Sắc bén
+      </h3>
+      <p style="font-size: 13.5px; color: var(--ink2); margin-bottom: 1.5rem;">Sự logic chặt chẽ, am hiểu tường tận đạo
+        lý, pháp lý cùng khả năng hùng biện xuất sắc trước tòa là vũ khí tối tân của một Luật sư tranh tụng.</p>
+      <a href="../index.html" class="footer-btn">Khám phá các phòng Lab khác</a>
+    </div>
   </div>
-</div>
 
-<script>
-  // STATE MANAGEMENT
-  let currentTab = 0;
+  <script>
+    // STATE MANAGEMENT
+    let currentTab = 0;
 
-  // TAB 1 LOGIC: Case Research & Evidence Extraction
-  let extractedEvs = {
-    'delay-cause': false,
-    'notice-limit': false,
-    'real-delay': false,
-    'client-q1': false,
-    'client-q2': false
-  };
+    // TAB 1 LOGIC: Case Research & Evidence Extraction
+    let extractedEvs = {
+      'delay-cause': false,
+      'notice-limit': false,
+      'real-delay': false,
+      'client-q1': false,
+      'client-q2': false
+    };
 
-  function switchTab(n) {
-    currentTab = n;
-    ['tab0','tab1','tab2','tab3'].forEach((id, i) => {
-      document.getElementById(id).style.display = i === n ? 'block' : 'none';
-      const btn = document.getElementById('btn-tab' + i);
-      if (i === n) btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
+    function switchTab(n) {
+      currentTab = n;
+      ['tab0', 'tab1', 'tab2', 'tab3'].forEach((id, i) => {
+        document.getElementById(id).style.display = i === n ? 'block' : 'none';
+        const btn = document.getElementById('btn-tab' + i);
+        if (i === n) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
 
-    if (n === 2) {
-      initCourtTrial();
-    } else if (n === 3) {
-      initNegoSim();
+      if (n === 2) {
+        initCourtTrial();
+      } else if (n === 3) {
+        initNegoSim();
+      }
     }
-  }
 
-  function toggleDoc(docId) {
-    const header = document.querySelector(`#doc-${docId} .doc-header`);
-    const body = document.getElementById(`body-${docId}`);
-    const isShow = body.classList.toggle('show');
-    header.classList.toggle('active', isShow);
-  }
+    function toggleDoc(docId) {
+      const header = document.querySelector(`#doc-${docId} .doc-header`);
+      const body = document.getElementById(`body-${docId}`);
+      const isShow = body.classList.toggle('show');
+      header.classList.toggle('active', isShow);
+    }
 
-  function extractEvidence(id, text) {
-    if (extractedEvs[id]) return;
-    extractedEvs[id] = true;
-    
-    // Highlight effect
-    const hl = document.getElementById('hl-' + id);
-    hl.classList.add('extracted');
-    
-    // Remove empty placeholder
-    const empty = document.getElementById('ev-empty');
-    if (empty) empty.style.display = 'none';
+    function extractEvidence(id, text) {
+      if (extractedEvs[id]) return;
+      extractedEvs[id] = true;
 
-    // Add to list
-    const list = document.getElementById('evidence-list');
-    const div = document.createElement('div');
-    div.className = 'evidence-item';
-    div.innerHTML = `<span class="evidence-item-icon">✓</span> <span>${text}</span>`;
-    list.appendChild(div);
-  }
+      // Highlight effect
+      const hl = document.getElementById('hl-' + id);
+      hl.classList.add('extracted');
 
-  function askClientChat(qId) {
-    const messages = document.getElementById('client-chat-messages');
-    const btn = document.getElementById('client-q' + qId);
-    btn.classList.add('disabled');
-    btn.disabled = true;
+      // Remove empty placeholder
+      const empty = document.getElementById('ev-empty');
+      if (empty) empty.style.display = 'none';
 
-    const questions = {
-      1: "Sau khi bị chậm bàn giao mặt bằng ngày 15/03, ông có gửi thông báo bằng văn bản cho bên họ không?",
-      2: "Ông có biên bản làm việc hoặc tài liệu nào chứng minh thời điểm bàn giao mặt bằng thực tế không?"
-    };
+      // Add to list
+      const list = document.getElementById('evidence-list');
+      const div = document.createElement('div');
+      div.className = 'evidence-item';
+      div.innerHTML = `<span class="evidence-item-icon">✓</span> <span>${text}</span>`;
+      list.appendChild(div);
+    }
 
-    const answers = {
-      1: "<strong>Ông Bình:</strong> Có chứ luật sư! Ngày 20/03 chúng tôi đã gửi ngay công văn thông báo việc chậm tiến độ do chưa nhận được mặt bằng thi công sạch, có ký xác nhận giao nhận văn thư của họ đàng hoàng.",
-      2: "<strong>Ông Bình:</strong> Dạ có, chúng tôi có ký Biên bản bàn giao mốc ranh giới thực tế vào ngày 15/06/2026, trên biên bản có đầy đủ chữ ký của giám sát bên họ xác nhận."
-    };
+    function askClientChat(qId) {
+      const messages = document.getElementById('client-chat-messages');
+      const btn = document.getElementById('client-q' + qId);
+      btn.classList.add('disabled');
+      btn.disabled = true;
 
-    // User question bubble
-    const uMsg = document.createElement('div');
-    uMsg.className = 'chat-msg lawyer';
-    uMsg.textContent = questions[qId];
-    messages.appendChild(uMsg);
-    messages.scrollTop = messages.scrollHeight;
+      const questions = {
+        1: "Sau khi bị chậm bàn giao mặt bằng ngày 15/03, ông có gửi thông báo bằng văn bản cho bên họ không?",
+        2: "Ông có biên bản làm việc hoặc tài liệu nào chứng minh thời điểm bàn giao mặt bằng thực tế không?"
+      };
 
-    // Simulate reply
-    setTimeout(() => {
-      const cMsg = document.createElement('div');
-      cMsg.className = 'chat-msg client';
-      cMsg.innerHTML = answers[qId];
-      messages.appendChild(cMsg);
+      const answers = {
+        1: "<strong>Ông Bình:</strong> Có chứ luật sư! Ngày 20/03 chúng tôi đã gửi ngay công văn thông báo việc chậm tiến độ do chưa nhận được mặt bằng thi công sạch, có ký xác nhận giao nhận văn thư của họ đàng hoàng.",
+        2: "<strong>Ông Bình:</strong> Dạ có, chúng tôi có ký Biên bản bàn giao mốc ranh giới thực tế vào ngày 15/06/2026, trên biên bản có đầy đủ chữ ký của giám sát bên họ xác nhận."
+      };
+
+      // User question bubble
+      const uMsg = document.createElement('div');
+      uMsg.className = 'chat-msg lawyer';
+      uMsg.textContent = questions[qId];
+      messages.appendChild(uMsg);
       messages.scrollTop = messages.scrollHeight;
-      
-      extractedEvs['client-q' + qId] = true;
-    }, 800);
-  }
 
-  function verifyCaseResearch() {
-    const resultBox = document.getElementById('result-tab0');
-    const outcome = document.getElementById('outcome-tab0');
-    const aha = document.getElementById('aha-tab0');
-    
-    const docOk = extractedEvs['delay-cause'] && extractedEvs['notice-limit'] && extractedEvs['real-delay'];
-    const interviewOk = extractedEvs['client-q1'] && extractedEvs['client-q2'];
+      // Simulate reply
+      setTimeout(() => {
+        const cMsg = document.createElement('div');
+        cMsg.className = 'chat-msg client';
+        cMsg.innerHTML = answers[qId];
+        messages.appendChild(cMsg);
+        messages.scrollTop = messages.scrollHeight;
 
-    if (!docOk) {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Thiếu nghiên cứu văn bản:</span> Bạn chưa trích xuất đầy đủ 3 chứng cứ cốt lõi từ các văn bản tài liệu bên trái. Hãy đọc kỹ từng hợp đồng và công văn hành chính quận để tìm điểm vàng.`;
-      aha.innerHTML = 'Một luật sư giỏi luôn bắt đầu từ việc soi xét kỹ lưỡng từng dấu phẩy, cụm từ trong tài liệu. Rất nhiều vụ án thắng kiện chỉ nhờ phát hiện ra một điều khoản thời hạn bị bỏ quên.';
+        extractedEvs['client-q' + qId] = true;
+      }, 800);
+    }
+
+    function verifyCaseResearch() {
+      const resultBox = document.getElementById('result-tab0');
+      const outcome = document.getElementById('outcome-tab0');
+      const aha = document.getElementById('aha-tab0');
+
+      const docOk = extractedEvs['delay-cause'] && extractedEvs['notice-limit'] && extractedEvs['real-delay'];
+      const interviewOk = extractedEvs['client-q1'] && extractedEvs['client-q2'];
+
+      if (!docOk) {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Thiếu nghiên cứu văn bản:</span> Bạn chưa trích xuất đầy đủ 3 chứng cứ cốt lõi từ các văn bản tài liệu bên trái. Hãy đọc kỹ từng hợp đồng và công văn hành chính quận để tìm điểm vàng.`;
+        aha.innerHTML = 'Một luật sư giỏi luôn bắt đầu từ việc soi xét kỹ lưỡng từng dấu phẩy, cụm từ trong tài liệu. Rất nhiều vụ án thắng kiện chỉ nhờ phát hiện ra một điều khoản thời hạn bị bỏ quên.';
+        taskResults.task0.score = score;
+        taskResults.task0.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task1.score = (score >= 80) ? 25 : 10;
+        taskResults.task1.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+        taskResults.task2.completed = true;
+        checkAllTasksCompleted();
+        resultBox.classList.add('show');
+        return;
+      }
+
+      if (!interviewOk) {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Thiếu thông tin phỏng vấn:</span> Bạn chưa hỏi hết các thông tin then chốt từ Giám đốc công ty An Bình. Hãy đảm bảo khai thác hết lời khai lâm sàng của thân chủ trước khi ra tòa.`;
+        aha.innerHTML = 'Khách hàng có thể không hiểu pháp luật và bỏ sót những tài liệu họ đang nắm giữ. Nhiệm vụ của luật sư là đặt câu hỏi dẫn dắt để gợi mở và thu thập các chứng từ có tính pháp lý.';
+        taskResults.task0.score = score;
+        taskResults.task0.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task1.score = (score >= 80) ? 25 : 10;
+        taskResults.task1.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+        taskResults.task2.completed = true;
+        checkAllTasksCompleted();
+        resultBox.classList.add('show');
+        return;
+      }
+
+      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Nghiên cứu hồ sơ hoàn tất xuất sắc!</span><br>Bạn đã trích xuất thành công 3 chứng cứ vàng trong văn bản hợp đồng và công văn hành chính Quận (chậm giao mặt bằng 3 tháng thực tế), đồng thời xác nhận qua lời khai thân chủ rằng họ đã gửi thông báo bất khả kháng đúng hạn (ngày 20/03, trong hạn 10 ngày). Bạn đã đủ cơ sở pháp lý vững chắc để tranh tụng!`;
+      aha.innerHTML = '<strong>Điểm mấu chốt lập luận (Aha!):</strong> Sự chậm trễ tiến độ thi công thực tế do lỗi giải phóng mặt bằng của Nguyên đơn cấu thành sự kiện miễn trừ trách nhiệm theo Hợp đồng. Bị đơn đã gửi thông báo đúng hạn nên hoàn toàn đủ điều kiện kích hoạt điều khoản miễn trách.';
+      taskResults.task0.score = score;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task1.score = (score >= 80) ? 25 : 10;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task3.score = (negoGw > 30 && negoVal > 30) ? 25 : 10;
+      taskResults.task3.completed = true;
+      checkAllTasksCompleted();
       resultBox.classList.add('show');
-      return;
     }
 
-    if (!interviewOk) {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Thiếu thông tin phỏng vấn:</span> Bạn chưa hỏi hết các thông tin then chốt từ Giám đốc công ty An Bình. Hãy đảm bảo khai thác hết lời khai lâm sàng của thân chủ trước khi ra tòa.`;
-      aha.innerHTML = 'Khách hàng có thể không hiểu pháp luật và bỏ sót những tài liệu họ đang nắm giữ. Nhiệm vụ của luật sư là đặt câu hỏi dẫn dắt để gợi mở và thu thập các chứng từ có tính pháp lý.';
+
+    // TAB 2: LEGAL DRAFTING & CONTRACT REVIEW
+    let draggedDraftId = null;
+    let draftFormValues = {
+      'draft-court': null,
+      'draft-law': null,
+      'draft-petition': null
+    };
+    let selectedClauseOpt = null;
+
+    function dragDraftStart(e) {
+      draggedDraftId = e.target.id;
+      e.dataTransfer.setData('text/plain', e.target.getAttribute('data-val'));
+    }
+
+    function allowDraftDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('over');
+    }
+
+    function leaveDraftDrop(e) {
+      e.currentTarget.classList.remove('over');
+    }
+
+    function dropDraft(e, dropZoneId) {
+      e.preventDefault();
+      const zone = document.getElementById(dropZoneId);
+      zone.classList.remove('over');
+
+      const value = e.dataTransfer.getData('text/plain');
+      draftFormValues[dropZoneId] = value;
+
+      zone.textContent = value;
+      zone.classList.add('filled');
+
+      // Hide original tag from pool
+      const tag = document.getElementById(draggedDraftId);
+      if (tag) tag.style.display = 'none';
+    }
+
+    function selectClauseOption(optId) {
+      selectedClauseOpt = optId;
+      [1, 2, 3].forEach(id => {
+        const btn = document.getElementById('c-opt-' + id);
+        if (id === optId) btn.classList.add('selected');
+        else btn.classList.remove('selected');
+      });
+    }
+
+    function verifyLegalDrafting() {
+      const resultBox = document.getElementById('result-tab1');
+      const outcome = document.getElementById('outcome-tab1');
+      const aha = document.getElementById('aha-tab1');
+
+      const courtOk = draftFormValues['draft-court'] && draftFormValues['draft-court'].includes("Quận Cầu Giấy");
+      const lawOk = draftFormValues['draft-law'] && draftFormValues['draft-law'].includes("Điều 294");
+      const petitionOk = draftFormValues['draft-petition'] && draftFormValues['draft-petition'].includes("Bác bỏ toàn bộ");
+
+      if (!courtOk || !lawOk || !petitionOk) {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Bản luận cứ bị bác bỏ hoặc sai thẩm quyền:</span><br>Vui lòng rà soát lại các ô kéo thả trong Bản luận cứ bảo vệ. Gửi sai thẩm quyền tòa án hoặc trích dẫn nhầm điều luật sẽ làm giảm nghiêm trọng tính thuyết phục của tài liệu gửi tòa.`;
+        aha.innerHTML = 'Thẩm quyền sơ thẩm dân sự thông thường thuộc về Tòa án cấp Quận nơi Bị đơn đặt trụ sở chính (Điều 35, 39 Bộ luật Tố tụng Dân sự). Việc trích dẫn đúng Điều 294 Luật Thương mại là cơ sở để yêu cầu miễn trừ vi phạm.';
+        taskResults.task0.score = score;
+        taskResults.task0.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task1.score = (score >= 80) ? 25 : 10;
+        taskResults.task1.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+        taskResults.task2.completed = true;
+        checkAllTasksCompleted();
+        resultBox.classList.add('show');
+        return;
+      }
+
+      if (selectedClauseOpt === null) {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Chưa thực hiện rà soát hợp đồng:</span> Bạn chưa chọn phương án xử lý cho điều khoản phạt vi phạm 15% trong hợp đồng kinh tế.`;
+        aha.innerHTML = 'Hợp đồng thương mại chịu sự điều chỉnh của Luật chuyên ngành. Bất kỳ điều khoản nào thỏa thuận trái quy định pháp luật cấm đều có thể bị tuyên vô hiệu.';
+        taskResults.task0.score = score;
+        taskResults.task0.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task1.score = (score >= 80) ? 25 : 10;
+        taskResults.task1.completed = true;
+        checkAllTasksCompleted();
+        taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+        taskResults.task2.completed = true;
+        checkAllTasksCompleted();
+        resultBox.classList.add('show');
+        return;
+      }
+
+      if (selectedClauseOpt === 2) {
+        outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Bản luận cứ và Rà soát Hợp đồng được phê duyệt xuất sắc!</span><br>Bản luận cứ gửi đúng TAND Quận Cầu Giấy, áp dụng chuẩn xác Điều 294 Luật Thương mại để đòi miễn trách nhiệm. Về hợp đồng, bạn đã phát hiện ra điều khoản phạt 15% là vi phạm giới hạn trần 8% theo quy định tại Điều 301 Luật Thương mại và sửa đổi hợp lệ.`;
+        aha.innerHTML = '<strong>Logic toán pháp lý (Aha!):</strong> Mức phạt vi phạm trong hợp đồng thương mại bị khống chế tối đa 8% giá trị nghĩa vụ hợp đồng bị vi phạm (Điều 301). Việc Nguyên đơn cài cắm điều khoản 15% phạt vi phạm là vô hiệu một phần. Luật sư cần phát hiện kẽ hở này để vô hiệu hóa một phần yêu cầu bồi thường.';
+      } else {
+        outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ Bản luận cứ tốt nhưng Rà soát hợp đồng chưa đúng luật:</span><br>Bản luận cứ của bạn rất tốt, tuy nhiên việc chọn giữ nguyên điều khoản phạt 15% (Phương án A) hoặc tăng lên 20% (Phương án C) là vi phạm quy định pháp luật cấm của Luật Thương mại Việt Nam (khống chế trần 8%).`;
+        aha.innerHTML = 'Điều 301 Luật Thương mại quy định rõ: \"Mức phạt đối với vi phạm nghĩa vụ hợp đồng hoặc tổng mức phạt đối với nhiều vi phạm do các bên thoả thuận trong hợp đồng nhưng không quá 8% giá trị phần nghĩa vụ hợp đồng bị vi phạm\".';
+      }
+      taskResults.task0.score = score;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task1.score = (score >= 80) ? 25 : 10;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task3.score = (negoGw > 30 && negoVal > 30) ? 25 : 10;
+      taskResults.task3.completed = true;
+      checkAllTasksCompleted();
       resultBox.classList.add('show');
-      return;
     }
 
-    outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Nghiên cứu hồ sơ hoàn tất xuất sắc!</span><br>Bạn đã trích xuất thành công 3 chứng cứ vàng trong văn bản hợp đồng và công văn hành chính Quận (chậm giao mặt bằng 3 tháng thực tế), đồng thời xác nhận qua lời khai thân chủ rằng họ đã gửi thông báo bất khả kháng đúng hạn (ngày 20/03, trong hạn 10 ngày). Bạn đã đủ cơ sở pháp lý vững chắc để tranh tụng!`;
-    aha.innerHTML = '<strong>Điểm mấu chốt lập luận (Aha!):</strong> Sự chậm trễ tiến độ thi công thực tế do lỗi giải phóng mặt bằng của Nguyên đơn cấu thành sự kiện miễn trừ trách nhiệm theo Hợp đồng. Bị đơn đã gửi thông báo đúng hạn nên hoàn toàn đủ điều kiện kích hoạt điều khoản miễn trách.';
-    resultBox.classList.add('show');
-  }
 
+    // TAB 3: interactive COURTROOM TRIAL (MOCK TRIAL SIMULATOR)
+    let trialStep = 0;
+    let defStrength = 30;
+    let plaStrength = 70;
 
-  // TAB 2: LEGAL DRAFTING & CONTRACT REVIEW
-  let draggedDraftId = null;
-  let draftFormValues = {
-    'draft-court': null,
-    'draft-law': null,
-    'draft-petition': null
-  };
-  let selectedClauseOpt = null;
+    function initCourtTrial() {
+      trialStep = 0;
+      defStrength = 30;
+      plaStrength = 70;
+      updateCourtBalance();
 
-  function dragDraftStart(e) {
-    draggedDraftId = e.target.id;
-    e.dataTransfer.setData('text/plain', e.target.getAttribute('data-val'));
-  }
+      document.getElementById('court-witness-avatar').textContent = "👤";
+      document.getElementById('court-witness-label').textContent = "Nhân chứng";
+      document.getElementById('court-bubble').innerHTML = `<strong>Chủ tọa:</strong> Phiên tòa xét xử tranh chấp hợp đồng xây dựng dự án Landmark bắt đầu. Mời Luật sư bị đơn tiến hành phần tranh tụng.`;
 
-  function allowDraftDrop(e) {
-    e.preventDefault();
-    e.currentTarget.classList.add('over');
-  }
+      const pane = document.getElementById('trial-options-pane');
+      pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(1)">Bắt đầu phần Hỏi chéo nhân chứng →</button>`;
 
-  function leaveDraftDrop(e) {
-    e.currentTarget.classList.remove('over');
-  }
-
-  function dropDraft(e, dropZoneId) {
-    e.preventDefault();
-    const zone = document.getElementById(dropZoneId);
-    zone.classList.remove('over');
-    
-    const value = e.dataTransfer.getData('text/plain');
-    draftFormValues[dropZoneId] = value;
-    
-    zone.textContent = value;
-    zone.classList.add('filled');
-    
-    // Hide original tag from pool
-    const tag = document.getElementById(draggedDraftId);
-    if (tag) tag.style.display = 'none';
-  }
-
-  function selectClauseOption(optId) {
-    selectedClauseOpt = optId;
-    [1, 2, 3].forEach(id => {
-      const btn = document.getElementById('c-opt-' + id);
-      if (id === optId) btn.classList.add('selected');
-      else btn.classList.remove('selected');
-    });
-  }
-
-  function verifyLegalDrafting() {
-    const resultBox = document.getElementById('result-tab1');
-    const outcome = document.getElementById('outcome-tab1');
-    const aha = document.getElementById('aha-tab1');
-
-    const courtOk = draftFormValues['draft-court'] && draftFormValues['draft-court'].includes("Quận Cầu Giấy");
-    const lawOk = draftFormValues['draft-law'] && draftFormValues['draft-law'].includes("Điều 294");
-    const petitionOk = draftFormValues['draft-petition'] && draftFormValues['draft-petition'].includes("Bác bỏ toàn bộ");
-
-    if (!courtOk || !lawOk || !petitionOk) {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ Bản luận cứ bị bác bỏ hoặc sai thẩm quyền:</span><br>Vui lòng rà soát lại các ô kéo thả trong Bản luận cứ bảo vệ. Gửi sai thẩm quyền tòa án hoặc trích dẫn nhầm điều luật sẽ làm giảm nghiêm trọng tính thuyết phục của tài liệu gửi tòa.`;
-      aha.innerHTML = 'Thẩm quyền sơ thẩm dân sự thông thường thuộc về Tòa án cấp Quận nơi Bị đơn đặt trụ sở chính (Điều 35, 39 Bộ luật Tố tụng Dân sự). Việc trích dẫn đúng Điều 294 Luật Thương mại là cơ sở để yêu cầu miễn trừ vi phạm.';
-      resultBox.classList.add('show');
-      return;
+      document.getElementById('result-tab2').classList.remove('show');
     }
 
-    if (selectedClauseOpt === null) {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">⚠️ Chưa thực hiện rà soát hợp đồng:</span> Bạn chưa chọn phương án xử lý cho điều khoản phạt vi phạm 15% trong hợp đồng kinh tế.`;
-      aha.innerHTML = 'Hợp đồng thương mại chịu sự điều chỉnh của Luật chuyên ngành. Bất kỳ điều khoản nào thỏa thuận trái quy định pháp luật cấm đều có thể bị tuyên vô hiệu.';
-      resultBox.classList.add('show');
-      return;
+    function updateCourtBalance() {
+      // Math to tilt balance
+      const diff = defStrength - plaStrength;
+      const angle = Math.max(-20, Math.min(20, -diff * 0.5));
+      document.getElementById('court-beam').style.transform = `rotate(${angle}deg)`;
+
+      const translateDef = Math.max(-15, Math.min(15, diff * 0.4));
+      document.getElementById('pan-v-def').style.transform = `translateY(${translateDef}px)`;
+      document.getElementById('pan-v-pla').style.transform = `translateY(${-translateDef}px)`;
+
+      document.getElementById('pan-v-def').textContent = defStrength + '%';
+      document.getElementById('pan-v-pla').textContent = plaStrength + '%';
+
+      document.getElementById('label-def').textContent = defStrength + '%';
+      document.getElementById('label-pla').textContent = plaStrength + '%';
+      document.getElementById('bar-def').style.width = defStrength + '%';
+      document.getElementById('bar-pla').style.width = plaStrength + '%';
     }
 
-    if (selectedClauseOpt === 2) {
-      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">✓ Bản luận cứ và Rà soát Hợp đồng được phê duyệt xuất sắc!</span><br>Bản luận cứ gửi đúng TAND Quận Cầu Giấy, áp dụng chuẩn xác Điều 294 Luật Thương mại để đòi miễn trách nhiệm. Về hợp đồng, bạn đã phát hiện ra điều khoản phạt 15% là vi phạm giới hạn trần 8% theo quy định tại Điều 301 Luật Thương mại và sửa đổi hợp lệ.`;
-      aha.innerHTML = '<strong>Logic toán pháp lý (Aha!):</strong> Mức phạt vi phạm trong hợp đồng thương mại bị khống chế tối đa 8% giá trị nghĩa vụ hợp đồng bị vi phạm (Điều 301). Việc Nguyên đơn cài cắm điều khoản 15% phạt vi phạm là vô hiệu một phần. Luật sư cần phát hiện kẽ hở này để vô hiệu hóa một phần yêu cầu bồi thường.';
-    } else {
-      outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ Bản luận cứ tốt nhưng Rà soát hợp đồng chưa đúng luật:</span><br>Bản luận cứ của bạn rất tốt, tuy nhiên việc chọn giữ nguyên điều khoản phạt 15% (Phương án A) hoặc tăng lên 20% (Phương án C) là vi phạm quy định pháp luật cấm của Luật Thương mại Việt Nam (khống chế trần 8%).`;
-      aha.innerHTML = 'Điều 301 Luật Thương mại quy định rõ: \"Mức phạt đối với vi phạm nghĩa vụ hợp đồng hoặc tổng mức phạt đối với nhiều vi phạm do các bên thoả thuận trong hợp đồng nhưng không quá 8% giá trị phần nghĩa vụ hợp đồng bị vi phạm\".';
-    }
-    resultBox.classList.add('show');
-  }
+    function startTrialStep(step) {
+      trialStep = step;
+      const bubble = document.getElementById('court-bubble');
+      const pane = document.getElementById('trial-options-pane');
 
+      if (step === 1) {
+        document.getElementById('court-witness-avatar').textContent = "👨";
+        document.getElementById('court-witness-label').textContent = "Ông Hải (Giám sát Nguyên đơn)";
 
-  // TAB 3: interactive COURTROOM TRIAL (MOCK TRIAL SIMULATOR)
-  let trialStep = 0;
-  let defStrength = 30;
-  let plaStrength = 70;
+        bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Chúng tôi khẳng định đã bàn giao mặt bằng đầy đủ và đúng hạn cho nhà thầu thi công vào ngày 15/03/2026. Sự chậm trễ hoàn toàn do năng lực thi công yếu kém của công ty An Bình.`;
 
-  function initCourtTrial() {
-    trialStep = 0;
-    defStrength = 30;
-    plaStrength = 70;
-    updateCourtBalance();
-    
-    document.getElementById('court-witness-avatar').textContent = "👤";
-    document.getElementById('court-witness-label').textContent = "Nhân chứng";
-    document.getElementById('court-bubble').innerHTML = `<strong>Chủ tọa:</strong> Phiên tòa xét xử tranh chấp hợp đồng xây dựng dự án Landmark bắt đầu. Mời Luật sư bị đơn tiến hành phần tranh tụng.`;
-    
-    const pane = document.getElementById('trial-options-pane');
-    pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(1)">Bắt đầu phần Hỏi chéo nhân chứng →</button>`;
-    
-    document.getElementById('result-tab2').classList.remove('show');
-  }
-
-  function updateCourtBalance() {
-    // Math to tilt balance
-    const diff = defStrength - plaStrength;
-    const angle = Math.max(-20, Math.min(20, -diff * 0.5));
-    document.getElementById('court-beam').style.transform = `rotate(${angle}deg)`;
-    
-    const translateDef = Math.max(-15, Math.min(15, diff * 0.4));
-    document.getElementById('pan-v-def').style.transform = `translateY(${translateDef}px)`;
-    document.getElementById('pan-v-pla').style.transform = `translateY(${-translateDef}px)`;
-    
-    document.getElementById('pan-v-def').textContent = defStrength + '%';
-    document.getElementById('pan-v-pla').textContent = plaStrength + '%';
-
-    document.getElementById('label-def').textContent = defStrength + '%';
-    document.getElementById('label-pla').textContent = plaStrength + '%';
-    document.getElementById('bar-def').style.width = defStrength + '%';
-    document.getElementById('bar-pla').style.width = plaStrength + '%';
-  }
-
-  function startTrialStep(step) {
-    trialStep = step;
-    const bubble = document.getElementById('court-bubble');
-    const pane = document.getElementById('trial-options-pane');
-    
-    if (step === 1) {
-      document.getElementById('court-witness-avatar').textContent = "👨";
-      document.getElementById('court-witness-label').textContent = "Ông Hải (Giám sát Nguyên đơn)";
-      
-      bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Chúng tôi khẳng định đã bàn giao mặt bằng đầy đủ và đúng hạn cho nhà thầu thi công vào ngày 15/03/2026. Sự chậm trễ hoàn toàn do năng lực thi công yếu kém của công ty An Bình.`;
-      
-      pane.innerHTML = `
+        pane.innerHTML = `
         <button class="trial-opt-btn" onclick="selectTrialOption(1, 'A')">A. Hỏi xoáy: "Thưa nhân chứng, ông khẳng định bàn giao đúng hạn ngày 15/03. Vậy xin ông giải thích vì sao UBND Quận xác nhận bàn giao mặt bằng trễ đến tận 15/06 mới xong? Đây là Biên bản bàn giao thực tế ngày 15/06 có chữ ký của ông!"</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(1, 'B')">B. Hỏi chung chung: "Có thật là các ông bàn giao đúng hạn không? Tôi nghĩ các ông đang nói dối."</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(1, 'C')">C. Thừa nhận: "Dù có chậm mặt bằng nhưng công ty chúng tôi cũng đã làm việc rất chăm chỉ sau đó."</button>
       `;
-    } else if (step === 2) {
-      bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Ngay cả khi có việc chậm mặt bằng, công ty An Bình cũng không gửi bất kỳ văn bản thông báo nào cho chúng tôi về sự kiện bất khả kháng này trong vòng 10 ngày theo đúng quy định tại Điều 15 HĐ. Họ đã mất quyền được miễn trừ trách nhiệm!`;
-      
-      pane.innerHTML = `
+      } else if (step === 2) {
+        bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Ngay cả khi có việc chậm mặt bằng, công ty An Bình cũng không gửi bất kỳ văn bản thông báo nào cho chúng tôi về sự kiện bất khả kháng này trong vòng 10 ngày theo đúng quy định tại Điều 15 HĐ. Họ đã mất quyền được miễn trừ trách nhiệm!`;
+
+        pane.innerHTML = `
         <button class="trial-opt-btn" onclick="selectTrialOption(2, 'A')">A. Trình văn bản chứng minh: "Thưa HĐXX, chúng tôi có biên bản nhận văn bản ngày 20/03, chứng minh An Bình đã gửi thông báo bằng văn bản về việc vướng mặt bằng cho Nguyên đơn chỉ 5 ngày sau khi sự kiện xảy ra, hoàn toàn đúng hạn."</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(2, 'B')">B. Cãi lý thuyết: "Điều khoản 10 ngày trong hợp đồng là quá khắt khe và không hợp lý, đề nghị Tòa án tuyên bố vô hiệu điều khoản này."</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(2, 'C')">C. Mong châm chước: "Vì điều kiện thi công khó khăn nên chúng tôi không thể gửi thông báo kịp thời, mong Hội đồng xét xử xem xét châm chước."</button>
       `;
-    } else if (step === 3) {
-      bubble.innerHTML = `<strong>Thẩm phán:</strong> Bị đơn yêu cầu miễn trách cho thời gian chậm trễ 3 tháng do mặt bằng. Tuy nhiên, hồ sơ cho thấy trong tháng 4, thời tiết mưa bão kéo dài 15 ngày nhà thầu cũng dừng thi công. Bị đơn có tính gộp thời gian mưa bão này vào không?`;
-      
-      pane.innerHTML = `
+      } else if (step === 3) {
+        bubble.innerHTML = `<strong>Thẩm phán:</strong> Bị đơn yêu cầu miễn trách cho thời gian chậm trễ 3 tháng do mặt bằng. Tuy nhiên, hồ sơ cho thấy trong tháng 4, thời tiết mưa bão kéo dài 15 ngày nhà thầu cũng dừng thi công. Bị đơn có tính gộp thời gian mưa bão này vào không?`;
+
+        pane.innerHTML = `
         <button class="trial-opt-btn" onclick="selectTrialOption(3, 'A')">A. Trả lời rõ ràng, trung thực: "Thưa HĐXX, vướng mặt bằng 3 tháng là nguyên nhân gốc rễ bao trùm khiến dự án không thể khởi công. 15 ngày mưa bão xảy ra trùng trong khoảng thời gian này nên chúng tôi không tính gộp, chỉ gia hạn đúng 3 tháng bị chậm giao mặt bằng."</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(3, 'B')">B. Đòi tính gộp: "Có chứ ạ, chúng tôi yêu cầu gia hạn 3 tháng vướng mặt bằng cộng thêm 15 ngày mưa bão là tổng cộng 3 tháng 15 ngày."</button>
         <button class="trial-opt-btn" onclick="selectTrialOption(3, 'C')">C. Mơ hồ: "Cái này do đội ngũ kỹ sư thi công trực tiếp ghi nhận, tôi xin phép được kiểm tra lại số liệu báo cáo sau."</button>
       `;
-    }
-  }
-
-  function selectTrialOption(step, option) {
-    const bubble = document.getElementById('court-bubble');
-    const pane = document.getElementById('trial-options-pane');
-    
-    if (step === 1) {
-      if (option === 'A') {
-        defStrength += 20;
-        plaStrength -= 20;
-        document.getElementById('court-witness-avatar').textContent = "<i data-lucide="alert-triangle"></i>";
-        bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Ơ... cái này... Biên bản bàn giao đó... tôi... tôi ký vì sức ép của cấp trên, thực tế thì... (Nhân chứng lúng túng, bối rối trước tài liệu phản bác đanh thép)`;
-      } else if (option === 'B') {
-        defStrength += 5;
-        plaStrength -= 5;
-        bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Chúng tôi làm việc chuyên nghiệp, không có lý do gì nói dối cả. Đề nghị luật sư tôn trọng!`;
-      } else {
-        defStrength -= 10;
-        plaStrength += 10;
-        bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Các ông tự thừa nhận năng lực thi công yếu kém rồi nhé.`;
       }
-      updateCourtBalance();
-      
-      pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(2)">Tiếp tục tranh luận với Luật sư đối phương →</button>`;
-      
-    } else if (step === 2) {
-      if (option === 'A') {
-        defStrength += 25;
-        plaStrength -= 25;
-        bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Biên nhận văn thư ngày 20/03 ư? Cái này... để tôi kiểm tra lại... (Luật sư Nguyên đơn sững sờ, quay sang trao đổi gấp với trợ lý)`;
-      } else if (option === 'B') {
-        defStrength += 5;
-        plaStrength -= 5;
-        bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Hợp đồng đã ký kết là luật của các bên, các ông đã tự nguyện đồng ý với điều khoản 10 ngày thì phải tuân thủ!`;
-      } else {
-        defStrength -= 15;
-        plaStrength += 15;
-        bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Việc không thông báo đúng hạn đồng nghĩa với việc các ông đã từ bỏ quyền được miễn trừ trách nhiệm theo quy định của hợp đồng.`;
-      }
-      updateCourtBalance();
-      
-      pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(3)">Trả lời chất vấn cuối cùng của Thẩm phán →</button>`;
-      
-    } else if (step === 3) {
-      if (option === 'A') {
-        defStrength += 20;
-        plaStrength -= 20;
-        bubble.innerHTML = `<strong>Thẩm phán:</strong> Hội đồng xét xử ghi nhận câu trả lời rõ ràng và trung thực của Luật sư bị đơn. Mời các bên ngồi xuống để Hội đồng tiến hành nghị án.`;
-      } else if (option === 'B') {
-        defStrength -= 15;
-        plaStrength += 15;
-        bubble.innerHTML = `<strong>Thẩm phán:</strong> Yêu cầu tính gộp là thiếu cơ sở pháp lý, vì công trình chưa có mặt bằng sạch để thi công thì việc mưa bão không thể tính là nguyên nhân làm dừng thi công thêm.`;
-      } else {
-        defStrength -= 5;
-        bubble.innerHTML = `<strong>Thẩm phán:</strong> Luật sư tranh tụng tại tòa cần nắm vững hồ sơ số liệu, không thể trả lời mơ hồ như vậy.`;
-      }
-      updateCourtBalance();
-      
-      pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="revealTrialVerdict()">Nghe Thẩm phán tuyên án →</button>`;
     }
-  }
 
-  function revealTrialVerdict() {
-    const resultBox = document.getElementById('result-tab2');
-    const outcome = document.getElementById('outcome-tab2');
-    const aha = document.getElementById('aha-tab2');
-    
-    let isVictory = defStrength >= 70;
-    let isPartial = defStrength >= 50 && defStrength < 70;
+    function selectTrialOption(step, option) {
+      const bubble = document.getElementById('court-bubble');
+      const pane = document.getElementById('trial-options-pane');
 
-    if (isVictory) {
-      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">👑 PHÁN QUYẾT CỦA TÒA: BỊ ĐƠN THẮNG KIỆN VANG DỘI!</span><br>Hội đồng xét xử tuyên án: Chấp nhận toàn bộ luận cứ bào chữa của Luật sư bị đơn. Sự chậm trễ tiến độ là sự kiện bất khả kháng do lỗi Nguyên đơn chậm giao mặt bằng. Tòa tuyên bác bỏ yêu cầu khởi kiện đòi phạt vi phạm 10 tỷ đồng của Nguyên đơn. Thân chủ của bạn được miễn toàn bộ tiền phạt!`;
-      aha.innerHTML = '<strong>Nghệ thuật Tranh tụng (Aha!):</strong> Chiến thắng tại tòa không đến từ những lời tranh cãi cảm xúc. Nó là kết quả của sự xâu chuỗi logic: dùng biên bản bàn giao trễ chứng minh lỗi Nguyên đơn -> dùng biên nhận văn thư chứng minh gửi thông báo đúng hạn -> bác bỏ lời khai nhân chứng đối phương ngay tại tòa.';
-    } else if (isPartial) {
-      outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;"><i data-lucide="scale"></i> PHÁN QUYẾT CỦA TÒA: THẮNG LỢI MỘT PHẦN!</span><br>Tòa án nhận định Bị đơn được miễn trách nhiệm đối với phần lớn thời gian chậm trễ do lỗi mặt bằng của Nguyên đơn. Tuy nhiên, do một số lập luận chưa tối ưu hoặc tính toán trùng lặp, Tòa tuyên chấp nhận một phần đơn kiện, buộc Bị đơn chịu phạt vi phạm giảm xuống còn 1.5 tỷ đồng thay vì 10 tỷ đồng ban đầu.`;
-      aha.innerHTML = 'Mặc dù tránh được mức phạt lớn 10 tỷ đồng, bạn vẫn phải trả giá 1.5 tỷ cho những kẽ hở trong phần phản biện hoặc chất vấn tại tòa. Luật sư cần cực kỳ sắc sảo trong từng câu chữ phản biện.';
-    } else {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ PHÁN QUYẾT CỦA TÒA: THUA KIỆN!</span><br>Tòa án tuyên chấp nhận toàn bộ đơn khởi kiện của Nguyên đơn. Buộc Bị đơn (Công ty An Bình) phải bồi thường phạt vi phạm hợp đồng số tiền 10 tỷ đồng do không chứng minh được sự tuân thủ thời hạn thông báo bất khả kháng và không bác bỏ được lời khai của nhân chứng đối phương. Thân chủ của bạn chịu thiệt hại nặng nề.`;
-      aha.innerHTML = 'Thua kiện tại tòa là bài học đắt giá. Khi không đưa ra được chứng cứ rõ ràng về mốc thời gian gửi thông báo (Nhiệm vụ 2) và không hỏi chéo sắc bén làm bộc lộ sự dối trá của nhân chứng, tòa sẽ phán quyết dựa trên các tài liệu bất lợi có sẵn.';
+      if (step === 1) {
+        if (option === 'A') {
+          defStrength += 20;
+          plaStrength -= 20;
+          document.getElementById('court-witness-avatar').innerHTML = '<i data-lucide="alert-triangle"></i>';
+          bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Ơ... cái này... Biên bản bàn giao đó... tôi... tôi ký vì sức ép của cấp trên, thực tế thì... (Nhân chứng lúng túng, bối rối trước tài liệu phản bác đanh thép)`;
+        } else if (option === 'B') {
+          defStrength += 5;
+          plaStrength -= 5;
+          bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Chúng tôi làm việc chuyên nghiệp, không có lý do gì nói dối cả. Đề nghị luật sư tôn trọng!`;
+        } else {
+          defStrength -= 10;
+          plaStrength += 10;
+          bubble.innerHTML = `<strong>Nhân chứng Hải:</strong> Các ông tự thừa nhận năng lực thi công yếu kém rồi nhé.`;
+        }
+        updateCourtBalance();
+
+        pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(2)">Tiếp tục tranh luận với Luật sư đối phương →</button>`;
+
+      } else if (step === 2) {
+        if (option === 'A') {
+          defStrength += 25;
+          plaStrength -= 25;
+          bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Biên nhận văn thư ngày 20/03 ư? Cái này... để tôi kiểm tra lại... (Luật sư Nguyên đơn sững sờ, quay sang trao đổi gấp với trợ lý)`;
+        } else if (option === 'B') {
+          defStrength += 5;
+          plaStrength -= 5;
+          bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Hợp đồng đã ký kết là luật của các bên, các ông đã tự nguyện đồng ý với điều khoản 10 ngày thì phải tuân thủ!`;
+        } else {
+          defStrength -= 15;
+          plaStrength += 15;
+          bubble.innerHTML = `<strong>Luật sư Nguyên đơn:</strong> Việc không thông báo đúng hạn đồng nghĩa với việc các ông đã từ bỏ quyền được miễn trừ trách nhiệm theo quy định của hợp đồng.`;
+        }
+        updateCourtBalance();
+
+        pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="startTrialStep(3)">Trả lời chất vấn cuối cùng của Thẩm phán →</button>`;
+
+      } else if (step === 3) {
+        if (option === 'A') {
+          defStrength += 20;
+          plaStrength -= 20;
+          bubble.innerHTML = `<strong>Thẩm phán:</strong> Hội đồng xét xử ghi nhận câu trả lời rõ ràng và trung thực của Luật sư bị đơn. Mời các bên ngồi xuống để Hội đồng tiến hành nghị án.`;
+        } else if (option === 'B') {
+          defStrength -= 15;
+          plaStrength += 15;
+          bubble.innerHTML = `<strong>Thẩm phán:</strong> Yêu cầu tính gộp là thiếu cơ sở pháp lý, vì công trình chưa có mặt bằng sạch để thi công thì việc mưa bão không thể tính là nguyên nhân làm dừng thi công thêm.`;
+        } else {
+          defStrength -= 5;
+          bubble.innerHTML = `<strong>Thẩm phán:</strong> Luật sư tranh tụng tại tòa cần nắm vững hồ sơ số liệu, không thể trả lời mơ hồ như vậy.`;
+        }
+        updateCourtBalance();
+
+        pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="revealTrialVerdict()">Nghe Thẩm phán tuyên án →</button>`;
+      }
     }
-    resultBox.classList.add('show');
-  }
+
+    function revealTrialVerdict() {
+      const resultBox = document.getElementById('result-tab2');
+      const outcome = document.getElementById('outcome-tab2');
+      const aha = document.getElementById('aha-tab2');
+
+      let isVictory = defStrength >= 70;
+      let isPartial = defStrength >= 50 && defStrength < 70;
+
+      if (isVictory) {
+        outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">👑 PHÁN QUYẾT CỦA TÒA: BỊ ĐƠN THẮNG KIỆN VANG DỘI!</span><br>Hội đồng xét xử tuyên án: Chấp nhận toàn bộ luận cứ bào chữa của Luật sư bị đơn. Sự chậm trễ tiến độ là sự kiện bất khả kháng do lỗi Nguyên đơn chậm giao mặt bằng. Tòa tuyên bác bỏ yêu cầu khởi kiện đòi phạt vi phạm 10 tỷ đồng của Nguyên đơn. Thân chủ của bạn được miễn toàn bộ tiền phạt!`;
+        aha.innerHTML = '<strong>Nghệ thuật Tranh tụng (Aha!):</strong> Chiến thắng tại tòa không đến từ những lời tranh cãi cảm xúc. Nó là kết quả của sự xâu chuỗi logic: dùng biên bản bàn giao trễ chứng minh lỗi Nguyên đơn -> dùng biên nhận văn thư chứng minh gửi thông báo đúng hạn -> bác bỏ lời khai nhân chứng đối phương ngay tại tòa.';
+      } else if (isPartial) {
+        outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;"><i data-lucide="scale"></i> PHÁN QUYẾT CỦA TÒA: THẮNG LỢI MỘT PHẦN!</span><br>Tòa án nhận định Bị đơn được miễn trách nhiệm đối với phần lớn thời gian chậm trễ do lỗi mặt bằng của Nguyên đơn. Tuy nhiên, do một số lập luận chưa tối ưu hoặc tính toán trùng lặp, Tòa tuyên chấp nhận một phần đơn kiện, buộc Bị đơn chịu phạt vi phạm giảm xuống còn 1.5 tỷ đồng thay vì 10 tỷ đồng ban đầu.`;
+        aha.innerHTML = 'Mặc dù tránh được mức phạt lớn 10 tỷ đồng, bạn vẫn phải trả giá 1.5 tỷ cho những kẽ hở trong phần phản biện hoặc chất vấn tại tòa. Luật sư cần cực kỳ sắc sảo trong từng câu chữ phản biện.';
+      } else {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ PHÁN QUYẾT CỦA TÒA: THUA KIỆN!</span><br>Tòa án tuyên chấp nhận toàn bộ đơn khởi kiện của Nguyên đơn. Buộc Bị đơn (Công ty An Bình) phải bồi thường phạt vi phạm hợp đồng số tiền 10 tỷ đồng do không chứng minh được sự tuân thủ thời hạn thông báo bất khả kháng và không bác bỏ được lời khai của nhân chứng đối phương. Thân chủ của bạn chịu thiệt hại nặng nề.`;
+        aha.innerHTML = 'Thua kiện tại tòa là bài học đắt giá. Khi không đưa ra được chứng cứ rõ ràng về mốc thời gian gửi thông báo (Nhiệm vụ 2) và không hỏi chéo sắc bén làm bộc lộ sự dối trá của nhân chứng, tòa sẽ phán quyết dựa trên các tài liệu bất lợi có sẵn.';
+      }
+      taskResults.task0.score = score;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task1.score = (score >= 80) ? 25 : 10;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task3.score = (negoGw > 30 && negoVal > 30) ? 25 : 10;
+      taskResults.task3.completed = true;
+      checkAllTasksCompleted();
+      resultBox.classList.add('show');
+    }
 
 
-  // TAB 4: ADR PRE-TRIAL MEDIATION NEGOTIATION
-  let negoGw = 50;
-  let negoVal = 50;
-  let negoStep = 0;
+    // TAB 4: ADR PRE-TRIAL MEDIATION NEGOTIATION
+    let negoGw = 50;
+    let negoVal = 50;
+    let negoStep = 0;
 
-  function initNegoSim() {
-    negoGw = 50;
-    negoVal = 50;
-    negoStep = 0;
-    updateNegoStatus();
-    
-    document.getElementById('nego-avatar').textContent = "🤨";
-    const pane = document.getElementById('nego-dialogue-pane');
-    pane.innerHTML = `<div class="nego-bubble npc"><strong>Luật sư Khánh:</strong> Chúng tôi hiểu việc chậm mặt bằng cũng có phần trách nhiệm của chúng tôi, nhưng các ông chậm bàn giao công trình 3 tháng làm tổn thất doanh thu thuê nhà rất nhiều. Để hòa giải thành công, chúng tôi muốn An Bình bồi thường tối thiểu 5 tỷ đồng, nếu không thì ra tòa phán quyết!</div>`;
-    
-    renderNegoOptions();
-    document.getElementById('result-tab3').classList.remove('show');
-  }
+    function initNegoSim() {
+      negoGw = 50;
+      negoVal = 50;
+      negoStep = 0;
+      updateNegoStatus();
 
-  function updateNegoStatus() {
-    document.getElementById('label-nego-gw').textContent = negoGw + '%';
-    document.getElementById('label-nego-val').textContent = negoVal + '%';
-    document.getElementById('bar-nego-gw').style.width = negoGw + '%';
-    document.getElementById('bar-nego-val').style.width = negoVal + '%';
-  }
+      document.getElementById('nego-avatar').textContent = "🤨";
+      const pane = document.getElementById('nego-dialogue-pane');
+      pane.innerHTML = `<div class="nego-bubble npc"><strong>Luật sư Khánh:</strong> Chúng tôi hiểu việc chậm mặt bằng cũng có phần trách nhiệm của chúng tôi, nhưng các ông chậm bàn giao công trình 3 tháng làm tổn thất doanh thu thuê nhà rất nhiều. Để hòa giải thành công, chúng tôi muốn An Bình bồi thường tối thiểu 5 tỷ đồng, nếu không thì ra tòa phán quyết!</div>`;
 
-  function renderNegoOptions() {
-    const pane = document.getElementById('nego-options-pane');
-    pane.innerHTML = '';
-    
-    if (negoStep === 0) {
-      pane.innerHTML = `
+      renderNegoOptions();
+      document.getElementById('result-tab3').classList.remove('show');
+    }
+
+    function updateNegoStatus() {
+      document.getElementById('label-nego-gw').textContent = negoGw + '%';
+      document.getElementById('label-nego-val').textContent = negoVal + '%';
+      document.getElementById('bar-nego-gw').style.width = negoGw + '%';
+      document.getElementById('bar-nego-val').style.width = negoVal + '%';
+    }
+
+    function renderNegoOptions() {
+      const pane = document.getElementById('nego-options-pane');
+      pane.innerHTML = '';
+
+      if (negoStep === 0) {
+        pane.innerHTML = `
         <button class="nego-opt-btn" onclick="selectNegoOption(1, 0)">A. Phản ứng gay gắt: "Không đời nào! Lỗi chậm mặt bằng 3 tháng thuộc về các ông, chúng tôi hoàn toàn vô tội. Chúng tôi sẽ kiện ngược lại đòi các ông bồi thường chi phí chờ đợi máy móc, nhân công của chúng tôi."</button>
         <button class="nego-opt-btn" onclick="selectNegoOption(1, 1)">B. Đề xuất cân bằng: "Mức bồi thường 5 tỷ là quá cao so với thực tế lỗi hỗn hợp của hai bên. Chúng tôi đề xuất hỗ trợ đẩy nhanh thi công các hạng mục còn lại ngoài giờ, đồng thời bồi thường 1 tỷ đồng xem như thiện chí để đôi bên tiếp tục hợp tác lâu dài."</button>
         <button class="nego-opt-btn" onclick="selectNegoOption(1, 2)">C. Nhượng bộ hoàn toàn: "Thôi được rồi, để tránh kiện tụng kéo dài ảnh hưởng uy tín và mệt mỏi ở tòa án, chúng tôi đồng ý bồi thường toàn bộ 5 tỷ đồng theo yêu cầu của các ông."</button>
       `;
-    } else if (negoStep === 1) {
-      pane.innerHTML = `
+      } else if (negoStep === 1) {
+        pane.innerHTML = `
         <button class="nego-opt-btn" onclick="selectNegoOption(2, 0)">A. Cứng rắn: "1.5 tỷ là mức trần cuối cùng của chúng tôi. Nếu các ông không đồng ý, chúng tôi sẵn sàng ra tòa. Với tài liệu của UBND Quận, chúng tôi có cơ sở để tòa bác bỏ hoàn toàn yêu cầu phạt của các ông."</button>
         <button class="nego-opt-btn" onclick="selectNegoOption(2, 1)">B. Linh hoạt thêm: "Để tăng thiện chí, chúng tôi đề xuất tăng bồi thường lên 1.5 tỷ đồng và cam kết bàn giao các tầng thương mại trước thời hạn 20 ngày để các ông kịp khai thác kinh doanh."</button>
         <button class="nego-opt-btn" onclick="selectNegoOption(2, 2)">C. Rút lui vô điều kiện: "Nếu các ông không đồng ý 1 tỷ, thì chúng tôi đành nâng lên 3.5 tỷ theo ý các ông vậy."</button>
       `;
-    } else {
-      pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="evaluateMediationResult()">Xem kết quả hòa giải đàm phán →</button>`;
-    }
-  }
-
-  function selectNegoOption(step, oIdx) {
-    const dialogPane = document.getElementById('nego-dialogue-pane');
-    const optionsPane = document.getElementById('nego-options-pane');
-    const avatarEl = document.getElementById('nego-avatar');
-    
-    // User bubble
-    const userText = optionsPane.querySelectorAll('.nego-opt-btn')[oIdx].textContent;
-    const uMsg = document.createElement('div');
-    uMsg.className = 'nego-bubble player';
-    uMsg.innerHTML = `<strong>Bác sĩ / Luật sư:</strong> ${userText.substring(3)}`;
-    dialogPane.appendChild(uMsg);
-    dialogPane.scrollTop = dialogPane.scrollHeight;
-
-    // Loading dots
-    optionsPane.innerHTML = '<div class="npc-typing"><div class="npc-dot"></div><div class="npc-dot"></div><div class="npc-dot"></div></div>';
-    
-    setTimeout(() => {
-      const npcMsg = document.createElement('div');
-      npcMsg.className = 'nego-bubble npc';
-      
-      if (step === 1) {
-        if (oIdx === 0) {
-          negoGw -= 25;
-          negoVal += 15;
-          avatarEl.textContent = "😡";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Các ông muốn kiện ngược ư? Thích ra tòa thì chúng tôi sẵn sàng đi hầu tòa! Không hòa giải gì nữa hết!`;
-          negoStep = 2; // End nego (failed)
-        } else if (oIdx === 1) {
-          negoGw += 20;
-          negoVal += 10;
-          avatarEl.textContent = "🤔";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Đẩy nhanh tiến độ bàn giao tầng thương mại sớm và bồi thường 1 tỷ... Ý kiến này có thể xem xét. Nhưng 1 tỷ quá ít so với thiệt hại của chúng tôi. Chúng tôi đề xuất con số tối thiểu là 2.5 tỷ.`;
-          negoStep = 1;
-        } else {
-          negoGw += 30;
-          negoVal -= 30;
-          avatarEl.textContent = "😊";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Quyết định rất sáng suốt! Vậy chúng tôi đồng ý ký biên bản hòa giải thành công với mức bồi thường 5 tỷ đồng. Biên bản sẽ được gửi tòa phê duyệt.`;
-          negoStep = 2; // End nego (fully concession)
-        }
-      } else if (step === 2) {
-        if (oIdx === 0) {
-          // Hard push
-          negoGw -= 5;
-          negoVal += 10;
-          avatarEl.textContent = "😒";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Thôi được rồi, tôi sẽ trao đổi lại với Hội đồng quản trị. Mức 1.5 tỷ và cam kết tiến độ có thể chấp nhận được để tránh vụ kiện kéo dài 1-2 năm tại tòa. Chúng tôi đồng ý ký thỏa thuận hòa giải.`;
-        } else if (oIdx === 1) {
-          // Collaborative win-win
-          negoGw += 20;
-          negoVal += 5;
-          avatarEl.textContent = "🤝";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Phương án này rất hợp lý! Việc khai thác sớm các tầng thương mại mang lại giá trị thiết thực hơn tiền phạt. Chúng tôi đồng ý ký thỏa thuận hòa giải với mức 1.5 tỷ và điều khoản bàn giao sớm.`;
-        } else {
-          // Fully concession
-          negoGw += 10;
-          negoVal -= 20;
-          avatarEl.textContent = "😌";
-          npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Được, 3.5 tỷ là thỏa thuận được thông qua. Chúng ta sẽ ký biên bản hòa giải thành tại đây.`;
-        }
-        negoStep = 2;
+      } else {
+        pane.innerHTML = `<button class="btn-primary" style="align-self: center;" onclick="evaluateMediationResult()">Xem kết quả hòa giải đàm phán →</button>`;
       }
-      
-      updateNegoStatus();
-      dialogPane.appendChild(npcMsg);
-      dialogPane.scrollTop = dialogPane.scrollHeight;
-      renderNegoOptions();
-    }, 1200);
-  }
-
-  function evaluateMediationResult() {
-    const resultBox = document.getElementById('result-tab3');
-    const outcome = document.getElementById('outcome-tab3');
-    const aha = document.getElementById('aha-tab3');
-
-    if (negoGw <= 30) {
-      outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ ĐÀM PHÁN THẤT BẠI - HÒA GIẢI ĐỔ VỠ!</span><br>Do thái độ quá cứng rắn và đe dọa kiện ngược vô căn cứ của bạn, đối phương đã tức giận chấm dứt buổi đàm phán hòa giải. Vụ án bắt buộc phải đưa ra xét xử công khai tại tòa án, phát sinh nhiều chi phí tranh tụng, thời gian và mối quan hệ đối tác hoàn toàn rạn nứt.`;
-      aha.innerHTML = 'Trong đàm phán, cứng rắn (Hard bargaining) là cần thiết nhưng nếu đẩy đối phương vào chân tường và phá vỡ thiện chí giao tiếp, cuộc đàm phán sẽ đổ vỡ. Luật sư cần linh hoạt giữa sự hợp tác và cạnh tranh.';
-    } else if (negoVal <= 30) {
-      outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ HÒA GIẢI THÀNH CÔNG NHƯNG THÂN CHỦ CHỊU THIỆT HẠI:</span><br>Bạn đã đạt được thỏa thuận hòa giải nhưng với mức nhượng bộ quá mức (chấp nhận bồi thường toàn bộ 5 tỷ hoặc 3.5 tỷ). Thân chủ của bạn tuy tránh được việc ra tòa nhưng phải trả một số tiền bồi thường quá lớn, gần như không bảo vệ được lợi ích tài chính doanh nghiệp. Đây là phương án hòa giải kém hiệu quả hơn cả BATNA của bạn.`;
-      aha.innerHTML = 'Luôn ghi nhớ điểm giới hạn (Reservation point) của thân chủ trong đàm phán. Nhượng bộ vô điều kiện chỉ để tránh ra tòa là một thất bại trong đàm phán bảo vệ quyền lợi.';
-    } else {
-      outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">🤝 HÒA GIẢI THÀNH CÔNG XUẤT SẮC - GIẢI PHÁP WIN-WIN!</span><br>Bạn đã đàm phán thành công thỏa thuận hòa giải tích hợp: An Bình bồi thường 1.5 tỷ đồng và cam kết đẩy nhanh tiến độ bàn giao sớm 20 ngày các tầng thương mại. Đối phương vui vẻ đồng ý vì có thể khai thác kinh doanh sớm sinh lời, còn thân chủ của bạn giảm thiểu mức thiệt hại từ 10 tỷ xuống còn 1.5 tỷ, giữ được quan hệ hợp tác lâu dài.`;
-      aha.innerHTML = '<strong>Nghệ thuật Đàm phán tích hợp (Aha!):</strong> Đàm phán không phải là trò chơi tổng bằng không (Zero-sum game) giành giật từng đồng tiền phạt. Bằng cách đưa thêm biến số mới vào bàn đàm phán (bàn giao sớm tầng thương mại để tạo doanh thu thay thế tiền phạt), bạn đã mở rộng chiếc bánh lợi ích, giúp cả hai bên đều đạt được mục tiêu.';
     }
-    resultBox.classList.add('show');
-  }
-</script>
+
+    function selectNegoOption(step, oIdx) {
+      const dialogPane = document.getElementById('nego-dialogue-pane');
+      const optionsPane = document.getElementById('nego-options-pane');
+      const avatarEl = document.getElementById('nego-avatar');
+
+      // User bubble
+      const userText = optionsPane.querySelectorAll('.nego-opt-btn')[oIdx].textContent;
+      const uMsg = document.createElement('div');
+      uMsg.className = 'nego-bubble player';
+      uMsg.innerHTML = `<strong>Bác sĩ / Luật sư:</strong> ${userText.substring(3)}`;
+      dialogPane.appendChild(uMsg);
+      dialogPane.scrollTop = dialogPane.scrollHeight;
+
+      // Loading dots
+      optionsPane.innerHTML = '<div class="npc-typing"><div class="npc-dot"></div><div class="npc-dot"></div><div class="npc-dot"></div></div>';
+
+      setTimeout(() => {
+        const npcMsg = document.createElement('div');
+        npcMsg.className = 'nego-bubble npc';
+
+        if (step === 1) {
+          if (oIdx === 0) {
+            negoGw -= 25;
+            negoVal += 15;
+            avatarEl.textContent = "😡";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Các ông muốn kiện ngược ư? Thích ra tòa thì chúng tôi sẵn sàng đi hầu tòa! Không hòa giải gì nữa hết!`;
+            negoStep = 2; // End nego (failed)
+          } else if (oIdx === 1) {
+            negoGw += 20;
+            negoVal += 10;
+            avatarEl.textContent = "🤔";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Đẩy nhanh tiến độ bàn giao tầng thương mại sớm và bồi thường 1 tỷ... Ý kiến này có thể xem xét. Nhưng 1 tỷ quá ít so với thiệt hại của chúng tôi. Chúng tôi đề xuất con số tối thiểu là 2.5 tỷ.`;
+            negoStep = 1;
+          } else {
+            negoGw += 30;
+            negoVal -= 30;
+            avatarEl.textContent = "😊";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Quyết định rất sáng suốt! Vậy chúng tôi đồng ý ký biên bản hòa giải thành công với mức bồi thường 5 tỷ đồng. Biên bản sẽ được gửi tòa phê duyệt.`;
+            negoStep = 2; // End nego (fully concession)
+          }
+        } else if (step === 2) {
+          if (oIdx === 0) {
+            // Hard push
+            negoGw -= 5;
+            negoVal += 10;
+            avatarEl.textContent = "😒";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Thôi được rồi, tôi sẽ trao đổi lại với Hội đồng quản trị. Mức 1.5 tỷ và cam kết tiến độ có thể chấp nhận được để tránh vụ kiện kéo dài 1-2 năm tại tòa. Chúng tôi đồng ý ký thỏa thuận hòa giải.`;
+          } else if (oIdx === 1) {
+            // Collaborative win-win
+            negoGw += 20;
+            negoVal += 5;
+            avatarEl.textContent = "🤝";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Phương án này rất hợp lý! Việc khai thác sớm các tầng thương mại mang lại giá trị thiết thực hơn tiền phạt. Chúng tôi đồng ý ký thỏa thuận hòa giải với mức 1.5 tỷ và điều khoản bàn giao sớm.`;
+          } else {
+            // Fully concession
+            negoGw += 10;
+            negoVal -= 20;
+            avatarEl.textContent = "😌";
+            npcMsg.innerHTML = `<strong>Luật sư Khánh:</strong> Được, 3.5 tỷ là thỏa thuận được thông qua. Chúng ta sẽ ký biên bản hòa giải thành tại đây.`;
+          }
+          negoStep = 2;
+        }
+
+        updateNegoStatus();
+        dialogPane.appendChild(npcMsg);
+        dialogPane.scrollTop = dialogPane.scrollHeight;
+        renderNegoOptions();
+      }, 1200);
+    }
+
+    function evaluateMediationResult() {
+      const resultBox = document.getElementById('result-tab3');
+      const outcome = document.getElementById('outcome-tab3');
+      const aha = document.getElementById('aha-tab3');
+
+      if (negoGw <= 30) {
+        outcome.innerHTML = `<span style="color:var(--red); font-weight:700;">❌ ĐÀM PHÁN THẤT BẠI - HÒA GIẢI ĐỔ VỠ!</span><br>Do thái độ quá cứng rắn và đe dọa kiện ngược vô căn cứ của bạn, đối phương đã tức giận chấm dứt buổi đàm phán hòa giải. Vụ án bắt buộc phải đưa ra xét xử công khai tại tòa án, phát sinh nhiều chi phí tranh tụng, thời gian và mối quan hệ đối tác hoàn toàn rạn nứt.`;
+        aha.innerHTML = 'Trong đàm phán, cứng rắn (Hard bargaining) là cần thiết nhưng nếu đẩy đối phương vào chân tường và phá vỡ thiện chí giao tiếp, cuộc đàm phán sẽ đổ vỡ. Luật sư cần linh hoạt giữa sự hợp tác và cạnh tranh.';
+      } else if (negoVal <= 30) {
+        outcome.innerHTML = `<span style="color:var(--amber); font-weight:700;">⚠️ HÒA GIẢI THÀNH CÔNG NHƯNG THÂN CHỦ CHỊU THIỆT HẠI:</span><br>Bạn đã đạt được thỏa thuận hòa giải nhưng với mức nhượng bộ quá mức (chấp nhận bồi thường toàn bộ 5 tỷ hoặc 3.5 tỷ). Thân chủ của bạn tuy tránh được việc ra tòa nhưng phải trả một số tiền bồi thường quá lớn, gần như không bảo vệ được lợi ích tài chính doanh nghiệp. Đây là phương án hòa giải kém hiệu quả hơn cả BATNA của bạn.`;
+        aha.innerHTML = 'Luôn ghi nhớ điểm giới hạn (Reservation point) của thân chủ trong đàm phán. Nhượng bộ vô điều kiện chỉ để tránh ra tòa là một thất bại trong đàm phán bảo vệ quyền lợi.';
+      } else {
+        outcome.innerHTML = `<span style="color:var(--green); font-weight:700;">🤝 HÒA GIẢI THÀNH CÔNG XUẤT SẮC - GIẢI PHÁP WIN-WIN!</span><br>Bạn đã đàm phán thành công thỏa thuận hòa giải tích hợp: An Bình bồi thường 1.5 tỷ đồng và cam kết đẩy nhanh tiến độ bàn giao sớm 20 ngày các tầng thương mại. Đối phương vui vẻ đồng ý vì có thể khai thác kinh doanh sớm sinh lời, còn thân chủ của bạn giảm thiểu mức thiệt hại từ 10 tỷ xuống còn 1.5 tỷ, giữ được quan hệ hợp tác lâu dài.`;
+        aha.innerHTML = '<strong>Nghệ thuật Đàm phán tích hợp (Aha!):</strong> Đàm phán không phải là trò chơi tổng bằng không (Zero-sum game) giành giật từng đồng tiền phạt. Bằng cách đưa thêm biến số mới vào bàn đàm phán (bàn giao sớm tầng thương mại để tạo doanh thu thay thế tiền phạt), bạn đã mở rộng chiếc bánh lợi ích, giúp cả hai bên đều đạt được mục tiêu.';
+      }
+      taskResults.task0.score = score;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task1.score = (score >= 80) ? 25 : 10;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task2.score = (verdict === 'win') ? 25 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      taskResults.task3.score = (negoGw > 30 && negoVal > 30) ? 25 : 10;
+      taskResults.task3.completed = true;
+      checkAllTasksCompleted();
+      resultBox.classList.add('show');
+    }
+  </script>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    // ─────────────────────────────────────────────
+    //  GLOBAL TRACKING & SCORING SYSTEM (SYNCHRONIZED WITH AI LAB)
+    // ─────────────────────────────────────────────
+    let taskResults = {
+      task0: { name: 'Nghiên cứu hồ sơ', score: 0, maxScore: 25, completed: false },
+      task1: { name: 'Soạn thảo đơn khởi kiện', score: 0, maxScore: 25, completed: false },
+      task2: { name: 'Tranh tụng tại tòa', score: 0, maxScore: 25, completed: false },
+      task3: { name: 'Đàm phán hòa giải', score: 0, maxScore: 25, completed: false }
+    };
+    let currentTab = 0;
+    let overallStartTime = Date.now();
+    const labKey = 'phap_luat';
+    const labTitle = 'Luật Sư Tranh Tụng';
+
+    function checkAllTasksCompleted() {
+      const allCompleted = Object.values(taskResults).every(t => t.completed);
+      if (allCompleted) {
+        // Show report button in the last tab
+        const lastTabId = 'tab' + (Object.keys(taskResults).length - 1);
+        const lastTab = document.getElementById(lastTabId);
+        if (lastTab) {
+          const existingBtn = lastTab.querySelector('.btn-final-report');
+          if (!existingBtn) {
+            const finalBtn = document.createElement('button');
+            finalBtn.className = 'btn-primary btn-final-report';
+            finalBtn.style.marginTop = '1rem';
+            finalBtn.style.display = 'inline-flex';
+            finalBtn.style.alignItems = 'center';
+            finalBtn.style.gap = '8px';
+            finalBtn.innerHTML = '<i data-lucide="bar-chart-2"></i> Xem báo cáo đánh giá cuối cùng';
+            finalBtn.onclick = showIntermediatePrompt;
+
+            // Find action row or append at end
+            const actRow = lastTab.querySelector('.action-row') || lastTab;
+            actRow.appendChild(finalBtn);
+            lucide.createIcons();
+          }
+        }
+      }
+    }
+
+        // ─────────────────────────────────────────────
+    //  FINAL REPORT & LOCAL EVALUATION (NO API NEEDED)
+    // ─────────────────────────────────────────────
+    async function generateFinalReport() {
+      // Simulate brief loading
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+      const hollandTally = recommendInput ? recommendInput.hollandTally || {} : {};
+      const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+      const topHolland = sortedHolland[0] ? sortedHolland[0][0] : 'I';
+
+      // Safe check for local labTitle variable, fall back to page title if not found
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      let title = "";
+      let degreeOfMatch = "";
+      let advice = "";
+
+      if (percentage >= 80) {
+        title = `Chuyên gia ${currentLabTitle} xuất sắc`;
+        degreeOfMatch = `Học sinh thể hiện sự vượt trội và năng khiếu đặc biệt trong lĩnh vực ${currentLabTitle}. Điểm số thực nghiệm đạt ${percentage}% (cực kỳ cao) chứng tỏ bạn có tư duy phân tích sắc bén, logic vững vàng và độ tập trung cao độ khi giải quyết các bài tập chuyên môn.`;
+      } else if (percentage >= 50) {
+        title = `Kỹ sư/Chuyên viên ${currentLabTitle} triển vọng`;
+        degreeOfMatch = `Học sinh có độ phù hợp khá cao với lĩnh vực ${currentLabTitle}. Bạn nắm bắt nhanh các khái niệm và hoàn thành tốt các thử thách được giao với điểm số thực nghiệm ${percentage}%. Nếu tiếp tục rèn luyện tính kiên nhẫn và đào sâu chuyên môn, bạn sẽ tiến rất xa.`;
+      } else {
+        title = `Người tìm hiểu lĩnh vực ${currentLabTitle}`;
+        degreeOfMatch = `Học sinh đã hoàn thành các bước trải nghiệm cơ bản để hiểu công việc của một chuyên gia trong lĩnh vực ${currentLabTitle}. Kết quả thực chứng ở mức trung bình (${percentage}%) cho thấy bạn cần củng cố thêm các kiến thức nền tảng THPT và thực hành nhiều hơn nếu muốn theo đuổi định hướng này.`;
+      }
+
+      // Analyze each task score
+      const taskAnalysis = Object.values(taskResults).map(t => {
+        let taskRating = "";
+        const rate = t.maxScore > 0 ? (t.score / t.maxScore) : (t.score / 100);
+        if (rate >= 0.8) {
+          taskRating = `Đạt kết quả xuất sắc, phản ánh năng lực tốt về <b>${t.name}</b>.`;
+        } else if (rate >= 0.5) {
+          taskRating = `Đạt kết quả khá tốt ở phần <b>${t.name}</b>, có nền tảng cơ bản vững vàng.`;
+        } else {
+          taskRating = `Cần rèn luyện và chú ý hơn ở nội dung <b>${t.name}</b>.`;
+        }
+        return `<li><b>${t.name}</b>: ${taskRating}</li>`;
+      }).join('');
+
+      // Holland compatibility
+      let hollandMatch = "";
+      const investigativeLabs = ['Khoa học Máy tính', 'Kỹ sư AI', 'Bác sĩ', 'Luật sư'];
+      const realisticLabs = ['Kỹ sư Cơ khí', 'Kỹ sư Điện', 'Kỹ sư Nông nghiệp'];
+      const socialLabs = ['Giáo viên', 'Luật sư', 'Bác sĩ'];
+      const enterprisingLabs = ['Chuyên viên Kinh tế'];
+      const conventionalLabs = ['Chuyên viên Kinh tế', 'Lập trình viên'];
+
+      let isMatch = false;
+      if (topHolland === 'I' && investigativeLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'R' && realisticLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'S' && socialLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'E' && enterprisingLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'C' && conventionalLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+
+      if (isMatch) {
+        hollandMatch = `Tính cách lý thuyết nổi trội của bạn thuộc nhóm <b>${topHolland}</b>, cực kỳ ăn khớp và tương thích với đặc thù công việc trong phòng Lab <b>${currentLabTitle}</b> này.`;
+      } else {
+        hollandMatch = `Mặc dù nhóm tính cách lý thuyết nổi trội của bạn là <b>${topHolland}</b>, trải nghiệm thực tế tại phòng Lab <b>${currentLabTitle}</b> cho thấy bạn vẫn sở hữu những tiềm năng tiềm ẩn hoặc sự hứng thú đặc biệt với lĩnh vực kỹ thuật này.`;
+      }
+
+      // Advice base on currentLabTitle
+      if (currentLabTitle.includes('AI') || currentLabTitle.includes('Máy tính') || currentLabTitle.includes('Lập trình')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt các môn <b>Toán</b> (Giải tích, Đạo hàm, Xác suất thống kê) và <b>Tin học</b> ở trường.</li>
+            <li>Tham gia học các khóa học lập trình cơ bản (như Python, C++) và rèn luyện thuật toán trên các trang uy tín như LeetCode, Codeforces.</li>
+            <li>Tìm hiểu thêm về cấu trúc dữ liệu, thuật toán và cách thiết kế ứng dụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Y tế') || currentLabTitle.includes('Bác sĩ')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Đặc biệt chú trọng các môn học <b>Hóa học</b> và <b>Sinh học</b> THPT, đây là nền tảng tối quan trọng.</li>
+            <li>Rèn luyện tính cẩn thận, chịu áp lực tốt, tinh thần trách nhiệm và lòng nhân ái.</li>
+            <li>Tìm hiểu sâu về giải phẫu học cơ bản hoặc các xu hướng y học hiện đại như EMR, chẩn đoán số.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Kinh tế') || currentLabTitle.includes('Tài chính')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt môn <b>Toán</b>, <b>Tiếng Anh</b> và các kiến thức Xã hội, Địa lý Kinh tế.</li>
+            <li>Thực hành làm việc với bảng tính (Excel/Google Sheets), phân tích số liệu và rèn luyện tư duy tài chính.</li>
+            <li>Đọc thêm sách báo kinh tế, tìm hiểu về dòng tiền, lãi kép và thị trường tài chính toàn cầu.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Pháp luật') || currentLabTitle.includes('Luật')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt môn <b>Ngữ văn</b>, <b>Lịch sử</b>, <b>Giáo dục công dân/Kinh tế Pháp luật</b> và <b>Tiếng Anh</b>.</li>
+            <li>Rèn luyện tư duy phản biện, kỹ năng lập luận lô-gích và khả năng diễn thuyết trước đám đông.</li>
+            <li>Đọc và phân tích các bộ luật cơ bản hoặc tham khảo các case study tranh tụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Giáo dục') || currentLabTitle.includes('Sư phạm')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Rèn luyện vững vàng môn thế mạnh mà bạn muốn giảng dạy, cùng kỹ năng thuyết trình, trình bày bảng biểu.</li>
+            <li>Trau dồi tính kiên nhẫn, sự thấu hiểu tâm lý lứa tuổi và kỹ năng truyền đạt sư phạm.</li>
+            <li>Thực hành tự thiết kế giáo án hoặc hướng dẫn bài học cho bạn bè, em nhỏ.</li>
+          </ol>
+        `;
+      } else {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt các môn Khoa học tự nhiên như <b>Vật lý</b>, <b>Hóa học</b> và môn <b>Công nghệ</b> THPT.</li>
+            <li>Tham gia thiết kế các dự án thực tế, câu lạc bộ STEM hoặc tự mày mò lắp ráp phần cứng cơ bản.</li>
+            <li>Tìm hiểu quy chuẩn kỹ thuật, quy trình an toàn lao động và cách đọc bản vẽ kỹ thuật.</li>
+          </ol>
+        `;
+      }
+
+      return `
+        <div style="text-align:left; font-family:'IBM Plex Sans', sans-serif;">
+          <h3 style="color:var(--blue); font-size:18px; font-weight:700; margin-bottom:12px; border-bottom:2px solid var(--blue-border); padding-bottom:6px;">
+            🎓 Định hướng gợi ý: ${title}
+          </h3>
+          <p style="margin-bottom:16px; font-size:13.5px; line-height:1.7;">
+            <strong>Độ phù hợp toàn diện:</strong> ${degreeOfMatch}
+          </p>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            📊 Kết quả thực chứng qua nhiệm vụ phòng LAB:
+          </h4>
+          <div style="background:var(--surface2); padding:12px; border-radius:6px; margin-bottom:16px; font-size:13px;">
+            <ul style="margin-left: 1.2rem; padding-left: 0;">
+              ${taskAnalysis}
+            </ul>
+          </div>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🧬 Sự liên kết giữa Lý thuyết & Trải nghiệm:
+          </h4>
+          <p style="margin-bottom:16px; font-size:13px; line-height:1.7;">
+            ${hollandMatch}
+          </p>
+          
+          <h4 style="color:var(--blue); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🚀 Lộ trình đề xuất phát triển kỹ năng:
+          </h4>
+          <div style="font-size:13px; line-height:1.7;">
+            ${advice}
+          </div>
+        </div>
+      `;
+    }
+
+    function showFinalReport() {
+      const totalTime = Math.round((Date.now() - overallStartTime) / 1000 / 60);
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs[labKey] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Read recommendInput from localStorage
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+
+      let comprehensiveSection = '';
+      if (recommendInput) {
+        const userSubjects = recommendInput.subjects || [];
+        const userGrades = recommendInput.grades || {};
+        const hollandTally = recommendInput.hollandTally || {};
+        const gradeLevel = recommendInput.gradeLevel || "";
+
+        const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+        const topHollandType = sortedHolland[0] ? sortedHolland[0][0] : null;
+        const secondHollandType = sortedHolland[1] ? sortedHolland[1][0] : null;
+
+        // 1. Calculate Holland Score (max 5)
+        let hollandScore = 0;
+        if (["E", "S"].includes(topHollandType)) hollandScore = 5;
+        else if (["E", "S"].includes(secondHollandType)) hollandScore = 3;
+
+        // 2. Calculate Subject Matches (max 6)
+        const matchedSubjects = ["Ngữ văn", "Lịch sử", "Tiếng Anh"].filter(sub => userSubjects.includes(sub));
+        let subjectScore = matchedSubjects.length * 2;
+
+        // 3. Calculate Academic Grade Score (max 3)
+        let academicScore = 0;
+        if (matchedSubjects.length > 0) {
+          let totalGrade = 0;
+          let gradeCount = 0;
+          matchedSubjects.forEach(sub => {
+            const gradeObj = userGrades[sub];
+            if (gradeObj) {
+              if (gradeLevel === "10" || gradeLevel === "11") {
+                const y1 = parseFloat(gradeObj.year1) || 0;
+                const y2 = parseFloat(gradeObj.year2) || 0;
+                if (y1 > 0 && y2 > 0) { totalGrade += (y1 + y2) / 2; gradeCount++; }
+              } else {
+                const exam = parseFloat(gradeObj.exam) || 0;
+                if (exam > 0) { totalGrade += exam; gradeCount++; }
+              }
+            }
+          });
+          const avgGrade = gradeCount > 0 ? (totalGrade / gradeCount) : 0;
+          if (avgGrade >= 8.0) academicScore = 3;
+          else if (avgGrade >= 6.5) academicScore = 1.5;
+        }
+
+        const theoryScore = hollandScore + subjectScore + academicScore;
+        const theoryPercentage = Math.round((theoryScore / 14) * 100);
+
+        const completedLabsEntries = Object.entries(completedLabs);
+        let avgLabScore = percentage;
+        if (completedLabsEntries.length > 0) {
+          const totalLabScores = completedLabsEntries.reduce((sum, entry) => sum + entry[1], 0);
+          avgLabScore = Math.round(totalLabScores / completedLabsEntries.length);
+        }
+
+        let completedLabsHTML = '';
+        const labNames = {
+          ai: "Kỹ sư AI",
+          cs: "Lập trình viên",
+          y_khoa: "Bác sĩ",
+          kinh_te: "Chuyên viên Kinh tế",
+          giao_duc: "Giáo viên",
+          phap_luat: "Luật sư",
+          co_khi: "Kỹ sư Cơ khí",
+          ky_thuat: "Kỹ sư Điện",
+          nong_nghiep: "Kỹ sư Nông nghiệp",
+          hoa_hoc: "Kỹ sư Hóa học",
+          sang_tao: "Sáng tạo & Thiết kế"
+        };
+        completedLabsEntries.forEach(([lId, score]) => {
+          completedLabsHTML += `<li><strong>${labNames[lId] || lId}</strong>: ${score}% (Đã hoàn thành)</li>`;
+        });
+
+        comprehensiveSection = `
+      <div style="background:rgba(37, 99, 235, 0.08); border-left:4px solid #2563eb; padding:1.2rem; margin-bottom:1.5rem; border-radius:6px; color:#1e293b; text-align:left;">
+        <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          🎯 ĐỘ PHÙ HỢP TOÀN DIỆN CỦA BẠN:
+        </h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Năng lực học thuật & Tính cách:</span>
+            <strong style="font-size:18px; color:#2563eb;">${theoryPercentage}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Tổ hợp môn & Holland)</span>
+          </div>
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Thực chứng công việc:</span>
+            <strong style="font-size:18px; color:#10b981;">${avgLabScore}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Trung bình các LAB trải nghiệm)</span>
+          </div>
+        </div>
+        <div style="font-size:11.5px; line-height:1.5; color:#334155;">
+          <strong>Nhật ký trải nghiệm phòng LAB:</strong>
+          <ul style="margin-left:1.2rem; margin-top:4px; padding-left:0;">
+            ${completedLabsHTML}
+          </ul>
+        </div>
+      </div>
+    `;
+      }
+
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const reportDiv = document.createElement('div');
+      reportDiv.style.cssText = 'background:white;border-radius:12px;padding:2.5rem;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;color:#111;';
+
+      let scoreGridHTML = '';
+      Object.entries(taskResults).forEach(([k, t]) => {
+        scoreGridHTML += `
+      <div style="background:var(--surface2);padding:0.75rem;border-radius:6px;text-align:center;">
+        <div style="font-size:9px;color:var(--ink2);margin-bottom:4px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${t.name}</div>
+        <strong style="font-size:14px;color:${t.score >= 70 ? 'var(--green)' : 'var(--amber)'};">${t.score}%</strong>
+      </div>
+    `;
+      });
+
+      reportDiv.innerHTML = `
+    <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+    
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:32px;font-weight:700;color:var(--blue);margin-bottom:0.5rem;">${percentage}%</div>
+      <div style="font-size:14px;color:var(--ink2);">Điểm hoàn thành LAB ${labTitle}</div>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(${Object.keys(taskResults).length}, 1fr);gap:8px;margin-bottom:2rem;">
+      ${scoreGridHTML}
+    </div>
+
+    ${comprehensiveSection}
+    
+    <div style="padding:1rem;background:var(--blue-bg);border-radius:6px;border-left:3px solid var(--blue);margin-bottom:1.5rem;font-size:13px;color:var(--ink2);display:flex;justify-content:space-between;">
+      <span>⏱️ <strong>Thời gian:</strong> ${totalTime} phút</span>
+      <span>📈 <strong>Tổng điểm:</strong> ${totalScore}/${maxScore}</span>
+    </div>
+    
+    <div id="aiEvaluation" style="padding:1.2rem;background:var(--amber-bg);border-radius:6px;font-size:13px;line-height:1.8;color:var(--ink);border:1px solid var(--amber-border);text-align:left;">
+      ⏳ AI đang phân tích dữ liệu lý thuyết và thực chứng để lập báo cáo hướng nghiệp...
+    </div>
+    
+    <div style="margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="window.location.href='../dinh-huong.html'" style="padding:10px 20px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">← Trở về trang định hướng</button>
+      <button onclick="window.location.href='../index.html'" style="padding:10px 20px;background:#111;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Trang chủ</button>
+    </div>
+  `;
+
+      modal.appendChild(reportDiv);
+      document.body.appendChild(modal);
+
+      // Call AI to generate evaluation
+      generateFinalReport().then(evaluation => {
+        const evalDiv = document.getElementById('aiEvaluation');
+        if (evalDiv) {
+          evalDiv.innerHTML = evaluation;
+        }
+      });
+    }
+
+    function showIntermediatePrompt() {
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score to localStorage
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs['phap_luat'] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Save evaluation to localStorage
+      generateFinalReport().then(evaluation => {
+        let labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+        labEvaluations['phap_luat'] = evaluation;
+        localStorage.setItem('labEvaluations', JSON.stringify(labEvaluations));
+      });
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white; border-radius:16px; padding:2.5rem; max-width:550px; width:100%; box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); text-align:center; color:#111111; position:relative;';
+
+      // Safe check for labTitle
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      card.innerHTML = `
+    <div style="font-size:48px; margin-bottom:1rem;">🎉</div>
+    <h3 style="font-size:22px; font-weight:700; margin-bottom:12px; color:#16a34a;">Hoàn thành Phòng LAB ${typeof labTitle !== 'undefined' ? labTitle : 'Trải nghiệm'}!</h3>
+    <p style="font-size:15px; color:#555566; line-height:1.6; margin-bottom:24px;">
+      Bạn đã hoàn thành xuất sắc nhiệm vụ với điểm số thực chứng đạt <strong>${percentage}%</strong>.
+      <br><br>
+      Hãy xem Báo cáo Đánh giá Hướng nghiệp Toàn diện để hiểu rõ năng lực và sự phù hợp của bạn.
+    </p>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <button id="btn-view-report-now" style="padding:14px; background:#2563eb; color:white; border:none; border-radius:8px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        📊 Xem báo cáo kết quả & Đánh giá AI →
+      </button>
+      <button id="btn-to-other-labs" style="padding:12px; background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        🌾 Khám phá phòng LAB khác (Định hướng)
+      </button>
+    </div>
+  `;
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Event handlers
+      card.querySelector('#btn-view-report-now').onclick = () => {
+        overlay.remove();
+        const recommendInput = localStorage.getItem('recommendInput');
+        if (recommendInput) {
+          window.location.href = '../ket-qua.html';
+        } else {
+          alert("Bạn đã hoàn thành phòng Lab! Vui lòng hoàn thành tiếp phần Trắc nghiệm tính cách để nhận Báo cáo tổng hợp toàn diện.");
+          window.location.href = '../goi-y.html';
+        }
+      };
+
+      card.querySelector('#btn-to-other-labs').onclick = () => {
+        overlay.remove();
+        window.location.href = '../dinh-huong.html';
+      };
+    }
+
   </script>
 </body>
+
 </html>

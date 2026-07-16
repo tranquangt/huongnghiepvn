@@ -1,646 +1,1087 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nhóm ngành - HướngNghiệpVN.online</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Khám phá Nhóm ngành - HướngNghiệpVN.online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Use Website Theme Variables */
+    body {
+      background-color: var(--gray-50) !important;
+      color: var(--gray-900) !important;
+    }
+
+    /* Hero Section - Matching the original Green/Teal Gradient */
+    .hero-section {
+      background: linear-gradient(135deg, #062316 0%, #0a3e27 40%, #105e3a 70%, #168550 100%) !important;
+    }
+
+    /* Career Card Style (replicated from Unipath.vn list but styled with site theme) */
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .career-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .career-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--green-200);
+    }
+
+    .career-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .career-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .trend-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .trend-up {
+      background-color: var(--green-50);
+      color: var(--green-700);
+    }
+
+    .trend-stable {
+      background-color: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .trend-down {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .career-name {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .career-code {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-500);
+      background: var(--gray-100);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .career-desc {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.5;
+    }
+
+    .career-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+
+    .career-schools-count {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .career-action-btn {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green-600);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .career-action-btn i {
+      transition: transform 0.2s;
+    }
+
+    .career-card:hover .career-action-btn i {
+      transform: translateX(3px);
+    }
+
+    /* Filters Pill styling */
+    .career-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--gray-200);
+      background: white;
+      color: var(--gray-600);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .filter-btn.active {
+      background: var(--green-600);
+      color: white;
+      border-color: var(--green-600);
+    }
+
+    /* ========================================================
+       AI CAREER DRAWER (STUNNING TWO-COLUMN VIEW)
+       ======================================================== */
+    .ai-drawer {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .ai-drawer-content {
+      width: 90% !important;
+      max-width: 1100px !important;
+      background-color: var(--gray-50) !important;
+    }
+
+    .ai-drawer-body {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      padding: 24px !important;
+      height: calc(100vh - 130px);
+      overflow: hidden;
+    }
+
+    /* Left Column Sticky Navigation Menu */
+    .drawer-sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-right: 1px solid var(--gray-200);
+      padding-right: 16px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .sidebar-anchor {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-align: left;
+      background: transparent;
+      border: none;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .sidebar-anchor:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .sidebar-anchor.active {
+      background: var(--green-600);
+      color: white;
+    }
+
+    /* Right Column Main Contents Scroll Wrapper */
+    .drawer-main-content {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-right: 10px;
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    /* Bento Cards in Drawer */
+    .bento-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .bento-card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--gray-100);
+      padding-bottom: 10px;
+    }
+
+    /* Curriculum & Misunderstandings Table Formatting */
+    .major-detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+      background: var(--gray-50);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+
+    .major-detail-table th, .major-detail-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .major-detail-table th {
+      background: var(--green-600);
+      color: white;
+      font-weight: 700;
+    }
+
+    .major-detail-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Styled paragraphs and lists inside drawer */
+    .paragraph-item {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+
+    .bullet-item {
+      font-size: 15px;
+      color: var(--gray-700);
+      margin-left: 20px;
+      margin-bottom: 8px;
+      list-style-type: disc;
+    }
+
+    .section-subheading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin: 18px 0 8px;
+    }
+
+    /* School cards listed for a major */
+    .major-schools-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .school-major-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .school-major-card:hover {
+      border-color: var(--green-200);
+      background: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .school-info-primary {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .school-name-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .school-location-badge {
+      font-size: 12px;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .school-stats-col {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .school-stat-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      color: var(--gray-700);
+    }
+
+    .school-link-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--green-600);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .school-major-card:hover .school-link-btn {
+      transform: scale(1.1);
+      background-color: var(--green-500);
+    }
+
+    /* Tactile button styling */
+    .btn-tactile {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-tactile:hover {
+      transform: translateY(-1.5px);
+    }
+
+    .btn-tactile:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .ai-drawer-body {
+        flex-direction: column;
+        overflow-y: auto;
+        height: auto;
+      }
+      .drawer-sidebar {
+        width: 100%;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+        padding-bottom: 12px;
+        padding-right: 0;
+        height: auto;
+      }
+      .drawer-main-content {
+        overflow-y: visible;
+        height: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
-  <div class="nav-links">
-    <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
-    <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
-    <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
-    <button class="nav-link active" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
-    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
-    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
-  </div>
-</nav>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">
+      huong<span>nghiepvn</span><em>.online</em></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+      <button class="nav-cta survey-nav-btn" onclick="window.location.href='goi-y.html'"><i data-lucide="sparkles" style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
+      <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+      <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Phòng Lab</button>
+      <button class="nav-link active" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+      <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    </div>
+  </nav>
 
-<!-- ======================== CAREER (NHÓM NGÀNH) ======================== -->
-<div id="page-career" class="page active">
-  <!-- Hero Section -->
-  <section class="hero-section" style="background: linear-gradient(135deg, #062316 0%, #0a3e27 40%, #105e3a 70%, #168550 100%); padding: 60px 40px; text-align: center; color: white; position: relative; overflow: hidden; margin-bottom: 0;">
-    <div style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
-      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: var(--green-100); padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 20px;">
-        <span style="width: 8px; height: 8px; background: var(--green-400); border-radius: 50%; display: inline-block;"></span>
-        Cập nhật Q2/2026
+  <!-- ======================== CAREER (NHÓM NGÀNH) ======================== -->
+  <div id="page-career" class="page active">
+    <!-- Hero Section -->
+    <section class="hero-section"
+      style="padding: 60px 40px; text-align: center; color: white; position: relative; overflow: hidden; margin-bottom: 0;">
+      <div style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
+        <div
+          style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); color: #dcfce9; padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 20px;">
+          <span
+            style="width: 8px; height: 8px; background: #34c17a; border-radius: 50%; display: inline-block;"></span>
+          Dữ liệu Tuyển sinh 2026
+        </div>
+        <h1
+          style="font-size: 38px; font-weight: 800; line-height: 1.25; letter-spacing: -1px; margin-bottom: 12px; color: white;">
+          Danh Mục Nhóm Ngành Đào Tạo Việt Nam</h1>
+        <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto;">Tra cứu hơn 400 ngành đào tạo, chương trình khung, cơ hội việc làm, học phí và danh sách các trường đại học.</p>
       </div>
-      <h1 style="font-size: 38px; font-weight: 800; line-height: 1.25; letter-spacing: -1px; margin-bottom: 12px; color: white;">Các Nhóm Ngành Đào Tạo Tại Việt Nam</h1>
-      <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; margin: 0 auto;">Tìm hiểu chi tiết các ngành học, điểm chuẩn trung bình, cơ hội việc làm và trao đổi cùng Trợ lý Hướng nghiệp AI</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- Search & Filter Area -->
-  <div class="section" style="padding-top: 32px;">
-    <!-- Search Bar -->
-    <div style="max-width: 580px; margin: -58px auto 32px; position: relative; z-index: 10;">
-      <div class="search-wrap" style="display: flex; gap: 8px; max-width: 100%; position: relative;">
-        <i data-lucide="search" class="search-icon" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 18px; pointer-events: none;"></i>
-        <input type="text" id="career-search" placeholder="Nhập tên ngành học, từ khóa cần tìm..." oninput="handleSearch(this.value)" style="width: 100%; height: 52px; padding: 0 16px 0 48px; border: 1px solid var(--gray-200); border-radius: var(--radius-lg); font-size: 15px; outline: none; box-shadow: var(--shadow); transition: all 0.2s; background: white; font-family: var(--font);">
-      </div>
-    </div>
-
-    <!-- Filters -->
-    <div class="career-filters" id="career-filters">
-      <button class="filter-btn active" onclick="filterCareer('all',this)"><i data-lucide="grid"></i> Tất cả</button>
-      <button class="filter-btn" onclick="filterCareer('tech',this)"><i data-lucide="monitor"></i> Công nghệ</button>
-      <button class="filter-btn" onclick="filterCareer('business',this)"><i data-lucide="bar-chart-3"></i> Kinh tế</button>
-      <button class="filter-btn" onclick="filterCareer('health',this)"><i data-lucide="hospital"></i> Y tế</button>
-      <button class="filter-btn" onclick="filterCareer('creative',this)"><i data-lucide="palette"></i> Sáng tạo</button>
-      <button class="filter-btn" onclick="filterCareer('edu',this)"><i data-lucide="book-open"></i> Giáo dục</button>
-      <button class="filter-btn" onclick="filterCareer('law',this)"><i data-lucide="scale"></i> Pháp luật</button>
-      <button class="filter-btn" onclick="filterCareer('me',this)"><i data-lucide="settings"></i> Kỹ thuật</button>
-      <button class="filter-btn" onclick="filterCareer('textiles',this)"><i data-lucide="scissors"></i> Dệt may</button>
-      <button class="filter-btn" onclick="filterCareer('agri',this)"><i data-lucide="sprout"></i> Nông nghiệp</button>
-    </div>
-    <div class="career-grid" id="career-grid"></div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>hướng<span>nghiệpvn</span>.online</h3>
-      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
-      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Tính năng</h4>
-      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
-      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
-      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
-      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
-    </div>
-    <div class="footer-col">
-      <h4>Thông tin</h4>
-      <a>Về chúng tôi</a>
-      <a>Nguồn dữ liệu</a>
-      <a>Liên hệ</a>
-      <a>Góp ý</a>
-    </div>
-    <div class="footer-col">
-      <h4>Liên kết</h4>
-      <a>Bộ GD&ĐT</a>
-      <a>VietnamWorks</a>
-      <a>MOET</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
-    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
-  </div>
-</footer>
-
-<!-- AI Career Assistant Drawer -->
-<div id="ai-drawer" class="ai-drawer">
-  <div class="ai-drawer-overlay" onclick="closeAiDrawer()"></div>
-  <div class="ai-drawer-content">
-    <!-- Header -->
-    <div class="ai-drawer-header">
-      <div class="ai-drawer-title-wrap">
-        <span class="ai-drawer-icon" id="ai-major-icon"><i data-lucide="monitor"></i></span>
-        <div>
-          <h2 class="ai-drawer-title" id="ai-major-name">Ngành học</h2>
-          <span class="ai-drawer-subtitle" id="ai-major-cat">Đang tải...</span>
+    <!-- Search & Filter Area -->
+    <div class="section" style="padding-top: 32px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px;">
+      <!-- Search Bar -->
+      <div style="max-width: 580px; margin: -58px auto 32px; position: relative; z-index: 10;">
+        <div class="search-wrap" style="display: flex; gap: 8px; max-width: 100%; position: relative;">
+          <i data-lucide="search" class="search-icon"
+            style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 18px; pointer-events: none;"></i>
+          <input type="text" id="career-search" placeholder="Nhập tên ngành học hoặc mã ngành cần tìm..."
+            oninput="handleSearch(this.value)"
+            style="width: 100%; height: 52px; padding: 0 16px 0 48px; border: 1px solid var(--gray-200); border-radius: 14px; font-size: 15px; outline: none; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: all 0.2s; background: white; font-family: inherit;">
         </div>
       </div>
-      <div class="ai-drawer-actions">
-        <button class="ai-drawer-close" onclick="closeAiDrawer()">&times;</button>
-      </div>
-    </div>
 
-    <!-- Drawer Body -->
-    <div class="ai-drawer-body">
-      <!-- AI Introduction Section -->
-      <div class="ai-intro-section" id="ai-intro-section">
-        <div class="ai-intro-title"><i data-lucide="lightbulb"></i> Giới thiệu nhanh từ AI</div>
-        <div class="ai-intro-text" id="ai-intro-text">
-          Đang chuẩn bị thông tin tóm tắt...
-        </div>
+      <!-- Filters -->
+      <div class="career-filters" id="career-filters">
+        <button class="filter-btn active" onclick="filterCareer('all',this)"><i data-lucide="grid"></i> Tất cả</button>
+        <button class="filter-btn" onclick="filterCareer('tech',this)"><i data-lucide="monitor"></i> Công nghệ</button>
+        <button class="filter-btn" onclick="filterCareer('business',this)"><i data-lucide="bar-chart-3"></i> Kinh tế & Quản lý</button>
+        <button class="filter-btn" onclick="filterCareer('health',this)"><i data-lucide="hospital"></i> Y tế & Dược</button>
+        <button class="filter-btn" onclick="filterCareer('creative',this)"><i data-lucide="palette"></i> Nghệ thuật & Sáng tạo</button>
+        <button class="filter-btn" onclick="filterCareer('edu',this)"><i data-lucide="book-open"></i> Giáo dục</button>
+        <button class="filter-btn" onclick="filterCareer('law',this)"><i data-lucide="scale"></i> Pháp luật</button>
+        <button class="filter-btn" onclick="filterCareer('me',this)"><i data-lucide="settings"></i> Kỹ thuật & Xây dựng</button>
+        <button class="filter-btn" onclick="filterCareer('textiles',this)"><i data-lucide="scissors"></i> Dệt may & Da giày</button>
+        <button class="filter-btn" onclick="filterCareer('agri',this)"><i data-lucide="sprout"></i> Nông lâm & Thủy sản</button>
+        <button class="filter-btn" onclick="filterCareer('other',this)"><i data-lucide="more-horizontal"></i> Nhóm ngành khác</button>
       </div>
       
-      <!-- Chat Interface -->
-      <div class="ai-chat-section">
-        <div class="chat-header">Trò chuyện cùng AI Hướng nghiệp</div>
-        <div class="chat-messages" id="chat-messages">
-          <!-- Conversation turns will go here -->
-        </div>
-
-        <!-- Suggestion Chips -->
-        <div class="chat-suggestions" id="chat-suggestions">
-          <!-- Suggestion chips will load dynamically -->
-        </div>
-
-        <!-- Chat Input Area -->
-        <div class="chat-input-wrap">
-          <textarea id="chat-input" placeholder="Hỏi AI thêm về ngành này..." onkeydown="handleChatKeyDown(event)"></textarea>
-          <button class="chat-send-btn" onclick="sendChatMessage()">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-            </svg>
-          </button>
-        </div>
+      <div id="loading-indicator" style="text-align: center; padding: 40px; color: var(--gray-500);">
+        <p style="font-size: 16px; font-weight: 500;">Đang tải cơ sở dữ liệu nhóm ngành học...</p>
       </div>
-    </div>
 
-    <!-- Footer Action -->
-    <div class="ai-drawer-footer">
-      <a href="#" id="ai-view-detail-btn" class="view-detail-btn">Xem chi tiết ngành học & Trường đào tạo →</a>
+      <div class="career-grid" id="career-grid" style="display:none;"></div>
     </div>
   </div>
-</div>
 
-<script src="script.js"></script>
-<script>
-let chatHistory = [];
-let currentMajor = null;
-let currentCategory = 'all';
-let searchQuery = '';
-
-// Icon Emoji to Lucide Mapping
-function getLucideIcon(emojiOrText) {
-  const mapping = {
-    '💻': 'monitor',
-    '🖥️': 'monitor',
-    '🤖': 'bot',
-    '🔐': 'lock',
-    '🌐': 'globe',
-    '📡': 'radio',
-    '📊': 'bar-chart-3',
-    '🧩': 'puzzle',
-    '🌍': 'globe-2',
-    '🩺': 'stethoscope',
-    '⚡': 'zap',
-    '⚙️': 'settings',
-    '🏗️': 'building-2',
-    '🚧': 'construction',
-    '🧪': 'flask-conical',
-    '🌱': 'sprout',
-    '🧱': 'box',
-    '✈️': 'plane',
-    '🔋': 'battery',
-    '🎛️': 'sliders-horizontal',
-    '📋': 'clipboard-list',
-    '💊': 'pill',
-    '🦷': 'smile',
-    '🛡️': 'shield',
-    '👩‍⚕️': 'users',
-    '🧫': 'test-tube-2',
-    '🌿': 'leaf',
-    '🩻': 'x-ray',
-    '🥗': 'salad',
-    '🌏': 'globe-2',
-    '🎨': 'palette',
-    '👗': 'shirt',
-    '🛋️': 'armchair',
-    '🏛️': 'landmark',
-    '🎬': 'clapperboard',
-    '🖌️': 'paintbrush',
-    '🎮': 'gamepad-2',
-    '🎥': 'video',
-    '📦': 'package',
-    '💡': 'lightbulb',
-    '🎵': 'music',
-    '🏢': 'building',
-    '📢': 'megaphone',
-    '💰': 'banknote',
-    '🧾': 'receipt',
-    '🔍': 'search',
-    '🛒': 'shopping-cart',
-    '👥': 'users',
-    '🚚': 'truck',
-    '➗': 'divide',
-    '📖': 'book-open',
-    '🇬🇧': 'languages',
-    '🔬': 'microscope',
-    '🧬': 'dna',
-    '🏫': 'school',
-    '🧸': 'baby',
-    
-    // categories
-    'tech': 'monitor',
-    'business': 'bar-chart-3',
-    'health': 'hospital',
-    'creative': 'palette',
-    'edu': 'book-open',
-    'law': 'scale',
-    'me': 'settings',
-    'textiles': 'scissors',
-    'agri': 'sprout'
-  };
-  const iconName = mapping[emojiOrText] || 'book-open';
-  return `<i data-lucide="${iconName}"></i>`;
-}
-
-// Filter and Search logic combined
-function filterCareer(cat, btn) {
-  currentCategory = cat;
-  if (btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  applyFiltersAndRender();
-}
-
-function handleSearch(val) {
-  searchQuery = val.toLowerCase().trim();
-  applyFiltersAndRender();
-}
-
-function renderMajors(cat) {
-  filterCareer(cat, null);
-}
-
-function applyFiltersAndRender() {
-  const list = currentCategory === 'all' ? majors : majors.filter(m => {
-    if (Array.isArray(m.cat)) {
-      return m.cat.includes(currentCategory);
-    }
-    return m.cat === currentCategory;
-  });
-
-  const filteredList = list.filter(m => {
-    return !searchQuery || 
-           m.name.toLowerCase().includes(searchQuery) || 
-           m.shortName.toLowerCase().includes(searchQuery) || 
-           m.description.toLowerCase().includes(searchQuery) ||
-           (m.careers && m.careers.some(c => c.toLowerCase().includes(searchQuery))) ||
-           (m.subjects && m.subjects.some(s => s.toLowerCase().includes(searchQuery)));
-  });
-
-  const trendLabel = {up:'↑ Tăng mạnh', stable:'→ Ổn định', down:'↓ Cần chú ý'};
-  const trendClass = {up:'trend-up', stable:'trend-stable', down:'trend-down'};
-  const iconBg = {
-    tech: 'var(--green-100)',
-    business: 'var(--blue-100)',
-    health: '#fce7f3',
-    creative: 'var(--purple-100)',
-    edu: 'var(--amber-100)',
-    me: 'var(--orange-100)',
-    law: 'var(--indigo-100)',
-    agri: 'var(--lime-100)',
-    textiles: 'var(--pink-100)'
-  };
-  
-  if (filteredList.length === 0) {
-    document.getElementById('career-grid').innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 48px; color: var(--gray-400);">
-        <i data-lucide="search-x" style="width: 48px; height: 48px; margin-bottom: 12px; stroke-width: 1.5;"></i>
-        <p style="font-size: 16px; font-weight: 500;">Không tìm thấy ngành học phù hợp</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>hướng<span>nghiệpvn</span>.online</h3>
+        <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+        <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
       </div>
-    `;
-    lucide.createIcons();
-    return;
-  }
-
-  document.getElementById('career-grid').innerHTML = filteredList.map(m => {
-    const majorSlug = m.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace(/:/g, '');
-    const categoryKey = Array.isArray(m.cat) ? m.cat[0] : m.cat;
-    return `
-    <div class="career-card" onclick="openAiDrawer('${majorSlug}')" style="cursor:pointer;">
-      <div class="career-header">
-        <div class="career-icon-wrap" style="background:${iconBg[categoryKey]||'var(--gray-100)'}">${getLucideIcon(m.icon)}</div>
-        <span class="trend-badge ${trendClass[m.trend]}">${trendLabel[m.trend]}</span>
+      <div class="footer-col">
+        <h4>Tính năng</h4>
+        <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+        <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+        <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+        <a href="dinh-huong.html">Tư vấn ngành nghề</a>
       </div>
-      <div class="career-name">${m.name}</div>
-      <div class="career-industry">${m.shortName}</div>
-      <div class="career-salary"><span class="salary-label">Điểm chuẩn TB</span><span class="salary-value">${m.avgScore}</span></div>
-      <div class="career-skills">${m.careers.slice(0,4).map(c=>`<span class="skill-tag">${c}</span>`).join('')}</div>
-    </div>`;
-  }).join('');
-
-  // Re-generate Lucide Icons in the newly rendered HTML
-  lucide.createIcons();
-}
-
-// Drawer visibility control
-function openAiDrawer(majorSlug) {
-  currentMajor = majors.find(m => {
-    const slug = m.name.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-').replace(/:/g, '');
-    return slug === majorSlug;
-  });
-  
-  if (!currentMajor) return;
-  
-  const catMap = {
-    tech: 'Công nghệ',
-    business: 'Kinh doanh',
-    health: 'Y tế',
-    creative: 'Sáng tạo',
-    edu: 'Giáo dục',
-    law: 'Pháp luật',
-    me: 'Kỹ thuật',
-    agri: 'Nông nghiệp',
-    textiles: 'Dệt may'
-  };
-  
-  const iconBg = {
-    tech: 'var(--green-100)',
-    business: 'var(--blue-100)',
-    health: '#fce7f3',
-    creative: 'var(--purple-100)',
-    edu: 'var(--amber-100)',
-    me: 'var(--orange-100)',
-    law: 'var(--indigo-100)',
-    agri: 'var(--lime-100)',
-    textiles: 'var(--pink-100)'
-  };
-
-  const categoryKey = Array.isArray(currentMajor.cat) ? currentMajor.cat[0] : currentMajor.cat;
-
-  // Header update
-  document.getElementById('ai-major-icon').innerHTML = getLucideIcon(currentMajor.icon);
-  document.getElementById('ai-major-icon').style.background = iconBg[categoryKey] || 'var(--gray-100)';
-  document.getElementById('ai-major-name').textContent = currentMajor.name;
-  document.getElementById('ai-major-cat').innerHTML = getLucideIcon(categoryKey) + ' ' + (catMap[categoryKey] || 'Nhóm ngành khác');
-  
-  // Footer view detail link update
-  document.getElementById('ai-view-detail-btn').href = `career-detail.html?major=${majorSlug}`;
-  
-  // AI short introduction summary
-  const introHTML = `
-    <div class="ai-intro-title"><i data-lucide="lightbulb"></i> Tóm tắt ngành từ AI Hướng nghiệp</div>
-    <div class="ai-intro-text">
-      <strong>${currentMajor.name}</strong> là ngành thuộc khối <strong>${catMap[categoryKey] || 'Khác'}</strong>.
-      <p style="margin-top:6px;">${currentMajor.description}</p>
-      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-        <span class="score-badge score-high" style="font-weight:500;"><i data-lucide="school"></i> Điểm chuẩn TB: ${currentMajor.avgScore}</span>
-        <span class="score-badge score-mid" style="font-weight:500;"><i data-lucide="graduation-cap"></i> Vị trí: ${currentMajor.careers.slice(0, 2).join(', ')}</span>
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <a>Về chúng tôi</a>
+        <a>Nguồn dữ liệu</a>
+        <a>Liên hệ</a>
+        <a>Góp ý</a>
+      </div>
+      <div class="footer-col">
+        <h4>Liên kết</h4>
+        <a>Bộ GD&ĐT</a>
+        <a>VietnamWorks</a>
+        <a>MOET</a>
       </div>
     </div>
-  `;
-  document.getElementById('ai-intro-section').innerHTML = introHTML;
-  lucide.createIcons();
-  
-  // Show drawer
-  document.getElementById('ai-drawer').classList.add('active');
-  document.body.style.overflow = 'hidden';
-  
-  // Clear chat logs
-  const messagesWrap = document.getElementById('chat-messages');
-  messagesWrap.innerHTML = '';
-  chatHistory = [];
-  
-  // Welcome message with typing simulation
-  appendTypingIndicator();
-  setTimeout(() => {
-    removeTypingIndicator();
-    const greetingText = `Chào bạn! Mình là Trợ lý Hướng nghiệp AI. Rất vui được chia sẻ thông tin về ngành **${currentMajor.name}**.\nBạn muốn biết thêm về mức lương thực tế, danh sách trường đào tạo hàng đầu, hay lộ trình nghề nghiệp chi tiết của ngành này?`;
-    appendChatMessage('model', greetingText);
-    
-    // Suggestion chips
-    renderSuggestions([
-      "<i data-lucide='banknote'></i> Lương trung bình thế nào?",
-      "<i data-lucide='school'></i> Nên học trường nào?",
-      "<i data-lucide='book-open'></i> Học những môn học gì?",
-      "<i data-lucide='languages'></i> Có cần học tiếng Anh không?"
-    ]);
-    lucide.createIcons();
-  }, 800);
-}
-
-function closeAiDrawer() {
-  document.getElementById('ai-drawer').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-// Config Panel toggle
-function toggleConfigArea() {
-  const area = document.getElementById('ai-config-area');
-  const isHidden = area.style.display === 'none';
-  area.style.display = isHidden ? 'block' : 'none';
-}
-
-// Save Gemini API Key
-function saveApiKey() {
-  const key = document.getElementById('gemini-api-key').value.trim();
-  if (key) {
-    localStorage.setItem('gemini_api_key', key);
-    appendSystemAlert("✅ Đã lưu Gemini API Key thành công! Kích hoạt chế độ tư vấn AI trực tuyến thông minh.");
-  } else {
-    localStorage.removeItem('gemini_api_key');
-    appendSystemAlert("ℹ️ Đã xoá API Key. Hệ thống chuyển về chế độ tư vấn ngoại tuyến.");
-  }
-  toggleConfigArea();
-}
-
-// Chat rendering functions
-function appendChatMessage(role, text) {
-  const messagesWrap = document.getElementById('chat-messages');
-  const bubble = document.createElement('div');
-  bubble.className = `chat-bubble ${role}`;
-  bubble.innerHTML = formatMarkdown(text);
-  messagesWrap.appendChild(bubble);
-  messagesWrap.scrollTop = messagesWrap.scrollHeight;
-  
-  chatHistory.push({ role: role, text: text });
-}
-
-function appendSystemAlert(text) {
-  const messagesWrap = document.getElementById('chat-messages');
-  const alert = document.createElement('div');
-  alert.className = 'chat-bubble system-alert';
-  alert.textContent = text;
-  messagesWrap.appendChild(alert);
-  messagesWrap.scrollTop = messagesWrap.scrollHeight;
-}
-
-function appendTypingIndicator() {
-  const messagesWrap = document.getElementById('chat-messages');
-  const indicator = document.createElement('div');
-  indicator.className = 'chat-bubble assistant typing-indicator-wrap';
-  indicator.id = 'typing-indicator';
-  indicator.innerHTML = `
-    <div class="typing-indicator">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
+    <div class="footer-bottom">
+      <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+      <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
     </div>
-  `;
-  messagesWrap.appendChild(indicator);
-  messagesWrap.scrollTop = messagesWrap.scrollHeight;
-}
+  </footer>
 
-function removeTypingIndicator() {
-  const indicator = document.getElementById('typing-indicator');
-  if (indicator) {
-    indicator.remove();
-  }
-}
+  <!-- ========================================================
+       AI CAREER DRAWER (REALLOCATED AS A DETAILED BENTO OVERLAY)
+       ======================================================== */ -->
+  <div id="ai-drawer" class="ai-drawer">
+    <div class="ai-drawer-overlay" onclick="closeAiDrawer()"></div>
+    <div class="ai-drawer-content" style="border-radius: 20px 20px 0 0; border: 1px solid var(--gray-200);">
+      <!-- Header -->
+      <div class="ai-drawer-header" style="background: white; border-bottom: 1px solid var(--gray-200);">
+        <div class="ai-drawer-title-wrap">
+          <span class="ai-drawer-icon" id="ai-major-icon" style="border-radius: 10px;"></span>
+          <div>
+            <h2 class="ai-drawer-title" id="ai-major-name" style="font-weight: 800; color: var(--gray-900);">Ngành học</h2>
+            <span class="ai-drawer-subtitle" id="ai-major-cat" style="font-weight: 600; color: var(--gray-500);"></span>
+          </div>
+        </div>
+        <div class="ai-drawer-actions">
+          <button class="ai-drawer-close btn-tactile" onclick="closeAiDrawer()" style="background: var(--gray-100); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; border: none; color: var(--gray-900);">&times;</button>
+        </div>
+      </div>
 
-function renderSuggestions(options) {
-  currentSuggestions = options;
-  const wrap = document.getElementById('chat-suggestions');
-  wrap.innerHTML = options.map((opt, idx) => `
-    <button class="suggestion-chip" onclick="handleSuggestionClick(${idx})">${opt}</button>
-  `).join('');
-}
+      <!-- Drawer Body (Two-Column Layout) -->
+      <div class="ai-drawer-body">
+        <!-- Sticky Navigation Sidebar -->
+        <div class="drawer-sidebar" id="drawer-sidebar">
+          <button class="sidebar-anchor active" onclick="scrollToBentoSection('sec-overview', this)"><i data-lucide="info"></i> Tổng quan ngành</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-study', this)"><i data-lucide="book-open"></i> Sẽ học gì?</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-career', this)"><i data-lucide="briefcase"></i> Ra trường làm gì?</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-suitability', this)"><i data-lucide="thumbs-up"></i> Hợp với ai?</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-persona', this)"><i data-lucide="user"></i> Chân dung thực tế</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-misunderstandings', this)"><i data-lucide="help-circle"></i> Hiểu nhầm phổ biến</button>
+          <button class="sidebar-anchor" onclick="scrollToBentoSection('sec-schools', this)"><i data-lucide="school"></i> Trường đào tạo</button>
+        </div>
 
-function handleSuggestionClick(idx) {
-  const text = currentSuggestions[idx];
-  document.getElementById('chat-suggestions').innerHTML = '';
-  
-  // Clean HTML tags to get pure text query
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = text;
-  let cleanQuery = tempDiv.textContent || tempDiv.innerText || text;
-  cleanQuery = cleanQuery.trim();
-  cleanQuery = cleanQuery.replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]\s*/u, '');
-  
-  document.getElementById('chat-input').value = cleanQuery;
-  sendChatMessage();
-}
+        <!-- Main Content Area -->
+        <div class="drawer-main-content" id="drawer-main-content">
+          
+          <!-- Section 1: Overview -->
+          <div class="bento-card" id="sec-overview">
+            <h3><i data-lucide="info" style="color: var(--blue-600);"></i> Tổng quan về ngành</h3>
+            <div id="major-desc-container"></div>
+          </div>
 
-function handleChatKeyDown(event) {
-  if (event.key === 'Enter' && !event.shiftKey) {
-    event.preventDefault();
-    sendChatMessage();
-  }
-}
+          <!-- Section 2: Curriculum -->
+          <div class="bento-card" id="sec-study">
+            <h3><i data-lucide="book-open" style="color: var(--green-500);"></i> Chương trình đào tạo & Sẽ học gì?</h3>
+            <div id="major-study-container"></div>
+          </div>
 
-async function sendChatMessage() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  
-  input.value = '';
-  appendChatMessage('user', text);
-  appendTypingIndicator();
-  
-  setTimeout(() => {
-    removeTypingIndicator();
-    const reply = getLocalCounselorResponse(text, currentMajor);
-    appendChatMessage('model', reply);
-    
-    // Show next round of suggestion chips using Lucide HTML icons
-    renderSuggestions([
-      "<i data-lucide='banknote'></i> Mức lương có cao không?",
-      "<i data-lucide='school'></i> Tìm trường đào tạo",
-      "<i data-lucide='book-open'></i> Cần học những môn nào?",
-      "<i data-lucide='help-circle'></i> Thách thức lớn nhất là gì?"
-    ]);
-    lucide.createIcons();
-  }, 900);
-}
+          <!-- Section 3: Careers -->
+          <div class="bento-card" id="sec-career">
+            <h3><i data-lucide="briefcase" style="color: var(--amber-500);"></i> Cơ hội việc làm & Ra trường làm gì?</h3>
+            <div id="major-career-container"></div>
+          </div>
 
-// Local counselor response engine
-function getLocalCounselorResponse(query, major) {
-  const q = query.toLowerCase();
-  
-  const catMap = {
-    tech: 'Công nghệ',
-    business: 'Kinh doanh',
-    health: 'Y tế',
-    me: 'Kỹ thuật',
-    creative: 'Sáng tạo',
-    edu: 'Giáo dục',
-    law: 'Pháp luật',
-    agri: 'Nông nghiệp',
-    textiles: 'Dệt may'
-  };
-  
-  if (q.includes('lương') || q.includes('thu nhập') || q.includes('tiền') || q.includes('triệu')) {
-    return `Ngành **${major.name}** có mức điểm chuẩn trung bình khoảng **${major.avgScore}**. Về thu nhập, mức lương khởi điểm cho nhân sự mới ra trường (Junior) thường dao động từ **10 - 15 triệu VNĐ/tháng**. Đối với các chuyên gia có kinh nghiệm lâu năm hoặc quản lý (Senior), mức lương có thể đạt tới **25 - 55 triệu VNĐ/tháng** hoặc cao hơn nhiều tùy năng lực và doanh nghiệp.`;
-  }
-  
-  if (q.includes('trường') || q.includes('đào tạo') || q.includes('học ở đâu') || q.includes('đại học')) {
-    const schoolNames = major.schools.map(s => {
-      const found = schools.find(sch => sch.short === s);
-      return found ? `${found.name} (${found.short})` : s;
-    }).join(', ');
-    return `Các trường đào tạo tiêu biểu cho ngành **${major.name}** tại Việt Nam gồm: **${schoolNames}**. Bạn có thể tra cứu điểm chuẩn chi tiết của từng trường trong mục 'Trường đại học' nhé.`;
-  }
-  
-  if (q.includes('học gì') || q.includes('môn') || q.includes('chương trình') || q.includes('kiến thức')) {
-    const subjectsList = major.subjects.map(s => `- ${s}`).join('\n');
-    return `Khi học ngành **${major.name}**, bạn sẽ được đào tạo các môn học chính và khối kiến thức cốt lõi sau:\n${subjectsList}\nCác môn học này sẽ rèn luyện kỹ năng thực hành và chuyên môn cần thiết để bạn làm việc tốt sau khi ra trường.`;
-  }
-  
-  if (q.includes('công việc') || q.includes('làm gì') || q.includes('ra trường') || q.includes('nghề') || q.includes('vị trí')) {
-    const careersList = major.careers.map(c => `- ${c}`).join('\n');
-    return `Sau khi tốt nghiệp ngành **${major.name}**, cơ hội nghề nghiệp rất đa dạng. Bạn có thể làm việc tại các vị trí như:\n${careersList}\nĐây đều là những công việc có nhu cầu tuyển dụng ổn định và nhiều cơ hội thăng tiến.`;
-  }
-  
-  if (q.includes('tiếng anh') || q.includes('ngoại ngữ') || q.includes('anh văn')) {
-    return `Với ngành **${major.name}**, tiếng Anh đóng vai trò cực kỳ quan trọng! Ngoại ngữ tốt giúp bạn tiếp cận nhanh tài liệu chuyên ngành quốc tế, làm việc với các đối tác nước ngoài và nâng mức lương khởi điểm cao hơn từ 30% - 50% so với mặt bằng chung.`;
-  }
-  
-  if (q.includes('khó') || q.includes('thách thức') || q.includes('áp lực') || q.includes('vất vả')) {
-    return `Học ngành **${major.name}** đòi hỏi sự kiên nhẫn, chăm chỉ học hỏi và tư duy thực hành tốt. Thách thức lớn nhất là bạn phải liên tục tự học và cập nhật xu hướng mới. Tuy nhiên, nếu bạn đam mê lĩnh vực này, đó sẽ là một trải nghiệm vô cùng thú vị và đem lại thành quả xứng đáng!`;
-  }
-  
-  // Default fallback
-  return `Chào bạn! Mình có thể cung cấp thông tin hướng nghiệp chi tiết cho ngành **${major.name}** về:\n\n- 💸 **Mức lương & Cơ hội thu nhập**\n- <i data-lucide="school"></i> **Danh sách trường đào tạo hàng đầu**\n- <i data-lucide="book-open"></i> **Các môn học chính trong trường**\n- <i data-lucide="briefcase"></i> **Các vị trí công việc cụ thể sau ra trường**\n\nBạn hãy gõ câu hỏi hoặc chọn một trong các gợi ý bên dưới để cùng bắt đầu nhé!`;
-}
+          <!-- Section 4: Suitability -->
+          <div class="bento-card" id="sec-suitability">
+            <h3><i data-lucide="thumbs-up" style="color: var(--coral-500);"></i> Phẩm chất phù hợp & Hợp với ai?</h3>
+            <div id="major-suitability-container"></div>
+          </div>
 
-// Basic markdown-to-HTML formatter
-function formatMarkdown(text) {
-  if (!text) return '';
-  let html = text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-  
-  // Bold format: **text**
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  
-  // Bullet format: lines starting with '-' or '•'
-  const lines = html.split('\n');
-  let inList = false;
-  const formattedLines = lines.map(line => {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ')) {
-      const content = trimmed.substring(2);
-      let res = `<li>${content}</li>`;
-      if (!inList) {
-        inList = true;
-        res = `<ul>${res}`;
-      }
-      return res;
-    } else {
-      let res = line;
-      if (inList) {
-        inList = false;
-        res = `</ul>${res}`;
-      }
-      return res;
-    }
-  });
-  
-  if (inList) {
-    formattedLines.push('</ul>');
-  }
-  
-  html = formattedLines.join('\n');
-  html = html.replace(/\n/g, '<br>');
-  html = html.replace(/<br><ul>/g, '<ul>').replace(/<\/ul><br>/g, '</ul>').replace(/<\/li><br>/g, '</li>');
-  
-  return html;
-}
+          <!-- Section 5: Persona -->
+          <div class="bento-card" id="sec-persona">
+            <h3><i data-lucide="user" style="color: var(--purple-500);"></i> Chân dung người trong ngành</h3>
+            <div id="major-persona-container"></div>
+          </div>
 
-// Initial draw of majors on load (override script.js default render if it has already run)
-document.addEventListener('DOMContentLoaded', () => {
-  renderMajors('all');
-});
-// Execute immediately just in case DOMContentLoaded has already fired
-if (document.readyState === 'interactive' || document.readyState === 'complete') {
-  renderMajors('all');
-}
-</script>
+          <!-- Section 6: Misunderstandings -->
+          <div class="bento-card" id="sec-misunderstandings">
+            <h3><i data-lucide="help-circle" style="color: var(--blue-500);"></i> Phân biệt & Hiểu nhầm phổ biến</h3>
+            <div id="major-misunderstandings-container"></div>
+          </div>
+
+
+
+          <!-- Section 8: Schools list -->
+          <div class="bento-card" id="sec-schools">
+            <h3><i data-lucide="school" style="color: var(--green-600);"></i> Danh sách các trường đang tuyển sinh</h3>
+            <div id="major-schools-container"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    let majors = [];
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    // Category mapping logic based on MoET 7-digit codes
+    function getMajorCategory(code) {
+      if (!code) return 'other';
+      const prefix3 = code.substring(0, 3);
+      const prefix5 = code.substring(0, 5);
+      
+      if (prefix3 === '748' || prefix3 === '786') return 'tech'; // Computing/IT and Cybersec/An ninh
+      if (prefix3 === '734' || prefix3 === '731') return 'business'; // Business, Economics, Social Sciences
+      if (prefix3 === '772') return 'health'; // Medicine, Pharmacy
+      if (prefix3 === '721' || prefix3 === '722') return 'creative'; // Arts, Humanities
+      if (prefix3 === '714' || prefix3 === '511') return 'edu'; // Teacher training / Education
+      if (prefix3 === '738') return 'law'; // Law
+      if (prefix3 === '751' || prefix3 === '752' || prefix3 === '758') return 'me'; // Engineering, Architecture, Building
+      if (prefix5 === '75402') return 'textiles'; // Textiles & Fashion
+      if (prefix3 === '762' || prefix3 === '764') return 'agri'; // Agriculture, forestry, fishery
+      
+      return 'other';
+    }
+
+    // Lucide Icon mapping based on keywords in major names
+    function getLucideIcon(name, cat) {
+      const n = name.toLowerCase();
+      let icon = 'book-open'; // Default
+      
+      if (n.includes('máy tính') || n.includes('phần mềm') || n.includes('lập trình') || n.includes('dữ liệu') || n.includes('tin học')) {
+        icon = 'monitor';
+      } else if (n.includes('an ninh') || n.includes('bảo mật') || n.includes('phòng thủ')) {
+        icon = 'shield';
+      } else if (n.includes('y ') || n.includes('dược') || n.includes('điều dưỡng') || n.includes('bác sĩ') || n.includes('răng hàm mặt')) {
+        icon = 'stethoscope';
+      } else if (n.includes('kinh doanh') || n.includes('quản trị') || n.includes('marketing') || n.includes('thương mại')) {
+        icon = 'bar-chart-3';
+      } else if (n.includes('tài chính') || n.includes('ngân hàng') || n.includes('kế toán') || n.includes('thuế')) {
+        icon = 'banknote';
+      } else if (n.includes('luật')) {
+        icon = 'scale';
+      } else if (n.includes('sư phạm') || n.includes('giáo dục')) {
+        icon = 'book-open';
+      } else if (n.includes('ngôn ngữ') || n.includes('tiếng')) {
+        icon = 'languages';
+      } else if (n.includes('nông nghiệp') || n.includes('thủy sản') || n.includes('chăn nuôi') || n.includes('trồng trọt') || n.includes('lâm nghiệp')) {
+        icon = 'sprout';
+      } else if (n.includes('dệt') || n.includes('may') || n.includes('thời trang') || n.includes('thiết kế thời trang')) {
+        icon = 'scissors';
+      } else if (n.includes('thiết kế đồ họa') || n.includes('mỹ thuật') || n.includes('hội họa')) {
+        icon = 'palette';
+      } else if (n.includes('điện ') || n.includes('nhiệt') || n.includes('tự động hóa') || n.includes('cơ khí')) {
+        icon = 'settings';
+      } else {
+        // Fallback to category icon
+        const catIcons = {
+          tech: 'monitor',
+          business: 'bar-chart-3',
+          health: 'hospital',
+          creative: 'palette',
+          edu: 'book-open',
+          law: 'scale',
+          me: 'settings',
+          textiles: 'scissors',
+          agri: 'sprout',
+          other: 'book-open'
+        };
+        icon = catIcons[cat] || 'book-open';
+      }
+      
+      return `<i data-lucide="${icon}"></i>`;
+    }
+
+    // Load and initialize data
+    document.addEventListener('DOMContentLoaded', () => {
+      Promise.all([
+        fetch('nhomnganh.json').then(res => res.json()),
+        fetch('diem_chuan_filtered.json').then(res => res.json()).catch(err => {
+          console.warn("Failed to load diem_chuan_filtered.json, falling back to empty list", err);
+          return [];
+        })
+      ]).then(([majorsData, scoresData]) => {
+          majors = majorsData.filter(m => m.name && m.overview);
+          admissionScores = scoresData;
+          
+          // Hide loader and show grid
+          document.getElementById('loading-indicator').style.display = 'none';
+          document.getElementById('career-grid').style.display = 'grid';
+          
+          applyFiltersAndRender();
+          
+          // Auto-open drawer if code parameter is present in URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const majorCode = urlParams.get('code');
+          if (majorCode) {
+            setTimeout(() => {
+              openMajorDrawer(majorCode);
+            }, 300);
+          }
+      }).catch(err => {
+          console.error("Failed to load database:", err);
+          document.getElementById('loading-indicator').innerHTML = `
+            <p style="color: #ea580c; font-weight: 600;">Không thể tải dữ liệu nhóm ngành. Vui lòng thử lại sau.</p>
+          `;
+      });
+        
+      // Handle drawer side navigation active class highlight on scroll
+      const mainContent = document.getElementById('drawer-main-content');
+      mainContent.addEventListener('scroll', () => {
+        const sections = ['sec-overview', 'sec-study', 'sec-career', 'sec-suitability', 'sec-persona', 'sec-misunderstandings', 'sec-schools'];
+        let currentSec = 'sec-overview';
+        
+        for (const secId of sections) {
+          const el = document.getElementById(secId);
+          if (el && el.offsetTop - mainContent.offsetTop <= mainContent.scrollTop + 60) {
+            currentSec = secId;
+          }
+        }
+        
+        document.querySelectorAll('.sidebar-anchor').forEach(btn => {
+          if (btn.getAttribute('onclick').includes(currentSec)) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    // Filtering & Searching
+    function filterCareer(cat, btn) {
+      currentCategory = cat;
+      if (btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      applyFiltersAndRender();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val.toLowerCase().trim();
+      applyFiltersAndRender();
+    }
+
+    function applyFiltersAndRender() {
+      // Filter by category
+      const catList = currentCategory === 'all' ? majors : majors.filter(m => getMajorCategory(m.code) === currentCategory);
+      
+      // Filter by search query
+      const filteredList = catList.filter(m => {
+        return !searchQuery || 
+               m.name.toLowerCase().includes(searchQuery) ||
+               m.code.includes(searchQuery) ||
+               m.overview.toLowerCase().includes(searchQuery);
+      });
+
+      const iconBg = {
+        tech: 'var(--green-50)',
+        business: 'var(--blue-50)',
+        health: '#fdf2f8',
+        creative: 'var(--purple-50)',
+        edu: 'var(--amber-50)',
+        me: 'var(--coral-50)',
+        law: '#f0fdfa',
+        agri: '#f0fdf4',
+        textiles: '#fdf2f8',
+        other: 'var(--gray-50)'
+      };
+
+      const grid = document.getElementById('career-grid');
+      
+      if (filteredList.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--gray-400);">
+            <i data-lucide="search-x" style="width: 48px; height: 48px; margin: 0 auto 12px; stroke-width: 1.5; color: var(--gray-400);"></i>
+            <p style="font-size: 16px; font-weight: 600; color: var(--gray-600);">Không tìm thấy ngành học nào khớp với từ khóa</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      grid.innerHTML = filteredList.map(m => {
+        const cat = getMajorCategory(m.code);
+        const icon = getLucideIcon(m.name, cat);
+        const trend = m.schools.length > 25 ? 'up' : (m.schools.length > 8 ? 'stable' : 'down');
+        
+        const trendLabel = { up: '↑ Hot', stable: '→ Ổn định', down: '↓ Kén trường' };
+        const trendClass = { up: 'trend-up', stable: 'trend-stable', down: 'trend-down' };
+        
+        return `
+          <div class="career-card btn-tactile" onclick="openMajorDrawer('${m.code}')">
+            <div class="career-header">
+              <div class="career-icon-wrap" style="background: ${iconBg[cat] || 'var(--gray-100)'}; color: var(--gray-900);">
+                ${icon}
+              </div>
+              <span class="trend-badge ${trendClass[trend]}">${trendLabel[trend]}</span>
+            </div>
+            <div>
+              <div class="career-name">${m.name}</div>
+              <div class="career-code">Mã ngành: ${m.code}</div>
+              <div class="career-desc">${m.overview.replace('Tổng quan về ngành\n', '')}</div>
+            </div>
+            <div class="career-meta-row">
+              <span class="career-schools-count"><i data-lucide="school" style="width: 14px; height: 14px;"></i> ${m.schools.length} trường đào tạo</span>
+              <span class="career-action-btn">Tìm hiểu <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i></span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      lucide.createIcons();
+    }
+
+    // Scroll to section inside bento main area
+    function scrollToBentoSection(sectionId, btn) {
+      const container = document.getElementById('drawer-main-content');
+      const target = document.getElementById(sectionId);
+      if (target) {
+        container.scrollTop = target.offsetTop - container.offsetTop - 10;
+      }
+      
+      document.querySelectorAll('.sidebar-anchor').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Parse and render description
+    function formatSectionContent(text, isCurriculum = false, isMisunderstandings = false) {
+      if (!text) return '<p class="paragraph-item" style="color:var(--gray-500);">Chưa có dữ liệu cập nhật.</p>';
+      
+      const lines = text.split('\n');
+      
+      // If curriculum table
+      if (isCurriculum) {
+        let tableHtml = '<table class="major-detail-table"><thead><tr><th>Nhóm kiến thức / Môn học</th><th>Học để làm gì</th></tr></thead><tbody>';
+        let foundHeader = false;
+        let startIdx = 0;
+        
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes('Học để làm gì') || lines[i].includes('Nhóm kiến thức')) {
+            foundHeader = true;
+            startIdx = i + 1;
+            break;
+          }
+        }
+        
+        if (foundHeader) {
+          for (let i = startIdx; i < lines.length - 1; i += 2) {
+            if (lines[i] && lines[i+1]) {
+              tableHtml += `<tr><td><strong>${lines[i]}</strong></td><td>${lines[i+1]}</td></tr>`;
+            }
+          }
+          tableHtml += '</tbody></table>';
+          return tableHtml;
+        }
+      }
+      
+      // If misunderstanding table
+      if (isMisunderstandings) {
+        let tableHtml = '<table class="major-detail-table"><thead><tr><th>Ngành/Nghề</th><th>Điểm chung</th><th>Sự khác biệt cốt lõi</th></tr></thead><tbody>';
+        let foundHeader = false;
+        let startIdx = 0;
+        
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].includes('Khác biệt') || lines[i].includes('Điểm chung') || lines[i].includes('Ngành')) {
+            foundHeader = true;
+            startIdx = i + 1;
+            break;
+          }
+        }
+        
+        if (foundHeader) {
+          for (let i = startIdx; i < lines.length - 2; i += 3) {
+            if (lines[i] && lines[i+1] && lines[i+2]) {
+              tableHtml += `<tr><td><strong>${lines[i]}</strong></td><td>${lines[i+1]}</td><td>${lines[i+2]}</td></tr>`;
+            }
+          }
+          tableHtml += '</tbody></table>';
+          return tableHtml;
+        }
+      }
+      
+      // Standard markdown lists and paragraphs
+      return lines.map(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ')) {
+          return `<li class="bullet-item">${trimmed.substring(2)}</li>`;
+        }
+        if (trimmed.endsWith('?') || trimmed.startsWith('Hướng ') || trimmed.startsWith('Vị trí') || trimmed.startsWith('Môi trường') || trimmed.startsWith('Điểm chung') || trimmed.startsWith('Bức tranh') || trimmed.startsWith('Chân dung')) {
+          return `<h4 class="section-subheading">${trimmed}</h4>`;
+        }
+        return `<p class="paragraph-item">${trimmed}</p>`;
+      }).join('');
+    }
+
+    // Open detailed overlay drawer
+    function openMajorDrawer(code) {
+      const major = majors.find(m => m.code === code);
+      if (!major) return;
+
+      const cat = getMajorCategory(major.code);
+      const icon = getLucideIcon(major.name, cat);
+      
+      const catMap = {
+        tech: 'Công nghệ & CNTT',
+        business: 'Kinh tế & Quản lý',
+        health: 'Y tế & Dược học',
+        creative: 'Nghệ thuật & Sáng tạo',
+        edu: 'Giáo dục & Sư phạm',
+        law: 'Pháp luật',
+        me: 'Kỹ thuật & Xây dựng',
+        agri: 'Nông lâm & Thủy sản',
+        textiles: 'Dệt may & Da giày',
+        other: 'Nhóm ngành khác'
+      };
+
+      const iconBg = {
+        tech: 'var(--green-100)',
+        business: 'var(--blue-100)',
+        health: '#fce7f3',
+        creative: 'var(--purple-100)',
+        edu: 'var(--amber-100)',
+        me: 'var(--coral-100)',
+        law: '#ccfbf1',
+        agri: '#dcfce7',
+        textiles: '#fce7f3',
+        other: 'var(--gray-100)'
+      };
+
+      // Set Header info
+      document.getElementById('ai-major-icon').innerHTML = icon;
+      document.getElementById('ai-major-icon').style.background = iconBg[cat] || 'var(--gray-100)';
+      document.getElementById('ai-major-name').textContent = major.name;
+      document.getElementById('ai-major-cat').textContent = catMap[cat] || 'Nhóm ngành';
+
+      // Set section details
+      document.getElementById('major-desc-container').innerHTML = formatSectionContent(major.overview);
+      document.getElementById('major-study-container').innerHTML = formatSectionContent(major.study_content, true);
+      document.getElementById('major-career-container').innerHTML = formatSectionContent(major.career_prospects);
+      document.getElementById('major-suitability-container').innerHTML = formatSectionContent(major.suitability);
+      document.getElementById('major-persona-container').innerHTML = formatSectionContent(major.persona);
+      document.getElementById('major-misunderstandings-container').innerHTML = formatSectionContent(major.misunderstandings, false, true);
+
+      // Render schools list in drawer
+      const schoolsContainer = document.getElementById('major-schools-container');
+      
+      // Filter matching admission scores from diem_chuan_filtered.json
+      const nameNorm = major.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "d").toLowerCase().trim();
+      const matchedScores = admissionScores.filter(s => {
+        if (!s.major_name) return false;
+        const sNorm = s.major_name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "d").toLowerCase().trim();
+        return sNorm.includes(nameNorm) || nameNorm.includes(sNorm);
+      });
+
+      if (matchedScores.length > 0) {
+        // Sort by benchmark score descending
+        matchedScores.sort((a, b) => parseFloat(b.benchmark || 0) - parseFloat(a.benchmark || 0));
+        
+        schoolsContainer.innerHTML = `
+          <div style="font-size:14px; font-weight:700; color:var(--gray-600); margin-bottom:12px;"><i data-lucide="list"></i> Tìm thấy ${matchedScores.length} phương thức xét tuyển của các trường đại học:</div>
+          <div class="major-schools-container">
+            ${matchedScores.map(s => {
+              const methodLabel = s.method_raw ? `<div style="font-size:12px; color:var(--gray-500); margin-top:2px;">${s.method_raw}</div>` : '';
+              return `
+                <div class="school-major-card">
+                  <div class="school-info-primary">
+                    <div class="school-name-title">${s.school_name} (${s.school_code})</div>
+                    <div class="school-location-badge" style="margin-top: 4px; font-weight: 500; color: var(--gray-700);">
+                      Ngành xét tuyển: <strong>${s.major_name}</strong>
+                    </div>
+                    ${methodLabel}
+                  </div>
+                  <div class="school-stats-col">
+                    <span class="school-stat-pill"><i data-lucide="book-open" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Tổ hợp: ${s.subject_group}</span>
+                    <span class="school-stat-pill" style="background: var(--green-50); border-color: var(--green-200); color: var(--green-700); font-weight: 800;">
+                      <i data-lucide="award" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Điểm chuẩn: ${s.benchmark}
+                    </span>
+                    <a class="school-link-btn" href="truong-dai-hoc.html?code=${s.school_code}" target="_blank">
+                      <i data-lucide="arrow-up-right" style="width:16px; height:16px;"></i>
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else if (major.schools && major.schools.length > 0) {
+        // Fallback to basic schools list if no direct score data is found
+        schoolsContainer.innerHTML = `
+          <div style="font-size:14px; font-weight:700; color:var(--gray-600); margin-bottom:12px;"><i data-lucide="list"></i> Tổng số: ${major.schools.length} trường đại học đào tạo ngành này</div>
+          <div class="major-schools-container">
+            ${major.schools.map(s => {
+              const nameAbbr = s.short_name ? ` (${s.short_name})` : '';
+              const tuitionText = s.tuition ? `<span class="school-stat-pill"><i data-lucide="banknote" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Học phí: ${s.tuition}</span>` : '';
+              const quotaText = s.quota ? `<span class="school-stat-pill"><i data-lucide="users" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Chỉ tiêu: ${s.quota}</span>` : '';
+              const progText = s.programs ? `<span class="school-stat-pill"><i data-lucide="book-open" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> ${s.programs}</span>` : '';
+              
+              return `
+                <div class="school-major-card">
+                  <div class="school-info-primary">
+                    <div class="school-name-title">${s.name}${nameAbbr}</div>
+                    <div class="school-location-badge"><i data-lucide="map-pin" style="width:12px; height:12px;"></i> ${s.location}</div>
+                  </div>
+                  <div class="school-stats-col">
+                    ${quotaText}
+                    ${progText}
+                    ${tuitionText}
+                    <a class="school-link-btn" href="${s.link}" target="_blank">
+                      <i data-lucide="arrow-up-right" style="width:16px; height:16px;"></i>
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else {
+        schoolsContainer.innerHTML = '<p class="paragraph-item" style="color:var(--gray-500);">Chưa cập nhật danh sách trường đào tạo.</p>';
+      }
+
+      // Show drawer
+      document.getElementById('ai-drawer').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Reset scroll position in main area
+      document.getElementById('drawer-main-content').scrollTop = 0;
+      
+      // Set active navigation tab
+      document.querySelectorAll('.sidebar-anchor').forEach(b => b.classList.remove('active'));
+      document.querySelector('.sidebar-anchor').classList.add('active');
+      
+      lucide.createIcons();
+    }
+
+    function closeAiDrawer() {
+      document.getElementById('ai-drawer').classList.remove('active');
+      document.body.style.overflow = '';
+    }
   </script>
 </body>
+
 </html>

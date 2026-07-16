@@ -1,156 +1,195 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HướngNghiệpVN.online — Định hướng & Tư vấn nghề nghiệp</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=1.2">
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
-  <div class="nav-links">
-    <button class="nav-link active" onclick="window.location.href='index.html'">Trang chủ</button>
-    <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
-    <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
-    <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
-    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
-    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
-  </div>
-</nav>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor:pointer">
+      huong<span>nghiepvn</span><em>.online</em></div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="window.location.href='index.html'">Trang chủ</button>
+      <button class="nav-cta survey-nav-btn" onclick="window.location.href='goi-y.html'"><i data-lucide="sparkles" style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
+      <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+      <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Phòng Lab</button>
+      <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+      <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    </div>
+  </nav>
 
-<!-- ======================== HOME ======================== -->
-<div id="page-home" class="page active">
-  <div class="hero">
-    <div class="hero-badge"><span></span> Dữ liệu tuyển sinh 2025 đã cập nhật</div>
-    <h1>Định hướng &<br><em>Tư vấn nghề nghiệp</em></h1>
-    <p>Khám phá nghề nghiệp, thấu hiểu bản thân và xây dựng lộ trình tương lai dành riêng cho bạn</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">20+</div><div class="hero-stat-label">Trường đại học</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">800+</div><div class="hero-stat-label">Ngành học</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-label">Nghề nghiệp</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">1k+</div><div class="hero-stat-label">Học sinh tin dùng</div></div>
-    </div>
-  </div>
+  <!-- ======================== HOME ======================== -->
+  <div id="page-home" class="page active">
+    <!-- ======================== UNIFIED HERO DASHBOARD ======================== -->
+    <div class="unified-hero-section">
+      <div class="unified-hero-card">
+        <div class="unified-hero-top">
+          <div class="hero-badge"><span></span> Dữ liệu tuyển sinh 2025 đã cập nhật</div>
+          <h1>Định hướng &<br><em>Tư vấn nghề nghiệp</em></h1>
+          <p class="unified-hero-subtitle">Khám phá nghề nghiệp, thấu hiểu bản thân và xây dựng lộ trình tương lai chuẩn 4 bước dành riêng cho bạn</p>
+          
+          <div class="hero-stats" style="margin-top: 36px; margin-bottom: 12px;">
+            <div class="hero-stat">
+              <div class="hero-stat-num">20+</div>
+              <div class="hero-stat-label">Trường đại học</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">800+</div>
+              <div class="hero-stat-label">Ngành học</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">200+</div>
+              <div class="hero-stat-label">Nghề nghiệp</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-num">1k+</div>
+              <div class="hero-stat-label">Học sinh tin dùng</div>
+            </div>
+          </div>
+        </div>
 
-  <div class="features-grid">
-    <div class="feature-card" onclick="window.location.href='truong-dai-hoc.html'">
-      <div class="feature-icon fi-green"><i data-lucide="graduation-cap"></i></div>
-      <h3>Thông tin trường đại học</h3>
-      <p>Khám phá 20+ trường đại học hàng đầu với thông tin chi tiết về ngành học, cơ sở vật chất và môi trường học tập</p>
-      <button class="feature-btn">Khám phá ngay →</button>
-    </div>
-    <div class="feature-card highlight" onclick="window.location.href='dinh-huong.html'">
-      <div class="feature-icon fi-purple"><i data-lucide="compass"></i></div>
-      <h3>Trắc nghiệm định hướng</h3>
-      <p>Khám phá tính cách và nghề nghiệp phù hợp qua mô hình Holland RIASEC</p>
-      <button class="feature-btn">Làm ngay →</button>
-    </div>
-    <div class="feature-card" onclick="window.location.href='xu-huong-luong.html'">
-      <div class="feature-icon fi-blue"><i data-lucide="trending-up"></i></div>
-      <h3>Xu hướng nghề 2030</h3>
-      <p>Dự báo ngành tăng trưởng, ngành có nguy cơ tự động hóa và cơ hội tương lai</p>
-      <button class="feature-btn">Khám phá →</button>
-    </div>
-    <div class="feature-card" onclick="window.location.href='dinh-huong.html'">
-      <div class="feature-icon fi-amber"><i data-lucide="message-circle"></i></div>
-      <h3>Tư vấn ngành nghề</h3>
-      <p>Hỗ trợ định hướng lựa chọn ngành học và tư vấn lộ trình phát triển tương lai</p>
-      <button class="feature-btn">Nhận tư vấn →</button>
-    </div>
-  </div>
+        <div class="unified-hero-divider"></div>
 
-  <div class="divider"></div>
+        <div class="user-guide-header" style="margin-bottom: 36px;">
+          <div class="user-guide-badge"><i data-lucide="book-open" style="width:14px;height:14px;"></i> Hướng Dẫn Dành Cho Người Dùng Mới</div>
+          <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 10px;">Lộ Trình Khám Phá Website Chuẩn 4 Bước</h2>
+          <p style="color: rgba(255,255,255,0.8); font-size: 16px;">Dành 2 phút xem video hướng dẫn và làm theo đúng thứ tự các bước dưới đây để tìm ra ngành học & ngôi trường lý tưởng cho bạn.</p>
+        </div>
 
-  <div class="section">
-    <div class="section-header">
-      <div><div class="section-title">Trường đại học nổi bật</div><div class="section-sub">Thông tin chi tiết về các trường hàng đầu — bấm để xem thêm</div></div>
-      <span class="see-all" onclick="window.location.href='truong-dai-hoc.html'">Xem tất cả →</span>
-    </div>
-    <div class="school-grid">
-      <div class="school-card" onclick="window.location.href='University/hust-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/hust_logo.png" alt="HUST"></div><div class="school-info"><div class="school-name">Đại học Bách Khoa Hà Nội</div><div class="school-short">HUST — Hà Nội</div><div class="school-tags"><span class="score-badge score-high">27.5 điểm</span><span class="score-badge score-mid">CNTT, Điện tử</span></div></div></div>
-      <div class="school-card" onclick="window.location.href='University/vnuhcm-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/VNUHCM_logo.svg.png" alt="VNUHCM"></div><div class="school-info"><div class="school-name">ĐH Quốc Gia TP.HCM</div><div class="school-short">VNUHCM — TP. Hồ Chí Minh</div><div class="school-tags"><span class="score-badge score-high">26.8 điểm</span><span class="score-badge score-mid">Kinh tế, Y dược</span></div></div></div>
-      <div class="school-card" onclick="window.location.href='University/fpt-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/FPT_UNIVERSITY.png" alt="FPT"></div><div class="school-info"><div class="school-name">Đại học FPT</div><div class="school-short">FPT University — Toàn quốc</div><div class="school-tags"><span class="score-badge score-mid">22.0 điểm</span><span class="score-badge score-low">CNTT, Thiết kế</span></div></div></div>
-      <div class="school-card" onclick="window.location.href='University/neu-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/NEU.png" alt="NEU"></div><div class="school-info"><div class="school-name">Đại học Kinh tế Quốc dân</div><div class="school-short">NEU — Hà Nội</div><div class="school-tags"><span class="score-badge score-high">26.2 điểm</span><span class="score-badge score-mid">Kinh tế, Tài chính</span></div></div></div>
-      <div class="school-card" onclick="window.location.href='University/ftu-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/FTU.png" alt="FTU"></div><div class="school-info"><div class="school-name">Đại học Ngoại Thương</div><div class="school-short">FTU — Hà Nội</div><div class="school-tags"><span class="score-badge score-high">28.2 điểm</span><span class="score-badge score-mid">Kinh tế, Thương mại</span></div></div></div>
-      <div class="school-card" onclick="window.location.href='University/hmu-detail.html'" style="cursor:pointer;"><div class="school-logo"><img src="logos/HMU ĐHYHN.png" alt="HMU"></div><div class="school-info"><div class="school-name">Đại học Y Hà Nội</div><div class="school-short">HMU — Hà Nội</div><div class="school-tags"><span class="score-badge score-high">28.5 điểm</span><span class="score-badge score-mid">Y khoa, Dược</span></div></div></div>
-    </div>
-  </div>
+        <!-- Video Hướng Dẫn Sử Dụng -->
+        <div class="guide-video-wrapper">
+          <div class="guide-video-topbar">
+            <div class="guide-dots">
+              <span class="guide-dot red"></span>
+              <span class="guide-dot yellow"></span>
+              <span class="guide-dot green"></span>
+            </div>
+            <div class="guide-video-title">Video Hướng Dẫn Sử Dụng Website — HướngNghiệpVN.online</div>
+            <div></div>
+          </div>
+          <div class="guide-video-body">
+            <div class="guide-video-placeholder-icon">
+              <i data-lucide="play" style="width:28px;height:28px;margin-left:2px;"></i>
+            </div>
+            <h3>Khung Video Hướng Dẫn Sử Dụng</h3>
+            <p>Khu vực dành sẵn cho Video Hướng Dẫn Sử Dụng (Hiện đang để trống để Admin có thể chèn video hoặc link YouTube vào).</p>
+            <video id="userGuidePlayer" class="guide-video-player" controls>
+              <source src="0713.mp4" type="video/mp4">
+              Trình duyệt của bạn không hỗ trợ thẻ video.
+            </video>
+          </div>
+        </div>
 
-  <div class="divider"></div>
+        <!-- Quy trình 4 bước sử dụng website theo thứ tự -->
+        <div class="guide-steps-grid">
+          <!-- Bước 1 -->
+          <div class="guide-step-card priority-step" onclick="window.location.href='goi-y.html'">
+            <div>
+              <div class="step-number-row">
+                <span class="step-number-badge">BƯỚC 1 • NÊN LÀM TRƯỚC</span>
+                <div class="step-icon"><i data-lucide="compass" style="width:18px;height:18px;"></i></div>
+              </div>
+              <h4>Khảo sát ban đầu</h4>
+              <p>Làm khảo sát tính cách Holland RIASEC trong 5 phút để thấu hiểu bản thân và nhận gợi ý nhóm ngành tương thích nhất với bạn.</p>
+            </div>
+            <button class="guide-step-btn">Khảo sát ngay <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+          </div>
 
-  <div class="section">
-    <div class="section-header">
-      <div><div class="section-title">Nhóm ngành hot nhất 2025</div><div class="section-sub">Dựa trên nhu cầu tuyển sinh và triển vọng nghề nghiệp</div></div>
-      <span class="see-all" onclick="window.location.href='nhom-nganh.html'">Xem tất cả →</span>
-    </div>
-    <div class="career-grid">
-      <div class="career-card" onclick="window.location.href='career-detail.html?major=cong-nghe-thong-tin'">
-        <div class="career-header"><div class="career-icon-wrap" style="background:var(--green-100)"><i data-lucide="monitor"></i></div><span class="trend-badge trend-up">↑ Hot</span></div>
-        <div class="career-name">Công nghệ thông tin</div><div class="career-industry">CNTT</div>
-        <div class="career-salary"><span class="salary-label">Điểm chuẩn TB</span><span class="salary-value">24-28 điểm</span></div>
-        <div class="career-skills"><span class="skill-tag">Lập trình viên</span><span class="skill-tag">AI Engineer</span><span class="skill-tag">Data Analyst</span></div>
+          <!-- Bước 2 -->
+          <div class="guide-step-card" onclick="window.location.href='dinh-huong.html'">
+            <div>
+              <div class="step-number-row">
+                <span class="step-number-badge">BƯỚC 2 • THỬ NGHIỆM</span>
+                <div class="step-icon"><i data-lucide="flask-conical" style="width:18px;height:18px;"></i></div>
+              </div>
+              <h4>Phòng Lab nghề nghiệp</h4>
+              <p>Trực tiếp đóng vai và thực hiện các nhiệm vụ thực tế của từng nghề (Kỹ sư AI, Bác sĩ, Luật sư...) để xem bạn có thực sự hợp nghề.</p>
+            </div>
+            <button class="guide-step-btn">Vào Phòng Lab <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+          </div>
+
+          <!-- Bước 3 -->
+          <div class="guide-step-card" onclick="window.location.href='nhom-nganh.html'">
+            <div>
+              <div class="step-number-row">
+                <span class="step-number-badge">BƯỚC 3 • TRA CỨU NGÀNH</span>
+                <div class="step-icon"><i data-lucide="layers" style="width:18px;height:18px;"></i></div>
+              </div>
+              <h4>Nhóm ngành & Lương</h4>
+              <p>Khám phá toàn bộ danh sách các nhóm ngành đào tạo đại học, xu hướng tuyển dụng và mức lương khởi điểm dự kiến đến năm 2030.</p>
+            </div>
+            <button class="guide-step-btn">Khám phá ngay <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+          </div>
+
+          <!-- Bước 4 -->
+          <div class="guide-step-card" onclick="window.location.href='truong-dai-hoc.html'">
+            <div>
+              <div class="step-number-row">
+                <span class="step-number-badge">BƯỚC 4 • CHỌN TRƯỜNG</span>
+                <div class="step-icon"><i data-lucide="graduation-cap" style="width:18px;height:18px;"></i></div>
+              </div>
+              <h4>Trường đại học & Điểm chuẩn</h4>
+              <p>Tra cứu 20+ trường đại học hàng đầu, xem điểm chuẩn chi tiết theo từng năm, phương thức xét tuyển và chốt mục tiêu ôn tập.</p>
+            </div>
+            <button class="guide-step-btn">Tra cứu trường <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+          </div>
+        </div>
       </div>
-      <div class="career-card" onclick="window.location.href='career-detail.html?major=y-khoa'">
-        <div class="career-header"><div class="career-icon-wrap" style="background:#fce7f3"><i data-lucide="stethoscope"></i></div><span class="trend-badge trend-up">↑ Hot</span></div>
-        <div class="career-name">Y khoa</div><div class="career-industry">Y tế</div>
-        <div class="career-salary"><span class="salary-label">Điểm chuẩn TB</span><span class="salary-value">26-29 điểm</span></div>
-        <div class="career-skills"><span class="skill-tag">Bác sĩ</span><span class="skill-tag">Nghiên cứu</span><span class="skill-tag">Chuyên khoa</span></div>
-      </div>
-      <div class="career-card" onclick="window.location.href='career-detail.html?major=kinh-te'">
-        <div class="career-header"><div class="career-icon-wrap" style="background:var(--blue-100)"><i data-lucide="bar-chart-3"></i></div><span class="trend-badge trend-stable">→ Ổn định</span></div>
-        <div class="career-name">Kinh tế</div><div class="career-industry">Kinh doanh</div>
-        <div class="career-salary"><span class="salary-label">Điểm chuẩn TB</span><span class="salary-value">22-26 điểm</span></div>
-        <div class="career-skills"><span class="skill-tag">Phân tích</span><span class="skill-tag">Tài chính</span><span class="skill-tag">Marketing</span></div>
-      </div>
     </div>
-  </div>
-</div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>hướng<span>nghiệpvn</span>.online</h3>
-      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
-      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Tính năng</h4>
-      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
-      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
-      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
-      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
-    </div>
-    <div class="footer-col">
-      <h4>Thông tin</h4>
-      <a>Về chúng tôi</a>
-      <a>Nguồn dữ liệu</a>
-      <a>Liên hệ</a>
-      <a>Góp ý</a>
-    </div>
-    <div class="footer-col">
-      <h4>Liên kết</h4>
-      <a>Bộ GD&ĐT</a>
-      <a>VietnamWorks</a>
-      <a>MOET</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
-    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
-  </div>
-</footer>
 
-<script src="script.js"></script>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>hướng<span>nghiệpvn</span>.online</h3>
+        <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+        <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tính năng</h4>
+        <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+        <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+        <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+        <a href="dinh-huong.html">Tư vấn ngành nghề</a>
+      </div>
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <a>Về chúng tôi</a>
+        <a>Nguồn dữ liệu</a>
+        <a>Liên hệ</a>
+        <a>Góp ý</a>
+      </div>
+      <div class="footer-col">
+        <h4>Liên kết</h4>
+        <a>Bộ GD&ĐT</a>
+        <a>VietnamWorks</a>
+        <a>MOET</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+      <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
   </script>
 </body>
+
 </html>

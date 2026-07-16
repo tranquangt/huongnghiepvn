@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Tổng Hợp Nghề Nghiệp & Phòng Lab — HướngNghiệpVN.online</title>
+  <meta name="description"
+    content="Báo cáo tổng hợp trắc nghiệm sở thích nghề nghiệp Holland RIASEC và đánh giá năng lực thực hành tại các Phòng Lab tương tác.">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --report-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --teal-primary: #1dba75;
+      --teal-light: #dcfce9;
+      --teal-dark: #168550;
+      --amber-primary: #d97706;
+      --amber-light: #fef3c7;
+    }
+
+    body {
+      background-color: var(--report-bg);
+      color: var(--text-dark);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* CONTAINER & HEADER */
+    .report-wrapper {
+      max-width: 1280px;
+      margin: 32px auto 80px;
+      padding: 0 24px;
+    }
+
+    .report-top-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 28px 36px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .report-top-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .report-top-title p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 14.5px;
+    }
+
+    .report-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-report-action {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-action-primary {
+      background: #0d9488;
+      color: white;
+      border: none;
+    }
+
+    .btn-action-primary:hover {
+      background: #0f766e;
+      transform: translateY(-2px);
+    }
+
+    .btn-action-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-action-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* DEMO PROFILE SWITCHER PILL */
+    .profile-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 8px 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      flex-wrap: wrap;
+    }
+
+    .switcher-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 8px;
+    }
+
+    .switcher-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      background: #f1f5f9;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .switcher-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .switcher-btn.active {
+      background: #0d9488;
+      color: white;
+      border-color: #0d9488;
+      box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+    }
+
+    /* 2x2 HOLLAND GRID SECTION */
+    .holland-main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 992px) {
+      .holland-main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .report-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* CARD 1: KẾT QUẢ SỞ THÍCH */
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .badge-dark {
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .badge-teal-pill {
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .report-card-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin: 0 0 14px;
+    }
+
+    .report-card-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin: 0 0 24px;
+    }
+
+    .top-types-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: auto;
+    }
+
+    .type-highlight-box {
+      background: #fefdfb;
+      border: 1px solid #f0e9df;
+      border-radius: 14px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .type-highlight-box:hover {
+      border-color: #0d9488;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.08);
+    }
+
+    .type-rank-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #b45309;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .type-name-lbl {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .type-score-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0d9488;
+    }
+
+    /* CARD 2: BẢN ĐỒ HOLLAND */
+    .card-top-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .category-sub-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: #b45309;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .icon-square-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #e0f2fe;
+      color: #0d9488;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(13, 148, 136, 0.15);
+    }
+
+    .holland-chart-container {
+      background: #fcfbf9;
+      border: 1px solid #f1ece4;
+      border-radius: 16px;
+      padding: 24px 16px 16px;
+      position: relative;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .holland-chart-bands {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      height: 180px;
+      position: relative;
+    }
+
+    .chart-band {
+      border-radius: 12px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 10px;
+    }
+
+    /* Distinct soft pastel bands */
+    .band-R { background: #ecfdf5; }
+    .band-I { background: #f0fdf4; }
+    .band-A { background: #fefce8; }
+    .band-S { background: #faf5ff; }
+    .band-E { background: #fff7ed; }
+    .band-C { background: #f8fafc; }
+
+    .band-letter {
+      font-size: 15px;
+      font-weight: 800;
+      color: #334155;
+      z-index: 2;
+    }
+
+    .chart-svg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .chart-labels-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chart-col-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* CARD 3: XẾP HẠNG VÙNG SỞ THÍCH */
+    .rank-table-wrap {
+      border: 1px solid #f1ece4;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .rank-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .rank-table th {
+      background: #faf8f5;
+      color: #78716c;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid #eae5dd;
+    }
+
+    .rank-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #f3f0ea;
+      vertical-align: middle;
+    }
+
+    .rank-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rank-num {
+      font-weight: 800;
+      color: #0d9488;
+      font-size: 14px;
+    }
+
+    .rank-area-name {
+      font-weight: 700;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+
+    .rank-score-cell {
+      font-weight: 800;
+      color: #0d9488;
+      white-space: nowrap;
+    }
+
+    .rank-meaning-cell {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* CARD 4: HỒ SƠ HOLLAND NỔI BẬT */
+    .archetype-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 12px 0 16px;
+    }
+
+    .archetype-desc {
+      font-size: 14.8px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .archetype-desc:last-child {
+      margin-bottom: 0;
+    }
+
+    /* SECTION 2: TỔNG HỢP LAB & ĐỘ KHỚP NGHỀ NGHIỆP */
+    .synthesis-section {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 36px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+    }
+
+    .synthesis-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .synthesis-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .synthesis-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 900px) {
+      .synthesis-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .synthesis-left-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d9488, #0f766e);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
+    }
+
+    .score-circle-num {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .score-circle-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .lab-status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .lab-item-card {
+      background: #fcfbf9;
+      border: 1px solid #f1ece4;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .lab-item-name {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lab-item-score {
+      font-weight: 800;
+      font-size: 14px;
+      color: #0d9488;
+      background: #e0f2fe;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    /* RECOMMENDED CAREERS SECTION */
+    .recommend-section-header {
+      margin-bottom: 20px;
+    }
+
+    .recommend-section-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .recommend-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .recommend-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .career-match-card {
+      background: white;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+
+    .career-match-card:hover {
+      border-color: #0d9488;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .career-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .match-pct-pill {
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .career-card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0 0 8px;
+    }
+
+    .career-card-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .btn-try-lab {
+      width: 100%;
+      padding: 11px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #0d9488;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-try-lab:hover {
+      background: #0d9488;
+      color: white;
+      border-color: #0d9488;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">
+      huong<span>nghiepvn</span><em>.online</em></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+      <button class="nav-cta survey-nav-btn" onclick="window.location.href='goi-y.html'"><i data-lucide="sparkles"
+          style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
+      <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+      <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Phòng Lab</button>
+      <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+      <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
+    </div>
+  </nav>
+
+  <div class="report-wrapper">
+    <!-- TOP BANNER -->
+    <div class="report-top-banner">
+      <div class="report-top-title">
+        <h1><i data-lucide="award" style="color:#2dd4bf;"></i> Báo Cáo Tổng Hợp & Định Hướng Nghề Nghiệp</h1>
+        <p>Kết quả tính toán tích hợp từ bài trắc nghiệm tính cách Holland RIASEC và các Phòng Lab thực hành</p>
+      </div>
+      <div class="report-top-actions">
+        <button class="btn-report-action btn-action-primary" onclick="window.print()">
+          <i data-lucide="printer"></i> In Báo Cáo / PDF
+        </button>
+        <button class="btn-report-action btn-action-secondary" onclick="window.location.href='goi-y.html'">
+          <i data-lucide="rotate-ccw"></i> Làm lại trắc nghiệm
+        </button>
+        <button class="btn-report-action btn-action-secondary" onclick="clearLabHistory()" style="background:#ef4444; color:#fff; border-color:#ef4444;">
+          <i data-lucide="trash-2"></i> Xóa lịch sử làm bài
+        </button>
+      </div>
+    </div>
+
+
+
+    <!-- 2x2 HOLLAND MAIN GRID -->
+    <div class="holland-main-grid">
+      <!-- CARD 1: KẾT QUẢ SỞ THÍCH -->
+      <div class="report-card">
+        <div>
+          <div class="badge-row">
+            <span class="badge-dark">Báo cáo RIASEC</span>
+            <span class="badge-teal-pill" id="holland-code-badge">IAS</span>
+          </div>
+          <h2 class="report-card-title">Kết quả sở thích<br>nghề nghiệp</h2>
+          <p class="report-card-desc">
+            Hồ sơ Holland của bạn được trình bày theo vùng mạnh, mức chênh lệch giữa các nhóm và danh sách nghề có thể so sánh tiếp.
+          </p>
+        </div>
+        <div class="top-types-grid" id="top-three-cards">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- CARD 2: BẢN ĐỒ HOLLAND -->
+      <div class="report-card">
+        <div class="card-top-header">
+          <div>
+            <div class="category-sub-lbl">HỒ SƠ 6 VÙNG SỞ THÍCH</div>
+            <div style="font-size: 22px; font-weight: 800; color: var(--text-dark);">Bản đồ Holland</div>
+          </div>
+          <div class="icon-square-btn">
+            <i data-lucide="trending-up"></i>
+          </div>
+        </div>
+
+        <div class="holland-chart-container" id="holland-chart-box">
+          <div class="holland-chart-bands">
+            <div class="chart-band band-R"><span class="band-letter">R</span></div>
+            <div class="chart-band band-I"><span class="band-letter">I</span></div>
+            <div class="chart-band band-A"><span class="band-letter">A</span></div>
+            <div class="chart-band band-S"><span class="band-letter">S</span></div>
+            <div class="chart-band band-E"><span class="band-letter">E</span></div>
+            <div class="chart-band band-C"><span class="band-letter">C</span></div>
+            <!-- SVG Line & Points Overlay -->
+            <svg class="chart-svg-overlay" id="holland-chart-svg"></svg>
+          </div>
+          <div class="chart-labels-row">
+            <div class="chart-col-label">Thực tế</div>
+            <div class="chart-col-label">Nghiên cứu</div>
+            <div class="chart-col-label">Nghệ thuật</div>
+            <div class="chart-col-label">Xã hội</div>
+            <div class="chart-col-label">Doanh nghiệp</div>
+            <div class="chart-col-label">Quy trình</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: XẾP HẠNG VÙNG SỞ THÍCH -->
+      <div class="report-card">
+        <div class="card-top-header">
+          <div>
+            <div class="category-sub-lbl">THỨ HẠNG</div>
+            <div style="font-size: 22px; font-weight: 800; color: var(--text-dark);">Xếp hạng vùng sở thích</div>
+          </div>
+          <div class="icon-square-btn">
+            <i data-lucide="compass"></i>
+          </div>
+        </div>
+
+        <div class="rank-table-wrap">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">RANK</th>
+                <th style="width: 140px;">VÙNG SỞ THÍCH</th>
+                <th style="width: 70px;">ĐIỂM</th>
+                <th>Ý NGHĨA CHÍNH</th>
+              </tr>
+            </thead>
+            <tbody id="holland-ranking-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CARD 4: HỒ SƠ HOLLAND NỔI BẬT -->
+      <div class="report-card">
+        <div>
+          <div class="badge-row">
+            <span class="badge-teal-pill" style="background:#e0f2fe;color:#0284c7;">HỒ SƠ HOLLAND NỔI BẬT</span>
+            <span class="badge-dark" style="background:#fef3c7;color:#92400e;" id="archetype-code-badge">IA</span>
+          </div>
+          <h3 class="archetype-title" id="archetype-title">Nhà Tương Lai Học</h3>
+          <div id="archetype-description-box">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYNTHESIS: LAB PERFORMANCE & CAREER FIT SECTION -->
+    <div class="synthesis-section">
+      <div class="synthesis-header">
+        <div>
+          <h2><i data-lucide="check-circle-2" style="color:#0d9488;"></i> Tổng Hợp Điểm Thực Hành Phòng Lab & Mức Độ Phù Hợp</h2>
+          <p style="margin:4px 0 0;color:var(--text-muted);font-size:14px;">
+            Kết hợp điểm sở thích nghề nghiệp và năng lực giải quyết nhiệm vụ thực tế tại các Phòng Lab
+          </p>
+        </div>
+        <button class="btn-report-action btn-action-primary" onclick="window.location.href='dinh-huong.html'">
+          <i data-lucide="flask-conical"></i> Làm thêm Phòng Lab
+        </button>
+      </div>
+
+      <div class="synthesis-grid">
+        <div class="synthesis-left-card">
+          <div class="score-circle">
+            <span class="score-circle-num" id="combined-fit-score">88%</span>
+            <span class="score-circle-lbl">ĐỘ KHỚP TỔNG HỢP</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;color:var(--text-dark);">Chỉ số sẵn sàng nghề nghiệp</div>
+          <p style="font-size:13px;color:var(--text-muted);margin:6px 0 0;line-height:1.5;">
+            Dựa trên mức độ trùng khớp giữa hồ sơ tính cách Holland và điểm số hoàn thành các thử thách thực tế.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="font-size:15px;font-weight:700;margin:0 0 14px;color:var(--text-dark);">
+            Kết quả thực hành tại các Phòng Lab đã trải nghiệm:
+          </h4>
+          <div class="lab-status-grid" id="completed-labs-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS BASED ON REPORT -->
+    <div class="recommend-section-header">
+      <h2>🎯 Các Ngành Học & Nghề Nghiệp Gợi Ý Theo Báo Cáo</h2>
+      <p style="margin:0;color:var(--text-muted);font-size:14.5px;">
+        Danh sách ngành học được đề xuất ưu tiên cao nhất cho hồ sơ sở thích và năng lực của bạn
+      </p>
+    </div>
+
+    <div class="recommend-grid" id="recommended-careers-list">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+
+  <script>
+    // CHECK ACCESS CONDITIONS
+    (function checkAccess() {
+      const recommendInput = localStorage.getItem('recommendInput');
+      const completedLabs = localStorage.getItem('completedLabs');
+      let completedLabsObj = {};
+      try {
+        completedLabsObj = JSON.parse(completedLabs || '{}');
+      } catch(e) {}
+      
+      const hasCompletedQuiz = !!recommendInput;
+      const hasCompletedLab = Object.keys(completedLabsObj).length > 0;
+      
+      if (!hasCompletedQuiz || !hasCompletedLab) {
+        alert("⚠️ Bạn cần hoàn thành Khảo sát ban đầu (Trắc nghiệm tính cách) và ít nhất 1 Phòng Lab thực tế để xem Báo cáo tổng hợp này.");
+        if (!hasCompletedQuiz) {
+          window.location.href = 'goi-y.html';
+        } else {
+          window.location.href = 'dinh-huong.html';
+        }
+      }
+    })();
+
+    // ARCHETYPE DICTIONARY (MATCHING & EXTENDING THE SCREENSHOT)
+    const ARCHETYPES = {
+      "IA": {
+        name: "Nhà Tương Lai Học",
+        desc: [
+          "Có thể trông như Nhà Tương Lai Học đôi khi dự đoán được tương lai, nhưng thật ra họ chỉ đang sử dụng cách tiếp cận sáng tạo trong tư duy. Họ tò mò và thích khám phá ý tưởng cũng như giải quyết vấn đề.",
+          "Nhà Tương Lai Học cũng thích một môi trường có một mức độ cấu trúc nhất định, nhưng họ cần sự tự do để vận dụng trí tưởng tượng và sự sáng tạo của mình để tìm ra những giải pháp đột phá cho các bài toán phức tạp của xã hội và công nghệ."
+        ]
+      },
+      "AI": {
+        name: "Nhà Tương Lai Học",
+        desc: [
+          "Có thể trông như Nhà Tương Lai Học đôi khi dự đoán được tương lai, nhưng thật ra họ chỉ đang sử dụng cách tiếp cận sáng tạo trong tư duy. Họ tò mò và thích khám phá ý tưởng cũng như giải quyết vấn đề.",
+          "Nhà Tương Lai Học cũng thích một môi trường có một mức độ cấu trúc nhất định, nhưng họ cần sự tự do để vận dụng trí tưởng tượng và sự sáng tạo của mình để tìm ra những giải pháp đột phá cho các bài toán phức tạp của xã hội và công nghệ."
+        ]
+      },
+      "IR": {
+        name: "Kỹ Sư Công Nghệ Sáng Tạo",
+        desc: [
+          "Kết hợp hoàn hảo giữa tư duy logic sâu sắc của Nhà nghiên cứu (I) và khả năng thực thi thực tế của nhóm Thực tế (R). Bạn là người biến các lý thuyết khoa học phức tạp thành các hệ thống công cụ và sản phẩm hoạt động trơn tru.",
+          "Bạn ưa thích tự tay thiết kế, thử nghiệm và tối ưu hóa hệ thống máy móc, phần mềm hoặc thiết bị công nghệ mới để nâng cao năng suất."
+        ]
+      },
+      "IS": {
+        name: "Chuyên Gia Khoa Học & Truyền Đạt",
+        desc: [
+          "Sự hòa quyện giữa tình yêu tri thức và sự thấu hiểu tâm lý con người. Bạn vừa có khả năng nghiên cứu chuyên sâu, vừa biết cách truyền cảm hứng, hướng dẫn và giúp đỡ người khác tiếp cận khoa học.",
+          "Phù hợp xuất sắc với vai trò bác sĩ, giảng viên đại học, chuyên gia tư vấn tâm lý hoặc nhà nghiên cứu giáo dục."
+        ]
+      },
+      "SE": {
+        name: "Nhà Lãnh Đạo Truyền Cảm Hứng",
+        desc: [
+          "Bạn kết hợp khả năng thấu cảm xã hội với năng lực dẫn dắt, thuyết phục và phát triển tổ chức. Bạn xuất sắc trong việc gắn kết đội ngũ và định hướng mục tiêu chung.",
+          "Thích hợp với quản lý nhân sự, quản trị giáo dục, điều hành tổ chức phi chính phủ và lãnh đạo doanh nghiệp cộng đồng."
+        ]
+      },
+      "RC": {
+        name: "Chuyên Gia Kỹ Thuật & Quy Trình",
+        desc: [
+          "Bạn làm việc với độ chính xác tuyệt đối, tuân thủ tiêu chuẩn chất lượng cao và vận hành hệ thống máy móc hoặc cơ sở dữ liệu một cách khoa học.",
+          "Rất phù hợp với kỹ sư vận hành, chuyên gia kiểm định chất lượng, kiến trúc sư hạ tầng và an ninh mạng."
+        ]
+      }
+    };
+
+    const HOLLAND_META = {
+      I: {
+        code: "I",
+        name: "Nghiên cứu",
+        fullName: "I · Nghiên cứu",
+        desc: "Nhóm Nghiên cứu liên quan đến lý thuyết, phân tích, khoa học, công nghệ và khám phá tri thức."
+      },
+      A: {
+        code: "A",
+        name: "Nghệ thuật",
+        fullName: "A · Nghệ thuật",
+        desc: "Nhóm Nghệ thuật liên quan đến nghệ thuật, thiết kế, ngôn ngữ, biểu đạt cá nhân và sáng tạo."
+      },
+      S: {
+        code: "S",
+        name: "Xã hội",
+        fullName: "S · Xã hội",
+        desc: "Nhóm Xã hội liên quan đến hợp tác, giáo dục, hướng dẫn, tư vấn, giúp đỡ và chăm sóc con người."
+      },
+      E: {
+        code: "E",
+        name: "Doanh nghiệp",
+        fullName: "E · Doanh nghiệp",
+        desc: "Nhóm Doanh nghiệp liên quan đến lãnh đạo, thuyết phục, quản lý, kinh doanh và hướng đến mục tiêu."
+      },
+      C: {
+        code: "C",
+        name: "Quy trình",
+        fullName: "C · Quy trình",
+        desc: "Nhóm Quy trình liên quan đến tổ chức, dữ liệu, số liệu, cẩn thận, quy chuẩn và hệ thống chi tiết."
+      },
+      R: {
+        code: "R",
+        name: "Thực tế",
+        fullName: "R · Thực tế",
+        desc: "Nhóm Thực tế liên quan đến kỹ thuật, máy móc, công cụ, vận động thể chất và môi trường thực tiễn."
+      }
+    };
+
+    // PRESET PROFILES
+    const PRESETS = {
+      "IAS": {
+        scores: { R: 20, I: 60, A: 60, S: 60, E: 40, C: 30 },
+        code: "IAS",
+        top3: ["I", "A", "S"]
+      },
+      "IRC": {
+        scores: { R: 70, I: 85, A: 40, S: 35, E: 50, C: 65 },
+        code: "IRC",
+        top3: ["I", "R", "C"]
+      },
+      "SEC": {
+        scores: { R: 25, I: 50, A: 45, S: 80, E: 75, C: 60 },
+        code: "SEC",
+        top3: ["S", "E", "C"]
+      }
+    };
+
+    let currentProfile = PRESETS["IAS"];
+
+    function initReport() {
+      // Check if user clicked USER or default
+      loadProfilePreset("USER");
+      loadLabsAndSynthesis();
+    }
+
+    function clearLabHistory() {
+      if (confirm("Bạn có chắc chắn muốn xóa lịch sử làm các phòng Lab để thực hiện lại từ đầu?")) {
+        localStorage.removeItem('completedLabs');
+        localStorage.removeItem('labEvaluations');
+        alert("Đã xóa lịch sử thành công!");
+        window.location.reload();
+      }
+    }
+
+    function loadProfilePreset(presetKey) {
+      document.querySelectorAll('.profile-switcher .switcher-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById('btn-preset-' + presetKey);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (presetKey === "USER") {
+        const stored = localStorage.getItem('recommendInput');
+        if (stored) {
+          const data = JSON.parse(stored);
+          const tally = data.hollandTally || { I: 6, A: 5, S: 4, E: 3, C: 2, R: 1 };
+          // Calculate percentage based on max tally ~ 10
+          let scores = {};
+          Object.keys(HOLLAND_META).forEach(k => {
+            scores[k] = Math.min(100, Math.round(((tally[k] || 0) / 10) * 100));
+          });
+          const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+          const top3 = sorted.slice(0, 3).map(i => i[0]);
+          currentProfile = {
+            scores: scores,
+            code: top3.join(''),
+            top3: top3
+          };
+        } else {
+          alert("Bạn chưa có dữ liệu trắc nghiệm cá nhân trong trình duyệt. Hệ thống hiển thị mẫu mặc định.");
+          loadProfilePreset("IAS");
+          return;
+        }
+      } else {
+        currentProfile = PRESETS[presetKey] || PRESETS["IAS"];
+      }
+
+      renderHollandReport();
+      // Ensure labs list is updated
+      if (typeof loadLabsAndSynthesis === 'function') {
+        loadLabsAndSynthesis();
+      }
+    }
+
+    function renderHollandReport() {
+      const { scores, code, top3 } = currentProfile;
+
+      // 1. Update badges
+      document.getElementById('holland-code-badge').textContent = code;
+      document.getElementById('archetype-code-badge').textContent = code.slice(0, 2);
+
+      // 2. Render Top 3 Cards
+      const top3Container = document.getElementById('top-three-cards');
+      top3Container.innerHTML = '';
+      top3.forEach((typeCode, idx) => {
+        const meta = HOLLAND_META[typeCode];
+        const pct = scores[typeCode];
+        top3Container.innerHTML += `
+          <div class="type-highlight-box">
+            <div class="type-rank-lbl">#${idx + 1}</div>
+            <div class="type-name-lbl">${meta.name}</div>
+            <div class="type-score-val">${pct}%</div>
+          </div>
+        `;
+      });
+
+      // 3. Render Rank Table
+      const tbody = document.getElementById('holland-ranking-tbody');
+      tbody.innerHTML = '';
+      // Sort all 6 types by score
+      const sortedAll = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      sortedAll.forEach(([typeCode, score], index) => {
+        const meta = HOLLAND_META[typeCode];
+        tbody.innerHTML += `
+          <tr>
+            <td class="rank-num">${index + 1}</td>
+            <td class="rank-area-name">${meta.fullName}</td>
+            <td class="rank-score-cell">${score}%</td>
+            <td class="rank-meaning-cell">${meta.desc}</td>
+          </tr>
+        `;
+      });
+
+      // 4. Render Archetype Info
+      const archKey = code.slice(0, 2);
+      const arch = ARCHETYPES[archKey] || ARCHETYPES["IA"];
+      document.getElementById('archetype-title').textContent = arch.name;
+      const descBox = document.getElementById('archetype-description-box');
+      descBox.innerHTML = arch.desc.map(p => `<p class="archetype-desc">${p}</p>`).join('');
+
+      // 5. Draw Interactive SVG Chart
+      drawHollandChart(scores);
+
+      lucide.createIcons();
+    }
+
+    function drawHollandChart(scores) {
+      const svg = document.getElementById('holland-chart-svg');
+      const box = document.getElementById('holland-chart-box');
+      if (!svg || !box) return;
+
+      const order = ["R", "I", "A", "S", "E", "C"];
+      const bands = box.querySelectorAll('.chart-band');
+      if (bands.length < 6) return;
+
+      // Get positions relative to SVG
+      const svgRect = svg.getBoundingClientRect();
+      const points = [];
+
+      bands.forEach((band, i) => {
+        const rect = band.getBoundingClientRect();
+        const x = rect.left - svgRect.left + rect.width / 2;
+        const score = scores[order[i]] || 0;
+        // height of band area ~ 180px. Score 100% -> y = 30px, Score 0% -> y = 150px
+        const minY = 35;
+        const maxY = 155;
+        const y = maxY - (score / 100) * (maxY - minY);
+        points.push({ x, y, score, letter: order[i] });
+      });
+
+      // Build SVG Polyline path & circles
+      let pathD = points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+
+      let svgContent = `
+        <path d="${pathD}" fill="none" stroke="#0d9488" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+      `;
+
+      points.forEach(p => {
+        svgContent += `
+          <circle cx="${p.x}" cy="${p.y}" r="6.5" fill="#ffffff" stroke="#0d9488" stroke-width="3" />
+        `;
+      });
+
+      svg.innerHTML = svgContent;
+    }
+
+    function loadLabsAndSynthesis() {
+      const labsList = document.getElementById('completed-labs-list');
+      const storedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      const labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+
+      const allLabsMeta = [
+        { id: 'ai', name: 'Phòng Lab Kỹ sư AI', url: 'LAB/huong-nghiep-ai-lab.html' },
+        { id: 'cs', name: 'Phòng Lab Khoa Học Máy Tính', url: 'LAB/huong-nghiep-khoa-hoc-may-tinh-lab.html' },
+        { id: 'y_khoa', name: 'Phòng Lab Y Tế Lâm Sàng', url: 'LAB/huong-nghiep-y-te-lab.html' },
+        { id: 'kinh_te', name: 'Phòng Lab Kinh Tế & Quản Trị', url: 'LAB/huong-nghiep-kinh-te-lab.html' },
+        { id: 'ky_thuat', name: 'Phòng Lab Kỹ Thuật Điện', url: 'LAB/huong-nghiep-ky-thuat-lab.html' },
+        { id: 'phap_luat', name: 'Phòng Lab Luật Sư', url: 'LAB/huong-nghiep-phap-luat-lab.html' },
+        { id: 'nong_nghiep', name: 'Phòng Lab Kỹ Sư Nông Nghiệp', url: 'LAB/huong-nghiep-nong-nghiep-lab.html' },
+        { id: 'giao_duc', name: 'Phòng Lab Giáo Dục', url: 'LAB/huong-nghiep-giao-duc-lab.html' },
+        { id: 'co_khi', name: 'Phòng Lab Kỹ Sư Cơ Khí', url: 'LAB/huong-nghiep-co-khi-lab.html' }
+      ];
+
+      labsList.innerHTML = '';
+      let labCount = 0;
+      let sumLabScore = 0;
+
+      allLabsMeta.forEach(lab => {
+        const score = storedLabs[lab.id];
+        if (score !== undefined && score !== null) {
+          labCount++;
+          sumLabScore += score;
+          const evaluationHtml = labEvaluations[lab.id] || 'Đã hoàn thành xuất sắc nhiệm vụ phòng Lab.';
+          labsList.innerHTML += `
+            <div class="lab-item-card" style="display:flex; flex-direction:column; gap:12px; padding:20px; background:#fff; border:1px solid var(--card-border); border-radius:12px; margin-bottom:16px; grid-column: 1 / -1; text-align: left;">
+              <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                <span class="lab-item-name" style="font-weight:700; font-size:16px; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
+                  <i data-lucide="check-circle" style="width:18px;height:18px;color:#0d9488;"></i> ${lab.name}
+                </span>
+                <span class="lab-item-score" style="background:#e6faf5; color:#0d9488; padding:4px 12px; border-radius:20px; font-weight:700; font-size:14px;">${score}%</span>
+              </div>
+              <div class="lab-item-evaluation" style="font-size:13.5px; color:var(--text-muted); line-height:1.6; border-top:1px dashed #e2e8f0; padding-top:12px;">
+                ${evaluationHtml}
+              </div>
+            </div>
+          `;
+        } else {
+          // Lab is NOT completed yet - show 'Làm thêm' option
+          labsList.innerHTML += `
+            <div class="lab-item-card" style="display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:#f8fafc; border:1px dashed var(--card-border); border-radius:12px; margin-bottom:12px; grid-column: 1 / -1; text-align: left;">
+              <span class="lab-item-name" style="font-weight:600; font-size:15px; color:var(--text-light); display:flex; align-items:center; gap:8px;">
+                <i data-lucide="help-circle" style="width:18px;height:18px;color:var(--text-light);"></i> ${lab.name} (Chưa thực hiện)
+              </span>
+              <button class="btn-report-action btn-action-primary" onclick="window.location.href='${lab.url}'" style="padding:6px 14px; font-size:12px; border-radius:8px; background:#0d9488; color:#fff;">
+                Làm thêm
+              </button>
+            </div>
+          `;
+        }
+      });
+
+      const synthesisSec = document.querySelector('.synthesis-section');
+      if (labCount === 0) {
+        if (synthesisSec) synthesisSec.style.display = 'none';
+      } else {
+        if (synthesisSec) synthesisSec.style.display = 'block';
+      }
+
+      // Calculate combined readiness score
+      const avgLab = labCount > 0 ? Math.round(sumLabScore / labCount) : 85;
+      const combinedFit = Math.round((currentProfile.scores.I * 0.5) + (avgLab * 0.5));
+      document.getElementById('combined-fit-score').textContent = combinedFit + '%';
+
+      // Load recommended careers cards
+      renderRecommendedCareers();
+    }
+
+    function renderRecommendedCareers() {
+      const container = document.getElementById('recommended-careers-list');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div style="grid-column: 1/-1; text-align:center; padding: 24px; color: var(--text-muted);">
+          <i class="animate-spin" data-lucide="loader-2" style="width:24px; height:24px; margin: 0 auto 8px;"></i>
+          Đang tính toán đề xuất học thuật phù hợp...
+        </div>
+      `;
+      lucide.createIcons();
+
+      // Read current scores and lab results
+      const { scores } = currentProfile;
+      const storedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+
+      // Category mapper helper
+      function getMajorCategory(code) {
+        if (!code) return 'other';
+        const prefix3 = code.substring(0, 3);
+        const prefix5 = code.substring(0, 5);
+        if (prefix3 === '748' || prefix3 === '786') return 'tech';
+        if (prefix3 === '734' || prefix3 === '731') return 'business';
+        if (prefix3 === '772') return 'health';
+        if (prefix3 === '721' || prefix3 === '722') return 'creative';
+        if (prefix3 === '714' || prefix3 === '511') return 'edu';
+        if (prefix3 === '738') return 'law';
+        if (prefix3 === '751' || prefix3 === '752' || prefix3 === '758') return 'me';
+        if (prefix5 === '75402') return 'textiles';
+        if (prefix3 === '762' || prefix3 === '764') return 'agri';
+        return 'other';
+      }
+
+      // Holland weight mapping per category
+      const categoryHollandWeights = {
+        tech: { I: 0.4, R: 0.3, C: 0.2, A: 0.1, S: 0.0, E: 0.0 },
+        business: { E: 0.4, C: 0.3, S: 0.2, I: 0.1, R: 0.0, A: 0.0 },
+        health: { I: 0.4, S: 0.3, R: 0.2, C: 0.1, A: 0.0, E: 0.0 },
+        creative: { A: 0.5, S: 0.3, I: 0.2, R: 0.0, E: 0.0, C: 0.0 },
+        edu: { S: 0.4, A: 0.3, E: 0.2, I: 0.1, R: 0.0, C: 0.0 },
+        law: { E: 0.4, I: 0.3, C: 0.2, S: 0.1, R: 0.0, A: 0.0 },
+        me: { R: 0.4, I: 0.3, C: 0.2, A: 0.1, S: 0.0, E: 0.0 },
+        agri: { R: 0.4, I: 0.3, S: 0.2, C: 0.1, A: 0.0, E: 0.0 },
+        textiles: { A: 0.4, R: 0.3, C: 0.2, E: 0.1, I: 0.0, S: 0.0 },
+        other: { I: 0.2, R: 0.2, A: 0.2, S: 0.2, E: 0.2, C: 0.2 }
+      };
+
+      // Lab ID mappings per category
+      const categoryLabIds = {
+        tech: ['ai', 'cs'],
+        business: ['kinh_te'],
+        health: ['y_khoa'],
+        creative: [],
+        edu: ['giao_duc'],
+        law: ['phap_luat'],
+        me: ['ky_thuat', 'co_khi'],
+        agri: ['nong_nghiep'],
+        textiles: [],
+        other: []
+      };
+
+      fetch('nhomnganh.json')
+        .then(res => res.json())
+        .then(majorsData => {
+          const validMajors = majorsData.filter(m => m.name && m.overview);
+
+          // Calculate match score for each major
+          const scoredMajors = validMajors.map(major => {
+            const cat = getMajorCategory(major.code);
+            
+            // 1. Holland match calculation (0-100)
+            const weights = categoryHollandWeights[cat] || categoryHollandWeights.other;
+            let hollandScore = 0;
+            Object.entries(weights).forEach(([type, weight]) => {
+              hollandScore += (scores[type] || 50) * weight;
+            });
+
+            // 2. Lab match calculation (0-100)
+            const labIds = categoryLabIds[cat] || [];
+            let labScore = 55; // Baseline score
+            let completedCount = 0;
+            let completedSum = 0;
+            
+            labIds.forEach(id => {
+              if (storedLabs[id] !== undefined && storedLabs[id] !== null) {
+                completedCount++;
+                completedSum += storedLabs[id];
+              }
+            });
+            
+            if (completedCount > 0) {
+              labScore = completedSum / completedCount;
+            }
+
+            // 3. Combined score
+            // If user completed a lab in this category, give it higher weight (60% lab, 40% holland)
+            // otherwise (80% holland, 20% baseline lab)
+            const hasLab = completedCount > 0;
+            const finalScore = hasLab
+              ? Math.round(hollandScore * 0.4 + labScore * 0.6)
+              : Math.round(hollandScore * 0.8 + labScore * 0.2);
+
+            // Clean overview text for card
+            let cleanOverview = major.overview.replace(/^Tổng quan về ngành\n/i, '').replace(/\n/g, ' ');
+            if (cleanOverview.length > 120) {
+              cleanOverview = cleanOverview.substring(0, 117) + '...';
+            }
+
+            return {
+              ...major,
+              matchScore: Math.min(99, Math.max(30, finalScore)), // Keep in range 30-99%
+              overviewClean: cleanOverview
+            };
+          });
+
+          // Sort by match score descending and take top 3
+          scoredMajors.sort((a, b) => b.matchScore - a.matchScore);
+          const top3 = scoredMajors.slice(0, 3);
+
+          container.innerHTML = top3.map(m => `
+            <div class="career-match-card">
+              <div>
+                <div class="career-card-top">
+                  <span class="match-pct-pill">${m.matchScore}% Phù hợp</span>
+                  <i data-lucide="sparkles" style="color:#0d9488;width:18px;height:18px;"></i>
+                </div>
+                <h3 class="career-card-title">${m.name}</h3>
+                <p class="career-card-desc">${m.overviewClean}</p>
+              </div>
+              <button class="btn-try-lab" onclick="window.location.href='nhom-nganh.html?code=${m.code}'">
+                Chi tiết ngành học <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+              </button>
+            </div>
+          `).join('');
+
+          lucide.createIcons();
+        })
+        .catch(err => {
+          console.error("Error generating career recommendations:", err);
+          container.innerHTML = `
+            <div style="grid-column: 1/-1; padding: 24px; background:#f8fafc; border-radius:12px; text-align:center; color:var(--text-muted);">
+              Không thể tải dữ liệu đề xuất thông minh vào lúc này.
+            </div>
+          `;
+        });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initReport();
+      window.addEventListener('resize', () => drawHollandChart(currentProfile.scores));
+    });
+  </script>
+</body>
+
+</html>

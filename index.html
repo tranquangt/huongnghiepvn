@@ -669,191 +669,243 @@
 
     /* FEATURES GRID */
     .features-section {
-      padding: 100px 48px;
-      background: white;
+      padding: 60px 48px;
+      background: radial-gradient(circle at 10% 20%, rgba(240, 253, 246, 0.5) 0%, rgba(255, 255, 255, 1) 100%);
+      position: relative;
     }
 
     .section-header-center {
       text-align: center;
       max-width: 700px;
-      margin: 0 auto 60px;
+      margin: 0 auto 40px;
+      position: relative;
+      z-index: 2;
     }
 
     .section-header-center .section-badge {
       display: inline-flex;
       align-items: center;
-      background: var(--green-50);
-      border: 1px solid var(--green-100);
+      background: linear-gradient(135deg, var(--green-50) 0%, var(--green-100) 100%);
+      border: 1px solid var(--green-200);
       color: var(--green-700);
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 6px 16px;
+      border-radius: 30px;
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(26, 170, 99, 0.05);
     }
 
     .section-header-center h2 {
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 800;
       color: var(--gray-900);
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-      line-height: 1.3;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+      line-height: 1.25;
+      background: linear-gradient(135deg, var(--gray-900) 30%, var(--green-800) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .section-header-center p {
       font-size: 16px;
       color: var(--gray-500);
+      line-height: 1.6;
     }
 
     .features-main-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 32px;
       max-width: 1200px;
       margin: 0 auto 32px;
+      position: relative;
+      z-index: 2;
     }
 
     .feature-large-card {
-      background: linear-gradient(135deg, var(--teal-50) 0%, #f0fdf9 100%);
-      border: 1px solid var(--teal-100);
+      background: linear-gradient(145deg, rgba(29, 158, 117, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%);
+      border: 1px solid rgba(29, 158, 117, 0.15);
       border-radius: var(--radius-xl);
       padding: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 480px;
+      justify-content: flex-start;
+      gap: 24px;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255,255,255,0.6);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .feature-large-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(52, 193, 122, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      filter: blur(20px);
+    }
+
+    .feature-large-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(29, 158, 117, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(29, 158, 117, 0.15);
     }
 
     .feature-large-info {
-      max-width: 480px;
+      max-width: 520px;
       z-index: 2;
+      display: flex;
+      flex-direction: column;
     }
 
     .feature-large-badge {
-      display: inline-block;
-      background: var(--teal-100);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--teal-100) 0%, var(--teal-50) 100%);
       color: var(--teal-700);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 30px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(29, 158, 117, 0.1);
+      align-self: flex-start;
     }
 
     .feature-large-info h3 {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
       color: var(--gray-900);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-large-info h3 .lucide {
+      color: var(--teal-600);
     }
 
     .feature-large-info p {
-      font-size: 14px;
+      font-size: 14.5px;
       color: var(--gray-600);
       line-height: 1.7;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .feature-large-visual {
-      background: white;
-      border: 1px solid var(--gray-200);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(229, 231, 235, 0.5);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 24px;
       box-shadow: var(--shadow-lg);
-      margin-top: 20px;
+      margin-top: 10px;
       z-index: 2;
     }
 
     .visual-lab-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 16px;
     }
 
     .visual-lab-item {
-      background: var(--gray-50);
+      background: white;
       border: 1px solid var(--gray-100);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 20px 16px;
       text-align: center;
-      transition: all 0.25s;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
     }
 
     .visual-lab-item:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
       border-color: var(--teal-400);
-      box-shadow: var(--shadow);
+      box-shadow: 0 12px 24px -10px rgba(29, 158, 117, 0.15);
     }
 
     .visual-lab-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      margin: 0 auto 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      margin: 0 auto 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 24px;
+      transition: transform 0.3s;
+    }
+
+    .visual-lab-item:hover .visual-lab-icon {
+      transform: scale(1.1) rotate(4deg);
     }
 
     .visual-lab-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--gray-800);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .visual-lab-tasks {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--gray-500);
+      font-weight: 500;
     }
 
     .features-side-grid {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 20px;
     }
 
     .feature-side-card {
       background: white;
-      border: 1px solid var(--gray-200);
+      border: 1px solid rgba(229, 231, 235, 0.8);
       border-radius: var(--radius-xl);
-      padding: 32px;
+      padding: 20px 24px;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.3s;
-      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.03);
     }
 
     .feature-side-card:hover {
-      border-color: var(--green-200);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+      border-color: var(--green-300);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -12px rgba(26, 170, 99, 0.12);
     }
 
     .feature-side-icon {
       width: 48px;
       height: 48px;
-      border-radius: var(--radius);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .feature-side-info h3 {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 19px;
+      font-weight: 800;
       color: var(--gray-900);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
     }
 
     .feature-side-info p {
@@ -862,9 +914,76 @@
       line-height: 1.6;
     }
 
+    /* MINI SEARCH MOCKUP */
+    .mini-search-mockup {
+      margin-top: 18px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 14px;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msm-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    .msm-input .lucide {
+      width: 14px;
+      height: 14px;
+      color: var(--gray-400);
+    }
+
+    .msm-result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border: 1px solid var(--gray-100);
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+    }
+
+    .msm-school-name {
+      font-weight: 700;
+      color: var(--gray-800);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .msm-school-name .lucide {
+      width: 14px;
+      height: 14px;
+      color: var(--teal-600);
+    }
+
+    .msm-score-val {
+      font-weight: 800;
+      color: var(--teal-700);
+      font-size: 12px;
+      background: var(--teal-50);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--teal-100);
+    }
+
     /* MINI SALARY TABLE inside card */
     .mini-salary-table {
-      margin-top: 14px;
+      margin-top: 16px;
       background: var(--gray-50);
       border: 1px solid var(--gray-200);
       border-radius: var(--radius);
@@ -874,7 +993,7 @@
 
     .mst-header {
       display: grid;
-      grid-template-columns: 1.2fr 0.9fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
       font-weight: 700;
       color: var(--gray-500);
       border-bottom: 1px solid var(--gray-200);
@@ -884,8 +1003,8 @@
 
     .mst-row {
       display: grid;
-      grid-template-columns: 1.2fr 0.9fr 1fr;
-      padding: 6px 0;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
+      padding: 8px 0;
       border-bottom: 1px dashed var(--gray-200);
       align-items: center;
     }
@@ -896,8 +1015,10 @@
     }
 
     .mst-name {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--gray-900);
+      display: flex;
+      align-items: center;
     }
 
     .mst-val {
@@ -906,12 +1027,28 @@
 
     .mst-val.text-green {
       color: var(--green-600);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .mst-val.text-bold {
       font-weight: 700;
       color: var(--teal-600);
+    }
+
+    .trend-badge {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: 6px;
+    }
+
+    .trend-badge.positive {
+      background: var(--green-100);
+      color: var(--green-700);
     }
 
     .features-bottom-grid {
@@ -920,24 +1057,27 @@
       gap: 32px;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     .feature-bottom-card {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
+      background: white;
+      border: 1px solid rgba(229, 231, 235, 0.8);
       border-radius: var(--radius-xl);
       padding: 36px;
       display: grid;
       grid-template-columns: 80px 1fr;
       gap: 24px;
       align-items: center;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.02);
     }
 
     .feature-bottom-card:hover {
-      background: white;
-      border-color: var(--green-200);
-      box-shadow: var(--shadow);
+      border-color: var(--green-300);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -12px rgba(26, 170, 99, 0.12);
     }
 
     .feature-bottom-icon {
@@ -948,13 +1088,19 @@
       align-items: center;
       justify-content: center;
       font-size: 38px;
+      transition: transform 0.3s;
+    }
+
+    .feature-bottom-card:hover .feature-bottom-icon {
+      transform: rotate(-4deg) scale(1.05);
     }
 
     .feature-bottom-info h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 6px;
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 8px;
       color: var(--gray-900);
+      letter-spacing: -0.3px;
     }
 
     .feature-bottom-info p {
@@ -1880,8 +2026,10 @@
     <div class="nav-links">
       <a href="#problems" class="nav-link">Nỗi lo chọn ngành</a>
       <a href="#features" class="nav-link">Giải pháp</a>
-      <a href="#testimonials" class="nav-link">Ý kiến học sinh</a>
-      <a href="#press" class="nav-link">Báo chí đưa tin</a>
+      <a href="#so-lieu" class="nav-link">Số liệu thực tế</a>
+      <a href="#testimonials" class="nav-link">Phản hồi của người dùng</a>
+      <a href="#team" class="nav-link">Đội ngũ</a>
+      <a href="#faq" class="nav-link">Câu hỏi thường gặp</a>
       <a href="trang-chu.html" class="nav-cta">Khám phá ngay →</a>
     </div>
   </nav>
@@ -1909,7 +2057,7 @@
           <div class="hero-trust-title">Điểm chuẩn & Đề án từ các trường đại học hàng đầu</div>
           <div class="trust-logos-row">
             <div class="trust-logo-card" title="Đại học Bách Khoa Hà Nội">
-              <img src="logos/hust_logo.png" alt="HUST">
+              <img src="logos/bka.png" alt="HUST">
             </div>
             <div class="trust-logo-card" title="Đại học Kinh tế Quốc dân">
               <img src="logos/NEU.png" alt="NEU">
@@ -2041,8 +2189,7 @@
     <div class="section-header-center">
       <div class="section-badge"><i data-lucide="zap"></i> Hệ sinh thái định hướng</div>
       <h2>Công cụ thông minh giải quyết mọi nỗi lo chọn ngành</h2>
-      <p>Chúng tôi xây dựng các tính năng tương tác thực tế giúp học sinh chủ động tìm kiếm lộ trình đại học và công
-        việc phù hợp nhất.</p>
+      <p>Chúng tôi xây dựng các tính năng tương tác thực tế giúp học sinh chủ động tìm kiếm lộ trình đại học và công việc phù hợp nhất.</p>
     </div>
 
     <div class="features-main-grid">
@@ -2052,35 +2199,28 @@
           <span class="feature-large-badge"><i data-lucide="sparkles"></i> Độc quyền tại Việt Nam</span>
           <h3><i data-lucide="microscope"></i> Phòng Lab Trải Nghiệm Nghề Nghiệp</h3>
           <p>
-            Không chỉ là đọc lý thuyết. Bạn được hóa thân và thực hiện trực tiếp 3 nhiệm vụ thực tế của từng ngành nghề
-            (Kỹ sư AI, Bác sĩ, Luật sư, Lập trình viên...).
-            Chỉ sử dụng kiến thức THPT, không cần học trước chuyên ngành để tự cảm nhận xem bản thân có thực sự yêu
-            thích.
+            Không chỉ là đọc lý thuyết khô khan. Bạn được hóa thân và trực tiếp thực hiện 3 nhiệm vụ thực tế của từng ngành nghề (Kỹ sư AI, Bác sĩ, Lập trình viên...). Chỉ sử dụng kiến thức bậc THPT để tự trải nghiệm và thấu hiểu xem bản thân có thực sự yêu thích nghề đó hay không.
           </p>
-          <a href="LAB/huong-nghiep-ai-lab.html" class="btn-primary"
-            style="padding: 10px 24px; font-size:14px; align-self: flex-start;">Thử làm Kỹ sư AI ngay →</a>
+          <a href="LAB/huong-nghiep-ai-lab.html" class="btn-primary" style="padding: 10px 24px; font-size:14px; align-self: flex-start;">Thử làm Kỹ sư AI ngay →</a>
         </div>
 
         <div class="feature-large-visual">
           <div class="visual-lab-row">
             <!-- Lab item 1 -->
             <div class="visual-lab-item">
-              <div class="visual-lab-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)"><i
-                  data-lucide="bot"></i></div>
+              <div class="visual-lab-icon" style="background: linear-gradient(135deg, #667eea, #764ba2)"><i data-lucide="bot"></i></div>
               <div class="visual-lab-title">Kỹ sư AI</div>
               <div class="visual-lab-tasks">Phân loại dữ liệu, Bayes</div>
             </div>
             <!-- Lab item 2 -->
             <div class="visual-lab-item">
-              <div class="visual-lab-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)"><i
-                  data-lucide="stethoscope"></i></div>
+              <div class="visual-lab-icon" style="background: linear-gradient(135deg, #fa709a, #fee140)"><i data-lucide="stethoscope"></i></div>
               <div class="visual-lab-title">Bác sĩ</div>
               <div class="visual-lab-tasks">Chẩn đoán, Tính liều thuốc</div>
             </div>
             <!-- Lab item 3 -->
             <div class="visual-lab-item">
-              <div class="visual-lab-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><i
-                  data-lucide="bar-chart-3"></i></div>
+              <div class="visual-lab-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe)"><i data-lucide="bar-chart-3"></i></div>
               <div class="visual-lab-title">Chuyên viên Kinh tế</div>
               <div class="visual-lab-tasks">Lãi suất kép, Cung cầu</div>
             </div>
@@ -2092,80 +2232,70 @@
       <div class="features-side-grid">
         <!-- Feature 1: Score predictor -->
         <div class="feature-side-card">
-          <div class="feature-side-icon" style="background: var(--teal-50); color: var(--teal-600);"><i
-              data-lucide="graduation-cap"></i></div>
+          <div class="feature-side-icon" style="background: var(--teal-50); color: var(--teal-600);"><i data-lucide="graduation-cap"></i></div>
           <div class="feature-side-info">
-            <h3>Tra cứu & Dự báo đỗ đại học</h3>
-            <p>Nhập điểm các môn thi tốt nghiệp, hệ thống tự động gợi ý danh sách các trường đại học trên cả nước và
-              hiển thị xác suất đậu cụ thể theo từng ngành học.</p>
+            <h3>Tra cứu điểm chuẩn & Thông tin trường</h3>
+            <p>Hệ thống tổng hợp điểm chuẩn các năm của các trường Đại học hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm, so sánh và lựa chọn trường học phù hợp.</p>
+            
+            <!-- Upgraded mini mockup for school search -->
+            <div class="mini-search-mockup">
+              <div class="msm-input">
+                <i data-lucide="search"></i>
+                <span>Tìm kiếm trường: Bách Khoa...</span>
+              </div>
+              <div class="msm-result-row">
+                <span class="msm-school-name"><i data-lucide="award"></i> ĐH Bách Khoa Hà Nội (HUST)</span>
+                <span class="msm-score-val">Điểm chuẩn: 26.5</span>
+              </div>
+            </div>
           </div>
         </div>
+
         <!-- Feature 2: Career Salary Table -->
         <div class="feature-side-card">
-          <div class="feature-side-icon" style="background: var(--amber-50); color: var(--amber-600);"><i
-              data-lucide="banknote"></i></div>
+          <div class="feature-side-icon" style="background: var(--amber-50); color: var(--amber-600);"><i data-lucide="banknote"></i></div>
           <div class="feature-side-info">
-            <h3>Bảng lương & Thu nhập theo nghề</h3>
-            <p>Thống kê chi tiết thu nhập trung bình thực tế tại thị trường Việt Nam giúp bạn định hình mục tiêu tài
-              chính.</p>
+            <h3>Bảng lương & Thu nhập thực tế</h3>
+            <p>Thống kê chi tiết thu nhập trung bình thực tế tại thị trường Việt Nam giúp bạn định hình mục tiêu tài chính rõ ràng hơn.</p>
             <div class="mini-salary-table">
               <div class="mst-header">
                 <span>Ngành nghề</span>
                 <span>Khởi điểm</span>
-                <span>5 năm kn</span>
+                <span>5 năm kinh nghiệm</span>
               </div>
               <div class="mst-row">
-                <span class="mst-name"><i data-lucide="monitor"></i> CNTT & AI</span>
+                <span class="mst-name"><i data-lucide="monitor" style="width:14px; margin-right:4px;"></i> CNTT & AI <span class="trend-badge positive"><i data-lucide="trending-up" style="width:8px;"></i> +15%</span></span>
                 <span class="mst-val text-green">15 - 25 tr</span>
                 <span class="mst-val text-bold">45 - 80 tr</span>
               </div>
               <div class="mst-row">
-                <span class="mst-name"><i data-lucide="stethoscope"></i> Y khoa & Dược</span>
+                <span class="mst-name"><i data-lucide="stethoscope" style="width:14px; margin-right:4px;"></i> Y khoa & Dược <span class="trend-badge positive"><i data-lucide="trending-up" style="width:8px;"></i> +8%</span></span>
                 <span class="mst-val text-green">12 - 18 tr</span>
                 <span class="mst-val text-bold">35 - 60 tr</span>
               </div>
               <div class="mst-row">
-                <span class="mst-name"><i data-lucide="bar-chart-3"></i> Kinh tế & Mkt</span>
+                <span class="mst-name"><i data-lucide="bar-chart-3" style="width:14px; margin-right:4px;"></i> Kinh tế & Mkt <span class="trend-badge positive"><i data-lucide="trending-up" style="width:8px;"></i> +5%</span></span>
                 <span class="mst-val text-green">10 - 15 tr</span>
                 <span class="mst-val text-bold">30 - 50 tr</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Bottom grid features -->
-    <div class="features-bottom-grid">
-      <!-- Feature 3 -->
-      <div class="feature-bottom-card">
-        <div class="feature-bottom-icon" style="background: var(--blue-50); color: var(--blue-600);"><i
-            data-lucide="trending-up"></i></div>
-        <div class="feature-bottom-info">
-          <h3>Xu hướng nghề nghiệp & Lương 2030</h3>
-          <p>
-            Dự báo chi tiết xu hướng tăng trưởng, mức độ đe dọa thay thế bởi trí tuệ nhân tạo (AI),
-            và thống kê thu nhập trung bình thực tế giúp bạn có quyết định chuẩn xác.
-          </p>
-        </div>
-      </div>
-      <!-- Feature 4 -->
-      <div class="feature-bottom-card">
-        <div class="feature-bottom-icon" style="background: var(--amber-50); color: var(--amber-600);"><i
-            data-lucide="briefcase"></i></div>
-        <div class="feature-bottom-info">
-          <h3>Cẩm nang nghề nghiệp chi tiết</h3>
-          <p>
-            Mô tả công việc hàng ngày, những kỹ năng then chốt, lộ trình phát triển sự nghiệp
-            và danh sách các trường đại học đào tạo tốt nhất cả nước.
-          </p>
+        <!-- Feature 3: Handbook -->
+        <div class="feature-side-card">
+          <div class="feature-side-icon" style="background: var(--blue-50); color: var(--blue-600);"><i data-lucide="briefcase"></i></div>
+          <div class="feature-side-info">
+            <h3>Cẩm nang nghề nghiệp chi tiết</h3>
+            <p>Mô tả công việc hàng ngày, những kỹ năng then chốt, lộ trình phát triển sự nghiệp và danh sách các trường đại học đào tạo tốt nhất cả nước.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SURVEY DASHBOARD SECTION -->
-  <section style="background: white; padding: 100px 48px;">
+  <section id="so-lieu" style="background: white; padding: 100px 48px;">
     <!-- SURVEY DASHBOARD CONTAINER -->
     <div class="survey-dashboard-container"
       style="max-width: 1200px; margin: 0 auto 60px; background: #f8fafc; border: 1px solid var(--gray-200); border-radius: var(--radius-xl); padding: 40px; box-shadow: var(--shadow);">
@@ -2500,9 +2630,7 @@
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            HướngNghiệpVN.online là nền tảng định hướng nghề nghiệp trực tuyến dành cho học sinh THPT. Chúng tôi cung
-            cấp bài test tính cách Holland RIASEC, thông tin về các ngành học, trường đại học, và đặc biệt là các phòng
-            Lab trải nghiệm nghề nghiệp tương tác để bạn "thử làm" trước khi quyết định.
+            HướngNghiệpVN.online là nền tảng hướng nghiệp tương tác thế hệ mới dành cho học sinh THPT. Chúng tôi thay thế các lý thuyết hướng nghiệp khô khan bằng trải nghiệm thực tế với <strong>Phòng Lab nghề nghiệp</strong>, trắc nghiệm tính cách <strong>Holland RIASEC</strong> và chuyên mục <strong>Tra cứu điểm chuẩn đại học</strong>.
           </div>
         </div>
       </div>
@@ -2514,105 +2642,55 @@
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            Phòng Lab là các mô phỏng tương tác cho phép bạn trải nghiệm công việc thực tế của từng ngành nghề. Ví dụ:
-            Lab AI cho bạn huấn luyện mô hình nhận diện ảnh, Lab Y tế cho bạn chẩn đoán bệnh, Lab Cơ khí cho bạn thiết
-            kế robot. Mỗi Lab có nhiệm vụ cụ thể và phản hồi ngay lập tức để bạn hiểu rõ công việc hàng ngày của nghề
-            đó.
+            Phòng Lab mô phỏng lại các công việc thực tế của từng ngành nghề (như Kỹ sư AI, Bác sĩ, Lập trình viên...). Học sinh chỉ sử dụng kiến thức bậc THPT để trực tiếp hoàn thành các nhiệm vụ mô phỏng này, qua đó tự cảm nhận xem mình có thực sự yêu thích công việc hàng ngày của ngành nghề đó hay không trước khi đặt bút đăng ký nguyện vọng.
           </div>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Tôi có thể sử dụng HướngNghiệpVN.online miễn phí không?</span>
+          <span>Làm sao để tra cứu điểm chuẩn các trường đại học?</span>
           <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            Có! Tất cả các tính năng trên HướngNghiệpVN.online đều hoàn toàn miễn phí. Bạn có thể làm bài test tính
-            cách, tra cứu điểm chuẩn, khám phá ngành nghề và trải nghiệm các phòng Lab mà không mất bất kỳ chi phí nào.
+            Bạn chỉ cần truy cập tính năng "Trường đại học" trên trang chủ. Tại đây, hệ thống tổng hợp đầy đủ điểm chuẩn qua các năm của các trường Đại học hàng đầu Việt Nam, giúp bạn dễ dàng tìm kiếm, lọc theo tổ hợp môn hoặc so sánh mức điểm chuẩn giữa các năm để lựa chọn trường phù hợp nhất.
           </div>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Làm sao để tra cứu điểm chuẩn đại học?</span>
+          <span>Trắc nghiệm tính cách Holland RIASEC trên trang web là gì?</span>
           <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            Vào trang chủ, chọn mục "Tra cứu điểm chuẩn", sau đó nhập điểm 3 môn của bạn (Toán, Văn, môn thứ 3). Hệ
-            thống sẽ tự động tính tổng điểm và hiển thị danh sách các trường đại học phù hợp với xác suất đậu của bạn.
-            Bạn cũng có thể lọc theo khu vực (Hà Nội, TP.HCM, Đà Nẵng...).
+            Đây là mô hình lý thuyết chọn nghề được công nhận rộng rãi trên thế giới, chia tính cách thành 6 nhóm: Kỹ thuật (R), Nghiên cứu (I), Nghệ thuật (A), Xã hội (S), Quản lý (E), Nghiệp vụ (C). Bài trắc nghiệm ngắn gọn trên HướngNghiệpVN sẽ giúp bạn xác định nhóm tính cách nổi trội và gợi ý danh sách ngành học/nghề nghiệp tương thích nhất.
           </div>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Bài test Holland RIASEC là gì?</span>
+          <span>HướngNghiệpVN.online do ai phát triển?</span>
           <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            Đây là bài test tính cách nghề nghiệp được công nhận quốc tế, phân loại con người thành 6 nhóm: Realistic
-            (Thực tế), Investigative (Nghiên cứu), Artistic (Nghệ thuật), Social (Xã hội), Enterprising (Doanh nghiệp),
-            Conventional (Truyền thống). Bài test gồm 5 câu hỏi về sở thích, kỹ năng và môi trường làm việc lý tưởng của
-            bạn, sau đó đưa ra gợi ý ngành nghề phù hợp.
+            Dự án được nghiên cứu và phát triển bởi nhóm học sinh trường THPT Lê Viết Thuật, Nghệ An (Trần Quang Tân - Founder & Lead Developer, Nguyễn Quang Dương - Support & Co-founder). Dự án đã đạt giải Nhì Cuộc thi Khoa học Kỹ thuật học sinh trung học cấp Tỉnh Nghệ An năm học 2025-2026.
           </div>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Tôi có thể làm lại bài test nhiều lần không?</span>
+          <span>Tôi có phải trả phí để sử dụng nền tảng không?</span>
           <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
         </div>
         <div class="faq-answer">
           <div class="faq-answer-content">
-            Có! Bạn có thể làm bài test bao nhiêu lần tùy thích. Mỗi lần làm lại, bạn có thể có góc nhìn khác về bản
-            thân hoặc thử các lựa chọn khác nhau để xem kết quả thay đổi như thế nào. Điều này giúp bạn khám phá nhiều
-            khía cạnh của tính cách và sở thích.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Dữ liệu điểm chuẩn có được cập nhật không?</span>
-          <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-content">
-            Chúng tôi cập nhật dữ liệu điểm chuẩn hàng năm dựa trên thông tin chính thức từ các trường đại học. Tuy
-            nhiên, do đây là dự án học sinh, một số dữ liệu có thể chưa đầy đủ. Chúng tôi khuyến khích bạn kiểm tra lại
-            thông tin trên website chính thức của trường trước khi đăng ký xét tuyển.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Tôi có thể sử dụng trên điện thoại không?</span>
-          <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-content">
-            Có! Website HướngNghiệpVN.online được thiết kế responsive, tối ưu cho cả máy tính, máy tính bảng và điện
-            thoại. Bạn có thể truy cập mọi lúc mọi nơi thông qua trình duyệt web mà không cần cài đặt ứng dụng.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFAQ(this)">
-          <span>Làm sao để liên hệ với đội ngũ phát triển?</span>
-          <span class="faq-icon"><i data-lucide="chevron-down"></i></span>
-        </div>
-        <div class="faq-answer">
-          <div class="faq-answer-content">
-            Bạn có thể liên hệ với chúng tôi qua email hoặc sđt: 0961744792
+            Hoàn toàn không. HướngNghiệpVN.online được xây dựng như một dự án hỗ trợ cộng đồng học sinh THPT Việt Nam. Tất cả các tính năng từ Trắc nghiệm tính cách Holland, Phòng Lab nghề nghiệp cho đến hệ thống tính toán gợi ý chọn ngành và xu hướng lương đều mở cửa miễn phí 100%.
           </div>
         </div>
       </div>

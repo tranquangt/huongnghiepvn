@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông tin điểm chuẩn — HướngNghiệpVN.online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    :root {
+      --primary: #105e3a;
+      --primary-light: #e6faf5;
+      --primary-gradient: linear-gradient(135deg, #0a3e27 0%, #105e3a 50%, #1d9e75 100%);
+    }
+
+    .school-hero {
+      background: var(--primary-gradient);
+      position: relative;
+      padding: 60px 40px;
+      overflow: hidden;
+      text-align: center;
+      color: white;
+    }
+
+    .school-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    }
+
+    .school-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .school-hero-logo {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+      margin: 0 auto 20px;
+      border: 3px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .school-hero-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .school-hero-logo-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    .school-hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .school-hero-subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+    }
+
+    .school-hero-badge-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .school-hero-badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .main-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .score-container-card {
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--gray-200);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px 0 36px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input-wrap input:focus {
+      border-color: var(--teal-400);
+    }
+
+    .search-icon-inside {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      pointer-events: none;
+      width: 16px;
+      height: 16px;
+    }
+
+    .major-table-header {
+      background: var(--primary-light) !important;
+      color: var(--primary) !important;
+      font-weight: 700;
+    }
+
+    .score-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .score-badge.score-high {
+      background: #fcebeb !important;
+      color: #a32d2d !important;
+    }
+
+    .score-badge.score-mid {
+      background: #fef3c7 !important;
+      color: #b45309 !important;
+    }
+
+    .score-badge.score-low {
+      background: #eff6ff !important;
+      color: #1d4ed8 !important;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray-600);
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 24px;
+      background: white;
+      border: 1.5px solid var(--gray-200);
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      color: var(--teal-600);
+      border-color: var(--teal-400);
+      background: var(--primary-light);
+    }
+
+    .empty-state {
+      padding: 40px;
+      text-align: center;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 600px) {
+      .card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .search-input-wrap {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo" style="cursor:pointer;" onclick="window.location.href='../trang-chu.html'">
+      huong<span>nghiepvn</span><em>.online</em></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="window.location.href='../trang-chu.html'">Trang chủ</button>
+      <button class="nav-cta survey-nav-btn" onclick="window.location.href='../goi-y.html'"><i data-lucide="sparkles" style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
+      <button class="nav-link active" onclick="window.location.href='../truong-dai-hoc.html'">Trường đại học</button>
+      <button class="nav-link" onclick="window.location.href='../dinh-huong.html'">Phòng Lab</button>
+      <button class="nav-link" onclick="window.location.href='../nhom-nganh.html'">Nhóm ngành</button>
+      <button class="nav-link" onclick="window.location.href='../xu-huong-luong.html'">Xu hướng &amp; Lương</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="school-hero">
+    <div class="school-hero-bg"></div>
+    <div class="school-hero-content">
+      <div class="school-hero-logo">
+        <img id="school-logo-img" src="" alt=""
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+        <div class="school-hero-logo-fallback" id="school-logo-fallback" style="display:none;"></div>
+      </div>
+      <h1 class="school-hero-title" id="school-name-title">---</h1>
+      <div class="school-hero-subtitle" id="school-code-subtitle">Mã trường: ---</div>
+
+      <div class="school-hero-badge-wrap">
+        <div class="school-hero-badge">
+          <i data-lucide="map-pin"></i> <span id="school-region">---</span>
+        </div>
+        <div class="school-hero-badge">
+          <i data-lucide="award"></i> Điểm chuẩn cao nhất: <span id="school-max-score">--.-</span>
+        </div>
+        <div class="school-hero-badge">
+          <i data-lucide="book-open"></i> Số ngành xét tuyển: <span id="school-majors-count">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-container">
+    <button class="back-btn" onclick="window.location.href='../truong-dai-hoc.html'">
+      <i data-lucide="arrow-left"></i> Quay lại danh sách trường
+    </button>
+
+    <div class="score-container-card">
+      <div class="card-header">
+        <div class="card-title">
+          <i data-lucide="bar-chart-2"></i> Danh sách điểm chuẩn năm 2025
+        </div>
+        <div class="search-input-wrap">
+          <i data-lucide="search" class="search-icon-inside"></i>
+          <input type="text" id="major-search" placeholder="Tìm tên ngành, mã ngành..."
+            oninput="handleSearch(this.value)">
+        </div>
+      </div>
+
+      <div class="major-table">
+        <div class="major-table-header">
+          <div class="major-col-name">Tên ngành đào tạo</div>
+          <div class="major-col-code">Mã ngành</div>
+          <div class="major-col-score">Điểm chuẩn 2025</div>
+          <div class="major-col-combo">Tổ hợp môn</div>
+        </div>
+        <div id="major-table-body">
+          <!-- Động -->
+        </div>
+      </div>
+      <div id="empty-message" class="empty-state" style="display: none;">Không tìm thấy ngành học nào trùng khớp.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>hướng<span>nghiệpvn</span>.online</h3>
+        <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tính năng</h4>
+        <a href="../truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+        <a href="../dinh-huong.html">Trắc nghiệm định hướng</a>
+        <a href="../nhom-nganh.html">Khám phá nhóm ngành</a>
+      </div>
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <a>Về chúng tôi</a>
+        <a>Nguồn dữ liệu</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Parse query parameter to get school code
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetCode = urlParams.get('code');
+
+    // Load school data from script.js list (schools)
+    // Since schools is declared in script.js (global const), we need to read it or fetch it.
+    // Instead of re-fetching, let's load school information from URL parameter or fetch from JSON.
+  </script>
+  <script src="../script.js"></script>
+  <script>
+    let schoolInfo = null;
+    let allMajors = [];
+    let currentSearch = '';
+
+    function init() {
+      if (!targetCode) {
+        alert("Không tìm thấy mã trường hợp lệ!");
+        window.location.href = '../truong-dai-hoc.html';
+        return;
+      }
+
+      // Find school in schools array from script.js
+      schoolInfo = schools.find(s => s.code === targetCode || s.short === targetCode);
+      if (!schoolInfo) {
+        // Fallback fallback search
+        schoolInfo = schools.find(s => s.short.toLowerCase() === targetCode.toLowerCase());
+      }
+
+      if (schoolInfo) {
+        // Setup colors
+        if (schoolInfo.color) {
+          document.documentElement.style.setProperty('--primary', schoolInfo.color);
+          document.documentElement.style.setProperty('--primary-gradient', `linear-gradient(135deg, ${darkenColor(schoolInfo.color, 30)} 0%, ${schoolInfo.color} 100%)`);
+          document.documentElement.style.setProperty('--primary-light', lightenColor(schoolInfo.color, 90));
+        }
+
+        // Fill header info
+        document.getElementById('school-name-title').textContent = schoolInfo.name;
+        document.getElementById('school-code-subtitle').textContent = `Mã trường: ${schoolInfo.code || schoolInfo.short}`;
+        document.getElementById('school-region').textContent = schoolInfo.region || 'Tỉnh khác';
+
+        const logoImg = document.getElementById('school-logo-img');
+        logoImg.src = '../' + schoolInfo.logo;
+        logoImg.alt = schoolInfo.name;
+
+        const fallback = document.getElementById('school-logo-fallback');
+        fallback.style.background = schoolInfo.color || 'var(--primary)';
+        fallback.textContent = schoolInfo.abbr || schoolInfo.short.slice(0, 3);
+      }
+
+      loadSchoolBenchmarks();
+    }
+
+    async function loadSchoolBenchmarks() {
+      try {
+        const response = await fetch('../diem_chuan_2025.json');
+        const data = await response.json();
+
+        // Filter majors for this school
+        // Match by schoolInfo.code or schoolInfo.short
+        const codeToMatch = schoolInfo ? schoolInfo.code : targetCode;
+        allMajors = data.filter(item => item.school_code === codeToMatch);
+
+        // Sort by score desc
+        allMajors.sort((a, b) => parseFloat(b.benchmark) - parseFloat(a.benchmark));
+
+        // Calculate max score
+        if (allMajors.length > 0) {
+          const maxScore = Math.max(...allMajors.map(m => parseFloat(m.benchmark) || 0));
+          document.getElementById('school-max-score').textContent = maxScore.toFixed(2);
+          document.getElementById('school-majors-count').textContent = allMajors.length;
+        } else {
+          document.getElementById('school-max-score').textContent = schoolInfo ? schoolInfo.score.toFixed(2) : '--.-';
+          document.getElementById('school-majors-count').textContent = 'N/A';
+        }
+
+        renderTable();
+      } catch (err) {
+        console.error("Lỗi tải dữ liệu điểm chuẩn:", err);
+        document.getElementById('major-table-body').innerHTML = '<div style="padding: 20px; text-align:center; color: var(--red);">Không thể tải dữ liệu điểm chuẩn. Vui lòng thử lại sau.</div>';
+      }
+    }
+
+    function getScoreClass(score) {
+      if (score >= 28) return 'score-high';
+      if (score >= 25) return 'score-high';
+      if (score >= 22) return 'score-mid';
+      return 'score-low';
+    }
+
+    function renderTable() {
+      const body = document.getElementById('major-table-body');
+      const emptyMsg = document.getElementById('empty-message');
+
+      let filteredList = allMajors;
+      if (currentSearch) {
+        filteredList = allMajors.filter(m =>
+          m.major_name.toLowerCase().includes(currentSearch) ||
+          (m.major_code && m.major_code.toLowerCase().includes(currentSearch))
+        );
+      }
+
+      if (filteredList.length === 0) {
+        body.innerHTML = '';
+        emptyMsg.style.display = 'block';
+        return;
+      }
+      emptyMsg.style.display = 'none';
+
+      body.innerHTML = filteredList.map(m => {
+        const score = parseFloat(m.benchmark) || 0;
+        const scoreClass = getScoreClass(score);
+        return `
+        <div class="major-table-row">
+          <div class="major-col-name">
+            <div class="major-name-main">${m.major_name}</div>
+            ${m.note ? `<div class="major-name-sub" style="font-size:12px; color:var(--gray-500); margin-top:2px;">${m.note}</div>` : ''}
+          </div>
+          <div class="major-col-code">${m.major_code || '---'}</div>
+          <div class="major-col-score">
+            <span class="score-badge ${scoreClass}">${score > 0 ? score.toFixed(2) : m.benchmark}</span>
+          </div>
+          <div class="major-col-combo">${m.subject_group || '---'}</div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    function handleSearch(val) {
+      currentSearch = val.trim().toLowerCase();
+      renderTable();
+    }
+
+    // Utility colors
+    function darkenColor(col, amt) {
+      let usePound = false;
+      if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+      }
+      let num = parseInt(col, 16);
+      let r = (num >> 16) - amt;
+      let b = ((num >> 8) & 0x00FF) - amt;
+      let g = (num & 0x0000FF) - amt;
+      if (r > 255) r = 255; else if (r < 0) r = 0;
+      if (b > 255) b = 255; else if (b < 0) b = 0;
+      if (g > 255) g = 255; else if (g < 0) g = 0;
+      return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+    }
+
+    function lightenColor(col, amt) {
+      let usePound = false;
+      if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+      }
+      let num = parseInt(col, 16);
+      let r = (num >> 16) + amt;
+      let b = ((num >> 8) & 0x00FF) + amt;
+      let g = (num & 0x0000FF) + amt;
+      if (r > 255) r = 255; else if (r < 0) r = 0;
+      if (b > 255) b = 255; else if (b < 0) b = 0;
+      if (g > 255) g = 255; else if (g < 0) g = 0;
+      return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+    }
+
+    // Delay init a bit to make sure script.js list loads
+    setTimeout(init, 100);
+  </script>
+</body>
+
+</html>

@@ -1,483 +1,1788 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phòng Lab · Kỹ Sư Nông Nghiệp — Hướng Nghiệp THPT</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab · Kỹ Sư Nông Nghiệp — Hướng Nghiệp THPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #fafaf8; --surface: #fff; --surface2: #f5f4f0; --ink: #111; --ink2: #555566; --ink3: #9999aa;
-    --border: #e0ddd8; --border2: #ccc; --blue: #2563eb; --blue-bg: #eff4ff;
-    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
-    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
-  }
-  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
-  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
-  .topbar-logo { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
-  .topbar-logo span { color: var(--blue); }
-  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-title { font-size: 13px; color: var(--ink2); }
-  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
-    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
-  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
-  .hero { margin-bottom: 2rem; }
-  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
-  .hero-label span { color: var(--blue); }
-  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
-  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
-  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
-    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
-  .mtab:last-child { border-right: none; }
-  .mtab:hover { background: #f3f4f6; }
-  .mtab.active { background: var(--ink); color: #fff; }
-  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
-    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
-  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
-  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
-  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-top: 1rem; line-height: 1.5; }
-  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
-  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
-  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
-  .slider-row { margin-bottom: 1rem; }
-  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
-  .slider-wrap { display: flex; align-items: center; gap: 10px; }
-  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
-  .slider-val { font-size: 13px; font-weight: 600; min-width: 52px; text-align: right; }
-  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
-    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
-  .btn-primary:hover { opacity: .85; }
-  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem; margin-top: 1.25rem; display: none; }
-  .result-box.show { display: block; }
-  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
-  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
-    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
-  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
-    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
-
-  /* Tab1: plant + fertilizer */
-  .fert-scene { display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; justify-content: center; }
-  .plant-zone { flex: 1; min-width: 200px; min-height: 220px; border: 2px dashed var(--border2); border-radius: var(--radius-lg);
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 1rem;
-    transition: border-color .2s, background .2s; position: relative; }
-  .plant-zone.over { border-color: var(--blue); background: var(--blue-bg); }
-  .plant-zone.good { border-color: var(--green); background: var(--green-bg); }
-  .plant-zone.bad { border-color: var(--amber); background: var(--amber-bg); }
-  .plant-svg { width: 140px; height: 180px; }
-  .leaf { transition: fill .5s ease; }
-  .fert-shelf { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .fert-bottle { width: 56px; padding: 8px 4px; text-align: center; cursor: grab; user-select: none;
-    border-radius: var(--radius); border: 2px solid var(--border2); background: var(--surface); transition: transform .15s; }
-  .fert-bottle:active { cursor: grabbing; transform: scale(1.08); }
-  .fert-bottle .icon { font-size: 28px; line-height: 1; }
-  .fert-bottle .lbl { font-size: 11px; font-weight: 600; margin-top: 4px; }
-  .fert-bottle[data-f="N"] { border-color: #22c55e; }
-  .fert-bottle[data-f="P"] { border-color: #f97316; }
-  .fert-bottle[data-f="K"] { border-color: #a855f7; }
-  .applied-tag { font-size: 12px; font-weight: 600; margin-top: 8px; color: var(--ink2); }
-
-  /* Tab2: irrigation grid */
-  .field-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-  .field-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; max-width: 280px; width: 100%; }
-  .field-cell { aspect-ratio: 1; border: 1.5px solid #a3a3a3; border-radius: 4px; background: #fef9c3; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background .25s, border-color .25s; }
-  .field-cell.dry { background: #fef9c3; }
-  .field-cell.wet { background: #93c5fd; border-color: #2563eb; }
-  .field-cell.pump { background: #1e40af; border-color: #1e3a8a; color: #fff; font-size: 18px; }
-  .field-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; max-width: 280px; }
-  .field-stat { background: var(--surface2); border-radius: var(--radius); padding: 10px; text-align: center; }
-  .field-stat .num { font-size: 20px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
-  .field-stat .lbl { font-size: 11px; color: var(--ink2); margin-top: 2px; }
-  .hours-bar { width: 100%; max-width: 280px; margin-top: .5rem; }
-  .hours-track { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
-  .hours-fill { height: 100%; background: var(--blue); border-radius: 5px; transition: width .35s; }
-
-  /* Tab3: yield */
-  .yield-viz { margin-bottom: 1rem; }
-  .yield-bar-track { height: 28px; background: var(--border); border-radius: 6px; overflow: hidden; margin: 8px 0; }
-  .yield-bar-fill { height: 100%; background: linear-gradient(90deg, #84cc16, #16a34a); border-radius: 6px; transition: width .35s; }
-  .finance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 1rem; }
-  .finance-box { background: var(--surface2); border-radius: var(--radius); padding: 12px; text-align: center; }
-  .finance-box .val { font-size: 18px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
-  .finance-box .lbl { font-size: 11px; color: var(--ink2); margin-top: 4px; }
-  .finance-box.profit .val { color: var(--green); }
-  .finance-box.loss .val { color: var(--red); }
-
-  @media (max-width: 600px) {
-    .page { padding: 1.5rem 1rem 3rem; }
-    .hero-title { font-size: 22px; }
-    .finance-grid { grid-template-columns: 1fr; }
-  }
-</style>
-</head>
-<body>
-<div class="topbar">
-  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-title">Kỹ Sư Nông Nghiệp</div>
-  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
-</div>
-<div class="page">
-  <div class="hero">
-    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ Sư Nông Nghiệp</div>
-    <div class="hero-title">Hôm nay bạn là kỹ sư nông nghiệp tại trang trại công nghệ cao</div>
-    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
-  </div>
-  <div class="mission-tabs">
-    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="sprout"></i> Dinh dưỡng</button>
-    <button class="mtab" onclick="switchTab(1)">💧 Tưới tiêu</button>
-    <button class="mtab" onclick="switchTab(2)"><i data-lucide="bar-chart-3"></i> Năng suất</button>
-  </div>
-
-  <!-- TAB 0: Fertilizer drag -->
-  <div id="tab0">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Ruộng lúa báo vàng lá, phát triển chậm sáng sớm. Bạn phải chọn phân bón trước khi nắng gắt — kéo một chai N, P hoặc K thả lên cây và quan sát lá đổi màu ngay.
-    </div>
-    <div class="sim-card">
-      <div class="action-label">Kho phân bón — kéo thả lên cây lúa</div>
-      <div class="fert-scene">
-        <div class="fert-shelf">
-          <div class="fert-bottle" draggable="true" data-f="N" ondragstart="dragFert(event)">
-            <div class="icon"><i data-lucide="flask-conical"></i></div><div class="lbl" style="color:#16a34a">N — Đạm</div>
-          </div>
-          <div class="fert-bottle" draggable="true" data-f="P" ondragstart="dragFert(event)">
-            <div class="icon"><i data-lucide="flask-conical"></i></div><div class="lbl" style="color:#ea580c">P — Lân</div>
-          </div>
-          <div class="fert-bottle" draggable="true" data-f="K" ondragstart="dragFert(event)">
-            <div class="icon"><i data-lucide="flask-conical"></i></div><div class="lbl" style="color:#9333ea">K — Kali</div>
-          </div>
-        </div>
-        <div class="plant-zone" id="plantDrop" ondragover="allowFertDrop(event)" ondragleave="leavePlant()" ondrop="dropFert(event)">
-          <svg class="plant-svg" viewBox="0 0 120 160" id="plantSvg">
-            <rect x="52" y="100" width="16" height="50" fill="#8B6914" rx="2"/>
-            <ellipse id="leafL1" class="leaf" cx="35" cy="95" rx="22" ry="10" fill="#eab308" transform="rotate(-30 35 95)"/>
-            <ellipse id="leafL2" class="leaf" cx="30" cy="75" rx="20" ry="9" fill="#ca8a04" transform="rotate(-25 30 75)"/>
-            <ellipse id="leafL3" class="leaf" cx="38" cy="55" rx="18" ry="8" fill="#eab308" transform="rotate(-20 38 55)"/>
-            <ellipse id="leafR1" class="leaf" cx="85" cy="95" rx="22" ry="10" fill="#eab308" transform="rotate(30 85 95)"/>
-            <ellipse id="leafR2" class="leaf" cx="90" cy="75" rx="20" ry="9" fill="#ca8a04" transform="rotate(25 90 75)"/>
-            <ellipse id="leafR3" class="leaf" cx="82" cy="55" rx="18" ry="8" fill="#eab308" transform="rotate(20 82 55)"/>
-            <ellipse id="leafTop" class="leaf" cx="60" cy="42" rx="14" ry="7" fill="#ca8a04"/>
-          </svg>
-          <div class="applied-tag" id="appliedFert">Chưa bón phân</div>
-        </div>
-      </div>
-      <div class="live-status neutral" id="fertStatus">Lá đang vàng — thử bón phân và xem phản ứng tức thì.</div>
-    </div>
-    <button class="btn-primary" onclick="revealFert()">Xem kết quả →</button>
-    <div class="result-box" id="resultFert">
-      <div class="result-outcome" id="outcomeFert"></div>
-      <div class="result-aha" id="ahaFert"></div>
-    </div>
-  </div>
-
-  <!-- TAB 1: Irrigation grid -->
-  <div id="tab1" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Ruộng 5×5 ô cần tưới <strong>500 m³</strong> nước hôm nay. Bơm 10 m³/giờ, tầm phun 1 ô xung quanh. Click đặt vị trí máy bơm — xem bao nhiêu ô được tưới và mất bao lâu.
-    </div>
-    <div class="sim-card">
-      <div class="action-label">Ruộng lúa — click chọn vị trí đặt bơm</div>
-      <div class="field-wrap">
-        <div class="field-grid" id="fieldGrid"></div>
-        <div class="field-stats">
-          <div class="field-stat"><div class="num" id="wetCount">0</div><div class="lbl">Ô được tưới</div></div>
-          <div class="field-stat"><div class="num" id="pumpHours">50</div><div class="lbl">Giờ bơm (500÷10)</div></div>
-        </div>
-        <div class="hours-bar">
-          <div style="font-size:11px;color:var(--ink2);margin-bottom:4px">Tiến độ bơm 500 m³</div>
-          <div class="hours-track"><div class="hours-fill" id="hoursFill" style="width:0%"></div></div>
-        </div>
-      </div>
-      <div class="live-status neutral" id="irrStatus">Chưa đặt bơm — chọn một ô trên ruộng.</div>
-    </div>
-    <button class="btn-primary" onclick="revealIrr()">Xem kết quả →</button>
-    <div class="result-box" id="resultIrr">
-      <div class="result-outcome" id="outcomeIrr"></div>
-      <div class="result-aha" id="ahaIrr"></div>
-    </div>
-  </div>
-
-  <!-- TAB 2: Yield -->
-  <div id="tab2" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Mùa vụ sắp thu hoạch — bạn điều chỉnh giờ nắng và mật độ cây trên 1 ha, hệ thống tính năng suất, doanh thu và lãi/lỗ so với chi phí canh tác.
-    </div>
-    <div class="sim-card">
-      <div class="slider-row">
-        <div class="slider-label">Giờ nắng trung bình / ngày</div>
-        <div class="slider-wrap">
-          <input type="range" id="sunHours" min="3" max="10" step="0.5" value="5" oninput="updateYield()">
-          <span class="slider-val" id="sunVal">5.0 h</span>
-        </div>
-      </div>
-      <div class="slider-row">
-        <div class="slider-label">Mật độ cây (cây/100m²)</div>
-        <div class="slider-wrap">
-          <input type="range" id="density" min="200" max="600" step="25" value="400" oninput="updateYield()">
-          <span class="slider-val" id="densityVal">400</span>
-        </div>
-      </div>
-      <div class="yield-viz">
-        <div style="font-size:12px;color:var(--ink2)">Năng suất dự kiến (tấn/ha)</div>
-        <div class="yield-bar-track"><div class="yield-bar-fill" id="yieldFill" style="width:40%"></div></div>
-        <div style="font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace" id="yieldTon">4.0 tấn</div>
-      </div>
-      <div class="finance-grid">
-        <div class="finance-box"><div class="val" id="revVal">28 tr</div><div class="lbl">Doanh thu</div></div>
-        <div class="finance-box"><div class="val" id="costVal">35 tr</div><div class="lbl">Chi phí</div></div>
-        <div class="finance-box" id="profitBox"><div class="val" id="profitVal">−7 tr</div><div class="lbl">Lãi / Lỗ</div></div>
-      </div>
-      <div class="live-status neutral" id="yieldStatus">Kéo thanh trượt — biểu đồ và số liệu cập nhật ngay.</div>
-    </div>
-    <button class="btn-primary" onclick="revealYield()">Xem kết quả →</button>
-    <div class="result-box" id="resultYield">
-      <div class="result-outcome" id="outcomeYield"></div>
-      <div class="result-aha" id="ahaYield"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-const LEAF_IDS = ['leafL1','leafL2','leafL3','leafR1','leafR2','leafR3','leafTop'];
-const GREEN = ['#4ade80','#22c55e','#16a34a','#15803d'];
-const YELLOW = ['#eab308','#ca8a04','#eab308','#ca8a04','#eab308','#ca8a04','#ca8a04'];
-const FIELD_SIZE = 5;
-const WATER_NEEDED = 500;
-const PUMP_RATE = 10;
-const PUMP_HOURS = WATER_NEEDED / PUMP_RATE;
-const PRICE_PER_KG = 7000;
-const BASE_COST = 35;
-
-let appliedFert = null;
-let pumpPos = null;
-
-function switchTab(n) {
-  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
-  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
-}
-
-function setLeafColors(colors) {
-  LEAF_IDS.forEach((id,i) => document.getElementById(id).setAttribute('fill', colors[i]));
-}
-
-function dragFert(e) { e.dataTransfer.setData('fert', e.currentTarget.dataset.f); }
-function allowFertDrop(e) { e.preventDefault(); document.getElementById('plantDrop').classList.add('over'); }
-function leavePlant() { document.getElementById('plantDrop').classList.remove('over'); }
-
-function dropFert(e) {
-  e.preventDefault();
-  leavePlant();
-  appliedFert = e.dataTransfer.getData('fert');
-  const names = { N: 'Phân đạm (N)', P: 'Phân lân (P)', K: 'Phân kali (K)' };
-  const zone = document.getElementById('plantDrop');
-  zone.classList.remove('good','bad');
-  document.getElementById('appliedFert').textContent = 'Đã bón: ' + names[appliedFert];
-  const st = document.getElementById('fertStatus');
-  if (appliedFert === 'N') {
-    setLeafColors(GREEN);
-    zone.classList.add('good');
-    st.className = 'live-status ok';
-    st.textContent = '✓ Lá chuyển xanh trong vài giờ — thiếu đạm đã được bù. Cây hồi phục tốt.';
-  } else if (appliedFert === 'P') {
-    setLeafColors(['#eab308','#ca8a04','#a3e635','#eab308','#ca8a04','#eab308','#84cc16']);
-    zone.classList.add('bad');
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Lá vẫn vàng — lân giúp rễ và hoa, không xử lý vàng lá do thiếu đạm.';
-  } else {
-    setLeafColors(['#eab308','#fde047','#eab308','#ca8a04','#eab308','#ca8a04','#eab308']);
-    zone.classList.add('bad');
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Lá hơi đậm nhưng vẫn vàng — kali chống sâu bệnh, không thay thế đạm.';
-  }
-}
-
-function revealFert() {
-  const ok = appliedFert === 'N';
-  document.getElementById('outcomeFert').innerHTML = ok
-    ? 'Ruộng cứu được: cây xanh trở lại, năng suất mùa này giữ ổn định.'
-    : 'Diện tích vàng lá lan rộng — mất 2 tuần và thêm chi phí bón lại đạm.';
-  document.getElementById('ahaFert').innerHTML = (ok
-    ? 'Vàng lá + chậm lớn thường báo thiếu Nitơ — nguyên tố tạo clorophyll. Bón đúng NPK là chẩn đoán hóa học, không phải đoán mò.'
-    : 'Mỗi chữ N-P-K có vai trò riêng: đạm cho lá, lân cho rễ/hoa, kali cho sức chống chịu. Chọn sai lãng phí tiền và thời gian.')
-    + '<span class="subject-bridge">Cầu nối SGK: Hóa học — phân bón NPK & dinh dưỡng cây</span>';
-  document.getElementById('resultFert').className = 'result-box show';
-}
-
-function buildField() {
-  const grid = document.getElementById('fieldGrid');
-  grid.innerHTML = '';
-  for (let i = 0; i < FIELD_SIZE * FIELD_SIZE; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'field-cell dry';
-    cell.dataset.idx = i;
-    cell.addEventListener('click', () => placePump(i));
-    grid.appendChild(cell);
-  }
-}
-
-function getWetCells(pr, pc) {
-  const wet = new Set();
-  for (let r = 0; r < FIELD_SIZE; r++) {
-    for (let c = 0; c < FIELD_SIZE; c++) {
-      if (Math.abs(r - pr) + Math.abs(c - pc) <= 1) wet.add(r * FIELD_SIZE + c);
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-  }
-  return wet;
-}
 
-function placePump(idx) {
-  pumpPos = idx;
-  const pr = Math.floor(idx / FIELD_SIZE);
-  const pc = idx % FIELD_SIZE;
-  const wet = getWetCells(pr, pc);
-  const cells = document.querySelectorAll('.field-cell');
-  cells.forEach((cell, i) => {
-    cell.className = 'field-cell';
-    if (i === idx) { cell.classList.add('pump'); cell.textContent = '💧'; }
-    else if (wet.has(i)) { cell.classList.add('wet'); cell.textContent = ''; }
-    else { cell.classList.add('dry'); cell.textContent = ''; }
-  });
-  const count = wet.size;
-  document.getElementById('wetCount').textContent = count;
-  document.getElementById('pumpHours').textContent = PUMP_HOURS;
-  document.getElementById('hoursFill').style.width = '100%';
-  const coverage = count / (FIELD_SIZE * FIELD_SIZE);
-  const st = document.getElementById('irrStatus');
-  if (coverage >= 0.36) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Phủ ' + count + '/25 ô. Bơm 500 m³ ÷ 10 m³/h = ' + PUMP_HOURS + ' giờ — đủ nước một ngày ca.';
-  } else {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Chỉ ' + count + ' ô được tưới — đặt bơm gần trung tâm để phủ rộng hơn.';
-  }
-}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-function revealIrr() {
-  const count = pumpPos !== null ? getWetCells(Math.floor(pumpPos / FIELD_SIZE), pumpPos % FIELD_SIZE).size : 0;
-  const ok = count >= 9;
-  document.getElementById('outcomeIrr').innerHTML = ok
-    ? 'Hệ thống tưới chạy đủ ' + PUMP_HOURS + ' giờ — ruộng đạt mức nước 500 m³, cây không stress.'
-    : 'Nhiều ô khô hoặc chưa tính giờ bơm — lúa thiếu nước, năng suất giảm cuối vụ.';
-  document.getElementById('ahaIrr').innerHTML = 'Diện tích phun × lưu lượng × thời gian = lượng nước. Kỹ sư nông nghiệp phải tính Toán mỗi ngày để tiết kiệm điện và nước.'
-    + '<span class="subject-bridge">Cầu nối SGK: Toán — tỉ lệ, diện tích & quy đổi đơn vị</span>';
-  document.getElementById('resultIrr').className = 'result-box show';
-}
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --surface2: #f5f4f0;
+      --surface3: #eeecea;
+      --ink: #111111;
+      --ink2: #555566;
+      --ink3: #9999aa;
+      --border: #e0ddd8;
+      --border2: #cccccc;
+      --blue: #2563eb;
+      --blue-bg: #eff4ff;
+      --blue-border: #c7d9ff;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #2563eb;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
 
-function updateYield() {
-  const sun = parseFloat(document.getElementById('sunHours').value);
-  const dens = parseInt(document.getElementById('density').value, 10);
-  document.getElementById('sunVal').textContent = sun.toFixed(1) + ' h';
-  document.getElementById('densityVal').textContent = dens;
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
 
-  const sunFactor = Math.min(1, sun / 8);
-  const densFactor = dens <= 450 ? dens / 450 : 1 - (dens - 450) / 300;
-  const yieldTon = Math.max(2, Math.min(8, 3 + sunFactor * 3.5 * densFactor));
-  const revenue = Math.round(yieldTon * 1000 * PRICE_PER_KG / 1e6);
-  const cost = BASE_COST + Math.round((dens - 200) / 400 * 8);
-  const profit = revenue - cost;
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
 
-  document.getElementById('yieldFill').style.width = (yieldTon / 8 * 100) + '%';
-  document.getElementById('yieldTon').textContent = yieldTon.toFixed(1) + ' tấn';
-  document.getElementById('revVal').textContent = revenue + ' tr';
-  document.getElementById('costVal').textContent = cost + ' tr';
-  const pBox = document.getElementById('profitBox');
-  const pVal = document.getElementById('profitVal');
-  pVal.textContent = (profit >= 0 ? '+' : '') + profit + ' tr';
-  pBox.className = 'finance-box ' + (profit >= 0 ? 'profit' : 'loss');
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
 
-  const st = document.getElementById('yieldStatus');
-  if (profit >= 5) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Lãi ' + profit + ' triệu — nắng và mật độ cân bằng, quang hợp tối ưu.';
-  } else if (profit >= 0) {
-    st.className = 'live-status neutral';
-    st.textContent = 'Hòa vốn hoặc lãi mỏng — thử tăng giờ nắng hoặc giảm mật độ quá dày.';
-  } else {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Lỗ ' + Math.abs(profit) + ' triệu — năng suất không bù chi phí giống, phân và tưới.';
-  }
-}
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
 
-function revealYield() {
-  const sun = parseFloat(document.getElementById('sunHours').value);
-  const dens = parseInt(document.getElementById('density').value, 10);
-  const sunFactor = Math.min(1, sun / 8);
-  const densFactor = dens <= 450 ? dens / 450 : 1 - (dens - 450) / 300;
-  const yieldTon = Math.max(2, Math.min(8, 3 + sunFactor * 3.5 * densFactor));
-  const revenue = Math.round(yieldTon * 1000 * PRICE_PER_KG / 1e6);
-  const cost = BASE_COST + Math.round((dens - 200) / 400 * 8);
-  const profit = revenue - cost;
-  const ok = profit >= 3;
+    .topbar-logo span {
+      color: var(--blue);
+    }
 
-  document.getElementById('outcomeYield').innerHTML = ok
-    ? 'Mùa vụ có lãi: ' + yieldTon.toFixed(1) + ' tấn/ha, doanh thu ' + revenue + ' triệu, lãi ròng ' + profit + ' triệu.'
-    : 'Mùa vụ thua lỗ hoặc hòa vốn — cần điều chỉnh mật độ và điều kiện quang hợp cho vụ sau.';
-  document.getElementById('ahaYield').innerHTML = 'Năng suất = f(quang hợp, mật độ). Quá dày cây tranh ánh sáng; quá thưa lãng phí đất. Kỹ sư nông nghiệp vừa hiểu sinh học vừa tính kinh tế.'
-    + '<span class="subject-bridge">Cầu nối SGK: Sinh học — quang hợp & Kinh tế canh tác</span>';
-  document.getElementById('resultYield').className = 'result-box show';
-}
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
 
-buildField();
-setLeafColors(YELLOW);
-updateYield();
-</script>
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
 
-<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
-  <div style="max-width:900px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:2rem;">
-      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
-      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Nông nghiệp?</h2>
-      <p style="color:var(--ink2);font-size:14px;">Đây là thông tin bạn cần biết về ngành học và cơ hội nghề nghiệp</p>
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .hero {
+      margin-bottom: 2rem;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      font-family: inherit;
+      transition: background .15s;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: #f3f4f6;
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid #c7d9ff;
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .live-status {
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .live-status.warn {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    .live-status.ok {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .live-status.neutral {
+      background: #f3f4f6;
+      color: var(--ink2);
+      border: 1px solid var(--border);
+    }
+
+    .slider-row {
+      margin-bottom: 1rem;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-bottom: 4px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-wrap input[type=range] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .slider-val {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 52px;
+      text-align: right;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: .5rem;
+    }
+
+    .btn-primary:hover {
+      opacity: .85;
+    }
+
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-outcome {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .result-aha {
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Tab1: plant + fertilizer */
+    .fert-scene {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .plant-zone {
+      flex: 1;
+      min-width: 200px;
+      min-height: 220px;
+      border: 2px dashed var(--border2);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+
+    .plant-zone.over {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .plant-zone.good {
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .plant-zone.bad {
+      border-color: var(--amber);
+      background: var(--amber-bg);
+    }
+
+    .plant-svg {
+      width: 140px;
+      height: 180px;
+    }
+
+    .leaf {
+      transition: fill .5s ease;
+    }
+
+    .fert-shelf {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .fert-bottle {
+      width: 56px;
+      padding: 8px 4px;
+      text-align: center;
+      cursor: grab;
+      user-select: none;
+      border-radius: var(--radius);
+      border: 2px solid var(--border2);
+      background: var(--surface);
+      transition: transform .15s;
+    }
+
+    .fert-bottle:active {
+      cursor: grabbing;
+      transform: scale(1.08);
+    }
+
+    .fert-bottle .icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .fert-bottle .lbl {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .fert-bottle[data-f="N"] {
+      border-color: #22c55e;
+    }
+
+    .fert-bottle[data-f="P"] {
+      border-color: #f97316;
+    }
+
+    .fert-bottle[data-f="K"] {
+      border-color: #a855f7;
+    }
+
+    .applied-tag {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+      color: var(--ink2);
+    }
+
+    /* Tab2: irrigation grid */
+    .field-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      max-width: 280px;
+      width: 100%;
+    }
+
+    .field-cell {
+      aspect-ratio: 1;
+      border: 1.5px solid #a3a3a3;
+      border-radius: 4px;
+      background: #fef9c3;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background .25s, border-color .25s;
+    }
+
+    .field-cell.dry {
+      background: #fef9c3;
+    }
+
+    .field-cell.wet {
+      background: #93c5fd;
+      border-color: #2563eb;
+    }
+
+    .field-cell.pump {
+      background: #1e40af;
+      border-color: #1e3a8a;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .field-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .field-stat {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .field-stat .num {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .field-stat .lbl {
+      font-size: 11px;
+      color: var(--ink2);
+      margin-top: 2px;
+    }
+
+    .hours-bar {
+      width: 100%;
+      max-width: 280px;
+      margin-top: .5rem;
+    }
+
+    .hours-track {
+      height: 10px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .hours-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 5px;
+      transition: width .35s;
+    }
+
+    /* Tab3: yield */
+    .yield-viz {
+      margin-bottom: 1rem;
+    }
+
+    .yield-bar-track {
+      height: 28px;
+      background: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .yield-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #84cc16, #16a34a);
+      border-radius: 6px;
+      transition: width .35s;
+    }
+
+    .finance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .finance-box {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .finance-box .val {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .finance-box .lbl {
+      font-size: 11px;
+      color: var(--ink2);
+      margin-top: 4px;
+    }
+
+    .finance-box.profit .val {
+      color: var(--green);
+    }
+
+    .finance-box.loss .val {
+      color: var(--red);
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .hero-title {
+        font-size: 22px;
+      }
+
+      .finance-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Unified Layout & Theme Overrides (Antigravity Overhaul) ── */
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+      display: inline-block;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* ── Mission tabs ── */
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: background .15s, color .15s;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: var(--gray-bg);
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mtab-icon {
+      font-size: 17px;
+    }
+
+    .mtab-label {
+      font-size: 12px;
+    }
+
+    /* ── Mission box ── */
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .mission-box a {
+      color: var(--blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Action label ── */
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .65rem;
+    }
+
+    /* ── Buttons ── */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: opacity .15s;
+    }
+
+    .btn-primary:hover {
+      opacity: .82;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      font-size: 13px;
+      background: var(--surface);
+      color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-bg);
+    }
+
+    /* ── Result box ── */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .85rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-aha {
+      margin-top: 1rem;
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .result-aha strong {
+      color: #3d3500;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      padding: 1.5rem 2rem;
+      font-size: 12px;
+      color: var(--ink3);
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Kỹ Sư Nông Nghiệp</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
+  </div>
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ Sư Nông Nghiệp</div>
+      <div class="hero-title">Hôm nay bạn là kỹ sư nông nghiệp tại trang trại công nghệ cao</div>
+      <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
     </div>
-    <div style="display:grid;gap:1.5rem;">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="book-open"></i></span> Ngành học phù hợp</h3>
-        <div style="display:grid;gap:12px;">
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Nông học</div><div style="font-size:12px;color:var(--ink2);">4 năm • Kỹ sư nông nghiệp</div></div><div style="font-weight:700;color:var(--blue);">18-22đ</div></div>
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Công nghệ Sinh học</div><div style="font-size:12px;color:var(--ink2);">4 năm • Chuyên viên công nghệ</div></div><div style="font-weight:700;color:var(--blue);">20-24đ</div></div>
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Kinh tế Nông nghiệp</div><div style="font-size:12px;color:var(--ink2);">4 năm • Quản lý trang trại</div></div><div style="font-weight:700;color:var(--blue);">19-23đ</div></div>
-        </div>
+    <div class="mission-tabs">
+      <button class="mtab active" onclick="switchTab(0)"><i data-lucide="sprout"></i> Dinh dưỡng</button>
+      <button class="mtab" onclick="switchTab(1)">💧 Tưới tiêu</button>
+      <button class="mtab" onclick="switchTab(2)"><i data-lucide="bar-chart-3"></i> Năng suất</button>
+    </div>
+
+    <!-- TAB 0: Fertilizer drag -->
+    <div id="tab0">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Ruộng lúa báo vàng lá, phát triển chậm sáng sớm. Bạn phải chọn phân bón trước khi
+        nắng gắt — kéo một chai N, P hoặc K thả lên cây và quan sát lá đổi màu ngay.
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="briefcase"></i></span> Cơ hội việc làm</h3>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1rem;">
-          <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--green);">82%</div><div style="font-size:12px;color:var(--ink2);">Tỉ lệ có việc làm</div></div>
-          <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--green);">+95%</div><div style="font-size:12px;color:var(--ink2);">Tăng trưởng đến 2030</div></div>
+      <div class="sim-card">
+        <div class="action-label">Kho phân bón — kéo thả lên cây lúa</div>
+        <div class="fert-scene">
+          <div class="fert-shelf">
+            <div class="fert-bottle" draggable="true" data-f="N" ondragstart="dragFert(event)">
+              <div class="icon"><i data-lucide="flask-conical"></i></div>
+              <div class="lbl" style="color:#16a34a">N — Đạm</div>
+            </div>
+            <div class="fert-bottle" draggable="true" data-f="P" ondragstart="dragFert(event)">
+              <div class="icon"><i data-lucide="flask-conical"></i></div>
+              <div class="lbl" style="color:#ea580c">P — Lân</div>
+            </div>
+            <div class="fert-bottle" draggable="true" data-f="K" ondragstart="dragFert(event)">
+              <div class="icon"><i data-lucide="flask-conical"></i></div>
+              <div class="lbl" style="color:#9333ea">K — Kali</div>
+            </div>
+          </div>
+          <div class="plant-zone" id="plantDrop" ondragover="allowFertDrop(event)" ondragleave="leavePlant()"
+            ondrop="dropFert(event)">
+            <svg class="plant-svg" viewBox="0 0 120 160" id="plantSvg">
+              <rect x="52" y="100" width="16" height="50" fill="#8B6914" rx="2" />
+              <ellipse id="leafL1" class="leaf" cx="35" cy="95" rx="22" ry="10" fill="#eab308"
+                transform="rotate(-30 35 95)" />
+              <ellipse id="leafL2" class="leaf" cx="30" cy="75" rx="20" ry="9" fill="#ca8a04"
+                transform="rotate(-25 30 75)" />
+              <ellipse id="leafL3" class="leaf" cx="38" cy="55" rx="18" ry="8" fill="#eab308"
+                transform="rotate(-20 38 55)" />
+              <ellipse id="leafR1" class="leaf" cx="85" cy="95" rx="22" ry="10" fill="#eab308"
+                transform="rotate(30 85 95)" />
+              <ellipse id="leafR2" class="leaf" cx="90" cy="75" rx="20" ry="9" fill="#ca8a04"
+                transform="rotate(25 90 75)" />
+              <ellipse id="leafR3" class="leaf" cx="82" cy="55" rx="18" ry="8" fill="#eab308"
+                transform="rotate(20 82 55)" />
+              <ellipse id="leafTop" class="leaf" cx="60" cy="42" rx="14" ry="7" fill="#ca8a04" />
+            </svg>
+            <div class="applied-tag" id="appliedFert">Chưa bón phân</div>
+          </div>
         </div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;"><strong style="color:var(--ink);">Vị trí:</strong> Kỹ sư nông nghiệp, Quản lý trang trại, Chuyên viên khuyến nông, Nghiên cứu giống cây trồng</div>
+        <div class="live-status neutral" id="fertStatus">Lá đang vàng — thử bón phân và xem phản ứng tức thì.</div>
       </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="banknote"></i></span> Mức lương</h3>
-        <div style="display:grid;gap:10px;">
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--ink2);">Mới ra trường</span><span style="font-weight:600;">8-12 triệu/tháng</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--ink2);">3-5 năm</span><span style="font-weight:600;">15-25 triệu/tháng</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;"><span style="font-size:13px;color:var(--ink2);">Quản lý/Chuyên gia</span><span style="font-weight:600;">30-60 triệu/tháng</span></div>
+      <button class="btn-primary" onclick="revealFert()">Xem kết quả →</button>
+      <div class="result-box" id="resultFert">
+        <div class="result-outcome" id="outcomeFert"></div>
+        <div class="result-aha" id="ahaFert"></div>
+      </div>
+    </div>
+
+    <!-- TAB 1: Irrigation grid -->
+    <div id="tab1" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Ruộng 5×5 ô cần tưới <strong>500 m³</strong> nước hôm nay. Bơm 10 m³/giờ, tầm phun
+        1 ô xung quanh. Click đặt vị trí máy bơm — xem bao nhiêu ô được tưới và mất bao lâu.
+      </div>
+      <div class="sim-card">
+        <div class="action-label">Ruộng lúa — click chọn vị trí đặt bơm</div>
+        <div class="field-wrap">
+          <div class="field-grid" id="fieldGrid"></div>
+          <div class="field-stats">
+            <div class="field-stat">
+              <div class="num" id="wetCount">0</div>
+              <div class="lbl">Ô được tưới</div>
+            </div>
+            <div class="field-stat">
+              <div class="num" id="pumpHours">50</div>
+              <div class="lbl">Giờ bơm (500÷10)</div>
+            </div>
+          </div>
+          <div class="hours-bar">
+            <div style="font-size:11px;color:var(--ink2);margin-bottom:4px">Tiến độ bơm 500 m³</div>
+            <div class="hours-track">
+              <div class="hours-fill" id="hoursFill" style="width:0%"></div>
+            </div>
+          </div>
         </div>
+        <div class="live-status neutral" id="irrStatus">Chưa đặt bơm — chọn một ô trên ruộng.</div>
       </div>
-      <div style="background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);border-radius:var(--radius-lg);padding:2rem;text-align:center;color:#333;">
-        <h3 style="font-size:18px;font-weight:600;margin-bottom:.5rem;">Sẵn sàng theo đuổi Nông nghiệp công nghệ cao?</h3>
-        <p style="font-size:14px;opacity:.8;margin-bottom:1.5rem;">Khám phá các trường nông nghiệp hàng đầu</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="../index.html" style="display:inline-block;padding:10px 24px;background:#333;color:white;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Xem điểm chuẩn</a>
-          <a href="../index.html" style="display:inline-block;padding:10px 24px;background:rgba(0,0,0,.1);color:#333;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá ngành khác</a>
+      <button class="btn-primary" onclick="revealIrr()">Xem kết quả →</button>
+      <div class="result-box" id="resultIrr">
+        <div class="result-outcome" id="outcomeIrr"></div>
+        <div class="result-aha" id="ahaIrr"></div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Yield -->
+    <div id="tab2" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Mùa vụ sắp thu hoạch — bạn điều chỉnh giờ nắng và mật độ cây trên 1 ha, hệ thống
+        tính năng suất, doanh thu và lãi/lỗ so với chi phí canh tác.
+      </div>
+      <div class="sim-card">
+        <div class="slider-row">
+          <div class="slider-label">Giờ nắng trung bình / ngày</div>
+          <div class="slider-wrap">
+            <input type="range" id="sunHours" min="3" max="10" step="0.5" value="5" oninput="updateYield()">
+            <span class="slider-val" id="sunVal">5.0 h</span>
+          </div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Mật độ cây (cây/100m²)</div>
+          <div class="slider-wrap">
+            <input type="range" id="density" min="200" max="600" step="25" value="400" oninput="updateYield()">
+            <span class="slider-val" id="densityVal">400</span>
+          </div>
+        </div>
+        <div class="yield-viz">
+          <div style="font-size:12px;color:var(--ink2)">Năng suất dự kiến (tấn/ha)</div>
+          <div class="yield-bar-track">
+            <div class="yield-bar-fill" id="yieldFill" style="width:40%"></div>
+          </div>
+          <div style="font-size:22px;font-weight:700;font-family:'IBM Plex Mono',monospace" id="yieldTon">4.0 tấn</div>
+        </div>
+        <div class="finance-grid">
+          <div class="finance-box">
+            <div class="val" id="revVal">28 tr</div>
+            <div class="lbl">Doanh thu</div>
+          </div>
+          <div class="finance-box">
+            <div class="val" id="costVal">35 tr</div>
+            <div class="lbl">Chi phí</div>
+          </div>
+          <div class="finance-box" id="profitBox">
+            <div class="val" id="profitVal">−7 tr</div>
+            <div class="lbl">Lãi / Lỗ</div>
+          </div>
+        </div>
+        <div class="live-status neutral" id="yieldStatus">Kéo thanh trượt — biểu đồ và số liệu cập nhật ngay.</div>
+      </div>
+      <button class="btn-primary" onclick="revealYield()">Xem kết quả →</button>
+      <div class="result-box" id="resultYield">
+        <div class="result-outcome" id="outcomeYield"></div>
+        <div class="result-aha" id="ahaYield"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LEAF_IDS = ['leafL1', 'leafL2', 'leafL3', 'leafR1', 'leafR2', 'leafR3', 'leafTop'];
+    const GREEN = ['#4ade80', '#22c55e', '#16a34a', '#15803d'];
+    const YELLOW = ['#eab308', '#ca8a04', '#eab308', '#ca8a04', '#eab308', '#ca8a04', '#ca8a04'];
+    const FIELD_SIZE = 5;
+    const WATER_NEEDED = 500;
+    const PUMP_RATE = 10;
+    const PUMP_HOURS = WATER_NEEDED / PUMP_RATE;
+    const PRICE_PER_KG = 7000;
+    const BASE_COST = 35;
+
+    let appliedFert = null;
+    let pumpPos = null;
+
+    function switchTab(n) {
+      ['tab0', 'tab1', 'tab2'].forEach((id, i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+      document.querySelectorAll('.mtab').forEach((btn, i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+    }
+
+    function setLeafColors(colors) {
+      LEAF_IDS.forEach((id, i) => document.getElementById(id).setAttribute('fill', colors[i]));
+    }
+
+    function dragFert(e) { e.dataTransfer.setData('fert', e.currentTarget.dataset.f); }
+    function allowFertDrop(e) { e.preventDefault(); document.getElementById('plantDrop').classList.add('over'); }
+    function leavePlant() { document.getElementById('plantDrop').classList.remove('over'); }
+
+    function dropFert(e) {
+      e.preventDefault();
+      leavePlant();
+      appliedFert = e.dataTransfer.getData('fert');
+      const names = { N: 'Phân đạm (N)', P: 'Phân lân (P)', K: 'Phân kali (K)' };
+      const zone = document.getElementById('plantDrop');
+      zone.classList.remove('good', 'bad');
+      document.getElementById('appliedFert').textContent = 'Đã bón: ' + names[appliedFert];
+      const st = document.getElementById('fertStatus');
+      if (appliedFert === 'N') {
+        setLeafColors(GREEN);
+        zone.classList.add('good');
+        st.className = 'live-status ok';
+        st.textContent = '✓ Lá chuyển xanh trong vài giờ — thiếu đạm đã được bù. Cây hồi phục tốt.';
+      } else if (appliedFert === 'P') {
+        setLeafColors(['#eab308', '#ca8a04', '#a3e635', '#eab308', '#ca8a04', '#eab308', '#84cc16']);
+        zone.classList.add('bad');
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Lá vẫn vàng — lân giúp rễ và hoa, không xử lý vàng lá do thiếu đạm.';
+      } else {
+        setLeafColors(['#eab308', '#fde047', '#eab308', '#ca8a04', '#eab308', '#ca8a04', '#eab308']);
+        zone.classList.add('bad');
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Lá hơi đậm nhưng vẫn vàng — kali chống sâu bệnh, không thay thế đạm.';
+      }
+    }
+
+    function revealFert() {
+      const ok = appliedFert === 'N';
+      document.getElementById('outcomeFert').innerHTML = ok
+        ? 'Ruộng cứu được: cây xanh trở lại, năng suất mùa này giữ ổn định.'
+        : 'Diện tích vàng lá lan rộng — mất 2 tuần và thêm chi phí bón lại đạm.';
+      document.getElementById('ahaFert').innerHTML = (ok
+        ? 'Vàng lá + chậm lớn thường báo thiếu Nitơ — nguyên tố tạo clorophyll. Bón đúng NPK là chẩn đoán hóa học, không phải đoán mò.'
+        : 'Mỗi chữ N-P-K có vai trò riêng: đạm cho lá, lân cho rễ/hoa, kali cho sức chống chịu. Chọn sai lãng phí tiền và thời gian.')
+        + '<span class="subject-bridge">Cầu nối SGK: Hóa học — phân bón NPK & dinh dưỡng cây</span>';
+      taskResults.task0.score = ok ? 30 : 10;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultFert').className = 'result-box show';
+    }
+
+    function buildField() {
+      const grid = document.getElementById('fieldGrid');
+      grid.innerHTML = '';
+      for (let i = 0; i < FIELD_SIZE * FIELD_SIZE; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'field-cell dry';
+        cell.dataset.idx = i;
+        cell.addEventListener('click', () => placePump(i));
+        grid.appendChild(cell);
+      }
+    }
+
+    function getWetCells(pr, pc) {
+      const wet = new Set();
+      for (let r = 0; r < FIELD_SIZE; r++) {
+        for (let c = 0; c < FIELD_SIZE; c++) {
+          if (Math.abs(r - pr) + Math.abs(c - pc) <= 1) wet.add(r * FIELD_SIZE + c);
+        }
+      }
+      return wet;
+    }
+
+    function placePump(idx) {
+      pumpPos = idx;
+      const pr = Math.floor(idx / FIELD_SIZE);
+      const pc = idx % FIELD_SIZE;
+      const wet = getWetCells(pr, pc);
+      const cells = document.querySelectorAll('.field-cell');
+      cells.forEach((cell, i) => {
+        cell.className = 'field-cell';
+        if (i === idx) { cell.classList.add('pump'); cell.textContent = '💧'; }
+        else if (wet.has(i)) { cell.classList.add('wet'); cell.textContent = ''; }
+        else { cell.classList.add('dry'); cell.textContent = ''; }
+      });
+      const count = wet.size;
+      document.getElementById('wetCount').textContent = count;
+      document.getElementById('pumpHours').textContent = PUMP_HOURS;
+      document.getElementById('hoursFill').style.width = '100%';
+      const coverage = count / (FIELD_SIZE * FIELD_SIZE);
+      const st = document.getElementById('irrStatus');
+      if (coverage >= 0.36) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Phủ ' + count + '/25 ô. Bơm 500 m³ ÷ 10 m³/h = ' + PUMP_HOURS + ' giờ — đủ nước một ngày ca.';
+      } else {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Chỉ ' + count + ' ô được tưới — đặt bơm gần trung tâm để phủ rộng hơn.';
+      }
+    }
+
+    function revealIrr() {
+      const count = pumpPos !== null ? getWetCells(Math.floor(pumpPos / FIELD_SIZE), pumpPos % FIELD_SIZE).size : 0;
+      const ok = count >= 9;
+      document.getElementById('outcomeIrr').innerHTML = ok
+        ? 'Hệ thống tưới chạy đủ ' + PUMP_HOURS + ' giờ — ruộng đạt mức nước 500 m³, cây không stress.'
+        : 'Nhiều ô khô hoặc chưa tính giờ bơm — lúa thiếu nước, năng suất giảm cuối vụ.';
+      document.getElementById('ahaIrr').innerHTML = 'Diện tích phun × lưu lượng × thời gian = lượng nước. Kỹ sư nông nghiệp phải tính Toán mỗi ngày để tiết kiệm điện và nước.'
+        + '<span class="subject-bridge">Cầu nối SGK: Toán — tỉ lệ, diện tích & quy đổi đơn vị</span>';
+      
+      taskResults.task1.score = ok ? 35 : 15;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      
+      document.getElementById('resultIrr').className = 'result-box show';
+    }
+
+    function updateYield() {
+      const sun = parseFloat(document.getElementById('sunHours').value);
+      const dens = parseInt(document.getElementById('density').value, 10);
+      document.getElementById('sunVal').textContent = sun.toFixed(1) + ' h';
+      document.getElementById('densityVal').textContent = dens;
+
+      const sunFactor = Math.min(1, sun / 8);
+      const densFactor = dens <= 450 ? dens / 450 : 1 - (dens - 450) / 300;
+      const yieldTon = Math.max(2, Math.min(8, 3 + sunFactor * 3.5 * densFactor));
+      const revenue = Math.round(yieldTon * 1000 * PRICE_PER_KG / 1e6);
+      const cost = BASE_COST + Math.round((dens - 200) / 400 * 8);
+      const profit = revenue - cost;
+
+      document.getElementById('yieldFill').style.width = (yieldTon / 8 * 100) + '%';
+      document.getElementById('yieldTon').textContent = yieldTon.toFixed(1) + ' tấn';
+      document.getElementById('revVal').textContent = revenue + ' tr';
+      document.getElementById('costVal').textContent = cost + ' tr';
+      const pBox = document.getElementById('profitBox');
+      const pVal = document.getElementById('profitVal');
+      pVal.textContent = (profit >= 0 ? '+' : '') + profit + ' tr';
+      pBox.className = 'finance-box ' + (profit >= 0 ? 'profit' : 'loss');
+
+      const st = document.getElementById('yieldStatus');
+      if (profit >= 5) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Lãi ' + profit + ' triệu — nắng và mật độ cân bằng, quang hợp tối ưu.';
+      } else if (profit >= 0) {
+        st.className = 'live-status neutral';
+        st.textContent = 'Hòa vốn hoặc lãi mỏng — thử tăng giờ nắng hoặc giảm mật độ quá dày.';
+      } else {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Lỗ ' + Math.abs(profit) + ' triệu — năng suất không bù chi phí giống, phân và tưới.';
+      }
+    }
+
+    function revealYield() {
+      const sun = parseFloat(document.getElementById('sunHours').value);
+      const dens = parseInt(document.getElementById('density').value, 10);
+      const sunFactor = Math.min(1, sun / 8);
+      const densFactor = dens <= 450 ? dens / 450 : 1 - (dens - 450) / 300;
+      const yieldTon = Math.max(2, Math.min(8, 3 + sunFactor * 3.5 * densFactor));
+      const revenue = Math.round(yieldTon * 1000 * PRICE_PER_KG / 1e6);
+      const cost = BASE_COST + Math.round((dens - 200) / 400 * 8);
+      const profit = revenue - cost;
+      const ok = profit >= 3;
+
+      document.getElementById('outcomeYield').innerHTML = ok
+        ? 'Mùa vụ có lãi: ' + yieldTon.toFixed(1) + ' tấn/ha, doanh thu ' + revenue + ' triệu, lãi ròng ' + profit + ' triệu.'
+        : 'Mùa vụ thua lỗ hoặc hòa vốn — cần điều chỉnh mật độ và điều kiện quang hợp cho vụ sau.';
+      document.getElementById('ahaYield').innerHTML = 'Năng suất = f(quang hợp, mật độ). Quá dày cây tranh ánh sáng; quá thưa lãng phí đất. Kỹ sư nông nghiệp vừa hiểu sinh học vừa tính kinh tế.'
+        + '<span class="subject-bridge">Cầu nối SGK: Sinh học — quang hợp & Kinh tế canh tác</span>';
+      
+      taskResults.task2.score = ok ? 35 : 15;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      
+      document.getElementById('resultYield').className = 'result-box show';
+    }
+
+    buildField();
+    setLeafColors(YELLOW);
+    updateYield();
+  </script>
+
+  <div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div
+          style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">
+          <i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+        <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Nông nghiệp?</h2>
+        <p style="color:var(--ink2);font-size:14px;">Đây là thông tin bạn cần biết về ngành học và cơ hội nghề nghiệp
+        </p>
+      </div>
+      <div style="display:grid;gap:1.5rem;">
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="book-open"></i></span> Ngành học phù hợp</h3>
+          <div style="display:grid;gap:12px;">
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Nông học</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Kỹ sư nông nghiệp</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">18-22đ</div>
+            </div>
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Công nghệ Sinh học</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Chuyên viên công nghệ</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">20-24đ</div>
+            </div>
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Kinh tế Nông nghiệp</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Quản lý trang trại</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">19-23đ</div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="briefcase"></i></span> Cơ hội việc làm</h3>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1rem;">
+            <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;">
+              <div style="font-size:24px;font-weight:700;color:var(--green);">82%</div>
+              <div style="font-size:12px;color:var(--ink2);">Tỉ lệ có việc làm</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;">
+              <div style="font-size:24px;font-weight:700;color:var(--green);">+95%</div>
+              <div style="font-size:12px;color:var(--ink2);">Tăng trưởng đến 2030</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.7;"><strong style="color:var(--ink);">Vị
+              trí:</strong> Kỹ sư nông nghiệp, Quản lý trang trại, Chuyên viên khuyến nông, Nghiên cứu giống cây trồng
+          </div>
+        </div>
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="banknote"></i></span> Mức lương</h3>
+          <div style="display:grid;gap:10px;">
+            <div
+              style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+              <span style="font-size:13px;color:var(--ink2);">Mới ra trường</span><span style="font-weight:600;">8-12
+                triệu/tháng</span></div>
+            <div
+              style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+              <span style="font-size:13px;color:var(--ink2);">3-5 năm</span><span style="font-weight:600;">15-25
+                triệu/tháng</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;"><span
+                style="font-size:13px;color:var(--ink2);">Quản lý/Chuyên gia</span><span style="font-weight:600;">30-60
+                triệu/tháng</span></div>
+          </div>
+        </div>
+        <div
+          style="background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);border-radius:var(--radius-lg);padding:2rem;text-align:center;color:#333;">
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:.5rem;">Sẵn sàng theo đuổi Nông nghiệp công nghệ cao?
+          </h3>
+          <p style="font-size:14px;opacity:.8;margin-bottom:1.5rem;">Khám phá các trường nông nghiệp hàng đầu</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="../index.html"
+              style="display:inline-block;padding:10px 24px;background:#333;color:white;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Xem
+              điểm chuẩn</a>
+            <a href="../index.html"
+              style="display:inline-block;padding:10px 24px;background:rgba(0,0,0,.1);color:#333;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám
+              phá ngành khác</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    // ─────────────────────────────────────────────
+    //  GLOBAL TRACKING & SCORING SYSTEM (SYNCHRONIZED WITH AI LAB)
+    // ─────────────────────────────────────────────
+    let taskResults = {
+      task0: { name: 'Dinh dưỡng & Phân bón', score: 0, maxScore: 30, completed: false },
+      task1: { name: 'Lưới điện & Tưới tiêu', score: 0, maxScore: 35, completed: false },
+      task2: { name: 'Thu hoạch & Sản lượng', score: 0, maxScore: 35, completed: false }
+    };
+    let currentTab = 0;
+    let overallStartTime = Date.now();
+    const labKey = 'nong_nghiep';
+    const labTitle = 'Kỹ Sư Nông Nghiệp';
+
+    function checkAllTasksCompleted() {
+      const allCompleted = Object.values(taskResults).every(t => t.completed);
+      if (allCompleted) {
+        // Show report button in the last tab
+        const lastTabId = 'tab' + (Object.keys(taskResults).length - 1);
+        const lastTab = document.getElementById(lastTabId);
+        if (lastTab) {
+          const existingBtn = lastTab.querySelector('.btn-final-report');
+          if (!existingBtn) {
+            const finalBtn = document.createElement('button');
+            finalBtn.className = 'btn-primary btn-final-report';
+            finalBtn.style.marginTop = '1rem';
+            finalBtn.style.display = 'inline-flex';
+            finalBtn.style.alignItems = 'center';
+            finalBtn.style.gap = '8px';
+            finalBtn.innerHTML = '<i data-lucide="bar-chart-2"></i> Xem báo cáo đánh giá cuối cùng';
+            finalBtn.onclick = showIntermediatePrompt;
+
+            // Find action row or append at end
+            const actRow = lastTab.querySelector('.action-row') || lastTab;
+            actRow.appendChild(finalBtn);
+            lucide.createIcons();
+          }
+        }
+      }
+    }
+
+        // ─────────────────────────────────────────────
+    //  FINAL REPORT & LOCAL EVALUATION (NO API NEEDED)
+    // ─────────────────────────────────────────────
+    async function generateFinalReport() {
+      // Simulate brief loading
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+      const hollandTally = recommendInput ? recommendInput.hollandTally || {} : {};
+      const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+      const topHolland = sortedHolland[0] ? sortedHolland[0][0] : 'I';
+
+      // Safe check for local labTitle variable, fall back to page title if not found
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      let title = "";
+      let degreeOfMatch = "";
+      let advice = "";
+
+      if (percentage >= 80) {
+        title = `Chuyên gia ${currentLabTitle} xuất sắc`;
+        degreeOfMatch = `Học sinh thể hiện sự vượt trội và năng khiếu đặc biệt trong lĩnh vực ${currentLabTitle}. Điểm số thực nghiệm đạt ${percentage}% (cực kỳ cao) chứng tỏ bạn có tư duy phân tích sắc bén, logic vững vàng và độ tập trung cao độ khi giải quyết các bài tập chuyên môn.`;
+      } else if (percentage >= 50) {
+        title = `Kỹ sư/Chuyên viên ${currentLabTitle} triển vọng`;
+        degreeOfMatch = `Học sinh có độ phù hợp khá cao với lĩnh vực ${currentLabTitle}. Bạn nắm bắt nhanh các khái niệm và hoàn thành tốt các thử thách được giao với điểm số thực nghiệm ${percentage}%. Nếu tiếp tục rèn luyện tính kiên nhẫn và đào sâu chuyên môn, bạn sẽ tiến rất xa.`;
+      } else {
+        title = `Người tìm hiểu lĩnh vực ${currentLabTitle}`;
+        degreeOfMatch = `Học sinh đã hoàn thành các bước trải nghiệm cơ bản để hiểu công việc của một chuyên gia trong lĩnh vực ${currentLabTitle}. Kết quả thực chứng ở mức trung bình (${percentage}%) cho thấy bạn cần củng cố thêm các kiến thức nền tảng THPT và thực hành nhiều hơn nếu muốn theo đuổi định hướng này.`;
+      }
+
+      // Analyze each task score
+      const taskAnalysis = Object.values(taskResults).map(t => {
+        let taskRating = "";
+        const rate = t.maxScore > 0 ? (t.score / t.maxScore) : (t.score / 100);
+        if (rate >= 0.8) {
+          taskRating = `Đạt kết quả xuất sắc, phản ánh năng lực tốt về <b>${t.name}</b>.`;
+        } else if (rate >= 0.5) {
+          taskRating = `Đạt kết quả khá tốt ở phần <b>${t.name}</b>, có nền tảng cơ bản vững vàng.`;
+        } else {
+          taskRating = `Cần rèn luyện và chú ý hơn ở nội dung <b>${t.name}</b>.`;
+        }
+        return `<li><b>${t.name}</b>: ${taskRating}</li>`;
+      }).join('');
+
+      // Holland compatibility
+      let hollandMatch = "";
+      const investigativeLabs = ['Khoa học Máy tính', 'Kỹ sư AI', 'Bác sĩ', 'Luật sư'];
+      const realisticLabs = ['Kỹ sư Cơ khí', 'Kỹ sư Điện', 'Kỹ sư Nông nghiệp'];
+      const socialLabs = ['Giáo viên', 'Luật sư', 'Bác sĩ'];
+      const enterprisingLabs = ['Chuyên viên Kinh tế'];
+      const conventionalLabs = ['Chuyên viên Kinh tế', 'Lập trình viên'];
+
+      let isMatch = false;
+      if (topHolland === 'I' && investigativeLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'R' && realisticLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'S' && socialLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'E' && enterprisingLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'C' && conventionalLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+
+      if (isMatch) {
+        hollandMatch = `Tính cách lý thuyết nổi trội của bạn thuộc nhóm <b>${topHolland}</b>, cực kỳ ăn khớp và tương thích với đặc thù công việc trong phòng Lab <b>${currentLabTitle}</b> này.`;
+      } else {
+        hollandMatch = `Mặc dù nhóm tính cách lý thuyết nổi trội của bạn là <b>${topHolland}</b>, trải nghiệm thực tế tại phòng Lab <b>${currentLabTitle}</b> cho thấy bạn vẫn sở hữu những tiềm năng tiềm ẩn hoặc sự hứng thú đặc biệt với lĩnh vực kỹ thuật này.`;
+      }
+
+      // Advice base on currentLabTitle
+      if (currentLabTitle.includes('AI') || currentLabTitle.includes('Máy tính') || currentLabTitle.includes('Lập trình')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt các môn <b>Toán</b> (Giải tích, Đạo hàm, Xác suất thống kê) và <b>Tin học</b> ở trường.</li>
+            <li>Tham gia học các khóa học lập trình cơ bản (như Python, C++) và rèn luyện thuật toán trên các trang uy tín như LeetCode, Codeforces.</li>
+            <li>Tìm hiểu thêm về cấu trúc dữ liệu, thuật toán và cách thiết kế ứng dụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Y tế') || currentLabTitle.includes('Bác sĩ')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Đặc biệt chú trọng các môn học <b>Hóa học</b> và <b>Sinh học</b> THPT, đây là nền tảng tối quan trọng.</li>
+            <li>Rèn luyện tính cẩn thận, chịu áp lực tốt, tinh thần trách nhiệm và lòng nhân ái.</li>
+            <li>Tìm hiểu sâu về giải phẫu học cơ bản hoặc các xu hướng y học hiện đại như EMR, chẩn đoán số.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Kinh tế') || currentLabTitle.includes('Tài chính')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt môn <b>Toán</b>, <b>Tiếng Anh</b> và các kiến thức Xã hội, Địa lý Kinh tế.</li>
+            <li>Thực hành làm việc với bảng tính (Excel/Google Sheets), phân tích số liệu và rèn luyện tư duy tài chính.</li>
+            <li>Đọc thêm sách báo kinh tế, tìm hiểu về dòng tiền, lãi kép và thị trường tài chính toàn cầu.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Pháp luật') || currentLabTitle.includes('Luật')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt môn <b>Ngữ văn</b>, <b>Lịch sử</b>, <b>Giáo dục công dân/Kinh tế Pháp luật</b> và <b>Tiếng Anh</b>.</li>
+            <li>Rèn luyện tư duy phản biện, kỹ năng lập luận lô-gích và khả năng diễn thuyết trước đám đông.</li>
+            <li>Đọc và phân tích các bộ luật cơ bản hoặc tham khảo các case study tranh tụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Giáo dục') || currentLabTitle.includes('Sư phạm')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Rèn luyện vững vàng môn thế mạnh mà bạn muốn giảng dạy, cùng kỹ năng thuyết trình, trình bày bảng biểu.</li>
+            <li>Trau dồi tính kiên nhẫn, sự thấu hiểu tâm lý lứa tuổi và kỹ năng truyền đạt sư phạm.</li>
+            <li>Thực hành tự thiết kế giáo án hoặc hướng dẫn bài học cho bạn bè, em nhỏ.</li>
+          </ol>
+        `;
+      } else {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt các môn Khoa học tự nhiên như <b>Vật lý</b>, <b>Hóa học</b> và môn <b>Công nghệ</b> THPT.</li>
+            <li>Tham gia thiết kế các dự án thực tế, câu lạc bộ STEM hoặc tự mày mò lắp ráp phần cứng cơ bản.</li>
+            <li>Tìm hiểu quy chuẩn kỹ thuật, quy trình an toàn lao động và cách đọc bản vẽ kỹ thuật.</li>
+          </ol>
+        `;
+      }
+
+      return `
+        <div style="text-align:left; font-family:'IBM Plex Sans', sans-serif;">
+          <h3 style="color:var(--blue); font-size:18px; font-weight:700; margin-bottom:12px; border-bottom:2px solid var(--blue-border); padding-bottom:6px;">
+            🎓 Định hướng gợi ý: ${title}
+          </h3>
+          <p style="margin-bottom:16px; font-size:13.5px; line-height:1.7;">
+            <strong>Độ phù hợp toàn diện:</strong> ${degreeOfMatch}
+          </p>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            📊 Kết quả thực chứng qua nhiệm vụ phòng LAB:
+          </h4>
+          <div style="background:var(--surface2); padding:12px; border-radius:6px; margin-bottom:16px; font-size:13px;">
+            <ul style="margin-left: 1.2rem; padding-left: 0;">
+              ${taskAnalysis}
+            </ul>
+          </div>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🧬 Sự liên kết giữa Lý thuyết & Trải nghiệm:
+          </h4>
+          <p style="margin-bottom:16px; font-size:13px; line-height:1.7;">
+            ${hollandMatch}
+          </p>
+          
+          <h4 style="color:var(--blue); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🚀 Lộ trình đề xuất phát triển kỹ năng:
+          </h4>
+          <div style="font-size:13px; line-height:1.7;">
+            ${advice}
+          </div>
+        </div>
+      `;
+    }
+
+    function showFinalReport() {
+      const totalTime = Math.round((Date.now() - overallStartTime) / 1000 / 60);
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs[labKey] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Read recommendInput from localStorage
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+
+      let comprehensiveSection = '';
+      if (recommendInput) {
+        const userSubjects = recommendInput.subjects || [];
+        const userGrades = recommendInput.grades || {};
+        const hollandTally = recommendInput.hollandTally || {};
+        const gradeLevel = recommendInput.gradeLevel || "";
+
+        const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+        const topHollandType = sortedHolland[0] ? sortedHolland[0][0] : null;
+        const secondHollandType = sortedHolland[1] ? sortedHolland[1][0] : null;
+
+        // 1. Calculate Holland Score (max 5)
+        let hollandScore = 0;
+        if (["R", "S"].includes(topHollandType)) hollandScore = 5;
+        else if (["R", "S"].includes(secondHollandType)) hollandScore = 3;
+
+        // 2. Calculate Subject Matches (max 6)
+        const matchedSubjects = ["Sinh học", "Hóa học", "Địa lý"].filter(sub => userSubjects.includes(sub));
+        let subjectScore = matchedSubjects.length * 2;
+
+        // 3. Calculate Academic Grade Score (max 3)
+        let academicScore = 0;
+        if (matchedSubjects.length > 0) {
+          let totalGrade = 0;
+          let gradeCount = 0;
+          matchedSubjects.forEach(sub => {
+            const gradeObj = userGrades[sub];
+            if (gradeObj) {
+              if (gradeLevel === "10" || gradeLevel === "11") {
+                const y1 = parseFloat(gradeObj.year1) || 0;
+                const y2 = parseFloat(gradeObj.year2) || 0;
+                if (y1 > 0 && y2 > 0) { totalGrade += (y1 + y2) / 2; gradeCount++; }
+              } else {
+                const exam = parseFloat(gradeObj.exam) || 0;
+                if (exam > 0) { totalGrade += exam; gradeCount++; }
+              }
+            }
+          });
+          const avgGrade = gradeCount > 0 ? (totalGrade / gradeCount) : 0;
+          if (avgGrade >= 8.0) academicScore = 3;
+          else if (avgGrade >= 6.5) academicScore = 1.5;
+        }
+
+        const theoryScore = hollandScore + subjectScore + academicScore;
+        const theoryPercentage = Math.round((theoryScore / 14) * 100);
+
+        const completedLabsEntries = Object.entries(completedLabs);
+        let avgLabScore = percentage;
+        if (completedLabsEntries.length > 0) {
+          const totalLabScores = completedLabsEntries.reduce((sum, entry) => sum + entry[1], 0);
+          avgLabScore = Math.round(totalLabScores / completedLabsEntries.length);
+        }
+
+        let completedLabsHTML = '';
+        const labNames = {
+          ai: "Kỹ sư AI",
+          cs: "Lập trình viên",
+          y_khoa: "Bác sĩ",
+          kinh_te: "Chuyên viên Kinh tế",
+          giao_duc: "Giáo viên",
+          phap_luat: "Luật sư",
+          co_khi: "Kỹ sư Cơ khí",
+          ky_thuat: "Kỹ sư Điện",
+          nong_nghiep: "Kỹ sư Nông nghiệp",
+          hoa_hoc: "Kỹ sư Hóa học",
+          sang_tao: "Sáng tạo & Thiết kế"
+        };
+        completedLabsEntries.forEach(([lId, score]) => {
+          completedLabsHTML += `<li><strong>${labNames[lId] || lId}</strong>: ${score}% (Đã hoàn thành)</li>`;
+        });
+
+        comprehensiveSection = `
+      <div style="background:rgba(37, 99, 235, 0.08); border-left:4px solid #2563eb; padding:1.2rem; margin-bottom:1.5rem; border-radius:6px; color:#1e293b; text-align:left;">
+        <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          🎯 ĐỘ PHÙ HỢP TOÀN DIỆN CỦA BẠN:
+        </h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Năng lực học thuật & Tính cách:</span>
+            <strong style="font-size:18px; color:#2563eb;">${theoryPercentage}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Tổ hợp môn & Holland)</span>
+          </div>
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Thực chứng công việc:</span>
+            <strong style="font-size:18px; color:#10b981;">${avgLabScore}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Trung bình các LAB trải nghiệm)</span>
+          </div>
+        </div>
+        <div style="font-size:11.5px; line-height:1.5; color:#334155;">
+          <strong>Nhật ký trải nghiệm phòng LAB:</strong>
+          <ul style="margin-left:1.2rem; margin-top:4px; padding-left:0;">
+            ${completedLabsHTML}
+          </ul>
+        </div>
+      </div>
+    `;
+      }
+
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const reportDiv = document.createElement('div');
+      reportDiv.style.cssText = 'background:white;border-radius:12px;padding:2.5rem;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;color:#111;';
+
+      let scoreGridHTML = '';
+      Object.entries(taskResults).forEach(([k, t]) => {
+        scoreGridHTML += `
+      <div style="background:var(--surface2);padding:0.75rem;border-radius:6px;text-align:center;">
+        <div style="font-size:9px;color:var(--ink2);margin-bottom:4px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${t.name}</div>
+        <strong style="font-size:14px;color:${t.score >= 70 ? 'var(--green)' : 'var(--amber)'};">${t.score}%</strong>
+      </div>
+    `;
+      });
+
+      reportDiv.innerHTML = `
+    <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+    
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:32px;font-weight:700;color:var(--blue);margin-bottom:0.5rem;">${percentage}%</div>
+      <div style="font-size:14px;color:var(--ink2);">Điểm hoàn thành LAB ${labTitle}</div>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(${Object.keys(taskResults).length}, 1fr);gap:8px;margin-bottom:2rem;">
+      ${scoreGridHTML}
+    </div>
+
+    ${comprehensiveSection}
+    
+    <div style="padding:1rem;background:var(--blue-bg);border-radius:6px;border-left:3px solid var(--blue);margin-bottom:1.5rem;font-size:13px;color:var(--ink2);display:flex;justify-content:space-between;">
+      <span>⏱️ <strong>Thời gian:</strong> ${totalTime} phút</span>
+      <span>📈 <strong>Tổng điểm:</strong> ${totalScore}/${maxScore}</span>
+    </div>
+    
+    <div id="aiEvaluation" style="padding:1.2rem;background:var(--amber-bg);border-radius:6px;font-size:13px;line-height:1.8;color:var(--ink);border:1px solid var(--amber-border);text-align:left;">
+      ⏳ AI đang phân tích dữ liệu lý thuyết và thực chứng để lập báo cáo hướng nghiệp...
+    </div>
+    
+    <div style="margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="window.location.href='../dinh-huong.html'" style="padding:10px 20px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">← Trở về trang định hướng</button>
+      <button onclick="window.location.href='../index.html'" style="padding:10px 20px;background:#111;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Trang chủ</button>
+    </div>
+  `;
+
+      modal.appendChild(reportDiv);
+      document.body.appendChild(modal);
+
+      // Call AI to generate evaluation
+      generateFinalReport().then(evaluation => {
+        const evalDiv = document.getElementById('aiEvaluation');
+        if (evalDiv) {
+          evalDiv.innerHTML = evaluation;
+        }
+      });
+    }
+
+    function showIntermediatePrompt() {
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score to localStorage
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs['nong_nghiep'] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Save evaluation to localStorage
+      generateFinalReport().then(evaluation => {
+        let labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+        labEvaluations['nong_nghiep'] = evaluation;
+        localStorage.setItem('labEvaluations', JSON.stringify(labEvaluations));
+      });
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white; border-radius:16px; padding:2.5rem; max-width:550px; width:100%; box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); text-align:center; color:#111111; position:relative;';
+
+      // Safe check for labTitle
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      card.innerHTML = `
+    <div style="font-size:48px; margin-bottom:1rem;">🎉</div>
+    <h3 style="font-size:22px; font-weight:700; margin-bottom:12px; color:#16a34a;">Hoàn thành Phòng LAB ${typeof labTitle !== 'undefined' ? labTitle : 'Trải nghiệm'}!</h3>
+    <p style="font-size:15px; color:#555566; line-height:1.6; margin-bottom:24px;">
+      Bạn đã hoàn thành xuất sắc nhiệm vụ với điểm số thực chứng đạt <strong>${percentage}%</strong>.
+      <br><br>
+      Hãy xem Báo cáo Đánh giá Hướng nghiệp Toàn diện để hiểu rõ năng lực và sự phù hợp của bạn.
+    </p>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <button id="btn-view-report-now" style="padding:14px; background:#2563eb; color:white; border:none; border-radius:8px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        📊 Xem báo cáo kết quả & Đánh giá AI →
+      </button>
+      <button id="btn-to-other-labs" style="padding:12px; background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        🌾 Khám phá phòng LAB khác (Định hướng)
+      </button>
+    </div>
+  `;
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Event handlers
+      card.querySelector('#btn-view-report-now').onclick = () => {
+        overlay.remove();
+        const recommendInput = localStorage.getItem('recommendInput');
+        if (recommendInput) {
+          window.location.href = '../ket-qua.html';
+        } else {
+          alert("Bạn đã hoàn thành phòng Lab! Vui lòng hoàn thành tiếp phần Trắc nghiệm tính cách để nhận Báo cáo tổng hợp toàn diện.");
+          window.location.href = '../goi-y.html';
+        }
+      };
+
+      card.querySelector('#btn-to-other-labs').onclick = () => {
+        overlay.remove();
+        window.location.href = '../dinh-huong.html';
+      };
+    }
+
   </script>
 </body>
+
 </html>

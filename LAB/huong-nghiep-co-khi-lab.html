@@ -1,357 +1,1506 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phòng Lab · Kỹ Sư Cơ Khí — Hướng Nghiệp THPT</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab · Kỹ Sư Cơ Khí — Hướng Nghiệp THPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #fafaf8; --surface: #fff; --ink: #111; --ink2: #555566; --ink3: #9999aa;
-    --blue: #2563eb; --blue-bg: #eff4ff; --border: #e0ddd8; --border2: #ccc;
-    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
-    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
-  }
-  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); }
-  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
-  .topbar-logo { font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
-  .topbar-logo span { color: var(--blue); }
-  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-title { font-size: 13px; color: var(--ink2); }
-  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
-    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
-  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
-  .hero { margin-bottom: 2rem; }
-  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
-  .hero-label span { color: var(--blue); }
-  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
-  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
-  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
-    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
-  .mtab:last-child { border-right: none; }
-  .mtab:hover { background: #f3f4f6; }
-  .mtab.active { background: var(--ink); color: #fff; }
-  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
-    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
-  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
-  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
-  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-bottom: 1rem; line-height: 1.5; }
-  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
-  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
-  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
-  .slider-row { margin-bottom: 1rem; }
-  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
-  .slider-wrap { display: flex; align-items: center; gap: 10px; }
-  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
-  .slider-val { font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; }
-  .lever-viz { position: relative; height: 120px; margin: 1.5rem 0 1rem; }
-  .lever-beam { position: absolute; left: 10%; right: 10%; top: 50%; height: 8px; background: #64748b; border-radius: 4px;
-    transform-origin: 50% 50%; transition: transform .35s ease; }
-  .lever-fulcrum { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -20%); width: 0; height: 0;
-    border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 28px solid var(--ink); }
-  .lever-load { position: absolute; top: 28%; font-size: 28px; transform: translateX(-50%); transition: left .2s; }
-  .lever-person { position: absolute; top: 18%; font-size: 24px; transform: translateX(-50%); transition: left .2s; }
-  .mat-pool { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .mat-chip { padding: 10px 14px; background: var(--surface); border: 2px solid var(--border2); border-radius: var(--radius);
-    font-size: 13px; font-weight: 500; cursor: grab; user-select: none; transition: transform .15s, border-color .15s; }
-  .mat-chip:active { cursor: grabbing; transform: scale(1.05); }
-  .mat-chip.dragging { opacity: .5; }
-  .drop-zone { min-height: 140px; border: 2px dashed var(--border2); border-radius: var(--radius-lg); padding: 1rem;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-    transition: border-color .2s, background .2s; }
-  .drop-zone.over { border-color: var(--blue); background: var(--blue-bg); }
-  .drop-zone.bad { border-color: var(--red); background: var(--red-bg); animation: shake .4s; }
-  .drop-zone.good { border-color: var(--green); background: var(--green-bg); }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-  .engine-svg { font-size: 48px; margin-bottom: .5rem; }
-  .tank-viz { display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap; }
-  .tank-cylinder { width: 100px; height: 160px; border: 3px solid var(--ink); border-radius: 4px 4px 8px 8px;
-    position: relative; overflow: hidden; background: #f8fafc; }
-  .tank-water { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, #60a5fa, #2563eb);
-    transition: height .35s; }
-  .tank-label { font-size: 12px; color: var(--ink2); margin-top: 8px; text-align: center; }
-  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
-    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
-  .btn-primary:hover { opacity: .85; }
-  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem; margin-top: 1.25rem; display: none; }
-  .result-box.show { display: block; }
-  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
-  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
-    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
-  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
-    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
-</style>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --surface2: #f5f4f0;
+      --surface3: #eeecea;
+      --ink: #111111;
+      --ink2: #555566;
+      --ink3: #9999aa;
+      --border: #e0ddd8;
+      --border2: #cccccc;
+      --blue: #2563eb;
+      --blue-bg: #eff4ff;
+      --blue-border: #c7d9ff;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #2563eb;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .hero {
+      margin-bottom: 2rem;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      font-family: inherit;
+      transition: background .15s;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: #f3f4f6;
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid #c7d9ff;
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .live-status {
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .live-status.warn {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    .live-status.ok {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .live-status.neutral {
+      background: #f3f4f6;
+      color: var(--ink2);
+      border: 1px solid var(--border);
+    }
+
+    .slider-row {
+      margin-bottom: 1rem;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-bottom: 4px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-wrap input[type=range] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .slider-val {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 48px;
+      text-align: right;
+    }
+
+    .lever-viz {
+      position: relative;
+      height: 120px;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .lever-beam {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 50%;
+      height: 8px;
+      background: #64748b;
+      border-radius: 4px;
+      transform-origin: 50% 50%;
+      transition: transform .35s ease;
+    }
+
+    .lever-fulcrum {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -20%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-bottom: 28px solid var(--ink);
+    }
+
+    .lever-load {
+      position: absolute;
+      top: 28%;
+      font-size: 28px;
+      transform: translateX(-50%);
+      transition: left .2s;
+    }
+
+    .lever-person {
+      position: absolute;
+      top: 18%;
+      font-size: 24px;
+      transform: translateX(-50%);
+      transition: left .2s;
+    }
+
+    .mat-pool {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .mat-chip {
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 2px solid var(--border2);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: grab;
+      user-select: none;
+      transition: transform .15s, border-color .15s;
+    }
+
+    .mat-chip:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    .mat-chip.dragging {
+      opacity: .5;
+    }
+
+    .drop-zone {
+      min-height: 140px;
+      border: 2px dashed var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: border-color .2s, background .2s;
+    }
+
+    .drop-zone.over {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .drop-zone.bad {
+      border-color: var(--red);
+      background: var(--red-bg);
+      animation: shake .4s;
+    }
+
+    .drop-zone.good {
+      border-color: var(--green);
+      background: var(--green-bg);
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-6px)
+      }
+
+      75% {
+        transform: translateX(6px)
+      }
+    }
+
+    .engine-svg {
+      font-size: 48px;
+      margin-bottom: .5rem;
+    }
+
+    .tank-viz {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .tank-cylinder {
+      width: 100px;
+      height: 160px;
+      border: 3px solid var(--ink);
+      border-radius: 4px 4px 8px 8px;
+      position: relative;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    .tank-water {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, #60a5fa, #2563eb);
+      transition: height .35s;
+    }
+
+    .tank-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: .5rem;
+    }
+
+    .btn-primary:hover {
+      opacity: .85;
+    }
+
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-outcome {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .result-aha {
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Unified Layout & Theme Overrides (Antigravity Overhaul) ── */
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+      display: inline-block;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* ── Mission tabs ── */
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: background .15s, color .15s;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: var(--gray-bg);
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mtab-icon {
+      font-size: 17px;
+    }
+
+    .mtab-label {
+      font-size: 12px;
+    }
+
+    /* ── Mission box ── */
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .mission-box a {
+      color: var(--blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Action label ── */
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .65rem;
+    }
+
+    /* ── Buttons ── */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: opacity .15s;
+    }
+
+    .btn-primary:hover {
+      opacity: .82;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      font-size: 13px;
+      background: var(--surface);
+      color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-bg);
+    }
+
+    /* ── Result box ── */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .85rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-aha {
+      margin-top: 1rem;
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .result-aha strong {
+      color: #3d3500;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      padding: 1.5rem 2rem;
+      font-size: 12px;
+      color: var(--ink3);
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
+
 <body>
-<div class="topbar">
-  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-title">Kỹ Sư Cơ Khí</div>
-  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
-</div>
-<div class="page">
-  <div class="hero">
-    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ Sư Cơ Khí</div>
-    <div class="hero-title">Hôm nay bạn là kỹ sư cơ khí tại nhà máy sản xuất</div>
-    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Kỹ Sư Cơ Khí</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
   </div>
-  <div class="mission-tabs">
-    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="settings"></i> Nâng vật</button>
-    <button class="mtab" onclick="switchTab(1)"><i data-lucide="wrench"></i> Vật liệu</button>
-    <button class="mtab" onclick="switchTab(2)">📐 Bồn chứa</button>
-  </div>
-
-  <div id="tab0">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Ca đêm — phải nâng khối thép 500 kg (≈ 5000 N) bằng đòn bẩy trước khi băng tải dừng. Điều chỉnh vị trí đặt tay và vị trí khối hàng, quan sát thanh có cân bằng không.
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Kỹ Sư Cơ Khí</div>
+      <div class="hero-title">Hôm nay bạn là kỹ sư cơ khí tại nhà máy sản xuất</div>
+      <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
     </div>
-    <div class="sim-card">
-      <div class="lever-viz" id="leverViz">
-        <div class="lever-beam" id="leverBeam"></div>
-        <div class="lever-fulcrum"></div>
-        <div class="lever-load" id="leverLoad"><i data-lucide="package"></i></div>
-        <div class="lever-person" id="leverPerson">🧑‍🏭</div>
+    <div class="mission-tabs">
+      <button class="mtab active" onclick="switchTab(0)"><i data-lucide="settings"></i> Nâng vật</button>
+      <button class="mtab" onclick="switchTab(1)"><i data-lucide="wrench"></i> Vật liệu</button>
+      <button class="mtab" onclick="switchTab(2)">📐 Bồn chứa</button>
+    </div>
+
+    <div id="tab0">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Ca đêm — phải nâng khối thép 500 kg (≈ 5000 N) bằng đòn bẩy trước khi băng tải
+        dừng. Điều chỉnh vị trí đặt tay và vị trí khối hàng, quan sát thanh có cân bằng không.
       </div>
-      <div class="slider-row">
-        <div class="slider-label">Khoảng cách khối hàng → điểm tựa (m)</div>
-        <div class="slider-wrap">
-          <input type="range" id="dLoad" min="0.3" max="2" step="0.1" value="1" oninput="updateLever()">
-          <span class="slider-val" id="dLoadVal">1.0 m</span>
+      <div class="sim-card">
+        <div class="lever-viz" id="leverViz">
+          <div class="lever-beam" id="leverBeam"></div>
+          <div class="lever-fulcrum"></div>
+          <div class="lever-load" id="leverLoad"><i data-lucide="package"></i></div>
+          <div class="lever-person" id="leverPerson">🧑‍🏭</div>
         </div>
-      </div>
-      <div class="slider-row">
-        <div class="slider-label">Khoảng cách bạn đứng → điểm tựa (m)</div>
-        <div class="slider-wrap">
-          <input type="range" id="dEffort" min="0.5" max="5" step="0.1" value="2" oninput="updateLever()">
-          <span class="slider-val" id="dEffortVal">2.0 m</span>
-        </div>
-      </div>
-      <div class="live-status neutral" id="leverStatus">Kéo thanh trượt để thử — máy sẽ báo ngay nếu không nâng nổi.</div>
-    </div>
-    <button class="btn-primary" onclick="revealLever()">Xem kết quả →</button>
-    <div class="result-box" id="resultLever">
-      <div class="result-outcome" id="outcomeLever"></div>
-      <div class="result-aha" id="ahaLever"></div>
-    </div>
-  </div>
-
-  <div id="tab1" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Trục động cơ mới chạy nóng liên tục (>200°C), chịu va đập, không được gỉ. Kéo một loại kim loại từ kho và thả vào vị trí lắp trục — xem máy phản ứng.
-    </div>
-    <div class="sim-card">
-      <div class="action-label">Kho vật liệu — kéo thả vào động cơ</div>
-      <div class="mat-pool">
-        <div class="mat-chip" draggable="true" data-mat="al" ondragstart="dragMat(event)">Nhôm (Al)</div>
-        <div class="mat-chip" draggable="true" data-mat="inox" ondragstart="dragMat(event)">Thép không gỉ</div>
-        <div class="mat-chip" draggable="true" data-mat="cu" ondragstart="dragMat(event)">Đồng (Cu)</div>
-      </div>
-      <div class="drop-zone" id="matDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop()" ondrop="dropMat(event)">
-        <div class="engine-svg"><i data-lucide="settings"></i></div>
-        <div style="font-size:13px;color:var(--ink2)">Vùng lắp trục động cơ — thả vật liệu vào đây</div>
-        <div id="matPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
-      </div>
-      <div class="live-status neutral" id="matStatus">Chưa thử vật liệu nào.</div>
-    </div>
-    <button class="btn-primary" onclick="revealMat()">Xem kết quả →</button>
-    <div class="result-box" id="resultMat">
-      <div class="result-outcome" id="outcomeMat"></div>
-      <div class="result-aha" id="ahaMat"></div>
-    </div>
-  </div>
-
-  <div id="tab2" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Khách đặt bồn trụ chứa <strong>9.500 lít</strong> dung môi. Bạn chỉnh kích thước thiết kế — nước mô phỏng cho biết đủ, thiếu hay tràn so với đơn hàng.
-    </div>
-    <div class="sim-card">
-      <div class="tank-viz">
-        <div>
-          <div class="tank-cylinder">
-            <div class="tank-water" id="tankWater"></div>
+        <div class="slider-row">
+          <div class="slider-label">Khoảng cách khối hàng → điểm tựa (m)</div>
+          <div class="slider-wrap">
+            <input type="range" id="dLoad" min="0.3" max="2" step="0.1" value="1" oninput="updateLever()">
+            <span class="slider-val" id="dLoadVal">1.0 m</span>
           </div>
-          <div class="tank-label" id="tankVolLabel">0 lít</div>
         </div>
-        <div style="flex:1;min-width:200px">
-          <div class="slider-row">
-            <div class="slider-label">Bán kính đáy (m)</div>
-            <div class="slider-wrap">
-              <input type="range" id="tankR" min="0.5" max="1.5" step="0.1" value="1" oninput="updateTank()">
-              <span class="slider-val" id="tankRVal">1.0 m</span>
+        <div class="slider-row">
+          <div class="slider-label">Khoảng cách bạn đứng → điểm tựa (m)</div>
+          <div class="slider-wrap">
+            <input type="range" id="dEffort" min="0.5" max="5" step="0.1" value="2" oninput="updateLever()">
+            <span class="slider-val" id="dEffortVal">2.0 m</span>
+          </div>
+        </div>
+        <div class="live-status neutral" id="leverStatus">Kéo thanh trượt để thử — máy sẽ báo ngay nếu không nâng nổi.
+        </div>
+      </div>
+      <button class="btn-primary" onclick="revealLever()">Xem kết quả →</button>
+      <div class="result-box" id="resultLever">
+        <div class="result-outcome" id="outcomeLever"></div>
+        <div class="result-aha" id="ahaLever"></div>
+      </div>
+    </div>
+
+    <div id="tab1" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Trục động cơ mới chạy nóng liên tục (>200°C), chịu va đập, không được gỉ. Kéo một
+        loại kim loại từ kho và thả vào vị trí lắp trục — xem máy phản ứng.
+      </div>
+      <div class="sim-card">
+        <div class="action-label">Kho vật liệu — kéo thả vào động cơ</div>
+        <div class="mat-pool">
+          <div class="mat-chip" draggable="true" data-mat="al" ondragstart="dragMat(event)">Nhôm (Al)</div>
+          <div class="mat-chip" draggable="true" data-mat="inox" ondragstart="dragMat(event)">Thép không gỉ</div>
+          <div class="mat-chip" draggable="true" data-mat="cu" ondragstart="dragMat(event)">Đồng (Cu)</div>
+        </div>
+        <div class="drop-zone" id="matDrop" ondragover="allowDrop(event)" ondragleave="leaveDrop()"
+          ondrop="dropMat(event)">
+          <div class="engine-svg"><i data-lucide="settings"></i></div>
+          <div style="font-size:13px;color:var(--ink2)">Vùng lắp trục động cơ — thả vật liệu vào đây</div>
+          <div id="matPlaced" style="margin-top:8px;font-weight:600;font-size:14px"></div>
+        </div>
+        <div class="live-status neutral" id="matStatus">Chưa thử vật liệu nào.</div>
+      </div>
+      <button class="btn-primary" onclick="revealMat()">Xem kết quả →</button>
+      <div class="result-box" id="resultMat">
+        <div class="result-outcome" id="outcomeMat"></div>
+        <div class="result-aha" id="ahaMat"></div>
+      </div>
+    </div>
+
+    <div id="tab2" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Khách đặt bồn trụ chứa <strong>9.500 lít</strong> dung môi. Bạn chỉnh kích thước
+        thiết kế — nước mô phỏng cho biết đủ, thiếu hay tràn so với đơn hàng.
+      </div>
+      <div class="sim-card">
+        <div class="tank-viz">
+          <div>
+            <div class="tank-cylinder">
+              <div class="tank-water" id="tankWater"></div>
+            </div>
+            <div class="tank-label" id="tankVolLabel">0 lít</div>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <div class="slider-row">
+              <div class="slider-label">Bán kính đáy (m)</div>
+              <div class="slider-wrap">
+                <input type="range" id="tankR" min="0.5" max="1.5" step="0.1" value="1" oninput="updateTank()">
+                <span class="slider-val" id="tankRVal">1.0 m</span>
+              </div>
+            </div>
+            <div class="slider-row">
+              <div class="slider-label">Chiều cao (m)</div>
+              <div class="slider-wrap">
+                <input type="range" id="tankH" min="1" max="4" step="0.1" value="2.5" oninput="updateTank()">
+                <span class="slider-val" id="tankHVal">2.5 m</span>
+              </div>
             </div>
           </div>
-          <div class="slider-row">
-            <div class="slider-label">Chiều cao (m)</div>
-            <div class="slider-wrap">
-              <input type="range" id="tankH" min="1" max="4" step="0.1" value="2.5" oninput="updateTank()">
-              <span class="slider-val" id="tankHVal">2.5 m</span>
-            </div>
-          </div>
         </div>
+        <div class="live-status neutral" id="tankStatus">Điều chỉnh kích thước để khớp đơn 9.500 lít.</div>
       </div>
-      <div class="live-status neutral" id="tankStatus">Điều chỉnh kích thước để khớp đơn 9.500 lít.</div>
-    </div>
-    <button class="btn-primary" onclick="revealTank()">Xem kết quả →</button>
-    <div class="result-box" id="resultTank">
-      <div class="result-outcome" id="outcomeTank"></div>
-      <div class="result-aha" id="ahaTank"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-const LOAD_N = 5000;
-const ORDER_L = 9500;
-
-function switchTab(n) {
-  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
-  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
-}
-
-function updateLever() {
-  const d1 = parseFloat(document.getElementById('dLoad').value);
-  const d2 = parseFloat(document.getElementById('dEffort').value);
-  document.getElementById('dLoadVal').textContent = d1.toFixed(1) + ' m';
-  document.getElementById('dEffortVal').textContent = d2.toFixed(1) + ' m';
-  const torqueLoad = LOAD_N * d1;
-  const torqueEffort = d2 > 0 ? (torqueLoad / d2) : 99999;
-  const needF = torqueLoad / d2;
-  const tilt = Math.max(-28, Math.min(28, (d1 / d2 - 0.25) * 40));
-  document.getElementById('leverBeam').style.transform = 'rotate(' + (-tilt) + 'deg)';
-  const pctLoad = 15 + (d1 / 2.5) * 25;
-  const pctEffort = 55 + (d2 / 5) * 35;
-  document.getElementById('leverLoad').style.left = pctLoad + '%';
-  document.getElementById('leverPerson').style.left = pctEffort + '%';
-  const st = document.getElementById('leverStatus');
-  const balanced = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
-  if (d2 < 1.5) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Bạn đứng quá gần điểm tựa — thanh nghiêng, khối 500 kg không nhấc nổi. Tai nạn sập.';
-  } else if (needF > 8000) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Cần lực ~' + Math.round(needF) + ' N — quá sức một người. Đổi vị trí đứng xa hơn.';
-  } else if (balanced) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Thanh cân bằng. Ước lượng bạn chỉ cần ~' + Math.round(needF) + ' N — có thể nâng an toàn.';
-  } else {
-    st.className = 'live-status neutral';
-    st.textContent = 'Thanh chưa tối ưu. Thử tăng khoảng cách bạn → điểm tựa (gần 4 m).';
-  }
-}
-
-function revealLever() {
-  const d1 = parseFloat(document.getElementById('dLoad').value);
-  const d2 = parseFloat(document.getElementById('dEffort').value);
-  const needF = (LOAD_N * d1) / d2;
-  const ok = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
-  document.getElementById('outcomeLever').innerHTML = ok
-    ? 'Ca đêm hoàn thành: khối thép được nâng đúng hạn, băng tải không dừng.'
-    : 'Khối hàng không nâng nổi hoặc quá nguy hiểm — ca bị trễ, nhà máy phải dùng cẩu thay thế.';
-  document.getElementById('ahaLever').innerHTML = (ok ? 'Bạn vừa cân bằng hai moment: lực nặng × cánh ngắn = lực bạn × cánh dài.' : 'Khi cánh tay lực của bạn quá ngắn, moment không đủ — đòn bẩy không giúp được.')
-    + '<span class="subject-bridge">Cầu nối SGK: Vật lý — moment lực / đòn bẩy</span>';
-  document.getElementById('resultLever').className = 'result-box show';
-}
-
-let placedMat = null;
-function dragMat(e) { e.dataTransfer.setData('mat', e.target.dataset.mat); e.target.classList.add('dragging'); }
-function allowDrop(e) { e.preventDefault(); document.getElementById('matDrop').classList.add('over'); }
-function leaveDrop() { document.getElementById('matDrop').classList.remove('over'); }
-function dropMat(e) {
-  e.preventDefault();
-  leaveDrop();
-  document.querySelectorAll('.mat-chip').forEach(c => c.classList.remove('dragging'));
-  placedMat = e.dataTransfer.getData('mat');
-  const names = { al: 'Nhôm', inox: 'Thép không gỉ', cu: 'Đồng' };
-  const dz = document.getElementById('matDrop');
-  dz.classList.remove('bad','good');
-  document.getElementById('matPlaced').textContent = 'Đã lắp: ' + names[placedMat];
-  const st = document.getElementById('matStatus');
-  if (placedMat === 'inox') {
-    dz.classList.add('good');
-    st.className = 'live-status ok';
-    st.textContent = '✓ Máy chạy ổn định — nhiệt cao nhưng trục không biến dạng, không gỉ.';
-  } else if (placedMat === 'al') {
-    dz.classList.add('bad');
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Sau 2 giờ: trục mềm, rung mạnh — phải dừng dây chuyền.';
-  } else {
-    dz.classList.add('bad');
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Trục oxy hóa, nứt — hỏng hóc, nguy cơ văng chi tiết.';
-  }
-}
-
-function revealMat() {
-  const ok = placedMat === 'inox';
-  document.getElementById('outcomeMat').innerHTML = ok
-    ? 'Động cơ vận hành đủ spec — không sự cố trong ca thử nghiệm.'
-    : 'Sự cố cơ khí: dừng máy, thay trục, chi phí và thời gian sản xuất tăng mạnh.';
-  document.getElementById('ahaMat').innerHTML = (ok
-    ? 'Chịu nhiệt + bền + chống gỉ cùng lúc — bạn chọn đúng hợp kim cho môi trường khắc nghiệt.'
-    : 'Mỗi kim loại có "điểm yếu" riêng khi nhiệt và lực va đập kết hợp — chọn sai là hỏng máy.')
-    + '<span class="subject-bridge">Cầu nối SGK: Hóa học — tính chất kim loại & hợp kim</span>';
-  document.getElementById('resultMat').className = 'result-box show';
-}
-
-function updateTank() {
-  const r = parseFloat(document.getElementById('tankR').value);
-  const h = parseFloat(document.getElementById('tankH').value);
-  document.getElementById('tankRVal').textContent = r.toFixed(1) + ' m';
-  document.getElementById('tankHVal').textContent = h.toFixed(1) + ' m';
-  const liters = Math.round(Math.PI * r * r * h * 1000);
-  const pct = Math.min(100, (liters / 12000) * 100);
-  document.getElementById('tankWater').style.height = pct + '%';
-  document.getElementById('tankVolLabel').textContent = liters.toLocaleString('vi-VN') + ' lít';
-  const st = document.getElementById('tankStatus');
-  if (liters < ORDER_L - 500) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Thiếu ' + (ORDER_L - liters).toLocaleString('vi-VN') + ' lít — khách không nhận hàng.';
-  } else if (liters > ORDER_L + 800) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Dư thể tích — lãng phí vật liệu, chi phí tăng.';
-  } else {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Khớp đơn hàng ~9.500 lít — có thể giao.';
-  }
-}
-
-function revealTank() {
-  const r = parseFloat(document.getElementById('tankR').value);
-  const h = parseFloat(document.getElementById('tankH').value);
-  const liters = Math.round(Math.PI * r * r * h * 1000);
-  const ok = liters >= ORDER_L - 500 && liters <= ORDER_L + 800;
-  document.getElementById('outcomeTank').innerHTML = ok
-    ? 'Bồn được duyệt — xưởng đặt hàng sản xuất, giao đúng hạn.'
-    : 'Thiết kế bị trả lại: chỉnh lại kích thước hoặc mất hợp đồng.';
-  document.getElementById('ahaTank').innerHTML = 'Thể tích hình trụ = diện tích đáy × chiều cao; đổi mét khối sang lít (×1000) là bước quyết định lợi nhuận.'
-    + '<span class="subject-bridge">Cầu nối SGK: Toán 12 — hình học không gian (thể tích)</span>';
-  document.getElementById('resultTank').className = 'result-box show';
-}
-
-updateLever();
-updateTank();
-</script>
-
-<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
-  <div style="max-width:900px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:2rem;">
-      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
-      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Cơ khí?</h2>
-    </div>
-    <div style="text-align:center;">
-      <a href="../index.html" style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá thêm ngành</a>
+      <button class="btn-primary" onclick="revealTank()">Xem kết quả →</button>
+      <div class="result-box" id="resultTank">
+        <div class="result-outcome" id="outcomeTank"></div>
+        <div class="result-aha" id="ahaTank"></div>
+      </div>
     </div>
   </div>
-</div>
+
+  <script>
+    const LOAD_N = 5000;
+    const ORDER_L = 9500;
+
+    function switchTab(n) {
+      ['tab0', 'tab1', 'tab2'].forEach((id, i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+      document.querySelectorAll('.mtab').forEach((btn, i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+    }
+
+    function updateLever() {
+      const d1 = parseFloat(document.getElementById('dLoad').value);
+      const d2 = parseFloat(document.getElementById('dEffort').value);
+      document.getElementById('dLoadVal').textContent = d1.toFixed(1) + ' m';
+      document.getElementById('dEffortVal').textContent = d2.toFixed(1) + ' m';
+      const torqueLoad = LOAD_N * d1;
+      const torqueEffort = d2 > 0 ? (torqueLoad / d2) : 99999;
+      const needF = torqueLoad / d2;
+      const tilt = Math.max(-28, Math.min(28, (d1 / d2 - 0.25) * 40));
+      document.getElementById('leverBeam').style.transform = 'rotate(' + (-tilt) + 'deg)';
+      const pctLoad = 15 + (d1 / 2.5) * 25;
+      const pctEffort = 55 + (d2 / 5) * 35;
+      document.getElementById('leverLoad').style.left = pctLoad + '%';
+      document.getElementById('leverPerson').style.left = pctEffort + '%';
+      const st = document.getElementById('leverStatus');
+      const balanced = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
+      if (d2 < 1.5) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Bạn đứng quá gần điểm tựa — thanh nghiêng, khối 500 kg không nhấc nổi. Tai nạn sập.';
+      } else if (needF > 8000) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Cần lực ~' + Math.round(needF) + ' N — quá sức một người. Đổi vị trí đứng xa hơn.';
+      } else if (balanced) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Thanh cân bằng. Ước lượng bạn chỉ cần ~' + Math.round(needF) + ' N — có thể nâng an toàn.';
+      } else {
+        st.className = 'live-status neutral';
+        st.textContent = 'Thanh chưa tối ưu. Thử tăng khoảng cách bạn → điểm tựa (gần 4 m).';
+      }
+    }
+
+    function revealLever() {
+      const d1 = parseFloat(document.getElementById('dLoad').value);
+      const d2 = parseFloat(document.getElementById('dEffort').value);
+      const needF = (LOAD_N * d1) / d2;
+      const ok = d2 >= 3.5 && Math.abs(needF - 1250) < 400;
+      document.getElementById('outcomeLever').innerHTML = ok
+        ? 'Ca đêm hoàn thành: khối thép được nâng đúng hạn, băng tải không dừng.'
+        : 'Khối hàng không nâng nổi hoặc quá nguy hiểm — ca bị trễ, nhà máy phải dùng cẩu thay thế.';
+      document.getElementById('ahaLever').innerHTML = (ok ? 'Bạn vừa cân bằng hai moment: lực nặng × cánh ngắn = lực bạn × cánh dài.' : 'Khi cánh tay lực của bạn quá ngắn, moment không đủ — đòn bẩy không giúp được.')
+        + '<span class="subject-bridge">Cầu nối SGK: Vật lý — moment lực / đòn bẩy</span>';
+      taskResults.task0.score = ok ? 30 : 10;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultLever').className = 'result-box show';
+    }
+
+    let placedMat = null;
+    function dragMat(e) { e.dataTransfer.setData('mat', e.target.dataset.mat); e.target.classList.add('dragging'); }
+    function allowDrop(e) { e.preventDefault(); document.getElementById('matDrop').classList.add('over'); }
+    function leaveDrop() { document.getElementById('matDrop').classList.remove('over'); }
+    function dropMat(e) {
+      e.preventDefault();
+      leaveDrop();
+      document.querySelectorAll('.mat-chip').forEach(c => c.classList.remove('dragging'));
+      placedMat = e.dataTransfer.getData('mat');
+      const names = { al: 'Nhôm', inox: 'Thép không gỉ', cu: 'Đồng' };
+      const dz = document.getElementById('matDrop');
+      dz.classList.remove('bad', 'good');
+      document.getElementById('matPlaced').textContent = 'Đã lắp: ' + names[placedMat];
+      const st = document.getElementById('matStatus');
+      if (placedMat === 'inox') {
+        dz.classList.add('good');
+        st.className = 'live-status ok';
+        st.textContent = '✓ Máy chạy ổn định — nhiệt cao nhưng trục không biến dạng, không gỉ.';
+      } else if (placedMat === 'al') {
+        dz.classList.add('bad');
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Sau 2 giờ: trục mềm, rung mạnh — phải dừng dây chuyền.';
+      } else {
+        dz.classList.add('bad');
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Trục oxy hóa, nứt — hỏng hóc, nguy cơ văng chi tiết.';
+      }
+    }
+
+    function revealMat() {
+      const ok = placedMat === 'inox';
+      document.getElementById('outcomeMat').innerHTML = ok
+        ? 'Động cơ vận hành đủ spec — không sự cố trong ca thử nghiệm.'
+        : 'Sự cố cơ khí: dừng máy, thay trục, chi phí và thời gian sản xuất tăng mạnh.';
+      document.getElementById('ahaMat').innerHTML = (ok
+        ? 'Chịu nhiệt + bền + chống gỉ cùng lúc — bạn chọn đúng hợp kim cho môi trường khắc nghiệt.'
+        : 'Mỗi kim loại có "điểm yếu" riêng khi nhiệt và lực va đập kết hợp — chọn sai là hỏng máy.')
+        + '<span class="subject-bridge">Cầu nối SGK: Hóa học — tính chất kim loại & hợp kim</span>';
+      taskResults.task1.score = ok ? 35 : 0;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultMat').className = 'result-box show';
+    }
+
+    function updateTank() {
+      const r = parseFloat(document.getElementById('tankR').value);
+      const h = parseFloat(document.getElementById('tankH').value);
+      document.getElementById('tankRVal').textContent = r.toFixed(1) + ' m';
+      document.getElementById('tankHVal').textContent = h.toFixed(1) + ' m';
+      const liters = Math.round(Math.PI * r * r * h * 1000);
+      const pct = Math.min(100, (liters / 12000) * 100);
+      document.getElementById('tankWater').style.height = pct + '%';
+      document.getElementById('tankVolLabel').textContent = liters.toLocaleString('vi-VN') + ' lít';
+      const st = document.getElementById('tankStatus');
+      if (liters < ORDER_L - 500) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Thiếu ' + (ORDER_L - liters).toLocaleString('vi-VN') + ' lít — khách không nhận hàng.';
+      } else if (liters > ORDER_L + 800) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Dư thể tích — lãng phí vật liệu, chi phí tăng.';
+      } else {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Khớp đơn hàng ~9.500 lít — có thể giao.';
+      }
+    }
+
+    function revealTank() {
+      const r = parseFloat(document.getElementById('tankR').value);
+      const h = parseFloat(document.getElementById('tankH').value);
+      const liters = Math.round(Math.PI * r * r * h * 1000);
+      const ok = liters >= ORDER_L - 500 && liters <= ORDER_L + 800;
+      document.getElementById('outcomeTank').innerHTML = ok
+        ? 'Bồn được duyệt — xưởng đặt hàng sản xuất, giao đúng hạn.'
+        : 'Thiết kế bị trả lại: chỉnh lại kích thước hoặc mất hợp đồng.';
+      document.getElementById('ahaTank').innerHTML = 'Thể tích hình trụ = diện tích đáy × chiều cao; đổi mét khối sang lít (×1000) là bước quyết định lợi nhuận.'
+        + '<span class="subject-bridge">Cầu nối SGK: Toán 12 — hình học không gian (thể tích)</span>';
+      taskResults.task2.score = ok ? 35 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultTank').className = 'result-box show';
+    }
+
+    updateLever();
+    updateTank();
+  </script>
+
+  <div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;margin-bottom:.5rem;"><i
+            data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+        <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Cơ khí?</h2>
+      </div>
+      <div style="text-align:center;">
+        <a href="../index.html"
+          style="display:inline-block;padding:10px 24px;background:var(--ink);color:#fff;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám
+          phá thêm ngành</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    // ─────────────────────────────────────────────
+    //  GLOBAL TRACKING & SCORING SYSTEM (SYNCHRONIZED WITH AI LAB)
+    // ─────────────────────────────────────────────
+    let taskResults = {
+      task0: { name: 'Nâng vật (Đòn bẩy)', score: 0, maxScore: 30, completed: false },
+      task1: { name: 'Vật liệu động cơ', score: 0, maxScore: 35, completed: false },
+      task2: { name: 'Bồn chứa dung môi', score: 0, maxScore: 35, completed: false }
+    };
+    let currentTab = 0;
+    let overallStartTime = Date.now();
+    const labKey = 'co_khi';
+    const labTitle = 'Kỹ Sư Cơ Khí';
+
+    function checkAllTasksCompleted() {
+      const allCompleted = Object.values(taskResults).every(t => t.completed);
+      if (allCompleted) {
+        // Show report button in the last tab
+        const lastTabId = 'tab' + (Object.keys(taskResults).length - 1);
+        const lastTab = document.getElementById(lastTabId);
+        if (lastTab) {
+          const existingBtn = lastTab.querySelector('.btn-final-report');
+          if (!existingBtn) {
+            const finalBtn = document.createElement('button');
+            finalBtn.className = 'btn-primary btn-final-report';
+            finalBtn.style.marginTop = '1rem';
+            finalBtn.style.display = 'inline-flex';
+            finalBtn.style.alignItems = 'center';
+            finalBtn.style.gap = '8px';
+            finalBtn.innerHTML = '<i data-lucide="bar-chart-2"></i> Xem báo cáo đánh giá cuối cùng';
+            finalBtn.onclick = showIntermediatePrompt;
+
+            // Find action row or append at end
+            const actRow = lastTab.querySelector('.action-row') || lastTab;
+            actRow.appendChild(finalBtn);
+            lucide.createIcons();
+          }
+        }
+      }
+    }
+
+        // ─────────────────────────────────────────────
+    //  FINAL REPORT & LOCAL EVALUATION (NO API NEEDED)
+    // ─────────────────────────────────────────────
+    async function generateFinalReport() {
+      // Simulate brief loading
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+      const hollandTally = recommendInput ? recommendInput.hollandTally || {} : {};
+      const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+      const topHolland = sortedHolland[0] ? sortedHolland[0][0] : 'I';
+
+      // Safe check for local labTitle variable, fall back to page title if not found
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      let title = "";
+      let degreeOfMatch = "";
+      let advice = "";
+
+      if (percentage >= 80) {
+        title = `Chuyên gia ${currentLabTitle} xuất sắc`;
+        degreeOfMatch = `Học sinh thể hiện sự vượt trội và năng khiếu đặc biệt trong lĩnh vực ${currentLabTitle}. Điểm số thực nghiệm đạt ${percentage}% (cực kỳ cao) chứng tỏ bạn có tư duy phân tích sắc bén, logic vững vàng và độ tập trung cao độ khi giải quyết các bài tập chuyên môn.`;
+      } else if (percentage >= 50) {
+        title = `Kỹ sư/Chuyên viên ${currentLabTitle} triển vọng`;
+        degreeOfMatch = `Học sinh có độ phù hợp khá cao với lĩnh vực ${currentLabTitle}. Bạn nắm bắt nhanh các khái niệm và hoàn thành tốt các thử thách được giao với điểm số thực nghiệm ${percentage}%. Nếu tiếp tục rèn luyện tính kiên nhẫn và đào sâu chuyên môn, bạn sẽ tiến rất xa.`;
+      } else {
+        title = `Người tìm hiểu lĩnh vực ${currentLabTitle}`;
+        degreeOfMatch = `Học sinh đã hoàn thành các bước trải nghiệm cơ bản để hiểu công việc của một chuyên gia trong lĩnh vực ${currentLabTitle}. Kết quả thực chứng ở mức trung bình (${percentage}%) cho thấy bạn cần củng cố thêm các kiến thức nền tảng THPT và thực hành nhiều hơn nếu muốn theo đuổi định hướng này.`;
+      }
+
+      // Analyze each task score
+      const taskAnalysis = Object.values(taskResults).map(t => {
+        let taskRating = "";
+        const rate = t.maxScore > 0 ? (t.score / t.maxScore) : (t.score / 100);
+        if (rate >= 0.8) {
+          taskRating = `Đạt kết quả xuất sắc, phản ánh năng lực tốt về <b>${t.name}</b>.`;
+        } else if (rate >= 0.5) {
+          taskRating = `Đạt kết quả khá tốt ở phần <b>${t.name}</b>, có nền tảng cơ bản vững vàng.`;
+        } else {
+          taskRating = `Cần rèn luyện và chú ý hơn ở nội dung <b>${t.name}</b>.`;
+        }
+        return `<li><b>${t.name}</b>: ${taskRating}</li>`;
+      }).join('');
+
+      // Holland compatibility
+      let hollandMatch = "";
+      const investigativeLabs = ['Khoa học Máy tính', 'Kỹ sư AI', 'Bác sĩ', 'Luật sư'];
+      const realisticLabs = ['Kỹ sư Cơ khí', 'Kỹ sư Điện', 'Kỹ sư Nông nghiệp'];
+      const socialLabs = ['Giáo viên', 'Luật sư', 'Bác sĩ'];
+      const enterprisingLabs = ['Chuyên viên Kinh tế'];
+      const conventionalLabs = ['Chuyên viên Kinh tế', 'Lập trình viên'];
+
+      let isMatch = false;
+      if (topHolland === 'I' && investigativeLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'R' && realisticLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'S' && socialLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'E' && enterprisingLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'C' && conventionalLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+
+      if (isMatch) {
+        hollandMatch = `Tính cách lý thuyết nổi trội của bạn thuộc nhóm <b>${topHolland}</b>, cực kỳ ăn khớp và tương thích với đặc thù công việc trong phòng Lab <b>${currentLabTitle}</b> này.`;
+      } else {
+        hollandMatch = `Mặc dù nhóm tính cách lý thuyết nổi trội của bạn là <b>${topHolland}</b>, trải nghiệm thực tế tại phòng Lab <b>${currentLabTitle}</b> cho thấy bạn vẫn sở hữu những tiềm năng tiềm ẩn hoặc sự hứng thú đặc biệt với lĩnh vực kỹ thuật này.`;
+      }
+
+      // Advice base on currentLabTitle
+      if (currentLabTitle.includes('AI') || currentLabTitle.includes('Máy tính') || currentLabTitle.includes('Lập trình')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt các môn <b>Toán</b> (Giải tích, Đạo hàm, Xác suất thống kê) và <b>Tin học</b> ở trường.</li>
+            <li>Tham gia học các khóa học lập trình cơ bản (như Python, C++) và rèn luyện thuật toán trên các trang uy tín như LeetCode, Codeforces.</li>
+            <li>Tìm hiểu thêm về cấu trúc dữ liệu, thuật toán và cách thiết kế ứng dụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Y tế') || currentLabTitle.includes('Bác sĩ')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Đặc biệt chú trọng các môn học <b>Hóa học</b> và <b>Sinh học</b> THPT, đây là nền tảng tối quan trọng.</li>
+            <li>Rèn luyện tính cẩn thận, chịu áp lực tốt, tinh thần trách nhiệm và lòng nhân ái.</li>
+            <li>Tìm hiểu sâu về giải phẫu học cơ bản hoặc các xu hướng y học hiện đại như EMR, chẩn đoán số.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Kinh tế') || currentLabTitle.includes('Tài chính')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt môn <b>Toán</b>, <b>Tiếng Anh</b> và các kiến thức Xã hội, Địa lý Kinh tế.</li>
+            <li>Thực hành làm việc với bảng tính (Excel/Google Sheets), phân tích số liệu và rèn luyện tư duy tài chính.</li>
+            <li>Đọc thêm sách báo kinh tế, tìm hiểu về dòng tiền, lãi kép và thị trường tài chính toàn cầu.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Pháp luật') || currentLabTitle.includes('Luật')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt môn <b>Ngữ văn</b>, <b>Lịch sử</b>, <b>Giáo dục công dân/Kinh tế Pháp luật</b> và <b>Tiếng Anh</b>.</li>
+            <li>Rèn luyện tư duy phản biện, kỹ năng lập luận lô-gích và khả năng diễn thuyết trước đám đông.</li>
+            <li>Đọc và phân tích các bộ luật cơ bản hoặc tham khảo các case study tranh tụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Giáo dục') || currentLabTitle.includes('Sư phạm')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Rèn luyện vững vàng môn thế mạnh mà bạn muốn giảng dạy, cùng kỹ năng thuyết trình, trình bày bảng biểu.</li>
+            <li>Trau dồi tính kiên nhẫn, sự thấu hiểu tâm lý lứa tuổi và kỹ năng truyền đạt sư phạm.</li>
+            <li>Thực hành tự thiết kế giáo án hoặc hướng dẫn bài học cho bạn bè, em nhỏ.</li>
+          </ol>
+        `;
+      } else {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt các môn Khoa học tự nhiên như <b>Vật lý</b>, <b>Hóa học</b> và môn <b>Công nghệ</b> THPT.</li>
+            <li>Tham gia thiết kế các dự án thực tế, câu lạc bộ STEM hoặc tự mày mò lắp ráp phần cứng cơ bản.</li>
+            <li>Tìm hiểu quy chuẩn kỹ thuật, quy trình an toàn lao động và cách đọc bản vẽ kỹ thuật.</li>
+          </ol>
+        `;
+      }
+
+      return `
+        <div style="text-align:left; font-family:'IBM Plex Sans', sans-serif;">
+          <h3 style="color:var(--blue); font-size:18px; font-weight:700; margin-bottom:12px; border-bottom:2px solid var(--blue-border); padding-bottom:6px;">
+            🎓 Định hướng gợi ý: ${title}
+          </h3>
+          <p style="margin-bottom:16px; font-size:13.5px; line-height:1.7;">
+            <strong>Độ phù hợp toàn diện:</strong> ${degreeOfMatch}
+          </p>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            📊 Kết quả thực chứng qua nhiệm vụ phòng LAB:
+          </h4>
+          <div style="background:var(--surface2); padding:12px; border-radius:6px; margin-bottom:16px; font-size:13px;">
+            <ul style="margin-left: 1.2rem; padding-left: 0;">
+              ${taskAnalysis}
+            </ul>
+          </div>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🧬 Sự liên kết giữa Lý thuyết & Trải nghiệm:
+          </h4>
+          <p style="margin-bottom:16px; font-size:13px; line-height:1.7;">
+            ${hollandMatch}
+          </p>
+          
+          <h4 style="color:var(--blue); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🚀 Lộ trình đề xuất phát triển kỹ năng:
+          </h4>
+          <div style="font-size:13px; line-height:1.7;">
+            ${advice}
+          </div>
+        </div>
+      `;
+    }
+
+    function showFinalReport() {
+      const totalTime = Math.round((Date.now() - overallStartTime) / 1000 / 60);
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs[labKey] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Read recommendInput from localStorage
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+
+      let comprehensiveSection = '';
+      if (recommendInput) {
+        const userSubjects = recommendInput.subjects || [];
+        const userGrades = recommendInput.grades || {};
+        const hollandTally = recommendInput.hollandTally || {};
+        const gradeLevel = recommendInput.gradeLevel || "";
+
+        const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+        const topHollandType = sortedHolland[0] ? sortedHolland[0][0] : null;
+        const secondHollandType = sortedHolland[1] ? sortedHolland[1][0] : null;
+
+        // 1. Calculate Holland Score (max 5)
+        let hollandScore = 0;
+        if (topHollandType === "R") hollandScore = 5;
+        else if (secondHollandType === "R") hollandScore = 3;
+
+        // 2. Calculate Subject Matches (max 6)
+        const matchedSubjects = ["Toán", "Vật lý", "Hóa học"].filter(sub => userSubjects.includes(sub));
+        let subjectScore = matchedSubjects.length * 2;
+
+        // 3. Calculate Academic Grade Score (max 3)
+        let academicScore = 0;
+        if (matchedSubjects.length > 0) {
+          let totalGrade = 0;
+          let gradeCount = 0;
+          matchedSubjects.forEach(sub => {
+            const gradeObj = userGrades[sub];
+            if (gradeObj) {
+              if (gradeLevel === "10" || gradeLevel === "11") {
+                const y1 = parseFloat(gradeObj.year1) || 0;
+                const y2 = parseFloat(gradeObj.year2) || 0;
+                if (y1 > 0 && y2 > 0) { totalGrade += (y1 + y2) / 2; gradeCount++; }
+              } else {
+                const exam = parseFloat(gradeObj.exam) || 0;
+                if (exam > 0) { totalGrade += exam; gradeCount++; }
+              }
+            }
+          });
+          const avgGrade = gradeCount > 0 ? (totalGrade / gradeCount) : 0;
+          if (avgGrade >= 8.0) academicScore = 3;
+          else if (avgGrade >= 6.5) academicScore = 1.5;
+        }
+
+        const theoryScore = hollandScore + subjectScore + academicScore;
+        const theoryPercentage = Math.round((theoryScore / 14) * 100);
+
+        const completedLabsEntries = Object.entries(completedLabs);
+        let avgLabScore = percentage;
+        if (completedLabsEntries.length > 0) {
+          const totalLabScores = completedLabsEntries.reduce((sum, entry) => sum + entry[1], 0);
+          avgLabScore = Math.round(totalLabScores / completedLabsEntries.length);
+        }
+
+        let completedLabsHTML = '';
+        const labNames = {
+          ai: "Kỹ sư AI",
+          cs: "Lập trình viên",
+          y_khoa: "Bác sĩ",
+          kinh_te: "Chuyên viên Kinh tế",
+          giao_duc: "Giáo viên",
+          phap_luat: "Luật sư",
+          co_khi: "Kỹ sư Cơ khí",
+          ky_thuat: "Kỹ sư Điện",
+          nong_nghiep: "Kỹ sư Nông nghiệp",
+          hoa_hoc: "Kỹ sư Hóa học",
+          sang_tao: "Sáng tạo & Thiết kế"
+        };
+        completedLabsEntries.forEach(([lId, score]) => {
+          completedLabsHTML += `<li><strong>${labNames[lId] || lId}</strong>: ${score}% (Đã hoàn thành)</li>`;
+        });
+
+        comprehensiveSection = `
+      <div style="background:rgba(37, 99, 235, 0.08); border-left:4px solid #2563eb; padding:1.2rem; margin-bottom:1.5rem; border-radius:6px; color:#1e293b; text-align:left;">
+        <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          🎯 ĐỘ PHÙ HỢP TOÀN DIỆN CỦA BẠN:
+        </h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Năng lực học thuật & Tính cách:</span>
+            <strong style="font-size:18px; color:#2563eb;">${theoryPercentage}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Tổ hợp môn & Holland)</span>
+          </div>
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Thực chứng công việc:</span>
+            <strong style="font-size:18px; color:#10b981;">${avgLabScore}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Trung bình các LAB trải nghiệm)</span>
+          </div>
+        </div>
+        <div style="font-size:11.5px; line-height:1.5; color:#334155;">
+          <strong>Nhật ký trải nghiệm phòng LAB:</strong>
+          <ul style="margin-left:1.2rem; margin-top:4px; padding-left:0;">
+            ${completedLabsHTML}
+          </ul>
+        </div>
+      </div>
+    `;
+      }
+
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const reportDiv = document.createElement('div');
+      reportDiv.style.cssText = 'background:white;border-radius:12px;padding:2.5rem;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;color:#111;';
+
+      let scoreGridHTML = '';
+      Object.entries(taskResults).forEach(([k, t]) => {
+        scoreGridHTML += `
+      <div style="background:var(--surface2);padding:0.75rem;border-radius:6px;text-align:center;">
+        <div style="font-size:9px;color:var(--ink2);margin-bottom:4px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${t.name}</div>
+        <strong style="font-size:14px;color:${t.score >= 70 ? 'var(--green)' : 'var(--amber)'};">${t.score}%</strong>
+      </div>
+    `;
+      });
+
+      reportDiv.innerHTML = `
+    <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+    
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:32px;font-weight:700;color:var(--blue);margin-bottom:0.5rem;">${percentage}%</div>
+      <div style="font-size:14px;color:var(--ink2);">Điểm hoàn thành LAB ${labTitle}</div>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(${Object.keys(taskResults).length}, 1fr);gap:8px;margin-bottom:2rem;">
+      ${scoreGridHTML}
+    </div>
+
+    ${comprehensiveSection}
+    
+    <div style="padding:1rem;background:var(--blue-bg);border-radius:6px;border-left:3px solid var(--blue);margin-bottom:1.5rem;font-size:13px;color:var(--ink2);display:flex;justify-content:space-between;">
+      <span>⏱️ <strong>Thời gian:</strong> ${totalTime} phút</span>
+      <span>📈 <strong>Tổng điểm:</strong> ${totalScore}/${maxScore}</span>
+    </div>
+    
+    <div id="aiEvaluation" style="padding:1.2rem;background:var(--amber-bg);border-radius:6px;font-size:13px;line-height:1.8;color:var(--ink);border:1px solid var(--amber-border);text-align:left;">
+      ⏳ AI đang phân tích dữ liệu lý thuyết và thực chứng để lập báo cáo hướng nghiệp...
+    </div>
+    
+    <div style="margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="window.location.href='../dinh-huong.html'" style="padding:10px 20px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">← Trở về trang định hướng</button>
+      <button onclick="window.location.href='../index.html'" style="padding:10px 20px;background:#111;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Trang chủ</button>
+    </div>
+  `;
+
+      modal.appendChild(reportDiv);
+      document.body.appendChild(modal);
+
+      // Call AI to generate evaluation
+      generateFinalReport().then(evaluation => {
+        const evalDiv = document.getElementById('aiEvaluation');
+        if (evalDiv) {
+          evalDiv.innerHTML = evaluation;
+        }
+      });
+    }
+
+    function showIntermediatePrompt() {
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score to localStorage
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs['co_khi'] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Save evaluation to localStorage
+      generateFinalReport().then(evaluation => {
+        let labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+        labEvaluations['co_khi'] = evaluation;
+        localStorage.setItem('labEvaluations', JSON.stringify(labEvaluations));
+      });
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white; border-radius:16px; padding:2.5rem; max-width:550px; width:100%; box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); text-align:center; color:#111111; position:relative;';
+
+      // Safe check for labTitle
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      card.innerHTML = `
+    <div style="font-size:48px; margin-bottom:1rem;">🎉</div>
+    <h3 style="font-size:22px; font-weight:700; margin-bottom:12px; color:#16a34a;">Hoàn thành Phòng LAB ${typeof labTitle !== 'undefined' ? labTitle : 'Trải nghiệm'}!</h3>
+    <p style="font-size:15px; color:#555566; line-height:1.6; margin-bottom:24px;">
+      Bạn đã hoàn thành xuất sắc nhiệm vụ với điểm số thực chứng đạt <strong>${percentage}%</strong>.
+      <br><br>
+      Hãy xem Báo cáo Đánh giá Hướng nghiệp Toàn diện để hiểu rõ năng lực và sự phù hợp của bạn.
+    </p>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <button id="btn-view-report-now" style="padding:14px; background:#2563eb; color:white; border:none; border-radius:8px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        📊 Xem báo cáo kết quả & Đánh giá AI →
+      </button>
+      <button id="btn-to-other-labs" style="padding:12px; background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        🌾 Khám phá phòng LAB khác (Định hướng)
+      </button>
+    </div>
+  `;
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Event handlers
+      card.querySelector('#btn-view-report-now').onclick = () => {
+        overlay.remove();
+        const recommendInput = localStorage.getItem('recommendInput');
+        if (recommendInput) {
+          window.location.href = '../ket-qua.html';
+        } else {
+          alert("Bạn đã hoàn thành phòng Lab! Vui lòng hoàn thành tiếp phần Trắc nghiệm tính cách để nhận Báo cáo tổng hợp toàn diện.");
+          window.location.href = '../goi-y.html';
+        }
+      };
+
+      card.querySelector('#btn-to-other-labs').onclick = () => {
+        overlay.remove();
+        window.location.href = '../dinh-huong.html';
+      };
+    }
+
   </script>
 </body>
+
 </html>

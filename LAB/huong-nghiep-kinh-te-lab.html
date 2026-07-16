@@ -1,459 +1,1690 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phòng Lab · Chuyên Viên Phân Tích Đầu Tư — Hướng Nghiệp THPT</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng Lab · Chuyên Viên Phân Tích Đầu Tư — Hướng Nghiệp THPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #fafaf8; --surface: #fff; --surface2: #f5f4f0; --ink: #111; --ink2: #555566; --ink3: #9999aa;
-    --border: #e0ddd8; --border2: #ccc; --blue: #2563eb; --blue-bg: #eff4ff;
-    --red: #dc2626; --red-bg: #fef2f2; --green: #16a34a; --green-bg: #f0fdf4;
-    --amber: #d97706; --amber-bg: #fffbeb; --radius: 8px; --radius-lg: 12px;
-  }
-  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
-  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(250,250,248,.92); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; gap: 1.5rem; height: 52px; }
-  .topbar-logo { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; color: var(--ink); text-decoration: none; }
-  .topbar-logo span { color: var(--blue); }
-  .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-  .topbar-title { font-size: 13px; color: var(--ink2); }
-  .topbar-badge { margin-left: auto; font-size: 11px; font-weight: 600; text-transform: uppercase;
-    background: var(--blue-bg); color: var(--blue); padding: 4px 10px; border-radius: 20px; }
-  .page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
-  .hero { margin-bottom: 2rem; }
-  .hero-label { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--ink3); margin-bottom: .5rem; }
-  .hero-label span { color: var(--blue); }
-  .hero-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: .4rem; }
-  .hero-sub { font-size: 14px; color: var(--ink2); line-height: 1.6; }
-  .mission-tabs { display: flex; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.5rem; }
-  .mtab { flex: 1; padding: 11px 6px; text-align: center; font-size: 12px; font-weight: 500; color: var(--ink2); cursor: pointer;
-    background: var(--surface); border: none; border-right: 1px solid var(--border2); font-family: inherit; transition: background .15s; }
-  .mtab:last-child { border-right: none; }
-  .mtab:hover { background: #f3f4f6; }
-  .mtab.active { background: var(--ink); color: #fff; }
-  .mission-box { background: var(--blue-bg); border: 1px solid #c7d9ff; border-left: 3px solid var(--blue);
-    border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13.5px; color: #1e3a8a; line-height: 1.7; }
-  .action-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--ink3); text-transform: uppercase; margin-bottom: .6rem; }
-  .sim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
-  .live-status { padding: .75rem 1rem; border-radius: var(--radius); font-size: 13px; font-weight: 500; margin-top: 1rem; line-height: 1.5; }
-  .live-status.warn { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
-  .live-status.ok { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
-  .live-status.neutral { background: #f3f4f6; color: var(--ink2); border: 1px solid var(--border); }
-  .slider-row { margin-bottom: 1rem; }
-  .slider-label { font-size: 12px; color: var(--ink2); margin-bottom: 4px; }
-  .slider-wrap { display: flex; align-items: center; gap: 10px; }
-  .slider-wrap input[type=range] { flex: 1; accent-color: var(--blue); }
-  .slider-val { font-size: 13px; font-weight: 600; min-width: 56px; text-align: right; font-family: 'IBM Plex Mono', monospace; }
-  .btn-primary { padding: 9px 22px; font-size: 13.5px; font-weight: 600; background: var(--ink); color: #fff;
-    border: none; border-radius: 6px; cursor: pointer; font-family: inherit; margin-top: .5rem; }
-  .btn-primary:hover { opacity: .85; }
-  .result-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
-    padding: 1.25rem; margin-top: 1.25rem; display: none; }
-  .result-box.show { display: block; }
-  .result-outcome { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: .75rem; }
-  .result-aha { padding: .95rem 1.1rem; background: #fffef0; border: 1px solid #f0e040; border-radius: var(--radius);
-    font-size: 13.5px; line-height: 1.75; color: #5a4e00; }
-  .subject-bridge { display: inline-block; margin-top: .75rem; font-size: 11px; font-weight: 600; color: var(--blue);
-    background: var(--blue-bg); padding: 4px 10px; border-radius: 4px; }
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Tab1: coin stack */
-  .compound-viz { display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
-  .coin-stack { display: flex; flex-direction: column-reverse; align-items: center; gap: 2px; min-height: 180px; justify-content: flex-start; }
-  .coin { width: 48px; height: 10px; background: linear-gradient(180deg, #fcd34d, #d97706); border-radius: 3px;
-    border: 1px solid #b45309; transition: opacity .2s; }
-  .coin-start { opacity: .5; }
-  .compound-stats { flex: 1; min-width: 180px; }
-  .big-num { font-size: 28px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; color: var(--ink); }
-  .stat-line { font-size: 13px; color: var(--ink2); margin-top: 6px; line-height: 1.6; }
-  .double-badge { display: inline-block; margin-top: 8px; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Tab2: demand bars */
-  .demand-chart { margin: 1rem 0; }
-  .demand-row { margin-bottom: 1.25rem; }
-  .demand-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
-  .demand-track { height: 32px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
-  .demand-fill { height: 100%; border-radius: 6px; transition: width .35s ease; display: flex; align-items: center;
-    padding-left: 10px; font-size: 12px; font-weight: 600; color: #fff; min-width: 40px; }
-  .demand-fill.ev { background: linear-gradient(90deg, #22c55e, #16a34a); }
-  .demand-fill.gas { background: linear-gradient(90deg, #ef4444, #dc2626); }
-  .gas-price-display { text-align: center; font-size: 24px; font-weight: 700; font-family: 'IBM Plex Mono', monospace;
-    color: var(--ink); margin-bottom: 1rem; }
+    :root {
+      --bg: #fafaf8;
+      --surface: #ffffff;
+      --surface2: #f5f4f0;
+      --surface3: #eeecea;
+      --ink: #111111;
+      --ink2: #555566;
+      --ink3: #9999aa;
+      --border: #e0ddd8;
+      --border2: #cccccc;
+      --blue: #2563eb;
+      --blue-bg: #eff4ff;
+      --blue-border: #c7d9ff;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --green: #16a34a;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --gray-bg: #f3f4f6;
+      --tag-bg: #e8f0fe;
+      --tag-text: #2563eb;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
 
-  /* Tab3: USD/VND */
-  .fx-viz { display: flex; gap: 2rem; align-items: flex-end; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
-  .usd-side, .vnd-side { text-align: center; }
-  .stack-label { font-size: 12px; color: var(--ink2); margin-bottom: 8px; font-weight: 500; }
-  .bill-stack { display: flex; flex-direction: column-reverse; align-items: center; gap: 3px; min-height: 160px; }
-  .bill-usd { width: 64px; height: 28px; background: linear-gradient(135deg, #86efac, #22c55e); border: 1px solid #15803d;
-    border-radius: 4px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: #14532d; }
-  .bill-vnd { width: 72px; height: 14px; background: linear-gradient(135deg, #fde68a, #f59e0b); border: 1px solid #b45309; border-radius: 2px; }
-  .fx-arrow { font-size: 28px; color: var(--ink3); align-self: center; }
-  .fx-rate { font-size: 12px; color: var(--ink2); text-align: center; margin-top: 8px; }
-  .import-line { font-size: 14px; font-weight: 600; text-align: center; margin-top: 1rem; padding: 10px;
-    background: var(--surface2); border-radius: var(--radius); }
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0;
+    }
 
-  @media (max-width: 600px) {
-    .page { padding: 1.5rem 1rem 3rem; }
-    .hero-title { font-size: 22px; }
-    .compound-viz, .fx-viz { flex-direction: column; align-items: center; }
-  }
-</style>
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: var(--blue-bg);
+      color: var(--blue);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .hero {
+      margin-bottom: 2rem;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 6px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      font-family: inherit;
+      transition: background .15s;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: #f3f4f6;
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid #c7d9ff;
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .6rem;
+    }
+
+    .sim-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .live-status {
+      padding: .75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .live-status.warn {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
+
+    .live-status.ok {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .live-status.neutral {
+      background: #f3f4f6;
+      color: var(--ink2);
+      border: 1px solid var(--border);
+    }
+
+    .slider-row {
+      margin-bottom: 1rem;
+    }
+
+    .slider-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-bottom: 4px;
+    }
+
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-wrap input[type=range] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .slider-val {
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 56px;
+      text-align: right;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: .5rem;
+    }
+
+    .btn-primary:hover {
+      opacity: .85;
+    }
+
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-outcome {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .result-aha {
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* Tab1: coin stack */
+    .compound-viz {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .coin-stack {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 2px;
+      min-height: 180px;
+      justify-content: flex-start;
+    }
+
+    .coin {
+      width: 48px;
+      height: 10px;
+      background: linear-gradient(180deg, #fcd34d, #d97706);
+      border-radius: 3px;
+      border: 1px solid #b45309;
+      transition: opacity .2s;
+    }
+
+    .coin-start {
+      opacity: .5;
+    }
+
+    .compound-stats {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .big-num {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--ink);
+    }
+
+    .stat-line {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    .double-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Tab2: demand bars */
+    .demand-chart {
+      margin: 1rem 0;
+    }
+
+    .demand-row {
+      margin-bottom: 1.25rem;
+    }
+
+    .demand-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .demand-track {
+      height: 32px;
+      background: var(--surface2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .demand-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .35s ease;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      min-width: 40px;
+    }
+
+    .demand-fill.ev {
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+    }
+
+    .demand-fill.gas {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+
+    .gas-price-display {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    /* Tab3: USD/VND */
+    .fx-viz {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .usd-side,
+    .vnd-side {
+      text-align: center;
+    }
+
+    .stack-label {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .bill-stack {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      gap: 3px;
+      min-height: 160px;
+    }
+
+    .bill-usd {
+      width: 64px;
+      height: 28px;
+      background: linear-gradient(135deg, #86efac, #22c55e);
+      border: 1px solid #15803d;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #14532d;
+    }
+
+    .bill-vnd {
+      width: 72px;
+      height: 14px;
+      background: linear-gradient(135deg, #fde68a, #f59e0b);
+      border: 1px solid #b45309;
+      border-radius: 2px;
+    }
+
+    .fx-arrow {
+      font-size: 28px;
+      color: var(--ink3);
+      align-self: center;
+    }
+
+    .fx-rate {
+      font-size: 12px;
+      color: var(--ink2);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .import-line {
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 1rem;
+      padding: 10px;
+      background: var(--surface2);
+      border-radius: var(--radius);
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .hero-title {
+        font-size: 22px;
+      }
+
+      .compound-viz,
+      .fx-viz {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* ── Unified Layout & Theme Overrides (Antigravity Overhaul) ── */
+    /* ── Top nav ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, .92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 52px;
+    }
+
+    .topbar-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-logo span {
+      color: var(--blue);
+    }
+
+    .topbar-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .topbar-title {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .topbar-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: .5rem;
+      display: inline-block;
+    }
+
+    .hero-label span {
+      color: var(--blue);
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: .4rem;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+
+    /* ── Mission tabs ── */
+    .mission-tabs {
+      display: flex;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .mtab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink2);
+      cursor: pointer;
+      background: var(--surface);
+      border: none;
+      border-right: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: background .15s, color .15s;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    .mtab:last-child {
+      border-right: none;
+    }
+
+    .mtab:hover {
+      background: var(--gray-bg);
+    }
+
+    .mtab.active {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mtab-icon {
+      font-size: 17px;
+    }
+
+    .mtab-label {
+      font-size: 12px;
+    }
+
+    /* ── Mission box ── */
+    .mission-box {
+      background: var(--blue-bg);
+      border: 1px solid var(--blue-border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 13.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .mission-box a {
+      color: var(--blue);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Action label ── */
+    .action-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--ink3);
+      text-transform: uppercase;
+      margin-bottom: .65rem;
+    }
+
+    /* ── Buttons ── */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 9px 22px;
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      transition: opacity .15s;
+    }
+
+    .btn-primary:hover {
+      opacity: .82;
+    }
+
+    .btn-secondary {
+      padding: 9px 18px;
+      font-size: 13px;
+      background: var(--surface);
+      color: var(--ink2);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-bg);
+    }
+
+    /* ── Result box ── */
+    .result-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: .85rem;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink2);
+    }
+
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-aha {
+      margin-top: 1rem;
+      padding: .95rem 1.1rem;
+      background: #fffef0;
+      border: 1px solid #f0e040;
+      border-radius: var(--radius);
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #5a4e00;
+    }
+
+    .result-aha strong {
+      color: #3d3500;
+    }
+
+    .subject-bridge {
+      display: inline-block;
+      margin-top: .75rem;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--blue);
+      background: var(--blue-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+      padding: 1.5rem 2rem;
+      font-size: 12px;
+      color: var(--ink3);
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
 </head>
+
 <body>
-<div class="topbar">
-  <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
-  <div class="topbar-sep"></div>
-  <div class="topbar-title">Chuyên Viên Phân Tích Đầu Tư</div>
-  <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
-</div>
-<div class="page">
-  <div class="hero">
-    <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Phân Tích Đầu Tư</div>
-    <div class="hero-title">Hôm nay bạn là chuyên viên phân tích tại công ty đầu tư</div>
-    <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
+  <div class="topbar">
+    <a class="topbar-logo" href="../index.html"><span>⬡</span> Hướng Nghiệp Lab</a>
+    <div class="topbar-sep"></div>
+    <div class="topbar-title">Chuyên Viên Phân Tích Đầu Tư</div>
+    <div class="topbar-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
   </div>
-  <div class="mission-tabs">
-    <button class="mtab active" onclick="switchTab(0)"><i data-lucide="trending-up"></i> Lãi kép</button>
-    <button class="mtab" onclick="switchTab(1)">💹 Cung cầu</button>
-    <button class="mtab" onclick="switchTab(2)">💱 Tỉ giá</button>
-  </div>
-
-  <!-- TAB 0: Compound interest -->
-  <div id="tab0">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Khách gửi <strong>100 triệu</strong>, lãi nhập gốc. Bạn chỉnh số năm (1–20) và lãi suất (3–12%) — cột tiền tăng theo thời gian thực. Quy tắc 72: 8%/năm ≈ gấp đôi sau ~10 năm.
+  <div class="page">
+    <div class="hero">
+      <div class="hero-label"><span><i data-lucide="microscope"></i> Phòng Lab</span> · Phân Tích Đầu Tư</div>
+      <div class="hero-title">Hôm nay bạn là chuyên viên phân tích tại công ty đầu tư</div>
+      <div class="hero-sub">3 tình huống trong ca làm. Bạn quyết định — hệ thống phản hồi ngay.</div>
     </div>
-    <div class="sim-card">
-      <div class="slider-row">
-        <div class="slider-label">Số năm gửi</div>
-        <div class="slider-wrap">
-          <input type="range" id="cmpYears" min="1" max="20" step="1" value="10" oninput="updateCompound()">
-          <span class="slider-val" id="cmpYearsVal">10 năm</span>
+    <div class="mission-tabs">
+      <button class="mtab active" onclick="switchTab(0)"><i data-lucide="trending-up"></i> Lãi kép</button>
+      <button class="mtab" onclick="switchTab(1)">💹 Cung cầu</button>
+      <button class="mtab" onclick="switchTab(2)">💱 Tỉ giá</button>
+    </div>
+
+    <!-- TAB 0: Compound interest -->
+    <div id="tab0">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Khách gửi <strong>100 triệu</strong>, lãi nhập gốc. Bạn chỉnh số năm (1–20) và lãi
+        suất (3–12%) — cột tiền tăng theo thời gian thực. Quy tắc 72: 8%/năm ≈ gấp đôi sau ~10 năm.
+      </div>
+      <div class="sim-card">
+        <div class="slider-row">
+          <div class="slider-label">Số năm gửi</div>
+          <div class="slider-wrap">
+            <input type="range" id="cmpYears" min="1" max="20" step="1" value="10" oninput="updateCompound()">
+            <span class="slider-val" id="cmpYearsVal">10 năm</span>
+          </div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-label">Lãi suất / năm (%)</div>
+          <div class="slider-wrap">
+            <input type="range" id="cmpRate" min="3" max="12" step="0.5" value="8" oninput="updateCompound()">
+            <span class="slider-val" id="cmpRateVal">8%</span>
+          </div>
+        </div>
+        <div class="compound-viz">
+          <div>
+            <div class="stack-label">Vốn ban đầu</div>
+            <div class="coin-stack" id="coinStart"></div>
+          </div>
+          <div style="font-size:24px;color:var(--ink3)">→</div>
+          <div>
+            <div class="stack-label">Sau <span id="stackYears">10</span> năm</div>
+            <div class="coin-stack" id="coinEnd"></div>
+          </div>
+          <div class="compound-stats">
+            <div class="big-num" id="cmpFinal">215.9 tr</div>
+            <div class="stat-line">Vốn gốc: 100 triệu<br>Hệ số: <strong id="cmpMult">×2.16</strong></div>
+            <div class="double-badge" id="doubleBadge"></div>
+          </div>
+        </div>
+        <div class="live-status neutral" id="cmpStatus">Kéo thanh trượt — cột tiền và hệ số nhân cập nhật ngay.</div>
+      </div>
+      <button class="btn-primary" onclick="revealCompound()">Xem kết quả →</button>
+      <div class="result-box" id="resultCmp">
+        <div class="result-outcome" id="outcomeCmp"></div>
+        <div class="result-aha" id="ahaCmp"></div>
+      </div>
+    </div>
+
+    <!-- TAB 1: Supply demand -->
+    <div id="tab1" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Giá xăng biến động mạnh trên thị trường. Kéo thanh giá xăng — quan sát cầu xe xăng
+        và cầu xe điện di chuyển ngược chiều nhau.
+      </div>
+      <div class="sim-card">
+        <div class="gas-price-display" id="gasPriceDisplay">22.000 đ/lít</div>
+        <div class="slider-row">
+          <div class="slider-label">Giá xăng RON95 (đ/lít)</div>
+          <div class="slider-wrap">
+            <input type="range" id="gasPrice" min="18000" max="32000" step="500" value="22000" oninput="updateDemand()">
+            <span class="slider-val" id="gasPriceVal">22k</span>
+          </div>
+        </div>
+        <div class="demand-chart">
+          <div class="demand-row">
+            <div class="demand-label"><span>🚗 Cầu xe xăng</span><span id="gasPct">65%</span></div>
+            <div class="demand-track">
+              <div class="demand-fill gas" id="gasBar" style="width:65%"></div>
+            </div>
+          </div>
+          <div class="demand-row">
+            <div class="demand-label"><span><i data-lucide="zap"></i> Cầu xe điện</span><span id="evPct">35%</span>
+            </div>
+            <div class="demand-track">
+              <div class="demand-fill ev" id="evBar" style="width:35%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="live-status neutral" id="demStatus">Giá xăng càng cao — cầu xe điện càng tăng, xe xăng giảm.</div>
+      </div>
+      <button class="btn-primary" onclick="revealDemand()">Xem kết quả →</button>
+      <div class="result-box" id="resultDem">
+        <div class="result-outcome" id="outcomeDem"></div>
+        <div class="result-aha" id="ahaDem"></div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Exchange rate -->
+    <div id="tab2" style="display:none">
+      <div class="mission-box">
+        <strong>Tình huống:</strong> Công ty cần nhập linh kiện từ Mỹ — tối thiểu <strong>245 triệu VND</strong>. Kéo số
+        USD (5.000–20.000), quy đổi theo tỉ giá <strong>24.500 VND/USD</strong> và xem đủ ngân sách nhập khẩu chưa.
+      </div>
+      <div class="sim-card">
+        <div class="slider-row">
+          <div class="slider-label">Số tiền USD cần chuyển</div>
+          <div class="slider-wrap">
+            <input type="range" id="usdAmt" min="5000" max="20000" step="500" value="10000" oninput="updateFx()">
+            <span class="slider-val" id="usdAmtVal">$10.000</span>
+          </div>
+        </div>
+        <div class="fx-viz">
+          <div class="usd-side">
+            <div class="stack-label">USD</div>
+            <div class="bill-stack" id="usdStack"></div>
+          </div>
+          <div class="fx-arrow">⇄</div>
+          <div class="vnd-side">
+            <div class="stack-label">VND quy đổi</div>
+            <div class="bill-stack" id="vndStack"></div>
+          </div>
+        </div>
+        <div class="fx-rate">Tỉ giá: 1 USD = 24.500 VND</div>
+        <div class="import-line" id="importLine">= 245.000.000 VND</div>
+        <div class="live-status neutral" id="fxStatus">Kéo thanh USD — cột VND và trạng thái nhập khẩu cập nhật ngay.
         </div>
       </div>
-      <div class="slider-row">
-        <div class="slider-label">Lãi suất / năm (%)</div>
-        <div class="slider-wrap">
-          <input type="range" id="cmpRate" min="3" max="12" step="0.5" value="8" oninput="updateCompound()">
-          <span class="slider-val" id="cmpRateVal">8%</span>
-        </div>
-      </div>
-      <div class="compound-viz">
-        <div>
-          <div class="stack-label">Vốn ban đầu</div>
-          <div class="coin-stack" id="coinStart"></div>
-        </div>
-        <div style="font-size:24px;color:var(--ink3)">→</div>
-        <div>
-          <div class="stack-label">Sau <span id="stackYears">10</span> năm</div>
-          <div class="coin-stack" id="coinEnd"></div>
-        </div>
-        <div class="compound-stats">
-          <div class="big-num" id="cmpFinal">215.9 tr</div>
-          <div class="stat-line">Vốn gốc: 100 triệu<br>Hệ số: <strong id="cmpMult">×2.16</strong></div>
-          <div class="double-badge" id="doubleBadge"></div>
-        </div>
-      </div>
-      <div class="live-status neutral" id="cmpStatus">Kéo thanh trượt — cột tiền và hệ số nhân cập nhật ngay.</div>
-    </div>
-    <button class="btn-primary" onclick="revealCompound()">Xem kết quả →</button>
-    <div class="result-box" id="resultCmp">
-      <div class="result-outcome" id="outcomeCmp"></div>
-      <div class="result-aha" id="ahaCmp"></div>
-    </div>
-  </div>
-
-  <!-- TAB 1: Supply demand -->
-  <div id="tab1" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Giá xăng biến động mạnh trên thị trường. Kéo thanh giá xăng — quan sát cầu xe xăng và cầu xe điện di chuyển ngược chiều nhau.
-    </div>
-    <div class="sim-card">
-      <div class="gas-price-display" id="gasPriceDisplay">22.000 đ/lít</div>
-      <div class="slider-row">
-        <div class="slider-label">Giá xăng RON95 (đ/lít)</div>
-        <div class="slider-wrap">
-          <input type="range" id="gasPrice" min="18000" max="32000" step="500" value="22000" oninput="updateDemand()">
-          <span class="slider-val" id="gasPriceVal">22k</span>
-        </div>
-      </div>
-      <div class="demand-chart">
-        <div class="demand-row">
-          <div class="demand-label"><span>🚗 Cầu xe xăng</span><span id="gasPct">65%</span></div>
-          <div class="demand-track"><div class="demand-fill gas" id="gasBar" style="width:65%"></div></div>
-        </div>
-        <div class="demand-row">
-          <div class="demand-label"><span><i data-lucide="zap"></i> Cầu xe điện</span><span id="evPct">35%</span></div>
-          <div class="demand-track"><div class="demand-fill ev" id="evBar" style="width:35%"></div></div>
-        </div>
-      </div>
-      <div class="live-status neutral" id="demStatus">Giá xăng càng cao — cầu xe điện càng tăng, xe xăng giảm.</div>
-    </div>
-    <button class="btn-primary" onclick="revealDemand()">Xem kết quả →</button>
-    <div class="result-box" id="resultDem">
-      <div class="result-outcome" id="outcomeDem"></div>
-      <div class="result-aha" id="ahaDem"></div>
-    </div>
-  </div>
-
-  <!-- TAB 2: Exchange rate -->
-  <div id="tab2" style="display:none">
-    <div class="mission-box">
-      <strong>Tình huống:</strong> Công ty cần nhập linh kiện từ Mỹ — tối thiểu <strong>245 triệu VND</strong>. Kéo số USD (5.000–20.000), quy đổi theo tỉ giá <strong>24.500 VND/USD</strong> và xem đủ ngân sách nhập khẩu chưa.
-    </div>
-    <div class="sim-card">
-      <div class="slider-row">
-        <div class="slider-label">Số tiền USD cần chuyển</div>
-        <div class="slider-wrap">
-          <input type="range" id="usdAmt" min="5000" max="20000" step="500" value="10000" oninput="updateFx()">
-          <span class="slider-val" id="usdAmtVal">$10.000</span>
-        </div>
-      </div>
-      <div class="fx-viz">
-        <div class="usd-side">
-          <div class="stack-label">USD</div>
-          <div class="bill-stack" id="usdStack"></div>
-        </div>
-        <div class="fx-arrow">⇄</div>
-        <div class="vnd-side">
-          <div class="stack-label">VND quy đổi</div>
-          <div class="bill-stack" id="vndStack"></div>
-        </div>
-      </div>
-      <div class="fx-rate">Tỉ giá: 1 USD = 24.500 VND</div>
-      <div class="import-line" id="importLine">= 245.000.000 VND</div>
-      <div class="live-status neutral" id="fxStatus">Kéo thanh USD — cột VND và trạng thái nhập khẩu cập nhật ngay.</div>
-    </div>
-    <button class="btn-primary" onclick="revealFx()">Xem kết quả →</button>
-    <div class="result-box" id="resultFx">
-      <div class="result-outcome" id="outcomeFx"></div>
-      <div class="result-aha" id="ahaFx"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-const PRINCIPAL = 100;
-const FX_RATE = 24500;
-const IMPORT_MIN = 245000000;
-
-function switchTab(n) {
-  ['tab0','tab1','tab2'].forEach((id,i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
-  document.querySelectorAll('.mtab').forEach((btn,i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
-}
-
-function buildCoins(containerId, count, startClass) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
-  const n = Math.min(24, Math.max(1, count));
-  for (let i = 0; i < n; i++) {
-    const c = document.createElement('div');
-    c.className = 'coin' + (startClass ? ' ' + startClass : '');
-    el.appendChild(c);
-  }
-}
-
-function updateCompound() {
-  const years = parseInt(document.getElementById('cmpYears').value, 10);
-  const rate = parseFloat(document.getElementById('cmpRate').value) / 100;
-  document.getElementById('cmpYearsVal').textContent = years + ' năm';
-  document.getElementById('cmpRateVal').textContent = (rate * 100).toFixed(1).replace('.0','') + '%';
-  document.getElementById('stackYears').textContent = years;
-
-  const final = PRINCIPAL * Math.pow(1 + rate, years);
-  const mult = final / PRINCIPAL;
-  document.getElementById('cmpFinal').textContent = final.toFixed(1) + ' tr';
-  document.getElementById('cmpMult').textContent = '×' + mult.toFixed(2);
-
-  buildCoins('coinStart', 8, 'coin-start');
-  buildCoins('coinEnd', Math.round(mult * 8));
-
-  const badge = document.getElementById('doubleBadge');
-  const doublesAt10y8 = Math.abs(rate - 0.08) < 0.01 && years >= 9;
-  const rule72Years = Math.round(72 / (rate * 100));
-  if (mult >= 2) {
-    badge.textContent = '✓ Đã gấp đôi vốn';
-    badge.style.background = 'var(--green-bg)';
-    badge.style.color = 'var(--green)';
-  } else if (rate >= 0.07 && years >= rule72Years - 1) {
-    badge.textContent = '≈ Gấp đôi sau ~' + rule72Years + ' năm (quy tắc 72)';
-    badge.style.background = 'var(--amber-bg)';
-    badge.style.color = 'var(--amber)';
-  } else {
-    badge.textContent = 'Chưa gấp đôi — thử tăng năm hoặc lãi suất';
-    badge.style.background = '#f3f4f6';
-    badge.style.color = 'var(--ink2)';
-  }
-
-  const st = document.getElementById('cmpStatus');
-  if (doublesAt10y8 || (Math.abs(rate - 0.08) < 0.01 && mult >= 1.9)) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ 8%/năm × ~10 năm ≈ gấp đôi — đúng quy tắc 72 (72 ÷ 8 ≈ 9 năm).';
-  } else if (mult >= 2) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Vốn đã nhân ' + mult.toFixed(1) + ' — sức mạnh lãi kép rõ ràng.';
-  } else {
-    st.className = 'live-status neutral';
-    st.textContent = 'Lãi kép: 100 × (1 + r)^n. Tại ' + (rate*100).toFixed(1) + '%, cần ~' + rule72Years + ' năm để gấp đôi.';
-  }
-}
-
-function revealCompound() {
-  const years = parseInt(document.getElementById('cmpYears').value, 10);
-  const rate = parseFloat(document.getElementById('cmpRate').value) / 100;
-  const final = PRINCIPAL * Math.pow(1 + rate, years);
-  const ok = final >= 200;
-  document.getElementById('outcomeCmp').innerHTML = ok
-    ? 'Báo cáo khách: sau ' + years + ' năm, 100 triệu thành ' + final.toFixed(1) + ' triệu — kế hoạch hưu trí khả thi.'
-    : 'Mức sinh lời còn thấp — khách cần tăng kỳ hạn hoặc chọn quỹ lợi suất cao hơn.';
-  document.getElementById('ahaCmp').innerHTML = 'Công thức (1+r)^n là hàm mũ Toán 12 — nền tảng mọi phân tích đầu tư, tiết kiệm ngân hàng và tăng trưởng GDP.'
-    + '<span class="subject-bridge">Cầu nối SGK: Toán — lũy thừa & hàm mũ (lãi kép)</span>';
-  document.getElementById('resultCmp').className = 'result-box show';
-}
-
-function updateDemand() {
-  const price = parseInt(document.getElementById('gasPrice').value, 10);
-  document.getElementById('gasPriceDisplay').textContent = price.toLocaleString('vi-VN') + ' đ/lít';
-  document.getElementById('gasPriceVal').textContent = Math.round(price / 1000) + 'k';
-
-  const mid = 24000;
-  const spread = (price - mid) / 10000;
-  let gasPct = Math.round(72 - spread * 35);
-  gasPct = Math.max(25, Math.min(90, gasPct));
-  const evPct = 100 - gasPct;
-
-  document.getElementById('gasPct').textContent = gasPct + '%';
-  document.getElementById('evPct').textContent = evPct + '%';
-  document.getElementById('gasBar').style.width = gasPct + '%';
-  document.getElementById('evBar').style.width = evPct + '%';
-
-  const st = document.getElementById('demStatus');
-  if (price >= 28000) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ Xăng ' + (price/1000).toFixed(0) + 'k — cầu xe điện tăng mạnh (' + evPct + '%), xe xăng sụt (' + gasPct + '%).';
-  } else if (price <= 20000) {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Xăng rẻ — người mua ưu tiên xe xăng, cầu xe điện thấp.';
-  } else {
-    st.className = 'live-status neutral';
-    st.textContent = 'Giá xăng trung bình — hai thị trường cân bằng tương đối.';
-  }
-}
-
-function revealDemand() {
-  const price = parseInt(document.getElementById('gasPrice').value, 10);
-  const ok = price >= 26000;
-  document.getElementById('outcomeDem').innerHTML = ok
-    ? 'Phân tích đúng: xăng tăng → khách chuyển dần sang xe điện. Quỹ EV trong danh mục nên tăng tỷ trọng.'
-    : 'Giá xăng chưa đủ cao để thay đổi hành vi lớn — xe xăng vẫn chiếm ưu thế ngắn hạn.';
-  document.getElementById('ahaDem').innerHTML = 'Xe điện và xe xăng là hàng thay thế: giá A tăng → cầu B tăng. Đây là quy luật cung-cầu trong Kinh tế & Địa lý THPT.'
-    + '<span class="subject-bridge">Cầu nối SGK: Địa lý / Kinh tế — cung cầu & hàng thay thế</span>';
-  document.getElementById('resultDem').className = 'result-box show';
-}
-
-function buildBillStack(containerId, count, type) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
-  const n = Math.min(20, Math.max(1, count));
-  for (let i = 0; i < n; i++) {
-    const b = document.createElement('div');
-    b.className = type === 'usd' ? 'bill-usd' : 'bill-vnd';
-    if (type === 'usd') b.textContent = '$';
-    el.appendChild(b);
-  }
-}
-
-function updateFx() {
-  const usd = parseInt(document.getElementById('usdAmt').value, 10);
-  document.getElementById('usdAmtVal').textContent = '$' + usd.toLocaleString('vi-VN');
-  const vnd = usd * FX_RATE;
-  document.getElementById('importLine').textContent = '= ' + vnd.toLocaleString('vi-VN') + ' VND';
-  document.getElementById('importLine').style.color = vnd >= IMPORT_MIN ? 'var(--green)' : 'var(--red)';
-
-  buildBillStack('usdStack', Math.round(usd / 1000), 'usd');
-  buildBillStack('vndStack', Math.round(vnd / 15000000), 'vnd');
-
-  const st = document.getElementById('fxStatus');
-  if (vnd >= IMPORT_MIN) {
-    st.className = 'live-status ok';
-    st.textContent = '✓ ' + usd.toLocaleString('vi-VN') + ' USD = đủ ' + (vnd/1e6).toFixed(0) + ' triệu — có thể ký hợp đồng nhập khẩu.';
-  } else {
-    st.className = 'live-status warn';
-    st.textContent = '⚠️ Thiếu ' + ((IMPORT_MIN - vnd)/1e6).toFixed(0) + ' triệu VND — cần tăng USD hoặc đàm phán giảm đơn hàng.';
-  }
-}
-
-function revealFx() {
-  const usd = parseInt(document.getElementById('usdAmt').value, 10);
-  const vnd = usd * FX_RATE;
-  const ok = vnd >= IMPORT_MIN;
-  document.getElementById('outcomeFx').innerHTML = ok
-    ? 'Lệnh chuyển tiền được duyệt: ' + usd.toLocaleString('vi-VN') + ' USD → ' + vnd.toLocaleString('vi-VN') + ' VND, đủ nhập linh kiện.'
-    : 'Thiếu ngân sách ngoại tệ — phải vay thêm USD hoặc trì hoãn lô hàng.';
-  document.getElementById('ahaFx').innerHTML = 'Quy đổi ngoại tệ = nhân số USD với tỉ giá. Mọi giao dịch xuất nhập khẩu và đầu tư quốc tế đều bắt đầu từ phép nhân này.'
-    + '<span class="subject-bridge">Cầu nối SGK: Toán — tỉ lệ & quy đổi đơn vị (tỉ giá)</span>';
-  document.getElementById('resultFx').className = 'result-box show';
-}
-
-updateCompound();
-updateDemand();
-updateFx();
-</script>
-
-<div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
-  <div style="max-width:900px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:2rem;">
-      <div style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;"><i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
-      <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Kinh tế?</h2>
-      <p style="color:var(--ink2);font-size:14px;">Đây là thông tin bạn cần biết về ngành học và cơ hội nghề nghiệp</p>
-    </div>
-    <div style="display:grid;gap:1.5rem;">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="book-open"></i></span> Ngành học phù hợp</h3>
-        <div style="display:grid;gap:12px;">
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Kinh tế</div><div style="font-size:12px;color:var(--ink2);">4 năm • Chuyên viên phân tích</div></div><div style="font-weight:700;color:var(--blue);">22-26đ</div></div>
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Tài chính - Ngân hàng</div><div style="font-size:12px;color:var(--ink2);">4 năm • Financial Analyst</div></div><div style="font-weight:700;color:var(--blue);">23-27đ</div></div>
-          <div style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;"><div><div style="font-weight:600;font-size:14px;">Quản trị kinh doanh</div><div style="font-size:12px;color:var(--ink2);">4 năm • Business Analyst</div></div><div style="font-weight:700;color:var(--blue);">21-25đ</div></div>
-        </div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="briefcase"></i></span> Cơ hội việc làm</h3>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1rem;">
-          <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--green);">92%</div><div style="font-size:12px;color:var(--ink2);">Tỉ lệ có việc làm</div></div>
-          <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;"><div style="font-size:24px;font-weight:700;color:var(--green);">+85%</div><div style="font-size:12px;color:var(--ink2);">Tăng trưởng đến 2030</div></div>
-        </div>
-        <div style="font-size:13px;color:var(--ink2);line-height:1.7;"><strong style="color:var(--ink);">Vị trí:</strong> Phân tích tài chính, Kế toán, Kiểm toán, Tư vấn đầu tư, Marketing, Quản lý dự án</div>
-      </div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span style="font-size:20px;"><i data-lucide="banknote"></i></span> Mức lương</h3>
-        <div style="display:grid;gap:10px;">
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--ink2);">Mới ra trường</span><span style="font-weight:600;">10-15 triệu/tháng</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--ink2);">3-5 năm</span><span style="font-weight:600;">18-35 triệu/tháng</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 0;"><span style="font-size:13px;color:var(--ink2);">Manager/Director</span><span style="font-weight:600;">40-100 triệu/tháng</span></div>
-        </div>
-      </div>
-      <div style="background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);border-radius:var(--radius-lg);padding:2rem;text-align:center;color:white;">
-        <h3 style="font-size:18px;font-weight:600;margin-bottom:.5rem;">Sẵn sàng theo đuổi ngành Kinh tế?</h3>
-        <p style="font-size:14px;opacity:.9;margin-bottom:1.5rem;">Khám phá các trường kinh tế hàng đầu Việt Nam</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="../index.html" style="display:inline-block;padding:10px 24px;background:white;color:#00a8cc;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Xem điểm chuẩn</a>
-          <a href="../index.html" style="display:inline-block;padding:10px 24px;background:rgba(255,255,255,.2);color:white;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám phá ngành khác</a>
-        </div>
+      <button class="btn-primary" onclick="revealFx()">Xem kết quả →</button>
+      <div class="result-box" id="resultFx">
+        <div class="result-outcome" id="outcomeFx"></div>
+        <div class="result-aha" id="ahaFx"></div>
       </div>
     </div>
   </div>
-</div>
+
+  <script>
+    const PRINCIPAL = 100;
+    const FX_RATE = 24500;
+    const IMPORT_MIN = 245000000;
+
+    function switchTab(n) {
+      ['tab0', 'tab1', 'tab2'].forEach((id, i) => document.getElementById(id).style.display = i === n ? 'block' : 'none');
+      document.querySelectorAll('.mtab').forEach((btn, i) => btn.className = 'mtab' + (i === n ? ' active' : ''));
+    }
+
+    function buildCoins(containerId, count, startClass) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = '';
+      const n = Math.min(24, Math.max(1, count));
+      for (let i = 0; i < n; i++) {
+        const c = document.createElement('div');
+        c.className = 'coin' + (startClass ? ' ' + startClass : '');
+        el.appendChild(c);
+      }
+    }
+
+    function updateCompound() {
+      const years = parseInt(document.getElementById('cmpYears').value, 10);
+      const rate = parseFloat(document.getElementById('cmpRate').value) / 100;
+      document.getElementById('cmpYearsVal').textContent = years + ' năm';
+      document.getElementById('cmpRateVal').textContent = (rate * 100).toFixed(1).replace('.0', '') + '%';
+      document.getElementById('stackYears').textContent = years;
+
+      const final = PRINCIPAL * Math.pow(1 + rate, years);
+      const mult = final / PRINCIPAL;
+      document.getElementById('cmpFinal').textContent = final.toFixed(1) + ' tr';
+      document.getElementById('cmpMult').textContent = '×' + mult.toFixed(2);
+
+      buildCoins('coinStart', 8, 'coin-start');
+      buildCoins('coinEnd', Math.round(mult * 8));
+
+      const badge = document.getElementById('doubleBadge');
+      const doublesAt10y8 = Math.abs(rate - 0.08) < 0.01 && years >= 9;
+      const rule72Years = Math.round(72 / (rate * 100));
+      if (mult >= 2) {
+        badge.textContent = '✓ Đã gấp đôi vốn';
+        badge.style.background = 'var(--green-bg)';
+        badge.style.color = 'var(--green)';
+      } else if (rate >= 0.07 && years >= rule72Years - 1) {
+        badge.textContent = '≈ Gấp đôi sau ~' + rule72Years + ' năm (quy tắc 72)';
+        badge.style.background = 'var(--amber-bg)';
+        badge.style.color = 'var(--amber)';
+      } else {
+        badge.textContent = 'Chưa gấp đôi — thử tăng năm hoặc lãi suất';
+        badge.style.background = '#f3f4f6';
+        badge.style.color = 'var(--ink2)';
+      }
+
+      const st = document.getElementById('cmpStatus');
+      if (doublesAt10y8 || (Math.abs(rate - 0.08) < 0.01 && mult >= 1.9)) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ 8%/năm × ~10 năm ≈ gấp đôi — đúng quy tắc 72 (72 ÷ 8 ≈ 9 năm).';
+      } else if (mult >= 2) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Vốn đã nhân ' + mult.toFixed(1) + ' — sức mạnh lãi kép rõ ràng.';
+      } else {
+        st.className = 'live-status neutral';
+        st.textContent = 'Lãi kép: 100 × (1 + r)^n. Tại ' + (rate * 100).toFixed(1) + '%, cần ~' + rule72Years + ' năm để gấp đôi.';
+      }
+    }
+
+    function revealCompound() {
+      const years = parseInt(document.getElementById('cmpYears').value, 10);
+      const rate = parseFloat(document.getElementById('cmpRate').value) / 100;
+      const final = PRINCIPAL * Math.pow(1 + rate, years);
+      const ok = final >= 200;
+      document.getElementById('outcomeCmp').innerHTML = ok
+        ? 'Báo cáo khách: sau ' + years + ' năm, 100 triệu thành ' + final.toFixed(1) + ' triệu — kế hoạch hưu trí khả thi.'
+        : 'Mức sinh lời còn thấp — khách cần tăng kỳ hạn hoặc chọn quỹ lợi suất cao hơn.';
+      document.getElementById('ahaCmp').innerHTML = 'Công thức (1+r)^n là hàm mũ Toán 12 — nền tảng mọi phân tích đầu tư, tiết kiệm ngân hàng và tăng trưởng GDP.'
+        + '<span class="subject-bridge">Cầu nối SGK: Toán — lũy thừa & hàm mũ (lãi kép)</span>';
+      taskResults.task0.score = ok ? 30 : 10;
+      taskResults.task0.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultCmp').className = 'result-box show';
+    }
+
+    function updateDemand() {
+      const price = parseInt(document.getElementById('gasPrice').value, 10);
+      document.getElementById('gasPriceDisplay').textContent = price.toLocaleString('vi-VN') + ' đ/lít';
+      document.getElementById('gasPriceVal').textContent = Math.round(price / 1000) + 'k';
+
+      const mid = 24000;
+      const spread = (price - mid) / 10000;
+      let gasPct = Math.round(72 - spread * 35);
+      gasPct = Math.max(25, Math.min(90, gasPct));
+      const evPct = 100 - gasPct;
+
+      document.getElementById('gasPct').textContent = gasPct + '%';
+      document.getElementById('evPct').textContent = evPct + '%';
+      document.getElementById('gasBar').style.width = gasPct + '%';
+      document.getElementById('evBar').style.width = evPct + '%';
+
+      const st = document.getElementById('demStatus');
+      if (price >= 28000) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ Xăng ' + (price / 1000).toFixed(0) + 'k — cầu xe điện tăng mạnh (' + evPct + '%), xe xăng sụt (' + gasPct + '%).';
+      } else if (price <= 20000) {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Xăng rẻ — người mua ưu tiên xe xăng, cầu xe điện thấp.';
+      } else {
+        st.className = 'live-status neutral';
+        st.textContent = 'Giá xăng trung bình — hai thị trường cân bằng tương đối.';
+      }
+    }
+
+    function revealDemand() {
+      const price = parseInt(document.getElementById('gasPrice').value, 10);
+      const ok = price >= 26000;
+      document.getElementById('outcomeDem').innerHTML = ok
+        ? 'Phân tích đúng: xăng tăng → khách chuyển dần sang xe điện. Quỹ EV trong danh mục nên tăng tỷ trọng.'
+        : 'Giá xăng chưa đủ cao để thay đổi hành vi lớn — xe xăng vẫn chiếm ưu thế ngắn hạn.';
+      document.getElementById('ahaDem').innerHTML = 'Xe điện và xe xăng là hàng thay thế: giá A tăng → cầu B tăng. Đây là quy luật cung-cầu trong Kinh tế & Địa lý THPT.'
+        + '<span class="subject-bridge">Cầu nối SGK: Địa lý / Kinh tế — cung cầu & hàng thay thế</span>';
+      taskResults.task1.score = ok ? 35 : 10;
+      taskResults.task1.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultDem').className = 'result-box show';
+    }
+
+    function buildBillStack(containerId, count, type) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = '';
+      const n = Math.min(20, Math.max(1, count));
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('div');
+        b.className = type === 'usd' ? 'bill-usd' : 'bill-vnd';
+        if (type === 'usd') b.textContent = '$';
+        el.appendChild(b);
+      }
+    }
+
+    function updateFx() {
+      const usd = parseInt(document.getElementById('usdAmt').value, 10);
+      document.getElementById('usdAmtVal').textContent = '$' + usd.toLocaleString('vi-VN');
+      const vnd = usd * FX_RATE;
+      document.getElementById('importLine').textContent = '= ' + vnd.toLocaleString('vi-VN') + ' VND';
+      document.getElementById('importLine').style.color = vnd >= IMPORT_MIN ? 'var(--green)' : 'var(--red)';
+
+      buildBillStack('usdStack', Math.round(usd / 1000), 'usd');
+      buildBillStack('vndStack', Math.round(vnd / 15000000), 'vnd');
+
+      const st = document.getElementById('fxStatus');
+      if (vnd >= IMPORT_MIN) {
+        st.className = 'live-status ok';
+        st.textContent = '✓ ' + usd.toLocaleString('vi-VN') + ' USD = đủ ' + (vnd / 1e6).toFixed(0) + ' triệu — có thể ký hợp đồng nhập khẩu.';
+      } else {
+        st.className = 'live-status warn';
+        st.textContent = '⚠️ Thiếu ' + ((IMPORT_MIN - vnd) / 1e6).toFixed(0) + ' triệu VND — cần tăng USD hoặc đàm phán giảm đơn hàng.';
+      }
+    }
+
+    function revealFx() {
+      const usd = parseInt(document.getElementById('usdAmt').value, 10);
+      const vnd = usd * FX_RATE;
+      const ok = vnd >= IMPORT_MIN;
+      document.getElementById('outcomeFx').innerHTML = ok
+        ? 'Lệnh chuyển tiền được duyệt: ' + usd.toLocaleString('vi-VN') + ' USD → ' + vnd.toLocaleString('vi-VN') + ' VND, đủ nhập linh kiện.'
+        : 'Thiếu ngân sách ngoại tệ — phải vay thêm USD hoặc trì hoãn lô hàng.';
+      document.getElementById('ahaFx').innerHTML = 'Quy đổi ngoại tệ = nhân số USD với tỉ giá. Mọi giao dịch xuất nhập khẩu và đầu tư quốc tế đều bắt đầu từ phép nhân này.'
+        + '<span class="subject-bridge">Cầu nối SGK: Toán — tỉ lệ & quy đổi đơn vị (tỉ giá)</span>';
+      taskResults.task2.score = ok ? 35 : 10;
+      taskResults.task2.completed = true;
+      checkAllTasksCompleted();
+      document.getElementById('resultFx').className = 'result-box show';
+    }
+
+    updateCompound();
+    updateDemand();
+    updateFx();
+  </script>
+
+  <div style="border-top:1px solid var(--border);background:var(--bg);padding:3rem 1.5rem;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div
+          style="font-size:13px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;">
+          <i data-lucide="graduation-cap"></i> Bước tiếp theo</div>
+        <h2 style="font-size:24px;font-weight:700;margin-bottom:.5rem;">Bạn quan tâm đến Kinh tế?</h2>
+        <p style="color:var(--ink2);font-size:14px;">Đây là thông tin bạn cần biết về ngành học và cơ hội nghề nghiệp
+        </p>
+      </div>
+      <div style="display:grid;gap:1.5rem;">
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="book-open"></i></span> Ngành học phù hợp</h3>
+          <div style="display:grid;gap:12px;">
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Kinh tế</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Chuyên viên phân tích</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">22-26đ</div>
+            </div>
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Tài chính - Ngân hàng</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Financial Analyst</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">23-27đ</div>
+            </div>
+            <div
+              style="padding:12px;background:var(--blue-bg);border-radius:8px;display:flex;justify-content:space-between;">
+              <div>
+                <div style="font-weight:600;font-size:14px;">Quản trị kinh doanh</div>
+                <div style="font-size:12px;color:var(--ink2);">4 năm • Business Analyst</div>
+              </div>
+              <div style="font-weight:700;color:var(--blue);">21-25đ</div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="briefcase"></i></span> Cơ hội việc làm</h3>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1rem;">
+            <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;">
+              <div style="font-size:24px;font-weight:700;color:var(--green);">92%</div>
+              <div style="font-size:12px;color:var(--ink2);">Tỉ lệ có việc làm</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--green-bg);border-radius:8px;">
+              <div style="font-size:24px;font-weight:700;color:var(--green);">+85%</div>
+              <div style="font-size:12px;color:var(--ink2);">Tăng trưởng đến 2030</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--ink2);line-height:1.7;"><strong style="color:var(--ink);">Vị
+              trí:</strong> Phân tích tài chính, Kế toán, Kiểm toán, Tư vấn đầu tư, Marketing, Quản lý dự án</div>
+        </div>
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px;"><span
+              style="font-size:20px;"><i data-lucide="banknote"></i></span> Mức lương</h3>
+          <div style="display:grid;gap:10px;">
+            <div
+              style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+              <span style="font-size:13px;color:var(--ink2);">Mới ra trường</span><span style="font-weight:600;">10-15
+                triệu/tháng</span></div>
+            <div
+              style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);">
+              <span style="font-size:13px;color:var(--ink2);">3-5 năm</span><span style="font-weight:600;">18-35
+                triệu/tháng</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;"><span
+                style="font-size:13px;color:var(--ink2);">Manager/Director</span><span style="font-weight:600;">40-100
+                triệu/tháng</span></div>
+          </div>
+        </div>
+        <div
+          style="background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);border-radius:var(--radius-lg);padding:2rem;text-align:center;color:white;">
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:.5rem;">Sẵn sàng theo đuổi ngành Kinh tế?</h3>
+          <p style="font-size:14px;opacity:.9;margin-bottom:1.5rem;">Khám phá các trường kinh tế hàng đầu Việt Nam</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="../index.html"
+              style="display:inline-block;padding:10px 24px;background:white;color:#00a8cc;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Xem
+              điểm chuẩn</a>
+            <a href="../index.html"
+              style="display:inline-block;padding:10px 24px;background:rgba(255,255,255,.2);color:white;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;">Khám
+              phá ngành khác</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
+
+
+    // ─────────────────────────────────────────────
+    //  GLOBAL TRACKING & SCORING SYSTEM (SYNCHRONIZED WITH AI LAB)
+    // ─────────────────────────────────────────────
+    let taskResults = {
+      task0: { name: 'Tính toán Lãi kép', score: 0, maxScore: 30, completed: false },
+      task1: { name: 'Cung cầu & Giá xăng', score: 0, maxScore: 35, completed: false },
+      task2: { name: 'Tỉ giá & Nhập khẩu', score: 0, maxScore: 35, completed: false }
+    };
+    let currentTab = 0;
+    let overallStartTime = Date.now();
+    const labKey = 'kinh_te';
+    const labTitle = 'Chuyên Viên Phân Tích Đầu Tư';
+
+    function checkAllTasksCompleted() {
+      const allCompleted = Object.values(taskResults).every(t => t.completed);
+      if (allCompleted) {
+        // Show report button in the last tab
+        const lastTabId = 'tab' + (Object.keys(taskResults).length - 1);
+        const lastTab = document.getElementById(lastTabId);
+        if (lastTab) {
+          const existingBtn = lastTab.querySelector('.btn-final-report');
+          if (!existingBtn) {
+            const finalBtn = document.createElement('button');
+            finalBtn.className = 'btn-primary btn-final-report';
+            finalBtn.style.marginTop = '1rem';
+            finalBtn.style.display = 'inline-flex';
+            finalBtn.style.alignItems = 'center';
+            finalBtn.style.gap = '8px';
+            finalBtn.innerHTML = '<i data-lucide="bar-chart-2"></i> Xem báo cáo đánh giá cuối cùng';
+            finalBtn.onclick = showIntermediatePrompt;
+
+            // Find action row or append at end
+            const actRow = lastTab.querySelector('.action-row') || lastTab;
+            actRow.appendChild(finalBtn);
+            lucide.createIcons();
+          }
+        }
+      }
+    }
+
+        // ─────────────────────────────────────────────
+    //  FINAL REPORT & LOCAL EVALUATION (NO API NEEDED)
+    // ─────────────────────────────────────────────
+    async function generateFinalReport() {
+      // Simulate brief loading
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+      const hollandTally = recommendInput ? recommendInput.hollandTally || {} : {};
+      const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+      const topHolland = sortedHolland[0] ? sortedHolland[0][0] : 'I';
+
+      // Safe check for local labTitle variable, fall back to page title if not found
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      let title = "";
+      let degreeOfMatch = "";
+      let advice = "";
+
+      if (percentage >= 80) {
+        title = `Chuyên gia ${currentLabTitle} xuất sắc`;
+        degreeOfMatch = `Học sinh thể hiện sự vượt trội và năng khiếu đặc biệt trong lĩnh vực ${currentLabTitle}. Điểm số thực nghiệm đạt ${percentage}% (cực kỳ cao) chứng tỏ bạn có tư duy phân tích sắc bén, logic vững vàng và độ tập trung cao độ khi giải quyết các bài tập chuyên môn.`;
+      } else if (percentage >= 50) {
+        title = `Kỹ sư/Chuyên viên ${currentLabTitle} triển vọng`;
+        degreeOfMatch = `Học sinh có độ phù hợp khá cao với lĩnh vực ${currentLabTitle}. Bạn nắm bắt nhanh các khái niệm và hoàn thành tốt các thử thách được giao với điểm số thực nghiệm ${percentage}%. Nếu tiếp tục rèn luyện tính kiên nhẫn và đào sâu chuyên môn, bạn sẽ tiến rất xa.`;
+      } else {
+        title = `Người tìm hiểu lĩnh vực ${currentLabTitle}`;
+        degreeOfMatch = `Học sinh đã hoàn thành các bước trải nghiệm cơ bản để hiểu công việc của một chuyên gia trong lĩnh vực ${currentLabTitle}. Kết quả thực chứng ở mức trung bình (${percentage}%) cho thấy bạn cần củng cố thêm các kiến thức nền tảng THPT và thực hành nhiều hơn nếu muốn theo đuổi định hướng này.`;
+      }
+
+      // Analyze each task score
+      const taskAnalysis = Object.values(taskResults).map(t => {
+        let taskRating = "";
+        const rate = t.maxScore > 0 ? (t.score / t.maxScore) : (t.score / 100);
+        if (rate >= 0.8) {
+          taskRating = `Đạt kết quả xuất sắc, phản ánh năng lực tốt về <b>${t.name}</b>.`;
+        } else if (rate >= 0.5) {
+          taskRating = `Đạt kết quả khá tốt ở phần <b>${t.name}</b>, có nền tảng cơ bản vững vàng.`;
+        } else {
+          taskRating = `Cần rèn luyện và chú ý hơn ở nội dung <b>${t.name}</b>.`;
+        }
+        return `<li><b>${t.name}</b>: ${taskRating}</li>`;
+      }).join('');
+
+      // Holland compatibility
+      let hollandMatch = "";
+      const investigativeLabs = ['Khoa học Máy tính', 'Kỹ sư AI', 'Bác sĩ', 'Luật sư'];
+      const realisticLabs = ['Kỹ sư Cơ khí', 'Kỹ sư Điện', 'Kỹ sư Nông nghiệp'];
+      const socialLabs = ['Giáo viên', 'Luật sư', 'Bác sĩ'];
+      const enterprisingLabs = ['Chuyên viên Kinh tế'];
+      const conventionalLabs = ['Chuyên viên Kinh tế', 'Lập trình viên'];
+
+      let isMatch = false;
+      if (topHolland === 'I' && investigativeLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'R' && realisticLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'S' && socialLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'E' && enterprisingLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+      if (topHolland === 'C' && conventionalLabs.some(l => currentLabTitle.includes(l))) isMatch = true;
+
+      if (isMatch) {
+        hollandMatch = `Tính cách lý thuyết nổi trội của bạn thuộc nhóm <b>${topHolland}</b>, cực kỳ ăn khớp và tương thích với đặc thù công việc trong phòng Lab <b>${currentLabTitle}</b> này.`;
+      } else {
+        hollandMatch = `Mặc dù nhóm tính cách lý thuyết nổi trội của bạn là <b>${topHolland}</b>, trải nghiệm thực tế tại phòng Lab <b>${currentLabTitle}</b> cho thấy bạn vẫn sở hữu những tiềm năng tiềm ẩn hoặc sự hứng thú đặc biệt với lĩnh vực kỹ thuật này.`;
+      }
+
+      // Advice base on currentLabTitle
+      if (currentLabTitle.includes('AI') || currentLabTitle.includes('Máy tính') || currentLabTitle.includes('Lập trình')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt các môn <b>Toán</b> (Giải tích, Đạo hàm, Xác suất thống kê) và <b>Tin học</b> ở trường.</li>
+            <li>Tham gia học các khóa học lập trình cơ bản (như Python, C++) và rèn luyện thuật toán trên các trang uy tín như LeetCode, Codeforces.</li>
+            <li>Tìm hiểu thêm về cấu trúc dữ liệu, thuật toán và cách thiết kế ứng dụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Y tế') || currentLabTitle.includes('Bác sĩ')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Đặc biệt chú trọng các môn học <b>Hóa học</b> và <b>Sinh học</b> THPT, đây là nền tảng tối quan trọng.</li>
+            <li>Rèn luyện tính cẩn thận, chịu áp lực tốt, tinh thần trách nhiệm và lòng nhân ái.</li>
+            <li>Tìm hiểu sâu về giải phẫu học cơ bản hoặc các xu hướng y học hiện đại như EMR, chẩn đoán số.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Kinh tế') || currentLabTitle.includes('Tài chính')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Tập trung học tốt môn <b>Toán</b>, <b>Tiếng Anh</b> và các kiến thức Xã hội, Địa lý Kinh tế.</li>
+            <li>Thực hành làm việc với bảng tính (Excel/Google Sheets), phân tích số liệu và rèn luyện tư duy tài chính.</li>
+            <li>Đọc thêm sách báo kinh tế, tìm hiểu về dòng tiền, lãi kép và thị trường tài chính toàn cầu.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Pháp luật') || currentLabTitle.includes('Luật')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt môn <b>Ngữ văn</b>, <b>Lịch sử</b>, <b>Giáo dục công dân/Kinh tế Pháp luật</b> và <b>Tiếng Anh</b>.</li>
+            <li>Rèn luyện tư duy phản biện, kỹ năng lập luận lô-gích và khả năng diễn thuyết trước đám đông.</li>
+            <li>Đọc và phân tích các bộ luật cơ bản hoặc tham khảo các case study tranh tụng thực tế.</li>
+          </ol>
+        `;
+      } else if (currentLabTitle.includes('Giáo dục') || currentLabTitle.includes('Sư phạm')) {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Rèn luyện vững vàng môn thế mạnh mà bạn muốn giảng dạy, cùng kỹ năng thuyết trình, trình bày bảng biểu.</li>
+            <li>Trau dồi tính kiên nhẫn, sự thấu hiểu tâm lý lứa tuổi và kỹ năng truyền đạt sư phạm.</li>
+            <li>Thực hành tự thiết kế giáo án hoặc hướng dẫn bài học cho bạn bè, em nhỏ.</li>
+          </ol>
+        `;
+      } else {
+        advice = `
+          <ol style="margin-left: 1.2rem; padding-left: 0;">
+            <li>Học tốt các môn Khoa học tự nhiên như <b>Vật lý</b>, <b>Hóa học</b> và môn <b>Công nghệ</b> THPT.</li>
+            <li>Tham gia thiết kế các dự án thực tế, câu lạc bộ STEM hoặc tự mày mò lắp ráp phần cứng cơ bản.</li>
+            <li>Tìm hiểu quy chuẩn kỹ thuật, quy trình an toàn lao động và cách đọc bản vẽ kỹ thuật.</li>
+          </ol>
+        `;
+      }
+
+      return `
+        <div style="text-align:left; font-family:'IBM Plex Sans', sans-serif;">
+          <h3 style="color:var(--blue); font-size:18px; font-weight:700; margin-bottom:12px; border-bottom:2px solid var(--blue-border); padding-bottom:6px;">
+            🎓 Định hướng gợi ý: ${title}
+          </h3>
+          <p style="margin-bottom:16px; font-size:13.5px; line-height:1.7;">
+            <strong>Độ phù hợp toàn diện:</strong> ${degreeOfMatch}
+          </p>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            📊 Kết quả thực chứng qua nhiệm vụ phòng LAB:
+          </h4>
+          <div style="background:var(--surface2); padding:12px; border-radius:6px; margin-bottom:16px; font-size:13px;">
+            <ul style="margin-left: 1.2rem; padding-left: 0;">
+              ${taskAnalysis}
+            </ul>
+          </div>
+          
+          <h4 style="color:var(--ink); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🧬 Sự liên kết giữa Lý thuyết & Trải nghiệm:
+          </h4>
+          <p style="margin-bottom:16px; font-size:13px; line-height:1.7;">
+            ${hollandMatch}
+          </p>
+          
+          <h4 style="color:var(--blue); font-size:14.5px; font-weight:600; margin-bottom:8px;">
+            🚀 Lộ trình đề xuất phát triển kỹ năng:
+          </h4>
+          <div style="font-size:13px; line-height:1.7;">
+            ${advice}
+          </div>
+        </div>
+      `;
+    }
+
+    function showFinalReport() {
+      const totalTime = Math.round((Date.now() - overallStartTime) / 1000 / 60);
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs[labKey] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Read recommendInput from localStorage
+      const recommendInput = JSON.parse(localStorage.getItem('recommendInput') || 'null');
+
+      let comprehensiveSection = '';
+      if (recommendInput) {
+        const userSubjects = recommendInput.subjects || [];
+        const userGrades = recommendInput.grades || {};
+        const hollandTally = recommendInput.hollandTally || {};
+        const gradeLevel = recommendInput.gradeLevel || "";
+
+        const sortedHolland = Object.entries(hollandTally).sort((a, b) => b[1] - a[1]);
+        const topHollandType = sortedHolland[0] ? sortedHolland[0][0] : null;
+        const secondHollandType = sortedHolland[1] ? sortedHolland[1][0] : null;
+
+        // 1. Calculate Holland Score (max 5)
+        let hollandScore = 0;
+        if (["E", "C"].includes(topHollandType)) hollandScore = 5;
+        else if (["E", "C"].includes(secondHollandType)) hollandScore = 3;
+
+        // 2. Calculate Subject Matches (max 6)
+        const matchedSubjects = ["Toán", "Ngữ văn", "Tiếng Anh", "Địa lý"].filter(sub => userSubjects.includes(sub));
+        let subjectScore = matchedSubjects.length * 2;
+
+        // 3. Calculate Academic Grade Score (max 3)
+        let academicScore = 0;
+        if (matchedSubjects.length > 0) {
+          let totalGrade = 0;
+          let gradeCount = 0;
+          matchedSubjects.forEach(sub => {
+            const gradeObj = userGrades[sub];
+            if (gradeObj) {
+              if (gradeLevel === "10" || gradeLevel === "11") {
+                const y1 = parseFloat(gradeObj.year1) || 0;
+                const y2 = parseFloat(gradeObj.year2) || 0;
+                if (y1 > 0 && y2 > 0) { totalGrade += (y1 + y2) / 2; gradeCount++; }
+              } else {
+                const exam = parseFloat(gradeObj.exam) || 0;
+                if (exam > 0) { totalGrade += exam; gradeCount++; }
+              }
+            }
+          });
+          const avgGrade = gradeCount > 0 ? (totalGrade / gradeCount) : 0;
+          if (avgGrade >= 8.0) academicScore = 3;
+          else if (avgGrade >= 6.5) academicScore = 1.5;
+        }
+
+        const theoryScore = hollandScore + subjectScore + academicScore;
+        const theoryPercentage = Math.round((theoryScore / 14) * 100);
+
+        const completedLabsEntries = Object.entries(completedLabs);
+        let avgLabScore = percentage;
+        if (completedLabsEntries.length > 0) {
+          const totalLabScores = completedLabsEntries.reduce((sum, entry) => sum + entry[1], 0);
+          avgLabScore = Math.round(totalLabScores / completedLabsEntries.length);
+        }
+
+        let completedLabsHTML = '';
+        const labNames = {
+          ai: "Kỹ sư AI",
+          cs: "Lập trình viên",
+          y_khoa: "Bác sĩ",
+          kinh_te: "Chuyên viên Kinh tế",
+          giao_duc: "Giáo viên",
+          phap_luat: "Luật sư",
+          co_khi: "Kỹ sư Cơ khí",
+          ky_thuat: "Kỹ sư Điện",
+          nong_nghiep: "Kỹ sư Nông nghiệp",
+          hoa_hoc: "Kỹ sư Hóa học",
+          sang_tao: "Sáng tạo & Thiết kế"
+        };
+        completedLabsEntries.forEach(([lId, score]) => {
+          completedLabsHTML += `<li><strong>${labNames[lId] || lId}</strong>: ${score}% (Đã hoàn thành)</li>`;
+        });
+
+        comprehensiveSection = `
+      <div style="background:rgba(37, 99, 235, 0.08); border-left:4px solid #2563eb; padding:1.2rem; margin-bottom:1.5rem; border-radius:6px; color:#1e293b; text-align:left;">
+        <h4 style="font-size:14px; font-weight:700; color:#1e40af; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          🎯 ĐỘ PHÙ HỢP TOÀN DIỆN CỦA BẠN:
+        </h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Năng lực học thuật & Tính cách:</span>
+            <strong style="font-size:18px; color:#2563eb;">${theoryPercentage}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Tổ hợp môn & Holland)</span>
+          </div>
+          <div style="background:#f1f5f9; padding:10px; border-radius:6px;">
+            <span style="font-size:10px; color:#64748b; display:block;">Thực chứng công việc:</span>
+            <strong style="font-size:18px; color:#10b981;">${avgLabScore}%</strong>
+            <span style="font-size:9px; color:#94a3b8; display:block;">(Trung bình các LAB trải nghiệm)</span>
+          </div>
+        </div>
+        <div style="font-size:11.5px; line-height:1.5; color:#334155;">
+          <strong>Nhật ký trải nghiệm phòng LAB:</strong>
+          <ul style="margin-left:1.2rem; margin-top:4px; padding-left:0;">
+            ${completedLabsHTML}
+          </ul>
+        </div>
+      </div>
+    `;
+      }
+
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const reportDiv = document.createElement('div');
+      reportDiv.style.cssText = 'background:white;border-radius:12px;padding:2.5rem;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;color:#111;';
+
+      let scoreGridHTML = '';
+      Object.entries(taskResults).forEach(([k, t]) => {
+        scoreGridHTML += `
+      <div style="background:var(--surface2);padding:0.75rem;border-radius:6px;text-align:center;">
+        <div style="font-size:9px;color:var(--ink2);margin-bottom:4px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${t.name}</div>
+        <strong style="font-size:14px;color:${t.score >= 70 ? 'var(--green)' : 'var(--amber)'};">${t.score}%</strong>
+      </div>
+    `;
+      });
+
+      reportDiv.innerHTML = `
+    <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+    
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div style="font-size:32px;font-weight:700;color:var(--blue);margin-bottom:0.5rem;">${percentage}%</div>
+      <div style="font-size:14px;color:var(--ink2);">Điểm hoàn thành LAB ${labTitle}</div>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(${Object.keys(taskResults).length}, 1fr);gap:8px;margin-bottom:2rem;">
+      ${scoreGridHTML}
+    </div>
+
+    ${comprehensiveSection}
+    
+    <div style="padding:1rem;background:var(--blue-bg);border-radius:6px;border-left:3px solid var(--blue);margin-bottom:1.5rem;font-size:13px;color:var(--ink2);display:flex;justify-content:space-between;">
+      <span>⏱️ <strong>Thời gian:</strong> ${totalTime} phút</span>
+      <span>📈 <strong>Tổng điểm:</strong> ${totalScore}/${maxScore}</span>
+    </div>
+    
+    <div id="aiEvaluation" style="padding:1.2rem;background:var(--amber-bg);border-radius:6px;font-size:13px;line-height:1.8;color:var(--ink);border:1px solid var(--amber-border);text-align:left;">
+      ⏳ AI đang phân tích dữ liệu lý thuyết và thực chứng để lập báo cáo hướng nghiệp...
+    </div>
+    
+    <div style="margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="window.location.href='../dinh-huong.html'" style="padding:10px 20px;background:#f3f4f6;color:#374151;border:1px solid #d1d5db;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">← Trở về trang định hướng</button>
+      <button onclick="window.location.href='../index.html'" style="padding:10px 20px;background:#111;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:13px;cursor:pointer;">Trang chủ</button>
+    </div>
+  `;
+
+      modal.appendChild(reportDiv);
+      document.body.appendChild(modal);
+
+      // Call AI to generate evaluation
+      generateFinalReport().then(evaluation => {
+        const evalDiv = document.getElementById('aiEvaluation');
+        if (evalDiv) {
+          evalDiv.innerHTML = evaluation;
+        }
+      });
+    }
+
+    function showIntermediatePrompt() {
+      const totalScore = Object.values(taskResults).reduce((sum, t) => sum + t.score, 0);
+      const maxScore = Object.values(taskResults).reduce((sum, t) => sum + t.maxScore, 0);
+      const percentage = Math.round((totalScore / maxScore) * 100);
+
+      // Save current LAB score to localStorage
+      let completedLabs = JSON.parse(localStorage.getItem('completedLabs') || '{}');
+      completedLabs['kinh_te'] = percentage;
+      localStorage.setItem('completedLabs', JSON.stringify(completedLabs));
+
+      // Save evaluation to localStorage
+      generateFinalReport().then(evaluation => {
+        let labEvaluations = JSON.parse(localStorage.getItem('labEvaluations') || '{}');
+        labEvaluations['kinh_te'] = evaluation;
+        localStorage.setItem('labEvaluations', JSON.stringify(labEvaluations));
+      });
+
+      // Create overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.65);display:flex;align-items:center;justify-content:center;z-index:9999;padding:1rem;font-family:"IBM Plex Sans",sans-serif;';
+
+      const card = document.createElement('div');
+      card.style.cssText = 'background:white; border-radius:16px; padding:2.5rem; max-width:550px; width:100%; box-shadow:0 20px 25px -5px rgba(0,0,0,0.15); text-align:center; color:#111111; position:relative;';
+
+      // Safe check for labTitle
+      const currentLabTitle = typeof labTitle !== 'undefined' ? labTitle : document.title.split('·')[1]?.split('—')[0]?.trim() || 'Học phần trải nghiệm';
+
+      card.innerHTML = `
+    <div style="font-size:48px; margin-bottom:1rem;">🎉</div>
+    <h3 style="font-size:22px; font-weight:700; margin-bottom:12px; color:#16a34a;">Hoàn thành Phòng LAB ${typeof labTitle !== 'undefined' ? labTitle : 'Trải nghiệm'}!</h3>
+    <p style="font-size:15px; color:#555566; line-height:1.6; margin-bottom:24px;">
+      Bạn đã hoàn thành xuất sắc nhiệm vụ với điểm số thực chứng đạt <strong>${percentage}%</strong>.
+      <br><br>
+      Hãy xem Báo cáo Đánh giá Hướng nghiệp Toàn diện để hiểu rõ năng lực và sự phù hợp của bạn.
+    </p>
+    
+    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+      <button id="btn-view-report-now" style="padding:14px; background:#2563eb; color:white; border:none; border-radius:8px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        📊 Xem báo cáo kết quả & Đánh giá AI →
+      </button>
+      <button id="btn-to-other-labs" style="padding:12px; background:#f3f4f6; color:#374151; border:1px solid #e5e7eb; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; transition:all 0.2s; font-family:'IBM Plex Sans',sans-serif;">
+        🌾 Khám phá phòng LAB khác (Định hướng)
+      </button>
+    </div>
+  `;
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Event handlers
+      card.querySelector('#btn-view-report-now').onclick = () => {
+        overlay.remove();
+        const recommendInput = localStorage.getItem('recommendInput');
+        if (recommendInput) {
+          window.location.href = '../ket-qua.html';
+        } else {
+          alert("Bạn đã hoàn thành phòng Lab! Vui lòng hoàn thành tiếp phần Trắc nghiệm tính cách để nhận Báo cáo tổng hợp toàn diện.");
+          window.location.href = '../goi-y.html';
+        }
+      };
+
+      card.querySelector('#btn-to-other-labs').onclick = () => {
+        overlay.remove();
+        window.location.href = '../dinh-huong.html';
+      };
+    }
+
   </script>
 </body>
+
 </html>

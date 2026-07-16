@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Định hướng nghề nghiệp - HướngNghiệpVN.online</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Khám phá nghề nghiệp phù hợp với bạn qua 9 phòng Lab tương tác. Làm thử nhiệm vụ thực tế của bác sĩ, kỹ sư, luật sư... không cần biết gì trước!">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,138 +16,539 @@
   <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
   <div class="nav-links">
     <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+    <button class="nav-cta survey-nav-btn" onclick="window.location.href='goi-y.html'"><i data-lucide="sparkles" style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
     <button class="nav-link" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
-    <button class="nav-link active" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
+    <button class="nav-link active" onclick="window.location.href='dinh-huong.html'">Phòng Lab</button>
     <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
-    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
-    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
+    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng &amp; Lương</button>
   </div>
 </nav>
 
-<!-- ======================== QUIZ ======================== -->
-<div id="page-quiz" class="page active">
-  <div style="background: white; padding: 32px 40px; border-bottom: 1px solid var(--gray-200);">
-    <div style="max-width:1200px;margin:0 auto;">
-      <div style="font-size:13px;color:var(--gray-500);margin-bottom:8px;">Định hướng nghề nghiệp</div>
-      <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Khám phá nghề nghiệp phù hợp</h1>
-      <p style="color:var(--gray-500);">Trải nghiệm thực tế các ngành nghề qua phòng lab tương tác</p>
+<!-- ======================== HERO ======================== -->
+<div class="dh-hero">
+  <div class="dh-hero-bg">
+    <div class="dh-orb dh-orb-1"></div>
+    <div class="dh-orb dh-orb-2"></div>
+    <div class="dh-orb dh-orb-3"></div>
+  </div>
+  <div class="dh-hero-content">
+    <div class="dh-hero-badge">
+      <i data-lucide="flask-conical"></i>
+      9 Phòng Lab Nghề Nghiệp Tương Tác
+    </div>
+    <h1 class="dh-hero-title">Khám phá nghề nghiệp<br><em>phù hợp với bạn</em></h1>
+    <p class="dh-hero-sub">Làm thử nhiệm vụ thực tế của từng nghề. Không cần biết gì trước — chỉ cần thử và cảm nhận liệu đây có phải "ngành của bạn" không.</p>
+
+    <div class="dh-hero-features">
+      <div class="dh-hero-feat">
+        <div class="dh-feat-icon"><i data-lucide="clock"></i></div>
+        <div>
+          <div class="dh-feat-label">5–10 phút</div>
+          <div class="dh-feat-sub">mỗi phòng lab</div>
+        </div>
+      </div>
+      <div class="dh-hero-feat-div"></div>
+      <div class="dh-hero-feat">
+        <div class="dh-feat-icon"><i data-lucide="graduation-cap"></i></div>
+        <div>
+          <div class="dh-feat-label">Kiến thức THPT</div>
+          <div class="dh-feat-sub">không cần gì thêm</div>
+        </div>
+      </div>
+      <div class="dh-hero-feat-div"></div>
+      <div class="dh-hero-feat">
+        <div class="dh-feat-icon"><i data-lucide="zap"></i></div>
+        <div>
+          <div class="dh-feat-label">3 nhiệm vụ thực tế</div>
+          <div class="dh-feat-sub">của từng ngành nghề</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dh-hero-cta-row">
+      <button class="dh-cta-primary" onclick="document.getElementById('lab-section').scrollIntoView({behavior:'smooth'})">
+        <i data-lucide="play-circle"></i>
+        Chọn phòng lab ngay
+      </button>
+      <button class="dh-cta-secondary" onclick="document.getElementById('how-section').scrollIntoView({behavior:'smooth'})">
+        Cách hoạt động <i data-lucide="chevron-down"></i>
+      </button>
     </div>
   </div>
-  <div class="section" style="padding-top:40px;">
-    <div style="max-width:1000px;margin:0 auto;">
-      <div style="margin-bottom:32px;">
-        <h2 style="font-size:20px;font-weight:600;margin-bottom:12px;"><i data-lucide="microscope"></i> Phòng Lab Nghề Nghiệp</h2>
-        <p style="color:var(--gray-500);font-size:14px;">Làm thử 3 nhiệm vụ thực tế của mỗi nghề. Tự khám phá xem bạn có hứng thú không — không cần biết gì trước.</p>
+
+  <!-- Cải tiến phần bên phải của Hero: Một Mockup Interactive Lab Card tinh tế -->
+  <div class="dh-hero-showcase">
+    <!-- Orb trang trí nhỏ phía sau showcase -->
+    <div class="dh-showcase-glow"></div>
+    
+    <!-- Mô phỏng màn hình làm nhiệm vụ thực tế của Lab -->
+    <div class="dh-mockup-card">
+      <div class="dh-mockup-header">
+        <div class="dh-mockup-dots">
+          <span class="dh-dot"></span>
+          <span class="dh-dot"></span>
+          <span class="dh-dot"></span>
+        </div>
+        <div class="dh-mockup-title">
+          <i data-lucide="terminal"></i> Interactive Lab Experience
+        </div>
+        <div class="dh-mockup-badge">
+          <span class="dh-pulse-dot"></span> Đang trực tuyến
+        </div>
       </div>
       
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
-        <!-- AI -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-ai-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)"><i data-lucide="bot"></i></div>
-          <div class="lab-title">Kỹ sư AI</div>
-          <div class="lab-desc">Phân loại dữ liệu, Xác suất Bayes, Mạng neural</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Toán</span>
-            <span class="lab-subject-tag">Xác suất</span>
+      <div class="dh-mockup-body">
+        <div class="dh-mock-nav">
+          <div class="dh-mock-tab active">
+            <span class="dh-tab-emoji">🤖</span> AI Lab
+          </div>
+          <div class="dh-mock-tab">
+            <span class="dh-tab-emoji">⚕️</span> Bác sĩ
+          </div>
+          <div class="dh-mock-tab">
+            <span class="dh-tab-emoji">⚖️</span> Luật sư
           </div>
         </div>
-
-        <!-- Khoa học máy tính -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-khoa-hoc-may-tinh-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)"><i data-lucide="monitor"></i></div>
-          <div class="lab-title">Lập trình viên</div>
-          <div class="lab-desc">Debug logic, Tối ưu thuật toán, Mã hóa</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Toán</span>
-            <span class="lab-subject-tag">Logic</span>
+        
+        <div class="dh-mock-content">
+          <div class="dh-mock-step-label">Nhiệm vụ 1/3: Gán nhãn dữ liệu</div>
+          <h4 class="dh-mock-task-title">Phân loại email rác (Spam) để làm tập dữ liệu huấn luyện</h4>
+          
+          <div class="dh-mock-code-box">
+            <div class="dh-code-line"><span class="dh-code-key">Người gửi:</span> thi.nguyen@school.edu.vn</div>
+            <div class="dh-code-line"><span class="dh-code-key">Tiêu đề:</span> Bài tập Toán tuần 3</div>
+            <div class="dh-code-line dh-code-highlight"><span class="dh-code-res">Nội dung:</span> Thầy gửi bài tập chương xác suất thống kê. Hạn nộp thứ 6 tuần này.</div>
           </div>
-        </div>
-
-        <!-- Y tế -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-y-te-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#fa709a 0%,#fee140 100%)"><i data-lucide="stethoscope"></i></div>
-          <div class="lab-title">Bác sĩ</div>
-          <div class="lab-desc">Chẩn đoán bệnh, Thống kê dịch, Tính liều thuốc</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Sinh học</span>
-            <span class="lab-subject-tag">Hóa học</span>
+          
+          <div class="dh-mock-options">
+            <div class="dh-mock-option selected">
+              <span class="dh-opt-letter">🟢</span>
+              <span>Email Bình thường</span>
+              <i data-lucide="check" class="dh-opt-check"></i>
+            </div>
+            <div class="dh-mock-option">
+              <span class="dh-opt-letter">🔴</span>
+              <span>Email Rác (Spam)</span>
+            </div>
+            <div class="dh-mock-option">
+              <span class="dh-opt-letter">🟡</span>
+              <span>Chưa chắc chắn</span>
+            </div>
           </div>
-        </div>
-
-        <!-- Kinh tế -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-kinh-te-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)"><i data-lucide="bar-chart-3"></i></div>
-          <div class="lab-title">Chuyên viên Kinh tế</div>
-          <div class="lab-desc">Lãi suất kép, Cung cầu, Tỉ giá ngoại tệ</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Toán</span>
-            <span class="lab-subject-tag">Địa lý</span>
-          </div>
-        </div>
-
-        <!-- Giáo dục -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-giao-duc-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#43e97b 0%,#38f9d7 100%)">👨‍<i data-lucide="school"></i></div>
-          <div class="lab-title">Giáo viên</div>
-          <div class="lab-desc">Phân tích điểm, Thiết kế bài giảng, Chia nhóm</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Toán</span>
-            <span class="lab-subject-tag">Tâm lý</span>
-          </div>
-        </div>
-
-        <!-- Pháp luật -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-phap-luat-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#fa8bff 0%,#2bd2ff 100%)"><i data-lucide="scale"></i></div>
-          <div class="lab-title">Luật sư</div>
-          <div class="lab-desc">Lập luận, Hợp đồng, Phân tích bằng chứng</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Ngữ văn</span>
-            <span class="lab-subject-tag">Logic</span>
-          </div>
-        </div>
-
-        <!-- Cơ khí -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-co-khi-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#ff9a56 0%,#ff6a88 100%)"><i data-lucide="settings"></i></div>
-          <div class="lab-title">Kỹ sư Cơ khí</div>
-          <div class="lab-desc">Lực & Mô-men, Chọn vật liệu, Thiết kế</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Vật lý</span>
-            <span class="lab-subject-tag">Hóa học</span>
-          </div>
-        </div>
-
-        <!-- Kỹ thuật điện -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-ky-thuat-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%)"><i data-lucide="zap"></i></div>
-          <div class="lab-title">Kỹ sư Điện</div>
-          <div class="lab-desc">Định luật Ohm, Công suất, Thiết kế mạch</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Vật lý</span>
-            <span class="lab-subject-tag">Toán</span>
-          </div>
-        </div>
-
-        <!-- Nông nghiệp -->
-        <div class="lab-card" onclick="window.location.href='LAB/huong-nghiep-nong-nghiep-lab.html'">
-          <div class="lab-icon" style="background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)"><i data-lucide="wheat"></i></div>
-          <div class="lab-title">Kỹ sư Nông nghiệp</div>
-          <div class="lab-desc">Phân bón NPK, Tưới tiêu, Tính năng suất</div>
-          <div class="lab-subjects">
-            <span class="lab-subject-tag">Hóa học</span>
-            <span class="lab-subject-tag">Sinh học</span>
+          
+          <div class="dh-mock-footer">
+            <div class="dh-mock-tip">
+              <i data-lucide="sparkles"></i> <strong>Data Labeling:</strong> Gán nhãn chính xác giúp AI học phân biệt thư rác tốt hơn.
+            </div>
+            <button class="dh-mock-btn">
+              Xác nhận &amp; Tiếp tục <i data-lucide="arrow-right"></i>
+            </button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div style="margin-top:48px;padding:24px;background:var(--blue-50);border:1px solid var(--blue-200);border-radius:12px;">
-        <h3 style="font-size:16px;font-weight:600;margin-bottom:8px;"><i data-lucide="lightbulb"></i> Cách hoạt động</h3>
-        <ul style="font-size:14px;color:var(--gray-600);line-height:1.8;padding-left:20px;">
-          <li>Chọn 1 nghề bạn tò mò → Bấm vào để mở phòng lab</li>
-          <li>Làm 3 nhiệm vụ thực tế (chỉ dùng kiến thức THPT đã học)</li>
-          <li>Sau khi làm xong, bạn sẽ tự nhận ra: "À, nghề này làm việc thế này đấy!"</li>
-          <li>Không cần biết gì trước — chỉ cần thử và cảm nhận</li>
+    <!-- Một vài thẻ nhỏ bay xung quanh mockup để tăng chiều sâu thị giác -->
+    <div class="dh-mini-float dh-mf-1">
+      <span class="dh-mf-icon" style="background: linear-gradient(135deg, #10b981, #059669)"><i data-lucide="check-circle-2"></i></span>
+      <div>
+        <div class="dh-mf-title">Đã vượt qua</div>
+        <div class="dh-mf-sub">Nhận chứng chỉ Lab</div>
+      </div>
+    </div>
+    <div class="dh-mini-float dh-mf-2">
+      <span class="dh-mf-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)"><i data-lucide="activity"></i></span>
+      <div>
+        <div class="dh-mf-title">Trực quan hóa</div>
+        <div class="dh-mf-sub">Đồ thị tương tác thực tế</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== HOW IT WORKS ======================== -->
+<div class="dh-how" id="how-section">
+  <div class="dh-how-inner">
+    <div class="dh-section-badge">
+      <i data-lucide="info"></i> Cách hoạt động
+    </div>
+    <h2 class="dh-section-title">3 bước đơn giản để khám phá nghề nghiệp</h2>
+    <div class="dh-steps">
+      <div class="dh-step">
+        <div class="dh-step-num">1</div>
+        <div class="dh-step-icon"><i data-lucide="mouse-pointer-click"></i></div>
+        <div class="dh-step-title">Chọn 1 nghề bạn tò mò</div>
+        <div class="dh-step-desc">Bấm vào bất kỳ phòng lab nào dưới đây — ngay cả những nghề bạn chưa biết gì.</div>
+      </div>
+      <div class="dh-step-arrow"><i data-lucide="arrow-right"></i></div>
+      <div class="dh-step">
+        <div class="dh-step-num">2</div>
+        <div class="dh-step-icon"><i data-lucide="pencil-line"></i></div>
+        <div class="dh-step-title">Làm 3 nhiệm vụ thực tế</div>
+        <div class="dh-step-desc">Giải quyết bài toán thực tế như một người trong nghề, chỉ dùng kiến thức THPT bạn đã học.</div>
+      </div>
+      <div class="dh-step-arrow"><i data-lucide="arrow-right"></i></div>
+      <div class="dh-step">
+        <div class="dh-step-num">3</div>
+        <div class="dh-step-icon"><i data-lucide="lightbulb"></i></div>
+        <div class="dh-step-title">Tự cảm nhận kết quả</div>
+        <div class="dh-step-desc">Sau khi làm xong, bạn sẽ tự nhận ra liệu nghề này có phù hợp với bạn không.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== LAB CARDS ======================== -->
+<div class="dh-lab-section" id="lab-section">
+  <div class="dh-lab-inner">
+
+    <div class="dh-lab-header">
+      <div>
+        <div class="dh-section-badge"><i data-lucide="microscope"></i> Phòng Lab</div>
+        <h2 class="dh-section-title" style="margin-bottom:0">Chọn nghề bạn muốn trải nghiệm</h2>
+      </div>
+      <div class="dh-lab-count">
+        <span class="dh-lab-count-num">9</span>
+        <span class="dh-lab-count-label">phòng lab<br>sẵn sàng</span>
+      </div>
+    </div>
+
+    <!-- Category filter -->
+    <div class="dh-cat-filter">
+      <button class="dh-cat-btn active" onclick="filterLabs('all', this)">Tất cả</button>
+      <button class="dh-cat-btn" onclick="filterLabs('tech', this)">
+        <i data-lucide="cpu"></i> Công nghệ
+      </button>
+      <button class="dh-cat-btn" onclick="filterLabs('health', this)">
+        <i data-lucide="heart-pulse"></i> Y tế
+      </button>
+      <button class="dh-cat-btn" onclick="filterLabs('business', this)">
+        <i data-lucide="briefcase"></i> Kinh tế
+      </button>
+      <button class="dh-cat-btn" onclick="filterLabs('engineering', this)">
+        <i data-lucide="settings-2"></i> Kỹ thuật
+      </button>
+      <button class="dh-cat-btn" onclick="filterLabs('social', this)">
+        <i data-lucide="users"></i> Xã hội
+      </button>
+    </div>
+
+    <!-- Lab Grid -->
+    <div class="dh-lab-grid" id="lab-grid">
+
+      <!-- AI -->
+      <div class="dh-lab-card" data-cat="tech" onclick="window.location.href='LAB/huong-nghiep-ai-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            <i data-lucide="bot"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-tech">Công nghệ</span>
+            <span class="dh-difficulty dh-diff-hard">Thách thức</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Kỹ sư AI</div>
+        <div class="dh-lab-desc">Phân loại dữ liệu, xây dựng mô hình xác suất Bayes, thiết kế mạng neural đơn giản.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Phân loại email spam</span>
+            <span>Tính xác suất Bayes</span>
+            <span>Thiết kế neural net</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">📐 Toán</span>
+          <span class="dh-subj-tag">🎲 Xác suất</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Lập trình viên -->
+      <div class="dh-lab-card" data-cat="tech" onclick="window.location.href='LAB/huong-nghiep-khoa-hoc-may-tinh-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+            <i data-lucide="monitor"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-tech">Công nghệ</span>
+            <span class="dh-difficulty dh-diff-mid">Vừa phải</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Lập trình viên</div>
+        <div class="dh-lab-desc">Debug logic lỗi, tối ưu thuật toán tìm kiếm, thiết kế mã hóa thông tin an toàn.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Debug logic sai</span>
+            <span>Tối ưu thuật toán</span>
+            <span>Mã hóa dữ liệu</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">📐 Toán</span>
+          <span class="dh-subj-tag">🧩 Logic</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Bác sĩ -->
+      <div class="dh-lab-card" data-cat="health" onclick="window.location.href='LAB/huong-nghiep-y-te-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#fa709a,#fee140)">
+            <i data-lucide="stethoscope"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-health">Y tế</span>
+            <span class="dh-difficulty dh-diff-hard">Thách thức</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Bác sĩ</div>
+        <div class="dh-lab-desc">Chẩn đoán bệnh qua triệu chứng, thống kê dịch bệnh, tính liều thuốc chính xác.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Chẩn đoán bệnh</span>
+            <span>Thống kê dịch bệnh</span>
+            <span>Tính liều thuốc</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">🧬 Sinh học</span>
+          <span class="dh-subj-tag">⚗️ Hóa học</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Chuyên viên Kinh tế -->
+      <div class="dh-lab-card" data-cat="business" onclick="window.location.href='LAB/huong-nghiep-kinh-te-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+            <i data-lucide="bar-chart-3"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-business">Kinh tế</span>
+            <span class="dh-difficulty dh-diff-mid">Vừa phải</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Chuyên viên Kinh tế</div>
+        <div class="dh-lab-desc">Tính lãi suất kép, phân tích cung cầu thị trường, dự đoán tỉ giá ngoại tệ.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Lãi suất kép</span>
+            <span>Phân tích cung cầu</span>
+            <span>Tỉ giá ngoại tệ</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">📐 Toán</span>
+          <span class="dh-subj-tag">🌍 Địa lý</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Giáo viên -->
+      <div class="dh-lab-card" data-cat="social" onclick="window.location.href='LAB/huong-nghiep-giao-duc-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">
+            <i data-lucide="school"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-social">Xã hội</span>
+            <span class="dh-difficulty dh-diff-easy">Dễ tiếp cận</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Giáo viên</div>
+        <div class="dh-lab-desc">Phân tích điểm số học sinh, thiết kế bài giảng tương tác, chia nhóm học tập hiệu quả.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Phân tích điểm số</span>
+            <span>Thiết kế bài giảng</span>
+            <span>Chia nhóm học tập</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">📐 Toán</span>
+          <span class="dh-subj-tag">🧠 Tâm lý</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Luật sư -->
+      <div class="dh-lab-card" data-cat="social" onclick="window.location.href='LAB/huong-nghiep-phap-luat-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#fa8bff,#2bd2ff)">
+            <i data-lucide="scale"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-social">Xã hội</span>
+            <span class="dh-difficulty dh-diff-hard">Thách thức</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Luật sư</div>
+        <div class="dh-lab-desc">Lập luận bào chữa, soạn thảo hợp đồng, phân tích bằng chứng pháp lý.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Lập luận bào chữa</span>
+            <span>Soạn hợp đồng</span>
+            <span>Phân tích bằng chứng</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">📝 Ngữ văn</span>
+          <span class="dh-subj-tag">🧩 Logic</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Kỹ sư Cơ khí -->
+      <div class="dh-lab-card" data-cat="engineering" onclick="window.location.href='LAB/huong-nghiep-co-khi-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#ff9a56,#ff6a88)">
+            <i data-lucide="settings"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-eng">Kỹ thuật</span>
+            <span class="dh-difficulty dh-diff-mid">Vừa phải</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Kỹ sư Cơ khí</div>
+        <div class="dh-lab-desc">Phân tích lực &amp; mô-men xoắn, lựa chọn vật liệu phù hợp, thiết kế chi tiết máy.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Phân tích lực</span>
+            <span>Chọn vật liệu</span>
+            <span>Thiết kế chi tiết</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">⚡ Vật lý</span>
+          <span class="dh-subj-tag">⚗️ Hóa học</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Kỹ sư Điện -->
+      <div class="dh-lab-card" data-cat="engineering" onclick="window.location.href='LAB/huong-nghiep-ky-thuat-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#f7d794,#f8a5c2)">
+            <i data-lucide="zap"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-eng">Kỹ thuật</span>
+            <span class="dh-difficulty dh-diff-mid">Vừa phải</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Kỹ sư Điện</div>
+        <div class="dh-lab-desc">Áp dụng định luật Ohm, tính công suất tiêu thụ, thiết kế mạch điện cơ bản.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Định luật Ohm</span>
+            <span>Tính công suất</span>
+            <span>Thiết kế mạch</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">⚡ Vật lý</span>
+          <span class="dh-subj-tag">📐 Toán</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+      <!-- Kỹ sư Nông nghiệp -->
+      <div class="dh-lab-card" data-cat="engineering" onclick="window.location.href='LAB/huong-nghiep-nong-nghiep-lab.html'">
+        <div class="dh-lab-card-top">
+          <div class="dh-lab-icon" style="background:linear-gradient(135deg,#a8edea,#fed6e3)">
+            <i data-lucide="wheat"></i>
+          </div>
+          <div class="dh-lab-tags">
+            <span class="dh-cat-tag dh-cat-eng">Kỹ thuật</span>
+            <span class="dh-difficulty dh-diff-easy">Dễ tiếp cận</span>
+          </div>
+        </div>
+        <div class="dh-lab-title">Kỹ sư Nông nghiệp</div>
+        <div class="dh-lab-desc">Tính toán phân bón NPK, thiết kế hệ thống tưới tiêu, dự tính năng suất mùa vụ.</div>
+        <div class="dh-lab-tasks">
+          <div class="dh-task-label"><i data-lucide="check-square"></i> 3 nhiệm vụ thực tế</div>
+          <div class="dh-task-list">
+            <span>Phân bón NPK</span>
+            <span>Hệ thống tưới</span>
+            <span>Tính năng suất</span>
+          </div>
+        </div>
+        <div class="dh-lab-subjects">
+          <span class="dh-subj-tag">⚗️ Hóa học</span>
+          <span class="dh-subj-tag">🧬 Sinh học</span>
+        </div>
+        <div class="dh-lab-cta">
+          Vào phòng lab <i data-lucide="arrow-right"></i>
+        </div>
+      </div>
+
+    </div><!-- end lab-grid -->
+
+    <!-- No results -->
+    <div class="dh-no-labs" id="no-labs" style="display:none;">
+      <div style="font-size:40px;margin-bottom:12px;">🔍</div>
+      <div style="font-size:18px;font-weight:700;color:var(--gray-800);margin-bottom:8px;">Không có phòng lab trong danh mục này</div>
+      <p style="font-size:14px;color:var(--gray-500);">Đang phát triển thêm — vui lòng chọn danh mục khác!</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ======================== CTA SECTION ======================== -->
+<div class="dh-cta-section">
+  <div class="dh-cta-inner">
+    <div class="dh-cta-left">
+      <div class="dh-section-badge dh-badge-light"><i data-lucide="compass"></i> Định hướng toàn diện</div>
+      <h2 class="dh-cta-title">Chưa biết chọn ngành gì?</h2>
+      <p class="dh-cta-desc">Khám phá thêm thông tin về các nhóm ngành, mức lương, cơ hội việc làm và điểm chuẩn từng trường để đưa ra quyết định đúng đắn nhất.</p>
+      <div class="dh-cta-btns">
+        <button class="dh-btn-outline" onclick="window.location.href='nhom-nganh.html'">
+          <i data-lucide="layers"></i> Khám phá nhóm ngành
+        </button>
+        <button class="dh-btn-outline" onclick="window.location.href='xu-huong-luong.html'">
+          <i data-lucide="trending-up"></i> Xem xu hướng lương
+        </button>
+        <button class="dh-btn-outline" onclick="window.location.href='truong-dai-hoc.html'">
+          <i data-lucide="building-2"></i> Tìm trường đại học
+        </button>
+      </div>
+    </div>
+    <div class="dh-cta-right">
+      <div class="dh-tip-box">
+        <div class="dh-tip-header">
+          <i data-lucide="lightbulb"></i>
+          <span>Mẹo định hướng hiệu quả</span>
+        </div>
+        <ul class="dh-tip-list">
+          <li><i data-lucide="check"></i> Thử ít nhất 2–3 phòng lab để so sánh</li>
+          <li><i data-lucide="check"></i> Chú ý cảm xúc khi làm từng nhiệm vụ</li>
+          <li><i data-lucide="check"></i> Hỏi người thân trong ngành về thực tế</li>
+          <li><i data-lucide="check"></i> Xem xét điểm mạnh môn học của bạn</li>
+          <li><i data-lucide="check"></i> Đừng chỉ theo xu hướng — theo đam mê</li>
         </ul>
       </div>
     </div>
@@ -159,7 +561,7 @@
     <div class="footer-brand">
       <h3>hướng<span>nghiệpvn</span>.online</h3>
       <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
-      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
+      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&amp;ĐT và đề án tuyển sinh chính thức.</p>
     </div>
     <div class="footer-col">
       <h4>Tính năng</h4>
@@ -177,7 +579,7 @@
     </div>
     <div class="footer-col">
       <h4>Liên kết</h4>
-      <a>Bộ GD&ĐT</a>
+      <a>Bộ GD&amp;ĐT</a>
       <a>VietnamWorks</a>
       <a>MOET</a>
     </div>
@@ -190,9 +592,31 @@
 
 <script src="script.js"></script>
 
-  <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-  </script>
+<script>
+  lucide.createIcons();
+
+  // ===== LAB FILTER =====
+  function filterLabs(cat, btn) {
+    document.querySelectorAll('.dh-cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.dh-lab-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const matches = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = matches ? '' : 'none';
+      if (matches) {
+        visible++;
+        card.style.animationDelay = (visible * 0.05) + 's';
+        card.style.animation = 'none';
+        card.offsetHeight; // trigger reflow
+        card.style.animation = '';
+      }
+    });
+
+    document.getElementById('no-labs').style.display = visible === 0 ? 'flex' : 'none';
+  }
+</script>
+
 </body>
 </html>

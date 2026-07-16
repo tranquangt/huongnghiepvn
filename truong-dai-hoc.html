@@ -1,93 +1,1066 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trường đại học - HướngNghiệpVN.online</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="description"
+    content="Tra cứu điểm chuẩn, ngành đào tạo, học phí và đề án tuyển sinh chính thức của các trường Đại học tại Việt Nam.">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* Theme color variables and overrides */
+    body {
+      background-color: var(--gray-50) !important;
+      color: var(--gray-900) !important;
+    }
+
+    .upage-hero {
+      background: linear-gradient(135deg, #062316 0%, #0a3e27 40%, #105e3a 70%, #168550 100%) !important;
+    }
+
+    /* Upgraded School Card Style */
+    .usc-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .usc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+      border-color: var(--green-200);
+    }
+
+    /* Active region badge */
+    .upage-region-btn.active {
+      background: var(--green-600);
+      color: white;
+      border-color: var(--green-600);
+    }
+
+    .upage-score-btn.active {
+      background: var(--green-600);
+      color: white;
+      border-color: var(--green-600);
+    }
+
+    /* ========================================================
+       UNIVERSITY DETAIL DRAWER (STUNNING BENTO GRID LAYOUT)
+       ======================================================== */
+    .school-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      visibility: hidden;
+      transition: visibility 0.3s;
+    }
+
+    .school-drawer.active {
+      visibility: visible;
+    }
+
+    .school-drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(17, 24, 39, 0.4);
+      backdrop-filter: blur(4px);
+    }
+
+    .school-drawer-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 90%;
+      max-width: 1100px;
+      height: 100%;
+      background: var(--gray-50);
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1010;
+    }
+
+    .school-drawer.active .school-drawer-content {
+      transform: translateX(0);
+    }
+
+    .school-drawer-header {
+      padding: 20px 24px;
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .school-drawer-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .school-drawer-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: contain;
+      border: 1px solid var(--gray-200);
+      background: white;
+      padding: 4px;
+    }
+
+    .school-drawer-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.25;
+    }
+
+    .school-drawer-subtitle {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-500);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .school-drawer-body {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      padding: 24px;
+      height: calc(100vh - 97px);
+      overflow: hidden;
+    }
+
+    /* Left Sidebar */
+    .school-sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-right: 1px solid var(--gray-200);
+      padding-right: 16px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .school-sidebar-btn {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-align: left;
+      background: transparent;
+      border: none;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .school-sidebar-btn:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
+    }
+
+    .school-sidebar-btn.active {
+      background: var(--green-600);
+      color: white;
+    }
+
+    /* Right content column */
+    .school-main-content {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding-right: 10px;
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    /* Bento card design */
+    .school-bento-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .school-bento-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1.5px solid var(--gray-100);
+      padding-bottom: 10px;
+    }
+
+    /* School Stats Bento Grid */
+    .school-quick-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .school-stat-box {
+      background: var(--gray-50);
+      border-radius: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .school-stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .school-stat-value {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gray-900);
+    }
+
+    /* Major lists table in School profile */
+    .school-major-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .school-major-table th, .school-major-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .school-major-table th {
+      background: var(--green-600);
+      color: white;
+      font-weight: 700;
+    }
+
+    .school-major-table tr:hover td {
+      background-color: var(--gray-50);
+    }
+
+    .major-link-btn {
+      color: var(--green-600);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .major-link-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Details styling */
+    .info-paragraph {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+
+    /* Tactile buttons */
+    .btn-tactile {
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-tactile:hover {
+      transform: translateY(-1.5px);
+    }
+
+    .btn-tactile:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .school-drawer-body {
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .school-sidebar {
+        width: 100%;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+        padding-bottom: 12px;
+        height: auto;
+      }
+      .school-quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">huong<span>nghiepvn</span><em>.online</em></div>
-  <div class="nav-links">
-    <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
-    <button class="nav-link active" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
-    <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Định hướng</button>
-    <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
-    <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng & Lương</button>
-    <button class="nav-cta" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm →</button>
-  </div>
-</nav>
-
-<!-- ======================== SCHOOLS ======================== -->
-<div id="page-schools" class="page active">
-  <div style="background: white; padding: 32px 40px; border-bottom: 1px solid var(--gray-200);">
-    <div style="max-width:1200px;margin:0 auto;">
-      <div style="font-size:13px;color:var(--gray-500);margin-bottom:8px;">Thông tin trường đại học</div>
-      <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Các trường đại học hàng đầu Việt Nam</h1>
-      <p style="color:var(--gray-500);">Khám phá thông tin chi tiết về các trường đại học, ngành đào tạo và môi trường học tập</p>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='trang-chu.html'" style="cursor:pointer">
+      huong<span>nghiepvn</span><em>.online</em></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="window.location.href='trang-chu.html'">Trang chủ</button>
+      <button class="nav-cta survey-nav-btn" onclick="window.location.href='goi-y.html'"><i data-lucide="sparkles" style="width:14px;height:14px;"></i>Khảo sát ban đầu</button>
+      <button class="nav-link active" onclick="window.location.href='truong-dai-hoc.html'">Trường đại học</button>
+      <button class="nav-link" onclick="window.location.href='dinh-huong.html'">Phòng Lab</button>
+      <button class="nav-link" onclick="window.location.href='nhom-nganh.html'">Nhóm ngành</button>
+      <button class="nav-link" onclick="window.location.href='xu-huong-luong.html'">Xu hướng &amp; Lương</button>
     </div>
-  </div>
-  <div class="section" style="padding-top:32px;">
-    <div style="margin-bottom:32px;">
-      <div class="section-header">
-        <div><div class="section-title">Tất cả trường đại học</div><div class="section-sub">56 trường — thông tin cập nhật 2024</div></div>
-        <div class="tabs">
-          <button class="tab active" onclick="filterSchool('all',this)">Tất cả</button>
-          <button class="tab" onclick="filterSchool('hn',this)">Hà Nội</button>
-          <button class="tab" onclick="filterSchool('hcm',this)">TP.HCM</button>
-          <button class="tab" onclick="filterSchool('dn',this)">Đà Nẵng</button>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <div class="upage-hero">
+    <div class="upage-hero-bg"></div>
+    <div class="upage-hero-content">
+      <div class="upage-hero-badge">
+        <span class="upage-hero-dot"></span>
+        Dữ liệu tuyển sinh 2026
+      </div>
+      <h1 class="upage-hero-title">Tra cứu Trường Đại học<br><em>và điểm chuẩn tuyển sinh</em></h1>
+      <p class="upage-hero-sub">Khám phá thông tin tuyển sinh chính thức, điểm chuẩn thi tốt nghiệp THPT, học phí và đề án chi tiết của các trường Đại học tại Việt Nam</p>
+
+      <!-- Search Bar -->
+      <div class="upage-search-wrap">
+        <div class="upage-search-icon"><i data-lucide="search"></i></div>
+        <input type="text" id="school-search-input" class="upage-search-input"
+          placeholder="Tìm kiếm trường đại học, ngành học..." oninput="searchSchools(this.value)">
+        <button class="upage-search-btn"
+          onclick="searchSchools(document.getElementById('school-search-input').value)">Tìm kiếm</button>
+      </div>
+
+      <!-- Stats -->
+      <div class="upage-stats">
+        <div class="upage-stat">
+          <div class="upage-stat-num" id="stat-total">--</div>
+          <div class="upage-stat-label">Trường đại học</div>
+        </div>
+        <div class="upage-stat-divider"></div>
+        <div class="upage-stat">
+          <div class="upage-stat-num">3</div>
+          <div class="upage-stat-label">Khu vực lớn</div>
+        </div>
+        <div class="upage-stat-divider"></div>
+        <div class="upage-stat">
+          <div class="upage-stat-num">30.00</div>
+          <div class="upage-stat-label">Điểm chuẩn tối đa</div>
+        </div>
+        <div class="upage-stat-divider"></div>
+        <div class="upage-stat">
+          <div class="upage-stat-num">400+</div>
+          <div class="upage-stat-label">Chương trình đào tạo</div>
         </div>
       </div>
-      <div class="school-grid" id="all-schools-grid"></div>
     </div>
   </div>
-</div>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <h3>hướng<span>nghiệpvn</span>.online</h3>
-      <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
-      <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&ĐT và đề án tuyển sinh chính thức.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Tính năng</h4>
-      <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
-      <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
-      <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
-      <a href="dinh-huong.html">Tư vấn ngành nghề</a>
-    </div>
-    <div class="footer-col">
-      <h4>Thông tin</h4>
-      <a>Về chúng tôi</a>
-      <a>Nguồn dữ liệu</a>
-      <a>Liên hệ</a>
-      <a>Góp ý</a>
-    </div>
-    <div class="footer-col">
-      <h4>Liên kết</h4>
-      <a>Bộ GD&ĐT</a>
-      <a>VietnamWorks</a>
-      <a>MOET</a>
+  <!-- ======================== MAIN CONTENT ======================== -->
+  <div class="upage-main">
+
+    <!-- Sidebar Filters -->
+    <aside class="upage-sidebar">
+      <div class="upage-sidebar-card">
+        <div class="upage-sidebar-title">
+          <i data-lucide="map-pin"></i>
+          Lọc theo khu vực
+        </div>
+        <div class="upage-region-btns">
+          <button class="upage-region-btn active" id="filter-all" onclick="setFilter('all', this)">
+            <img src="recommend/logotp/logovn.png" class="upage-region-flag" alt="Tất cả">
+            <div>
+              <div class="upage-region-name">Tất cả</div>
+              <div class="upage-region-count" id="count-all">-- trường</div>
+            </div>
+          </button>
+          <button class="upage-region-btn" id="filter-hn" onclick="setFilter('hn', this)">
+            <img src="recommend/logotp/logohanoi.png" class="upage-region-flag" alt="Hà Nội">
+            <div>
+              <div class="upage-region-name">Hà Nội</div>
+              <div class="upage-region-count" id="count-hn">-- trường</div>
+            </div>
+          </button>
+          <button class="upage-region-btn" id="filter-hcm" onclick="setFilter('hcm', this)">
+            <img src="recommend/logotp/logohcm.png" class="upage-region-flag" alt="TP.HCM">
+            <div>
+              <div class="upage-region-name">TP.HCM</div>
+              <div class="upage-region-count" id="count-hcm">-- trường</div>
+            </div>
+          </button>
+          <button class="upage-region-btn" id="filter-dn" onclick="setFilter('dn', this)">
+            <img src="recommend/logotp/logodanang.png" class="upage-region-flag" alt="Đà Nẵng">
+            <div>
+              <div class="upage-region-name">Đà Nẵng</div>
+              <div class="upage-region-count" id="count-dn">-- trường</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="upage-sidebar-card">
+        <div class="upage-sidebar-title">
+          <i data-lucide="bar-chart-2"></i>
+          Lọc theo điểm chuẩn
+        </div>
+        <div class="upage-score-filters">
+          <button class="upage-score-btn active" onclick="setScoreFilter('all', this)">Tất cả</button>
+          <button class="upage-score-btn" onclick="setScoreFilter('high', this)">≥ 27 điểm</button>
+          <button class="upage-score-btn" onclick="setScoreFilter('mid', this)">24 – 27 điểm</button>
+          <button class="upage-score-btn" onclick="setScoreFilter('low', this)">&lt; 24 điểm</button>
+        </div>
+      </div>
+
+      <div class="upage-sidebar-card upage-tip-card">
+        <div class="upage-tip-icon">💡</div>
+        <div class="upage-tip-title">Mẹo tìm trường phù hợp</div>
+        <p class="upage-tip-text">Điểm chuẩn có thể thay đổi mỗi năm. Nên xem xét thêm điểm chuẩn 3 năm gần nhất và định
+          hướng nghề nghiệp của bạn.</p>
+        <button class="upage-tip-btn" onclick="window.location.href='dinh-huong.html'">Làm trắc nghiệm định hướng
+          →</button>
+      </div>
+    </aside>
+
+    <!-- School Grid -->
+    <div class="upage-content">
+      <!-- Result Header -->
+      <div class="upage-result-header">
+        <div class="upage-result-info">
+          <span class="upage-result-count" id="result-count">--</span>
+          <span class="upage-result-label">trường đại học</span>
+        </div>
+        <div class="upage-sort-wrap">
+          <label class="upage-sort-label">Sắp xếp:</label>
+          <select class="upage-sort-select" id="sort-select" onchange="applySortAndRender()">
+            <option value="default">Mặc định</option>
+            <option value="score-desc">Điểm chuẩn: Cao → Thấp</option>
+            <option value="score-asc">Điểm chuẩn: Thấp → Cao</option>
+            <option value="name-asc">Tên A → Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Loader -->
+      <div id="loading-schools" style="text-align: center; padding: 60px; color: var(--gray-500);">
+        <p style="font-size: 16px; font-weight: 500;">Đang kết nối cơ sở dữ liệu tuyển sinh các trường Đại học...</p>
+      </div>
+
+      <!-- No Results -->
+      <div class="upage-no-results" id="no-results" style="display:none;">
+        <div class="upage-no-results-icon">🔍</div>
+        <div class="upage-no-results-title">Không tìm thấy trường nào</div>
+        <p>Thử tìm kiếm với từ khóa khác hoặc bỏ bộ lọc</p>
+        <button onclick="resetFilters()" class="upage-tip-btn" style="margin-top:12px;">Xóa bộ lọc</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="upage-school-grid" id="all-schools-grid" style="display:none;"></div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
-    <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>hướng<span>nghiệpvn</span>.online</h3>
+        <p>Nền tảng định hướng, tư vấn nghề nghiệp và hỗ trợ khám phá tương lai cho học sinh THPT.</p>
+        <p style="margin-top:12px;font-size:12px;">Dữ liệu từ Bộ GD&amp;ĐT và đề án tuyển sinh chính thức.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tính năng</h4>
+        <a href="truong-dai-hoc.html">Tra cứu điểm chuẩn</a>
+        <a href="dinh-huong.html">Trắc nghiệm định hướng</a>
+        <a href="nhom-nganh.html">Khám phá nhóm ngành</a>
+        <a href="dinh-huong.html">Tư vấn ngành nghề</a>
+      </div>
+      <div class="footer-col">
+        <h4>Thông tin</h4>
+        <a>Về chúng tôi</a>
+        <a>Nguồn dữ liệu</a>
+        <a>Liên hệ</a>
+        <a>Góp ý</a>
+      </div>
+      <div class="footer-col">
+        <h4>Liên kết</h4>
+        <a>Bộ GD&amp;ĐT</a>
+        <a>VietnamWorks</a>
+        <a>MOET</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 huongnghiepvn.online — Dữ liệu chỉ mang tính tham khảo</span>
+      <span>Được xây dựng cho học sinh Việt Nam 🇻🇳</span>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       UNIVERSITY DETAIL DRAWER (STUNNING BENTO OVERLAY)
+       ======================================================== */ -->
+  <div id="school-drawer" class="school-drawer">
+    <div class="school-drawer-overlay" onclick="closeSchoolDrawer()"></div>
+    <div class="school-drawer-content" style="border-radius: 20px 20px 0 0; border: 1px solid var(--gray-200);">
+      <!-- Header -->
+      <div class="school-drawer-header">
+        <div class="school-drawer-title-wrap">
+          <img id="school-logo-img" class="school-drawer-logo" src="" alt="logo">
+          <div>
+            <h2 class="school-drawer-title" id="school-title-name">Tên trường đại học</h2>
+            <span class="school-drawer-subtitle" id="school-meta-sub"></span>
+          </div>
+        </div>
+        <button class="ai-drawer-close btn-tactile" onclick="closeSchoolDrawer()" 
+          style="background: var(--gray-100); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; border: none; color: var(--gray-900); cursor: pointer;">&times;</button>
+      </div>
+
+      <!-- Body -->
+      <div class="school-drawer-body">
+        <!-- Sticky Sidebar -->
+        <div class="school-sidebar" id="school-sidebar">
+          <button class="school-sidebar-btn active" onclick="scrollToSchoolSection('sch-overview', this)"><i data-lucide="info"></i> Tổng quan nhanh</button>
+          <button class="school-sidebar-btn" onclick="scrollToSchoolSection('sch-history', this)"><i data-lucide="book-open"></i> Giới thiệu & Lịch sử</button>
+          <button class="school-sidebar-btn" onclick="scrollToSchoolSection('sch-notes', this)"><i data-lucide="alert-triangle"></i> Lưu ý tuyển sinh 2026</button>
+          <button class="school-sidebar-btn" onclick="scrollToSchoolSection('sch-costs', this)"><i data-lucide="banknote"></i> Học phí & Học bổng</button>
+          <button class="school-sidebar-btn" onclick="scrollToSchoolSection('sch-majors', this)"><i data-lucide="list"></i> Ngành & Điểm chuẩn 2025</button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="school-main-content" id="school-main-content">
+          <!-- Section 1: Quick Stats -->
+          <div class="school-bento-card" id="sch-overview">
+            <h3><i data-lucide="info" style="color: var(--blue-500);"></i> Thông tin cơ bản</h3>
+            <div class="school-quick-stats" id="school-quick-stats-grid">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Section 2: History -->
+          <div class="school-bento-card" id="sch-history">
+            <h3><i data-lucide="book-open" style="color: var(--green-500);"></i> Giới thiệu và lịch sử</h3>
+            <div id="school-history-container" class="info-paragraph"></div>
+          </div>
+
+          <!-- Section 3: Student Notes -->
+          <div class="school-bento-card" id="sch-notes">
+            <h3><i data-lucide="alert-triangle" style="color: var(--coral-500);"></i> Lưu ý tuyển sinh 2026</h3>
+            <div id="school-notes-container" class="info-paragraph"></div>
+          </div>
+
+          <!-- Section 4: Costs -->
+          <div class="school-bento-card" id="sch-costs">
+            <h3><i data-lucide="banknote" style="color: var(--amber-500);"></i> Học phí & Học bổng</h3>
+            <div id="school-costs-container" class="info-paragraph"></div>
+          </div>
+
+          <!-- Section 5: Majors -->
+          <div class="school-bento-card" id="sch-majors">
+            <h3><i data-lucide="list" style="color: var(--green-600);"></i> Ngành & Điểm chuẩn 2025</h3>
+            <div style="overflow-x: auto;">
+              <table class="school-major-table">
+                <thead>
+                  <tr>
+                    <th>Mã ngành</th>
+                    <th>Tên ngành xét tuyển</th>
+                    <th>Tổ hợp môn</th>
+                    <th>Điểm chuẩn 2025</th>
+                    <th>Xem chi tiết</th>
+                  </tr>
+                </thead>
+                <tbody id="school-majors-tbody">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</footer>
 
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
   <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    // Global arrays holding the parsed data
+    let mergedSchools = [];
+    let rawProfiles = [];
+    let admissionScores = [];
+    
+    let currentCity = 'all';
+    let currentScoreFilter = 'all';
+    let currentSearch = '';
+
+    // Load data from files
+    document.addEventListener('DOMContentLoaded', () => {
+      Promise.all([
+        fetch('daihoc.json').then(res => res.json()),
+        fetch('diem_chuan_filtered.json').then(res => res.json()).catch(err => {
+          console.warn("Failed to load diem_chuan_filtered.json", err);
+          return [];
+        })
+      ]).then(([profilesData, scoresData]) => {
+          rawProfiles = profilesData;
+          admissionScores = scoresData;
+
+          // Merge profile details into the global schools database from script.js
+          mergedSchools = schools.map(s => {
+            const matchedProfile = rawProfiles.find(p => p.code === s.code);
+            return {
+              ...s,
+              profile: matchedProfile || null
+            };
+          });
+
+          // Check if there are schools in daihoc.json not present in script.js, and append them as well
+          rawProfiles.forEach(p => {
+            if (!mergedSchools.some(s => s.code === p.code)) {
+              // Guess region based on name or quick stats
+              let guessedCity = 'other';
+              let guessedRegion = 'Tỉnh khác';
+              const locationStr = p.quick_overview ? (p.quick_overview['Địa chỉ'] || p.quick_overview['Cơ sở'] || '') : '';
+              if (locationStr.toLowerCase().includes('hà nội') || p.name.toLowerCase().includes('hà nội')) {
+                guessedCity = 'hn';
+                guessedRegion = 'Hà Nội';
+              } else if (locationStr.toLowerCase().includes('hồ chí minh') || p.name.toLowerCase().includes('hồ chí minh') || p.name.toLowerCase().includes('tphcm')) {
+                guessedCity = 'hcm';
+                guessedRegion = 'TP.HCM';
+              } else if (locationStr.toLowerCase().includes('đà nẵng') || p.name.toLowerCase().includes('đà nẵng')) {
+                guessedCity = 'dn';
+                guessedRegion = 'Đà Nẵng';
+              }
+
+              // Calculate average benchmark from diem_chuan_filtered.json if available
+              const matches = admissionScores.filter(sc => sc.school_code === p.code);
+              let avgScore = 20.0;
+              let minScore = 15.0;
+              if (matches.length > 0) {
+                const numericScores = matches.map(sc => parseFloat(sc.benchmark)).filter(score => !isNaN(score));
+                if (numericScores.length > 0) {
+                  avgScore = parseFloat((numericScores.reduce((a, b) => a + b, 0) / numericScores.length).toFixed(2));
+                  minScore = Math.min(...numericScores);
+                }
+              }
+
+              mergedSchools.push({
+                code: p.code,
+                name: p.name,
+                short: p.code,
+                city: guessedCity,
+                abbr: p.code,
+                color: '#168550',
+                logo: 'logos/default-uni.png', // fallback
+                score: avgScore,
+                min: minScore,
+                region: guessedRegion,
+                majors: p.majors ? p.majors.map(m => m.name).join(', ') : '',
+                profile: p
+              });
+            }
+          });
+
+          // Hide loader, show grid
+          document.getElementById('loading-schools').style.display = 'none';
+          document.getElementById('all-schools-grid').style.display = 'grid';
+
+          // Update filter counts and render
+          updateCounts();
+          applyFiltersAndRender();
+
+          // Auto-open drawer if code is passed in URL query
+          const urlParams = new URLSearchParams(window.location.search);
+          const schoolCode = urlParams.get('code');
+          if (schoolCode) {
+            openSchoolDrawer(schoolCode);
+          }
+      }).catch(err => {
+          console.error("Failed to load databases:", err);
+          document.getElementById('loading-schools').innerHTML = `
+            <p style="color: #ea580c; font-weight: 600;">Không thể tải dữ liệu trường học. Vui lòng tải lại trang.</p>
+          `;
+      });
+
+      // Handle sidebar active classes on scroll
+      const mainContent = document.getElementById('school-main-content');
+      mainContent.addEventListener('scroll', () => {
+        const sections = ['sch-overview', 'sch-history', 'sch-notes', 'sch-costs', 'sch-majors'];
+        let currentSec = 'sch-overview';
+        
+        for (const secId of sections) {
+          const el = document.getElementById(secId);
+          if (el && el.offsetTop - mainContent.offsetTop <= mainContent.scrollTop + 60) {
+            currentSec = secId;
+          }
+        }
+        
+        document.querySelectorAll('.school-sidebar-btn').forEach(btn => {
+          if (btn.getAttribute('onclick').includes(currentSec)) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    // Count Badges Updater
+    function updateCounts() {
+      const countAll = mergedSchools.length;
+      const countHn = mergedSchools.filter(s => s.city === 'hn').length;
+      const countHcm = mergedSchools.filter(s => s.city === 'hcm').length;
+      const countDn = mergedSchools.filter(s => s.city === 'dn').length;
+      document.getElementById('count-all').textContent = countAll + ' trường';
+      document.getElementById('count-hn').textContent = countHn + ' trường';
+      document.getElementById('count-hcm').textContent = countHcm + ' trường';
+      document.getElementById('count-dn').textContent = countDn + ' trường';
+      document.getElementById('stat-total').textContent = countAll;
+    }
+
+    // Filter Controls
+    function setFilter(city, btn) {
+      currentCity = city;
+      document.querySelectorAll('.upage-region-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFiltersAndRender();
+    }
+
+    function setScoreFilter(level, btn) {
+      currentScoreFilter = level;
+      document.querySelectorAll('.upage-score-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFiltersAndRender();
+    }
+
+    // Search Schools
+    function searchSchools(val) {
+      currentSearch = val.trim().toLowerCase();
+      applyFiltersAndRender();
+    }
+
+    function applySortAndRender() {
+      applyFiltersAndRender();
+    }
+
+    function resetFilters() {
+      currentCity = 'all';
+      currentScoreFilter = 'all';
+      currentSearch = '';
+      document.getElementById('school-search-input').value = '';
+      document.querySelectorAll('.upage-region-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('filter-all').classList.add('active');
+      document.querySelectorAll('.upage-score-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('filter-all').click(); // trigger reset
+    }
+
+    function applyFiltersAndRender() {
+      let list = [...mergedSchools];
+
+      // City filter
+      if (currentCity !== 'all') {
+        list = list.filter(s => s.city === currentCity);
+      }
+
+      // Score filter
+      if (currentScoreFilter === 'high') {
+        list = list.filter(s => s.score >= 27);
+      } else if (currentScoreFilter === 'mid') {
+        list = list.filter(s => s.score >= 24 && s.score < 27);
+      } else if (currentScoreFilter === 'low') {
+        list = list.filter(s => s.score < 24);
+      }
+
+      // Search filter
+      if (currentSearch) {
+        list = list.filter(s =>
+          s.name.toLowerCase().includes(currentSearch) ||
+          s.short.toLowerCase().includes(currentSearch) ||
+          s.majors.toLowerCase().includes(currentSearch) ||
+          s.region.toLowerCase().includes(currentSearch)
+        );
+      }
+
+      // Sort
+      const sortVal = document.getElementById('sort-select').value;
+      if (sortVal === 'score-desc') list.sort((a, b) => b.score - a.score);
+      else if (sortVal === 'score-asc') list.sort((a, b) => a.score - b.score);
+      else if (sortVal === 'name-asc') list.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+
+      renderSchoolGrid(list);
+    }
+
+    function getScoreClass(score) {
+      if (score >= 28) return 'score-tier-elite';
+      if (score >= 26) return 'score-tier-high';
+      if (score >= 23) return 'score-tier-mid';
+      return 'score-tier-low';
+    }
+
+    function getScoreLabel(score) {
+      if (score >= 28) return 'Xuất sắc';
+      if (score >= 26) return 'Rất cao';
+      if (score >= 23) return 'Cao';
+      return 'Trung bình';
+    }
+
+    function renderSchoolGrid(list) {
+      const grid = document.getElementById('all-schools-grid');
+      const noResults = document.getElementById('no-results');
+      const resultCount = document.getElementById('result-count');
+
+      resultCount.textContent = list.length;
+
+      if (list.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'flex';
+        return;
+      }
+      noResults.style.display = 'none';
+
+      grid.innerHTML = list.map((s, idx) => {
+        const scoreClass = getScoreClass(s.score);
+        const scoreLabel = getScoreLabel(s.score);
+        const scorePercent = Math.min(100, Math.round((s.score / 30) * 100));
+
+        // Use custom logo or default initials placeholder
+        let logoHtml = '';
+        if (s.logo && s.logo !== 'logos/default-uni.png') {
+          logoHtml = `<img src="${s.logo}" alt="${s.name}" class="usc-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                      <div class="usc-logo-fallback" style="background:${s.color || '#168550'}; display: none;">${s.abbr || s.short.substring(0, 3)}</div>`;
+        } else {
+          logoHtml = `<div class="usc-logo-fallback" style="background:${s.color || '#168550'}; display: flex;">${s.abbr || s.short.substring(0, 3)}</div>`;
+        }
+
+        return `
+          <div class="usc-card usc-clickable btn-tactile" onclick="openSchoolDrawer('${s.code}')" style="animation-delay: ${idx * 0.02}s">
+            <div class="usc-top">
+              <div class="usc-logo-wrap">
+                ${logoHtml}
+              </div>
+              <div class="usc-meta">
+                <div class="usc-location">
+                  <i data-lucide="map-pin" style="width:14px; height:14px;"></i>
+                  ${s.region}
+                </div>
+                <div class="usc-score-badge ${scoreClass}">
+                  <span class="usc-score-num">${s.score}</span>
+                  <span class="usc-score-sep">/</span>
+                  <span class="usc-score-max">30</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="usc-body">
+              <div class="usc-name">${s.name}</div>
+              <div class="usc-short">${s.short}</div>
+              
+              <div class="usc-score-bar-wrap">
+                <div class="usc-score-bar-track">
+                  <div class="usc-score-bar-fill ${scoreClass}" style="width:${scorePercent}%"></div>
+                </div>
+                <span class="usc-score-tier-label ${scoreClass}">${scoreLabel}</span>
+              </div>
+
+              <div class="usc-majors">
+                ${s.majors ? s.majors.split(',').slice(0, 3).map(m => `<span class="usc-major-tag">${m.trim()}</span>`).join('') : '<span class="usc-major-tag">Đang cập nhật</span>'}
+              </div>
+            </div>
+
+            <div class="usc-footer">
+              <div class="usc-min-score">
+                Điểm sàn xét tuyển: <strong>${s.min} điểm</strong>
+              </div>
+              <div class="usc-cta" style="color: var(--green-600); font-weight:700;">Chi tiết tuyển sinh <i data-lucide="arrow-right" style="width:14px; height:14px; display:inline-block; vertical-align:middle;"></i></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // Scroll to section inside bento details container
+    function scrollToSchoolSection(sectionId, btn) {
+      const container = document.getElementById('school-main-content');
+      const target = document.getElementById(sectionId);
+      if (target) {
+        container.scrollTop = target.offsetTop - container.offsetTop - 10;
+      }
+      
+      document.querySelectorAll('.school-sidebar-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Format clean text with basic paragraph division
+    function formatSchoolTextClean(text) {
+      if (!text) return 'Chưa có dữ liệu cập nhật.';
+      
+      const cleaned = text
+        .replace('Giới thiệu và lịch sử\n', '')
+        .replace('Lưu ý học sinh\nLưu ý cho học sinh 2026\nNăm ghi rõ trong tiêu đề\nLưu ý quan trọng cho thí sinh năm 2026\n', '')
+        .replace('Lưu ý học sinh\nLưu ý cho học sinh 2026\nNăm ghi rõ trong tiêu đề\n', '')
+        .replace('Chi Chi phí\n', '')
+        .replace('Chi phí\n', '')
+        .replace('Học bổng tuyển sinh 2026\nHọc bổng từ trường cung cấp\n', '')
+        .replace('Học bổng\nHọc bổng tuyển sinh 2026\nHọc bổng từ trường cung cấp\n', '')
+        .replace('Học bổng\n', '')
+        .trim();
+      
+      return cleaned.split('\n').map(p => {
+        const trimmed = p.trim();
+        if (!trimmed) return '';
+        if (trimmed.startsWith('-') || trimmed.startsWith('•') || trimmed.startsWith('*')) {
+          return `<div style="margin-left: 20px; margin-bottom: 8px; display: flex; gap: 8px; font-size: 14.5px; color: var(--gray-700);">
+                    <span>•</span> <span>${trimmed.substring(1).trim()}</span>
+                  </div>`;
+        }
+        return `<p style="margin-bottom: 14px; font-size: 14.5px; line-height: 1.6; color: var(--gray-700);">${trimmed}</p>`;
+      }).join('');
+    }
+
+    // Open detailed overlay drawer
+    function openSchoolDrawer(code) {
+      const school = mergedSchools.find(s => s.code === code);
+      if (!school) return;
+
+      const profile = school.profile;
+
+      // Title & Logo
+      document.getElementById('school-title-name').textContent = school.name;
+      const logoImg = document.getElementById('school-logo-img');
+      
+      if (school.logo && school.logo !== 'logos/default-uni.png') {
+        logoImg.src = school.logo;
+        logoImg.style.display = 'block';
+      } else {
+        logoImg.style.display = 'none';
+      }
+
+      document.getElementById('school-meta-sub').innerHTML = `<i data-lucide="map-pin" style="width:14px; height:14px;"></i> ${school.region} &bull; Mã trường: <strong>${school.code}</strong>`;
+
+      // Quick Stats Grid inside drawer
+      const quickOverview = profile && profile.quick_overview ? profile.quick_overview : {};
+      const statGrid = document.getElementById('school-quick-stats-grid');
+      
+      // Default basic stats
+      const stats = [
+        { label: 'Loại trường', value: profile && profile.type ? profile.type : 'Công lập' },
+        { label: 'Học phí TB', value: school.tuition || (profile && profile.tuition ? profile.tuition : 'Đang cập nhật') },
+        { label: 'Điểm sàn 2025', value: school.min + ' điểm' },
+        { label: 'Điểm trung bình', value: school.score + ' điểm' }
+      ];
+
+      // Add extra key-value pairs from profile's quick_overview if available
+      for (const [k, v] of Object.entries(quickOverview)) {
+        if (!stats.some(s => s.label.toLowerCase() === k.toLowerCase())) {
+          stats.push({ label: k, value: v });
+        }
+      }
+
+      statGrid.innerHTML = stats.map(s => `
+        <div class="school-stat-box">
+          <div class="school-stat-label">${s.label}</div>
+          <div class="school-stat-value">${s.value}</div>
+        </div>
+      `).join('');
+
+      // Set bento details text simply and cleanly as in user's request
+      document.getElementById('school-history-container').innerHTML = formatSchoolTextClean(profile ? profile.history : '');
+      document.getElementById('school-notes-container').innerHTML = formatSchoolTextClean(profile ? profile.student_notes : '');
+      document.getElementById('school-costs-container').innerHTML = formatSchoolTextClean(profile ? profile.costs_and_scholarships : '');
+
+      // Render majors table with real 2025 benchmark scores from diem_chuan_filtered.json
+      const tbody = document.getElementById('school-majors-tbody');
+      const matchedScores = admissionScores.filter(sc => sc.school_code === school.code);
+
+      if (matchedScores.length > 0) {
+        tbody.innerHTML = matchedScores.map(s => {
+          return `
+            <tr>
+              <td><span class="career-code" style="margin-bottom:0;">${school.code}</span></td>
+              <td><strong>${s.major_name}</strong><div style="font-size:11px; color:var(--gray-500); margin-top:2px;">${s.method_raw}</div></td>
+              <td><span style="font-weight: 500;">${s.subject_group}</span></td>
+              <td><span class="school-stat-pill" style="background:var(--green-50); color:var(--green-700); border-color:var(--green-200); font-weight: 700;">${s.benchmark}</span></td>
+              <td>
+                <a class="major-link-btn" href="nhom-nganh.html?major=${encodeURIComponent(s.major_name)}">
+                  Định hướng <i data-lucide="arrow-up-right" style="width:14px; height:14px;"></i>
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } else if (profile && profile.majors && profile.majors.length > 0) {
+        tbody.innerHTML = profile.majors.map(m => `
+          <tr>
+            <td><span class="career-code" style="margin-bottom:0;">${m.code || 'Đang cập nhật'}</span></td>
+            <td><strong>${m.name}</strong></td>
+            <td><span style="font-weight: 500;">${m.subject_group || 'Theo đề án'}</span></td>
+            <td><span class="school-stat-pill" style="color:var(--gray-600);">${school.score} (TB)</span></td>
+            <td>
+              <a class="major-link-btn" href="nhom-nganh.html?major=${encodeURIComponent(m.name)}">
+                Định hướng <i data-lucide="arrow-up-right" style="width:14px; height:14px;"></i>
+              </a>
+            </td>
+          </tr>
+        `).join('');
+      } else {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--gray-400); padding:24px;">Không tìm thấy thông tin ngành xét tuyển.</td></tr>';
+      }
+
+      // Show drawer & disable page scrolling
+      document.getElementById('school-drawer').classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Reset scroll positioning
+      document.getElementById('school-main-content').scrollTop = 0;
+      
+      // Highlight first sidebar anchor
+      document.querySelectorAll('.school-sidebar-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.school-sidebar-btn').classList.add('active');
+
+      lucide.createIcons();
+    }
+
+    function closeSchoolDrawer() {
+      document.getElementById('school-drawer').classList.remove('active');
+      document.body.style.overflow = '';
+    }
   </script>
 </body>
+
 </html>
